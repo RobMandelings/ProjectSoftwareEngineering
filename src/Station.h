@@ -14,17 +14,17 @@ private:
     Station* previous;
     int track;
 public:
-    const string &getName() const;
+    const string& getName() const;
 
-    void setName(const string &name);
+    void setName(const string& name);
 
-    Station *getNext() const;
+    Station* getNext() const;
 
-    void setNext(Station *next);
+    void setNext(Station* next);
 
-    Station *getPrevious() const;
+    Station* getPrevious() const;
 
-    void setPrevious(Station *previous);
+    void setPrevious(Station* previous);
 
     int getTrack() const;
 

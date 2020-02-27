@@ -16,9 +16,9 @@ private:
     int amountOfSeats;
     Station* beginStation;
 public:
-    Station *getBeginStation() const;
+    Station* getBeginStation() const;
 
-    void setBeginStation(Station *beginStation);
+    void setBeginStation(Station* beginStation);
 
     Tram(int line, int speed, int amountOfSeats);
 

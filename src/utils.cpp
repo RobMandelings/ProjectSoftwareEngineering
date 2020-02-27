@@ -8,20 +8,23 @@
 #include "Station.h"
 
 struct StationHolder {
+
     Station* station;
     string volgende;
     string vorige;
+
+    explicit StationHolder(Station* station) : station(station) {}
 };
 
 namespace utils{
 
-    int stoi(string input){
+    int stoi(const string& input){
         int i;
         istringstream(input) >> i;
         return i;
     }
 
-    MetroNet* parseMetroNet(const char* filename){
+    MetroNet* parseMetroNetXml(const char* filename){
         /// Opens file in doc
         TiXmlDocument doc;
         if(!doc.LoadFile(filename)) {
@@ -37,57 +40,55 @@ namespace utils{
 
         MetroNet* m = new MetroNet();
         m->setName("Antwerpen");
-        vector<StationHolder> holders;
+        vector<StationHolder> stationHolders;
         for(TiXmlElement* root_elem = root->FirstChildElement(); root_elem != NULL; root_elem = root_elem->NextSiblingElement()){
             if(!strcmp(root_elem->Value(), "STATION")){
-                Station* s = new Station();
-                StationHolder sh;
+                Station* currentStation = new Station();
+                StationHolder stationHolder(currentStation);
                 for(TiXmlElement* elem = root_elem->FirstChildElement(); elem != NULL;
                     elem = elem->NextSiblingElement()) {
                     string elemName = elem->Value();
                     if(elemName == "naam") {
                         string name = elem->GetText();
-                        s->setName(name);
+                        currentStation->setName(name);
                     } else if(elemName == "volgende") {
                         string volgende = elem->GetText();
-                        sh.station = s;
-                        sh.volgende = volgende;
+                        stationHolder.volgende = volgende;
                     } else if(elemName == "vorige"){
                         string vorige = elem->GetText();
-                        sh.vorige = vorige;
+                        stationHolder.vorige = vorige;
                     } else if(elemName == "spoor"){
                         int spoor = stoi(elem->GetText());
-                        s->setTrack(spoor);
+                        currentStation->setTrack(spoor);
                     }
                 }
-                m->addStation(s);
-                holders.push_back(sh);
+                m->addStation(currentStation);
+                stationHolders.push_back(stationHolder);
             } else if(!strcmp(root_elem->Value(), "TRAM")){
-                Tram* t = new Tram();
+                Tram* currentTram = new Tram();
                 for(TiXmlElement* elem = root_elem->FirstChildElement(); elem != NULL;
                     elem = elem->NextSiblingElement()) {
                     string elemName = elem->Value();
                     if(elemName == "lijn") {
                         int lijn = stoi(elem->GetText());
-                        t->setTramLine(lijn);
+                        currentTram->setTramLine(lijn);
                     } else if(elemName == "zitplaatsen") {
                         int zitplaatsen = stoi(elem->GetText());
-                        t->setAmountOfSeats(zitplaatsen);
+                        currentTram->setAmountOfSeats(zitplaatsen);
                     } else if(elemName == "snelheid"){
                         int snelheid = stoi(elem->GetText());
-                        t->setSpeed(snelheid);
+                        currentTram->setSpeed(snelheid);
                     } else if(elemName == "beginStation"){
-                        string station = elem->GetText();
-                        Station* s = m->getStation(station);
-                        t->setBeginStation(s);
+                        Station* station = m->getStation(elem->GetText());
+                        currentTram->setBeginStation(station);
                     }
                 }
-                m->addTram(t);
+                m->addTram(currentTram);
             } else {
                 std::cerr << "Failed to load file: Unrecognized element." << std::endl;
             }
 
-            for(vector<StationHolder>::iterator it = holders.begin(); it != holders.end(); ++it){
+            for(vector<StationHolder>::iterator it = stationHolders.begin(); it != stationHolders.end(); ++it){
                 it->station->setNext(m->getStation(it->volgende));
                 it->station->setPrevious(m->getStation(it->vorige));
             }

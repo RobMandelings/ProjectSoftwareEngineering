@@ -4,27 +4,27 @@
 
 #include "Station.h"
 
-const string &Station::getName() const {
+const string& Station::getName() const {
     return name;
 }
 
-void Station::setName(const string &name) {
+void Station::setName(const string& name) {
     Station::name = name;
 }
 
-Station *Station::getNext() const {
+Station* Station::getNext() const {
     return next;
 }
 
-void Station::setNext(Station *next) {
+void Station::setNext(Station* next) {
     Station::next = next;
 }
 
-Station *Station::getPrevious() const {
+Station* Station::getPrevious() const {
     return previous;
 }
 
-void Station::setPrevious(Station *previous) {
+void Station::setPrevious(Station* previous) {
     Station::previous = previous;
 }
 

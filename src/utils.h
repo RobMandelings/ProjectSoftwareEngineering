@@ -11,7 +11,7 @@
 class MetroNet;
 
 namespace utils {
-    MetroNet* parseMetroNet(const char* filename);
+    MetroNet* parseMetroNetXml(const char* filename);
 }
 
 #endif //PROJECTSOFTWAREENGINEERING_UTILS_H

@@ -88,3 +88,6 @@ Onherkenbaar element, ongeldige info, inconsistent metronet
             1.1.1 voer use case 3.1 uit op de tram
 
 Voor invoerformaat zie Appendix A opgave.
+
+Tram & Station Class Diagram:
+[![Screenshot-from-2020-02-27-15-17-22.png](https://i.postimg.cc/vZ8bL5Bn/Screenshot-from-2020-02-27-15-17-22.png)](https://postimg.cc/dLfbJkGQ)

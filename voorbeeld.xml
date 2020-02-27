@@ -1,24 +1,26 @@
-<STATION>
-    <naam>A</naam>
-    <volgende>B</volgende>
-    <vorige>C</vorige>
-    <spoor>12</spoor>
-</STATION>
-<STATION>
-    <naam>B</naam>
-    <volgende>C</volgende>
-    <vorige>A</vorige>
-    <spoor>12</spoor>
-</STATION>
-<STATION>
-    <naam>C</naam>
-    <volgende>A</volgende>
-    <vorige>B</vorige>
-    <spoor>12</spoor>
-</STATION>
-<TRAM>
-    <lijn>12</lijn>
-    <zitplaatsen>32</zitplaatsen>
-    <snelheid>60</snelheid>
-    <beginStation>A</beginStation>
-</TRAM>
+<METRONET>
+    <STATION>
+        <naam>A</naam>
+        <volgende>B</volgende>
+        <vorige>C</vorige>
+        <spoor>12</spoor>
+    </STATION>
+    <STATION>
+        <naam>B</naam>
+        <volgende>C</volgende>
+        <vorige>A</vorige>
+        <spoor>12</spoor>
+    </STATION>
+    <STATION>
+        <naam>C</naam>
+        <volgende>A</volgende>
+        <vorige>B</vorige>
+        <spoor>12</spoor>
+    </STATION>
+    <TRAM>
+        <lijn>12</lijn>
+        <zitplaatsen>32</zitplaatsen>
+        <snelheid>60</snelheid>
+        <beginStation>A</beginStation>
+    </TRAM>
+</METRONET>

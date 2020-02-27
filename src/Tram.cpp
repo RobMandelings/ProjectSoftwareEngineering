@@ -17,3 +17,25 @@ int Tram::getSpeed() const {
 int Tram::getAmountOfSeats() const {
     return amountOfSeats;
 }
+
+void Tram::setTramLine(int tramLine) {
+    Tram::tramLine = tramLine;
+}
+
+void Tram::setSpeed(int speed) {
+    Tram::speed = speed;
+}
+
+void Tram::setAmountOfSeats(int amountOfSeats) {
+    Tram::amountOfSeats = amountOfSeats;
+}
+
+Tram::Tram() {}
+
+Station *Tram::getBeginStation() const {
+    return beginStation;
+}
+
+void Tram::setBeginStation(Station *beginStation) {
+    Tram::beginStation = beginStation;
+}

@@ -6,6 +6,9 @@
 #define PROJECTSOFTWAREENGINEERING_LIBRARY_H
 
 #include <string>
+#include <vector>
+#include <iostream>
+#include <sstream>
 
 using namespace std;
 

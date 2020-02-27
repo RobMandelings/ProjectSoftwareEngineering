@@ -90,4 +90,4 @@ Onherkenbaar element, ongeldige info, inconsistent metronet
 Voor invoerformaat zie Appendix A opgave.
 
 Tram & Station Class Diagram:
-![Class Diagram](https://imgur.com/a/kPt0cFq)
+https://imgur.com/a/kPt0cFq

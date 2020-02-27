@@ -3,4 +3,4 @@ project(ProjectSoftwareEngineering)
 
 set(CMAKE_CXX_STANDARD 98)
 
-add_executable(ProjectSoftwareEngineering src/main.cpp)
+add_executable(ProjectSoftwareEngineering src/main.cpp src/Tram.cpp src/Tram.h)

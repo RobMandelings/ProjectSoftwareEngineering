@@ -24,7 +24,7 @@ Tram * MetroNet::getTram(int line) const{
 }
 
 
-Station * MetroNet::getStation(string name) const{
+Station * MetroNet::getStation(const char* name) const{
     for(unsigned int i = 0; i < MetroNet::stations.size();i++){
         if(MetroNet::stations[i]->getName() == name){
             return MetroNet::stations[i];

@@ -5,33 +5,33 @@
 #include "Station.h"
 
 const string& Station::getName() const {
-    return name;
+    return m_name;
 }
 
 void Station::setName(const string& name) {
-    Station::name = name;
+    Station::m_name = name;
 }
 
 Station* Station::getNext() const {
-    return next;
+    return m_next;
 }
 
 void Station::setNext(Station* next) {
-    Station::next = next;
+    Station::m_next = next;
 }
 
 Station* Station::getPrevious() const {
-    return previous;
+    return m_previous;
 }
 
 void Station::setPrevious(Station* previous) {
-    Station::previous = previous;
+    Station::m_previous = previous;
 }
 
 int Station::getTrack() const {
-    return track;
+    return m_track;
 }
 
 void Station::setTrack(int track) {
-    Station::track = track;
+    Station::m_track = track;
 }

@@ -4,38 +4,38 @@
 
 #include "Tram.h"
 
-Tram::Tram(int line, int speed, int amountOfSeats) : tramLine(line), speed(speed), amountOfSeats(amountOfSeats) {}
+Tram::Tram(int line, int speed, int amountOfSeats) : m_tramLine(line), m_speed(speed), m_amountOfSeats(amountOfSeats) {}
 
 int Tram::getTramLine() const {
-    return tramLine;
+    return m_tramLine;
 }
 
 int Tram::getSpeed() const {
-    return speed;
+    return m_speed;
 }
 
 int Tram::getAmountOfSeats() const {
-    return amountOfSeats;
+    return m_amountOfSeats;
 }
 
 void Tram::setTramLine(int tramLine) {
-    Tram::tramLine = tramLine;
+    Tram::m_tramLine = tramLine;
 }
 
 void Tram::setSpeed(int speed) {
-    Tram::speed = speed;
+    Tram::m_speed = speed;
 }
 
 void Tram::setAmountOfSeats(int amountOfSeats) {
-    Tram::amountOfSeats = amountOfSeats;
+    Tram::m_amountOfSeats = amountOfSeats;
 }
 
 Tram::Tram() {}
 
 Station *Tram::getBeginStation() const {
-    return beginStation;
+    return m_beginStation;
 }
 
 void Tram::setBeginStation(Station *beginStation) {
-    Tram::beginStation = beginStation;
+    Tram::m_beginStation = beginStation;
 }

@@ -15,9 +15,9 @@ class Tram;
  */
 class MetroNet {
 private:
-    string name;
-    vector<Tram*> trams;
-    vector<Station*> stations;
+    string m_name;
+    vector<Tram*> m_trams;
+    vector<Station*> m_stations;
 public:
 
     /**

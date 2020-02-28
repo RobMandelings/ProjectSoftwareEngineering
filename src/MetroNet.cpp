@@ -7,17 +7,17 @@
 #include "Station.h"
 
 const string &MetroNet::getName() const {
-    return name;
+    return m_name;
 }
 
 void MetroNet::setName(const string& name) {
-    MetroNet::name = name;
+    MetroNet::m_name = name;
 }
 
 Tram * MetroNet::getTram(int line) const{
-    for(unsigned int i = 0; i < MetroNet::trams.size();i++){
-        if(MetroNet::trams[i]->getTramLine() == line){
-            return MetroNet::trams[i];
+    for(unsigned int i = 0; i < MetroNet::m_trams.size(); i++){
+        if(MetroNet::m_trams[i]->getTramLine() == line){
+            return MetroNet::m_trams[i];
         }
     }
     return NULL;
@@ -25,18 +25,18 @@ Tram * MetroNet::getTram(int line) const{
 
 
 Station * MetroNet::getStation(const char* name) const{
-    for(unsigned int i = 0; i < MetroNet::stations.size();i++){
-        if(MetroNet::stations[i]->getName() == name){
-            return MetroNet::stations[i];
+    for(unsigned int i = 0; i < MetroNet::m_stations.size(); i++){
+        if(MetroNet::m_stations[i]->getName() == name){
+            return MetroNet::m_stations[i];
         }
     }
     return NULL;
 }
 
 void MetroNet::addTram(Tram *tram) {
-    MetroNet::trams.push_back(tram);
+    MetroNet::m_trams.push_back(tram);
 }
 
 void MetroNet::addStation(Station *station) {
-    MetroNet::stations.push_back(station);
+    MetroNet::m_stations.push_back(station);
 }

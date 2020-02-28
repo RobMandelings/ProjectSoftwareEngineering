@@ -9,10 +9,10 @@
 
 class Station {
 private:
-    string name;
-    Station* next;
-    Station* previous;
-    int track;
+    string m_name;
+    Station* m_next;
+    Station* m_previous;
+    int m_track;
 public:
     const string& getName() const;
 

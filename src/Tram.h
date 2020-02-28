@@ -11,10 +11,10 @@ class Tram {
 
 private:
 
-    int tramLine;
-    int speed;
-    int amountOfSeats;
-    Station* beginStation;
+    int m_tramLine;
+    int m_speed;
+    int m_amountOfSeats;
+    Station* m_beginStation;
 public:
     Station* getBeginStation() const;
 

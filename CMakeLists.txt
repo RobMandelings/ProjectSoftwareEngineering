@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.15)
+cmake_minimum_required(VERSION 3.10)
 project(ProjectSoftwareEngineering)
 
 set(CMAKE_CXX_STANDARD 98)
@@ -27,7 +27,7 @@ add_executable(ProjectSoftwareEngineering
         src/utils.cpp
         src/MetroNet.h
         src/MetroNet.cpp
-        )
+        src/Track.cpp src/Track.h src/TrackNode.cpp src/TrackNode.h)
 
 ## Set source files for RELEASE target
 #set(RELEASE_SOURCE_FILES src/TicTacToe.cpp src/TicTacToeMain.cpp)

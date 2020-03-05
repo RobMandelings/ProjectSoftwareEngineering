@@ -5,6 +5,7 @@
 #ifndef PROJECTSOFTWAREENGINEERING_TRAM_H
 #define PROJECTSOFTWAREENGINEERING_TRAM_H
 
+class TrackNode;
 class Station;
 
 class Tram {
@@ -15,6 +16,7 @@ private:
     int m_speed;
     int m_amountOfSeats;
     Station* m_beginStation;
+    TrackNode* m_beginNode;
 public:
     Station* getBeginStation() const;
 

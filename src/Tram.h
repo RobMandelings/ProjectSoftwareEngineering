@@ -16,7 +16,7 @@ private:
     int m_speed;
     int m_amountOfSeats;
     Station* m_beginStation;
-    TrackNode* m_beginNode;
+    TrackNode* m_beginNode; // Waar aanmaken?
 public:
     Station* getBeginStation() const;
 

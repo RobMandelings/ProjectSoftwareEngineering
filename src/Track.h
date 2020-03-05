@@ -11,14 +11,14 @@ class Track {
 
 private:
 
-    int m_trackIndex;
+    int m_line;
     TrackNode* m_firstNode;
 
 public:
 
-    Track(int trackIndex, TrackNode* firstNode);
+    Track(int line, TrackNode* firstNode);
 
-    int getTrackIndex() const;
+    int getLine() const;
 
     TrackNode* getFirstNode() const;
 

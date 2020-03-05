@@ -11,7 +11,7 @@ class TrackNode {
 
 private:
 
-    int m_trackIndex;
+    int m_line;
 
     Station* m_station;
 
@@ -20,9 +20,9 @@ private:
 
 public:
 
-    TrackNode(int trackIndex, Station* station);
+    TrackNode(int line, Station* station);
 
-    TrackNode(int trackIndex, Station* station, TrackNode* previousNode, TrackNode* nextNode);
+    TrackNode(int line, Station* station, TrackNode* previousNode, TrackNode* nextNode);
 
     Station* getStation() const;
 

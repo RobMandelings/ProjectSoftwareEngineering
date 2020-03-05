@@ -6,6 +6,7 @@
 #define PROJECTSOFTWAREENGINEERING_METRONET_H
 
 #include "library.h"
+#include "Track.h"
 
 class Station;
 class Tram;
@@ -18,6 +19,7 @@ private:
     string m_name;
     vector<Tram*> m_trams;
     vector<Station*> m_stations;
+    vector<Track*> m_tracks;
 public:
 
     /**
@@ -52,6 +54,8 @@ public:
      * @param station: a pointer to the tram you want to add
      */
     void addTram(Tram* tram);
+
+
 };
 
 #endif //PROJECTSOFTWAREENGINEERING_METRONET_H

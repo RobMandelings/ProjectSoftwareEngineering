@@ -4,12 +4,12 @@
 
 #include "Track.h"
 
-Track::Track(int trackIndex, TrackNode* firstNode) :
-        m_trackIndex(trackIndex),
+Track::Track(int line, TrackNode* firstNode) :
+        m_line(line),
         m_firstNode(firstNode) {}
 
-int Track::getTrackIndex() const {
-    return m_trackIndex;
+int Track::getLine() const {
+    return m_line;
 }
 
 TrackNode* Track::getFirstNode() const {

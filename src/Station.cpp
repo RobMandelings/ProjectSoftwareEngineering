@@ -12,9 +12,9 @@ void Station::setName(const string& name) {
     Station::m_name = name;
 }
 
-Track* Station::getTrack(int number) const {
+Track* Station::getTrack(int number) {
     for(vector<Track*>::iterator it = m_tracks.begin(); it != m_tracks.end(); ++it){
-        if(it->getLine() == number){
+        if((*it).getLine() == number){
             return it;
         }
     }

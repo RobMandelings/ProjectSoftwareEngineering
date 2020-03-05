@@ -40,3 +40,7 @@ void MetroNet::addTram(Tram *tram) {
 void MetroNet::addStation(Station *station) {
     MetroNet::m_stations.push_back(station);
 }
+
+void MetroNet::addTrack(Track* track) {
+    //TODO empty method stub
+}

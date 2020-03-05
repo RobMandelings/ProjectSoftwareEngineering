@@ -5,6 +5,7 @@
 #pragma once
 
 
+#include <string>
 #include "TrackNode.h"
 
 class Track {
@@ -21,5 +22,9 @@ public:
     int getLine() const;
 
     TrackNode* getFirstNode() const;
+
+    bool insertNode(int index, TrackNode* trackNode);
+
+    bool insertNode(const std::string& afterStation, TrackNode* trackNode);
 
 };

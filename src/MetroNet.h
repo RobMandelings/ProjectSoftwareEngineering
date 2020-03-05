@@ -55,6 +55,7 @@ public:
      */
     void addTram(Tram* tram);
 
+    void addTrack(Track* track);
 
 };
 

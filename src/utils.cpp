@@ -59,7 +59,7 @@ namespace utils{
                         stationHolder.vorige = vorige;
                     } else if(elemName == "spoor"){
                         int spoor = stoi(elem->GetText());
-                        currentStation->setTrack(spoor);
+                        //currentStation->setTrack(spoor);
                     }
                 }
                 m->addStation(currentStation);

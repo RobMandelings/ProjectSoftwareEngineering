@@ -19,6 +19,10 @@ public:
 
     Track(int line, TrackNode* firstNode);
 
+    Track();
+
+    void setLine(int line);
+
     int getLine() const;
 
     TrackNode* getFirstNode() const;
@@ -26,5 +30,7 @@ public:
     bool insertNode(int index, TrackNode* trackNode);
 
     bool insertNode(const std::string& afterStation, TrackNode* trackNode);
+
+    bool insertNode(TrackNode* trackNode);
 
 };

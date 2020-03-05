@@ -6,15 +6,17 @@
 #include "MetroNet.h"
 #include "Tram.h"
 #include "Station.h"
+#include "Track.h"
+#include "TrackNode.h"
 
-struct StationHolder {
-
-    Station* station;
-    string volgende;
-    string vorige;
-
-    explicit StationHolder(Station* station) : station(station) {}
-};
+//struct StationHolder {
+//
+//    Station* station;
+//    string volgende;
+//    string vorige;
+//
+//    explicit StationHolder(Station* station) : station(station) {}
+//};
 
 namespace utils{
 
@@ -40,30 +42,22 @@ namespace utils{
 
         MetroNet* m = new MetroNet();
         m->setName("Antwerpen");
-        vector<StationHolder> stationHolders;
         for(TiXmlElement* root_elem = root->FirstChildElement(); root_elem != NULL; root_elem = root_elem->NextSiblingElement()){
-            if(!strcmp(root_elem->Value(), "STATION")){
-                Station* currentStation = new Station();
-                StationHolder stationHolder(currentStation);
-                for(TiXmlElement* elem = root_elem->FirstChildElement(); elem != NULL;
-                    elem = elem->NextSiblingElement()) {
-                    string elemName = elem->Value();
-                    if(elemName == "naam") {
-                        string name = elem->GetText();
-                        currentStation->setName(name);
-                    } else if(elemName == "volgende") {
-                        string volgende = elem->GetText();
-                        stationHolder.volgende = volgende;
-                    } else if(elemName == "vorige"){
-                        string vorige = elem->GetText();
-                        stationHolder.vorige = vorige;
-                    } else if(elemName == "spoor"){
-                        int spoor = stoi(elem->GetText());
-                        //currentStation->setTrack(spoor);
-                    }
-                }
+            if(!strcmp(root_elem->Value(), "STATION")) {
+                Station *currentStation = new Station();
+                string name = root_elem->Attribute("naam");
+                currentStation->setName(name);
                 m->addStation(currentStation);
-                stationHolders.push_back(stationHolder);
+            } else if(!strcmp(root_elem->Value(), "LIJN")){
+                Track* currentTrack = new Track();
+                int line = stoi(root_elem->Attribute("index"));
+                currentTrack->setLine(line);
+                for(TiXmlElement* elem = root_elem->FirstChildElement(); elem != NULL; elem = elem->NextSiblingElement()){
+                    Station* st = m->getStation(root_elem->Attribute("station"));
+                    st->addTrack(currentTrack);
+                    TrackNode* node = new TrackNode(line,m->getStation(root_elem->Attribute("station")));
+                    currentTrack->insertNode(node);
+                }
             } else if(!strcmp(root_elem->Value(), "TRAM")){
                 Tram* currentTram = new Tram();
                 for(TiXmlElement* elem = root_elem->FirstChildElement(); elem != NULL;
@@ -86,11 +80,6 @@ namespace utils{
                 m->addTram(currentTram);
             } else {
                 std::cerr << "Failed to load file: Unrecognized element." << std::endl;
-            }
-
-            for(vector<StationHolder>::iterator it = stationHolders.begin(); it != stationHolders.end(); ++it){
-//                it->station->setNext(m->getStation(it->volgende.c_str()));
-//                it->station->setPrevious(m->getStation(it->vorige.c_str()));
             }
         }
         return m;

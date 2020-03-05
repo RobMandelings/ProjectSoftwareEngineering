@@ -12,26 +12,16 @@ void Station::setName(const string& name) {
     Station::m_name = name;
 }
 
-Station* Station::getNext() const {
-    return m_next;
+Track* Station::getTrack(int number) const {
+    for(vector<Track*>::iterator it = m_tracks.begin(); it != m_tracks.end(); ++it){
+        if(it->getIndex() == number){
+            return it;
+        }
+    }
+
+    return NULL;
 }
 
-void Station::setNext(Station* next) {
-    Station::m_next = next;
-}
-
-Station* Station::getPrevious() const {
-    return m_previous;
-}
-
-void Station::setPrevious(Station* previous) {
-    Station::m_previous = previous;
-}
-
-int Station::getTrack() const {
-    return m_track;
-}
-
-void Station::setTrack(int track) {
-    Station::m_track = track;
+void Station::addTrack(Track* track) {
+    m_tracks.push_back(track);
 }

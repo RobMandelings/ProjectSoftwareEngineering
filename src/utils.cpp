@@ -89,8 +89,8 @@ namespace utils{
             }
 
             for(vector<StationHolder>::iterator it = stationHolders.begin(); it != stationHolders.end(); ++it){
-                it->station->setNext(m->getStation(it->volgende.c_str()));
-                it->station->setPrevious(m->getStation(it->vorige.c_str()));
+//                it->station->setNext(m->getStation(it->volgende.c_str()));
+//                it->station->setPrevious(m->getStation(it->vorige.c_str()));
             }
         }
         return m;

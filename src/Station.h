@@ -7,28 +7,20 @@
 
 #include "library.h"
 
+class Track;
+
 class Station {
 private:
     string m_name;
-    Station* m_next;
-    Station* m_previous;
-    int m_track;
+    vector<Track*> m_tracks;
 public:
     const string& getName() const;
 
     void setName(const string& name);
 
-    Station* getNext() const;
+    Track* getTrack(int number) const;
 
-    void setNext(Station* next);
-
-    Station* getPrevious() const;
-
-    void setPrevious(Station* previous);
-
-    int getTrack() const;
-
-    void setTrack(int track);
+    void addTrack(Track* track);
 
 };
 

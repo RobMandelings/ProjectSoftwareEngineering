@@ -47,24 +47,26 @@ MetroNet* metroParser::parseMetroNetXml(const char* filename) {
             }
             metroNet->addTrack(currentTrack);
         } else if (!strcmp(root_elem->Value(), "TRAM")) {
-            Tram* currentTram = new Tram();
+
+            int line = 0;
+            int amountOfSeats = 0;
+            int speed = 0;
+            TrackNode* beginNode = NULL;
+
             for (TiXmlElement* elem = root_elem->FirstChildElement(); elem != NULL;
                  elem = elem->NextSiblingElement()) {
                 string elemName = elem->Value();
                 if (elemName == "lijn") {
-                    int lijn = metroUtils::stoi(elem->GetText());
-                    currentTram->setTramLine(lijn);
+                    line = metroUtils::stoi(elem->GetText());
                 } else if (elemName == "zitplaatsen") {
-                    int zitplaatsen = metroUtils::stoi(elem->GetText());
-                    currentTram->setAmountOfSeats(zitplaatsen);
+                    amountOfSeats = metroUtils::stoi(elem->GetText());
                 } else if (elemName == "snelheid") {
-                    int snelheid = metroUtils::stoi(elem->GetText());
-                    currentTram->setSpeed(snelheid);
+                    speed = metroUtils::stoi(elem->GetText());
                 } else if (elemName == "beginStation") {
-                    currentTram->setBeginNode(metroNet->getTrack(currentTram->getTramLine())->getNodeForStation(metroNet->getStation(elem->GetText())));
+                    beginNode = metroNet->getTrack(line)->getNodeForStation(metroNet->getStation(elem->GetText()));
                 }
             }
-            metroNet->addTram(currentTram);
+            metroNet->addTram(new Tram(line, speed, amountOfSeats, beginNode));
         } else {
             std::cerr << "Failed to load file: Unrecognized element." << std::endl;
         }

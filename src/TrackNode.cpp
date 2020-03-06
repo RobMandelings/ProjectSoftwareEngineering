@@ -2,17 +2,17 @@
 // Created by Rob Mandelings on 5/03/2020.
 //
 
-#include <strings.h>
-#include <clocale>
 #include "TrackNode.h"
 
 TrackNode::TrackNode(int trackIndex, Station* station) :
+        m_underConstruction(false),
         m_line(trackIndex),
         m_station(station),
         m_previousNode(NULL),
         m_nextNode(NULL) {}
 
 TrackNode::TrackNode(int trackIndex, Station* station, TrackNode* previousNode, TrackNode* nextNode) :
+        m_underConstruction(false),
         m_line(trackIndex),
         m_station(station),
         m_previousNode(previousNode),
@@ -36,4 +36,12 @@ void TrackNode::setPreviousNode(TrackNode* PreviousNode) {
 
 void TrackNode::setNextNode(TrackNode* NextNode) {
     m_nextNode = NextNode;
+}
+
+void TrackNode::setUnderConstruction(bool underConstruction) {
+    m_underConstruction = underConstruction;
+}
+
+bool TrackNode::isUnderConstruction() const {
+    return m_underConstruction;
 }

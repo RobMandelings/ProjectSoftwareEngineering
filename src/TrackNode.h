@@ -4,12 +4,16 @@
 
 #pragma once
 
+#include "library.h"
+
 class Track;
 class Station;
 
 class TrackNode {
 
 private:
+
+    bool m_underConstruction;
 
     int m_line;
 
@@ -29,6 +33,10 @@ public:
     TrackNode* getPreviousNode() const;
 
     TrackNode* getNextNode() const;
+
+    void setUnderConstruction(bool underConstruction);
+
+    bool isUnderConstruction() const;
 
     void setPreviousNode(TrackNode* previousNode);
 

@@ -26,3 +26,22 @@ bool Track::insertNode(TrackNode *trackNode) {
     //TODO: implement
     return false;
 }
+
+bool Track::disableNodeForStation(Station* station) {
+
+    if (m_firstNode != NULL) {
+        TrackNode* trackNode = m_firstNode;
+
+        do {
+
+            if (trackNode->getStation() == station) {
+                trackNode->setUnderConstruction(true);
+                return true;
+            }
+
+            trackNode = trackNode->getNextNode();
+
+        } while (trackNode != NULL && trackNode != m_firstNode);
+    }
+    return false;
+}

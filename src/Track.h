@@ -33,4 +33,6 @@ public:
      */
     bool insertNode(TrackNode* trackNode);
 
+    bool disableNodeForStation(Station* station);
+
 };

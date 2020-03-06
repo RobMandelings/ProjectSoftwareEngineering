@@ -74,14 +74,16 @@ TrackNode* Track::getNodeForStation(Station* station) {
     return NULL;
 }
 
-void Track::traverse() const {
+std::string Track::getAsString() const {
+    std::string trackString;
     if (m_firstNode != NULL) {
         TrackNode* currentTrackNode = m_firstNode;
         do {
-            cout << "Station " << currentTrackNode->getStation()->getName() << " --> ";
+            trackString += "Station " + currentTrackNode->getStation()->getName() + " --> ";
 
             currentTrackNode = currentTrackNode->getNextNode();
         } while (currentTrackNode != NULL && currentTrackNode != m_firstNode);
-        cout << "Station " << m_firstNode->getStation()->getName() << " --> ..." << endl;
+        trackString += "Station " + m_firstNode->getStation()->getName() + " --> ...";
     }
+    return trackString;
 }

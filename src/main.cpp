@@ -7,6 +7,6 @@
 
 int main() {
     MetroNet* metroNet = metroParser::parseMetroNetXml("../newVoorbeeld.xml");
-    metroUtils::printMetroNet(metroNet);
+    metroUtils::printMetroNet(metroNet, "../Summary.metro");
     return 0;
 }

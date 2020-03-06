@@ -33,26 +33,26 @@ namespace utils{
         }
 
         //TODO: REQUIRE gtest keywords for exception handling
-        MetroNet* m = new MetroNet("Antwerpen");
+        MetroNet* metroNet = new MetroNet("Antwerpen");
         for(TiXmlElement* root_elem = root->FirstChildElement(); root_elem != NULL; root_elem = root_elem->NextSiblingElement()){
             if(!strcmp(root_elem->Value(), "STATION")) {
                 Station *currentStation = new Station();
                 string name = root_elem->Attribute("naam");
                 currentStation->setName(name);
-                m->addStation(currentStation);
+                metroNet->addStation(currentStation);
             } else if(!strcmp(root_elem->Value(), "LIJN")){
                 Track* currentTrack = new Track();
                 int line = stoi(root_elem->Attribute("index"));
                 currentTrack->setLine(line);
                 for(TiXmlElement* elem = root_elem->FirstChildElement(); elem != NULL; elem = elem->NextSiblingElement()){
                     if(!strcmp(elem->Value(), "LIJNNODE")){
-                        Station* st = m->getStation(elem->Attribute("station"));
+                        Station* st = metroNet->getStation(elem->Attribute("station"));
                         st->addTrack(currentTrack);
-                        TrackNode* node = new TrackNode(line,m->getStation(elem->Attribute("station")));
+                        TrackNode* node = new TrackNode(line, metroNet->getStation(elem->Attribute("station")));
                         currentTrack->insertNode(node);
                     }
                 }
-                m->addTrack(currentTrack);
+                metroNet->addTrack(currentTrack);
             } else if(!strcmp(root_elem->Value(), "TRAM")){
                 Tram* currentTram = new Tram();
                 for(TiXmlElement* elem = root_elem->FirstChildElement(); elem != NULL;
@@ -68,14 +68,14 @@ namespace utils{
                         int snelheid = stoi(elem->GetText());
                         currentTram->setSpeed(snelheid);
                     } else if(elemName == "beginStation"){
-                        currentTram->setBeginNode(m->getTrack(currentTram->getTramLine())->getNodeForStation(m->getStation(elem->GetText())));
+                        currentTram->setBeginNode(metroNet->getTrack(currentTram->getTramLine())->getNodeForStation(metroNet->getStation(elem->GetText())));
                     }
                 }
-                m->addTram(currentTram);
+                metroNet->addTram(currentTram);
             } else {
                 std::cerr << "Failed to load file: Unrecognized element." << std::endl;
             }
         }
-        return m;
+        return metroNet;
     }
 }

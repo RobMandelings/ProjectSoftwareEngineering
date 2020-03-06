@@ -7,11 +7,11 @@
 using namespace utils;
 
 int main() {
-    MetroNet* m = parseMetroNetXml("../newVoorbeeld.xml");
-    const string& name = m->getName();
+    MetroNet* metroNet = parseMetroNetXml("../newVoorbeeld.xml");
+    const string& name = metroNet->getName();
     cout << name << std::endl;
-    //Tram* t = m->getTram(12);
-    //Station* st = t->getBeginStation();
-    //cout << st->getName() << endl;
+    Tram* t = metroNet->getTram(12);
+    Station* st = t->getBeginNode()->getStation();
+    cout << st->getName() << endl;
     return 0;
 }

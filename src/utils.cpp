@@ -45,9 +45,9 @@ namespace utils{
                 currentTrack->setLine(line);
                 for(TiXmlElement* elem = root_elem->FirstChildElement(); elem != NULL; elem = elem->NextSiblingElement()){
                     if(!strcmp(elem->Value(), "LIJNNODE")){
-                        Station* st = m->getStation(root_elem->Attribute("station"));
+                        Station* st = m->getStation(elem->Attribute("station"));
                         st->addTrack(currentTrack);
-                        TrackNode* node = new TrackNode(line,m->getStation(root_elem->Attribute("station")));
+                        TrackNode* node = new TrackNode(line,m->getStation(elem->Attribute("station")));
                         currentTrack->insertNode(node);
                     }
                 }

@@ -16,11 +16,6 @@ TrackNode* Track::getFirstNode() const {
     return m_firstNode;
 }
 
-bool Track::insertNode(const std::string& afterStation, TrackNode* trackNode) {
-    //TODO empty method stub
-    return false;
-}
-
 void Track::setLine(int line) {
     this->m_line = line;
 }

@@ -7,7 +7,7 @@
 using namespace utils;
 
 int main() {
-    MetroNet* m = parseMetroNetXml("../voorbeeld.xml");
+    MetroNet* m = parseMetroNetXml("../newVoorbeeld.xml");
     string name = m->getName();
     Tram* t = m->getTram(12);
     Station* st = t->getBeginStation();

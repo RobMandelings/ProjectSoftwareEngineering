@@ -9,15 +9,6 @@
 #include "Track.h"
 #include "TrackNode.h"
 
-//struct StationHolder {
-//
-//    Station* station;
-//    string volgende;
-//    string vorige;
-//
-//    explicit StationHolder(Station* station) : station(station) {}
-//};
-
 namespace utils{
 
     int stoi(const string& input){

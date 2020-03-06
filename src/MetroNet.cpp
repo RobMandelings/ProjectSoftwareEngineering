@@ -33,6 +33,18 @@ Station* MetroNet::getStation(const char* name) const {
     return NULL;
 }
 
+const vector<Tram*>& MetroNet::getTrams() const {
+    return m_trams;
+}
+
+const vector<Station*>& MetroNet::getStations() const {
+    return m_stations;
+}
+
+const vector<Track*>& MetroNet::getTracks() const {
+    return m_tracks;
+}
+
 void MetroNet::addTram(Tram* tram) {
     MetroNet::m_trams.push_back(tram);
 }

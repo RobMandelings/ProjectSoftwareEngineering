@@ -16,6 +16,8 @@ namespace metroUtils {
 
     int stoi(const string& input);
 
+    void printMetroNet(MetroNet* metroNet);
+
 }
 
 #endif //PROJECTSOFTWAREENGINEERING_METROUTILS_H

@@ -22,7 +22,7 @@ private:
     vector<Track*> m_tracks;
 public:
 
-    MetroNet(const string& name);
+    explicit MetroNet(const string& name);
 
     /**
      * @return the name of this metronet
@@ -44,6 +44,12 @@ public:
     Station *getStation(const char* name) const;
 
     Track* getTrack(int line);
+
+    const vector<Tram*>& getTrams() const;
+
+    const vector<Station*>& getStations() const;
+
+    const vector<Track*>& getTracks() const;
 
     /**
      * @brief adds a station to this MetroNet

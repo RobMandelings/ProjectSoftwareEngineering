@@ -31,6 +31,7 @@ namespace utils{
             doc.Clear();
         }
 
+        //TODO: REQUIRE gtest keywords for exception handling
         MetroNet* m = new MetroNet();
         m->setName("Antwerpen");
         for(TiXmlElement* root_elem = root->FirstChildElement(); root_elem != NULL; root_elem = root_elem->NextSiblingElement()){
@@ -66,7 +67,7 @@ namespace utils{
                         int snelheid = stoi(elem->GetText());
                         currentTram->setSpeed(snelheid);
                     } else if(elemName == "beginStation"){
-                        //TODO: get TrackNode
+                        currentTram->setBeginNode(m->getTrack(currentTram->getTramLine())->getNodeForStation(m->getStation(elem->GetText())));
                     }
                 }
                 m->addTram(currentTram);

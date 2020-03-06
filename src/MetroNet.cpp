@@ -43,7 +43,7 @@ void MetroNet::addStation(Station *station) {
 }
 
 void MetroNet::addTrack(Track* track) {
-    //TODO empty method stub
+    m_tracks.push_back(track);
 }
 
 Track* MetroNet::getTrack(int line) {

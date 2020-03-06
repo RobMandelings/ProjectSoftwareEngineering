@@ -7,8 +7,9 @@
 using namespace utils;
 
 int main() {
-    //MetroNet* m = parseMetroNetXml("../newVoorbeeld.xml");
-    //string name = m->getName();
+    MetroNet* m = parseMetroNetXml("../newVoorbeeld.xml");
+    const string& name = m->getName();
+    cout << name << std::endl;
     //Tram* t = m->getTram(12);
     //Station* st = t->getBeginStation();
     //cout << st->getName() << endl;

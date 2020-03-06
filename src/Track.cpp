@@ -8,6 +8,8 @@ Track::Track(int line, TrackNode* firstNode) :
         m_line(line),
         m_firstNode(firstNode) {}
 
+Track::Track() : m_line(-1), m_firstNode(NULL) {}
+
 int Track::getLine() const {
     return m_line;
 }
@@ -19,8 +21,6 @@ TrackNode* Track::getFirstNode() const {
 void Track::setLine(int line) {
     this->m_line = line;
 }
-
-Track::Track() {}
 
 bool Track::insertNode(TrackNode* trackNode) {
 

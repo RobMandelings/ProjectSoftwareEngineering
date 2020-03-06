@@ -52,6 +52,7 @@ namespace utils{
                         currentTrack->insertNode(node);
                     }
                 }
+                m->addTrack(currentTrack);
             } else if(!strcmp(root_elem->Value(), "TRAM")){
                 Tram* currentTram = new Tram();
                 for(TiXmlElement* elem = root_elem->FirstChildElement(); elem != NULL;

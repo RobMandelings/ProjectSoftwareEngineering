@@ -4,6 +4,7 @@
 
 #include "MetroNet.h"
 #include "Tram.h"
+#include "Track.h"
 #include "Station.h"
 
 const string &MetroNet::getName() const {
@@ -43,4 +44,14 @@ void MetroNet::addStation(Station *station) {
 
 void MetroNet::addTrack(Track* track) {
     //TODO empty method stub
+}
+
+Track* MetroNet::getTrack(int line) {
+    for(vector<Track*>::iterator it = m_tracks.begin(); it != m_tracks.end(); ++it){
+        if((*it)->getLine() == line){
+            return (*it);
+        }
+    }
+
+    return NULL;
 }

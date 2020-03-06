@@ -43,6 +43,8 @@ public:
      */
     Station *getStation(const char* name) const;
 
+    Track* getTrack(int line);
+
     /**
      * @brief adds a station to this MetroNet
      * @param station: a pointer to the station you want to add

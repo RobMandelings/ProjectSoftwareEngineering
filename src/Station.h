@@ -18,7 +18,7 @@ public:
 
     void setName(const string& name);
 
-    Track* getTrack(int number);
+    Track* getTrack(int line);
 
     void addTrack(Track* track);
 

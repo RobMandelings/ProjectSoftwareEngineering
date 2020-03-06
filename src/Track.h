@@ -26,6 +26,8 @@ public:
 
     TrackNode* getFirstNode() const;
 
+    TrackNode* getNodeForStation(Station* station);
+
     /**
      * Inserts a node as the last element of the track
      * @param trackNode the node you want to add to the track

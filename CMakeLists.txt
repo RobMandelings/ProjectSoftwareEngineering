@@ -23,8 +23,8 @@ add_executable(ProjectSoftwareEngineering
         src/includes/xmlparser/tinyxml.h src/includes/xmlparser/tinyxml.cpp
         src/includes/xmlparser/tinyxmlerror.cpp
         src/includes/xmlparser/tinyxmlparser.cpp
-        src/utils.h
-        src/utils.cpp
+        src/metroUtils.h
+        src/metroUtils.cpp
         src/MetroNet.h
         src/MetroNet.cpp
         src/Track.cpp src/Track.h src/TrackNode.cpp src/TrackNode.h)

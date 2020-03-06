@@ -2,8 +2,8 @@
 // Created by thibaultpoels on 27/02/2020.
 //
 
-#ifndef PROJECTSOFTWAREENGINEERING_UTILS_H
-#define PROJECTSOFTWAREENGINEERING_UTILS_H
+#ifndef PROJECTSOFTWAREENGINEERING_METROUTILS_H
+#define PROJECTSOFTWAREENGINEERING_METROUTILS_H
 
 #include "library.h"
 #include "tinyxml.h"
@@ -12,7 +12,7 @@
 class MetroNet;
 
 /** Basic utility file containing various useful functions */
-namespace utils {
+namespace metroUtils {
 
     /**
      * @brief Parses an XML file into a MetroNet object
@@ -22,4 +22,4 @@ namespace utils {
     MetroNet* parseMetroNetXml(const char* filename);
 }
 
-#endif //PROJECTSOFTWAREENGINEERING_UTILS_H
+#endif //PROJECTSOFTWAREENGINEERING_METROUTILS_H

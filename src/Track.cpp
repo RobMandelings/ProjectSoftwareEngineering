@@ -78,9 +78,10 @@ void Track::traverse() const {
     if (m_firstNode != NULL) {
         TrackNode* currentTrackNode = m_firstNode;
         do {
-            cout << currentTrackNode->getStation()->getName() << endl;
+            cout << "Station " << currentTrackNode->getStation()->getName() << " --> ";
 
             currentTrackNode = currentTrackNode->getNextNode();
         } while (currentTrackNode != NULL && currentTrackNode != m_firstNode);
+        cout << "Station " << m_firstNode->getStation()->getName() << " --> ..." << endl;
     }
 }

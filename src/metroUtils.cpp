@@ -2,31 +2,31 @@
 // Created by thibaultpoels on 27/02/2020.
 //
 
-#include "utils.h"
+#include "metroUtils.h"
 #include "MetroNet.h"
 #include "Tram.h"
 #include "Station.h"
 #include "Track.h"
 #include "TrackNode.h"
 
-namespace utils{
+namespace metroUtils {
 
-    int stoi(const string& input){
+    int stoi(const string& input) {
         int i;
         istringstream(input) >> i;
         return i;
     }
 
-    MetroNet* parseMetroNetXml(const char* filename){
+    MetroNet* parseMetroNetXml(const char* filename) {
         /// Opens file in doc
         TiXmlDocument doc;
-        if(!doc.LoadFile(filename)) {
+        if (!doc.LoadFile(filename)) {
             std::cerr << doc.ErrorDesc() << std::endl;
         }
 
         /// Loads first child element ("MetroNet") in root
         TiXmlElement* root = doc.FirstChildElement();
-        if(root == NULL) {
+        if (root == NULL) {
             std::cerr << "Failed to load file: No root element." << std::endl;
             doc.Clear();
             return NULL;
@@ -34,18 +34,18 @@ namespace utils{
 
         //TODO: REQUIRE gtest keywords for exception handling
         MetroNet* metroNet = new MetroNet("Antwerpen");
-        for(TiXmlElement* root_elem = root->FirstChildElement(); root_elem != NULL; root_elem = root_elem->NextSiblingElement()){
-            if(!strcmp(root_elem->Value(), "STATION")) {
-                Station *currentStation = new Station();
+        for (TiXmlElement* root_elem = root->FirstChildElement(); root_elem != NULL; root_elem = root_elem->NextSiblingElement()) {
+            if (!strcmp(root_elem->Value(), "STATION")) {
+                Station* currentStation = new Station();
                 string name = root_elem->Attribute("naam");
                 currentStation->setName(name);
                 metroNet->addStation(currentStation);
-            } else if(!strcmp(root_elem->Value(), "LIJN")){
+            } else if (!strcmp(root_elem->Value(), "LIJN")) {
                 Track* currentTrack = new Track();
                 int line = stoi(root_elem->Attribute("index"));
                 currentTrack->setLine(line);
-                for(TiXmlElement* elem = root_elem->FirstChildElement(); elem != NULL; elem = elem->NextSiblingElement()){
-                    if(!strcmp(elem->Value(), "LIJNNODE")){
+                for (TiXmlElement* elem = root_elem->FirstChildElement(); elem != NULL; elem = elem->NextSiblingElement()) {
+                    if (!strcmp(elem->Value(), "LIJNNODE")) {
                         Station* st = metroNet->getStation(elem->Attribute("station"));
                         st->addTrack(currentTrack);
                         TrackNode* node = new TrackNode(line, metroNet->getStation(elem->Attribute("station")));
@@ -53,21 +53,21 @@ namespace utils{
                     }
                 }
                 metroNet->addTrack(currentTrack);
-            } else if(!strcmp(root_elem->Value(), "TRAM")){
+            } else if (!strcmp(root_elem->Value(), "TRAM")) {
                 Tram* currentTram = new Tram();
-                for(TiXmlElement* elem = root_elem->FirstChildElement(); elem != NULL;
-                    elem = elem->NextSiblingElement()) {
+                for (TiXmlElement* elem = root_elem->FirstChildElement(); elem != NULL;
+                     elem = elem->NextSiblingElement()) {
                     string elemName = elem->Value();
-                    if(elemName == "lijn") {
+                    if (elemName == "lijn") {
                         int lijn = stoi(elem->GetText());
                         currentTram->setTramLine(lijn);
-                    } else if(elemName == "zitplaatsen") {
+                    } else if (elemName == "zitplaatsen") {
                         int zitplaatsen = stoi(elem->GetText());
                         currentTram->setAmountOfSeats(zitplaatsen);
-                    } else if(elemName == "snelheid"){
+                    } else if (elemName == "snelheid") {
                         int snelheid = stoi(elem->GetText());
                         currentTram->setSpeed(snelheid);
-                    } else if(elemName == "beginStation"){
+                    } else if (elemName == "beginStation") {
                         currentTram->setBeginNode(metroNet->getTrack(currentTram->getTramLine())->getNodeForStation(metroNet->getStation(elem->GetText())));
                     }
                 }

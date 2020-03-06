@@ -2,7 +2,7 @@
 Simulatie van het metrosysteem in Antwerpen.
 
 # TODOs:
-## 1. Invoer
+## 1. Invoer (DONE)
 ### 1.1 Wegen en voertuigen inlezen:
 * Doel: Schema inlezen - Stations, trams & verbindingen.
 * Preconditie: XML-bestand inlezen.
@@ -26,7 +26,7 @@ Simulatie van het metrosysteem in Antwerpen.
 Onherkenbaar element, ongeldige info, inconsistent metronet
 * Voorbeeld zie voorbeeld.xml
 
-## 2. Uitvoer
+## 2. Uitvoer (DONE)
 ### 2.1 Simpele uitvoer:
 * Doel: Uitvoer info
 * Preconditie: schema metronet nodig
@@ -89,6 +89,6 @@ Onherkenbaar element, ongeldige info, inconsistent metronet
 
 Voor invoerformaat zie Appendix A opgave.
 
-Tram & Station Class Diagram:
+Class Diagram (zonder methods):
 
-[![Screenshot-from-2020-02-27-15-26-51.png](https://i.postimg.cc/YqSKVM6G/Screenshot-from-2020-02-27-15-26-51.png)](https://postimg.cc/qgW56fZ4)
+[![Screenshot-from-2020-03-06-18-27-11.png](https://i.postimg.cc/QMt04rH3/Screenshot-from-2020-03-06-18-27-11.png)](https://postimg.cc/68krqgrj)

@@ -37,4 +37,6 @@ public:
 
     bool disableNodeForStation(Station* station);
 
+    void traverse() const;
+
 };

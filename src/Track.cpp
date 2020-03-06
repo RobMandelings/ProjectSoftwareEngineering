@@ -3,6 +3,7 @@
 //
 
 #include "Track.h"
+#include "Station.h"
 
 Track::Track(int line, TrackNode* firstNode) :
         m_line(line),
@@ -71,4 +72,15 @@ TrackNode* Track::getNodeForStation(Station* station) {
         } while (trackNode != NULL && trackNode != m_firstNode);
     }
     return NULL;
+}
+
+void Track::traverse() const {
+    if (m_firstNode != NULL) {
+        TrackNode* currentTrackNode = m_firstNode;
+        do {
+            cout << currentTrackNode->getStation()->getName() << endl;
+
+            currentTrackNode = currentTrackNode->getNextNode();
+        } while (currentTrackNode != NULL && currentTrackNode != m_firstNode);
+    }
 }

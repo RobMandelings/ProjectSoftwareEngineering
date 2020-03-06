@@ -23,11 +23,11 @@ add_executable(ProjectSoftwareEngineering
         src/includes/xmlparser/tinyxml.h src/includes/xmlparser/tinyxml.cpp
         src/includes/xmlparser/tinyxmlerror.cpp
         src/includes/xmlparser/tinyxmlparser.cpp
-        src/metroUtils.h
-        src/metroUtils.cpp
+        src/utils/metroUtils.h
+        src/utils/metroUtils.cpp
         src/MetroNet.h
         src/MetroNet.cpp
-        src/Track.cpp src/Track.h src/TrackNode.cpp src/TrackNode.h)
+        src/Track.cpp src/Track.h src/TrackNode.cpp src/TrackNode.h src/utils/metroParser.cpp src/utils/metroParser.h)
 
 ## Set source files for RELEASE target
 #set(RELEASE_SOURCE_FILES src/TicTacToe.cpp src/TicTacToeMain.cpp)

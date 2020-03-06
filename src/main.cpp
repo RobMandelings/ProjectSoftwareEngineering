@@ -1,13 +1,11 @@
 #include <iostream>
-#include "metroUtils.h"
 #include "MetroNet.h"
 #include "Tram.h"
 #include "Station.h"
-
-using namespace metroUtils;
+#include "utils/metroParser.h"
 
 int main() {
-    MetroNet* metroNet = parseMetroNetXml("../newVoorbeeld.xml");
+    MetroNet* metroNet = metroParser::parseMetroNetXml("../newVoorbeeld.xml");
     const string& name = metroNet->getName();
     cout << name << std::endl;
     Track* track = metroNet->getTrack(12);

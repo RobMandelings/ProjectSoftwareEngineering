@@ -24,11 +24,6 @@ void metroUtils::printMetroNet(MetroNet* metroNet) {
     std::cout << "Stations: " << std::endl;
     vector<Station*> stations = metroNet->getStations();
     for (vector<Station*>::iterator stationIt = stations.begin(); stationIt != stations.end(); stationIt++) {
-
+        cout << "\tStation '" << (*stationIt)->getName() << "'" << endl;
     }
-}
-
-std::ostream& operator<<(std::ostream& os, Station* station) {
-    os << station->getName();
-    return os;
 }

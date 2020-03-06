@@ -22,15 +22,13 @@ void Track::setLine(int line) {
 
 Track::Track() {}
 
-bool Track::insertNode(TrackNode *trackNode) {
+bool Track::insertNode(TrackNode* trackNode) {
 
     if (trackNode != NULL) {
         if (m_firstNode == NULL) {
             m_firstNode = trackNode;
             m_firstNode->setPreviousNode(trackNode);
             m_firstNode->setNextNode(trackNode);
-
-            return true;
 
         } else {
             TrackNode* lastNode = m_firstNode->getPreviousNode();
@@ -39,9 +37,9 @@ bool Track::insertNode(TrackNode *trackNode) {
 
             lastNode->setNextNode(trackNode);
             m_firstNode->setPreviousNode(trackNode);
-
-            return true;
         }
+
+        return true;
     }
     return false;
 }

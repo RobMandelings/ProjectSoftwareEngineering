@@ -22,12 +22,12 @@ private:
     vector<Track*> m_tracks;
 public:
 
+    MetroNet(const string& name);
+
     /**
      * @return the name of this metronet
      */
     const string &getName() const;
-
-    void setName(const string &name);
 
     /**
      * @brief retrieves a tram from the list of trams corresponding to the given line

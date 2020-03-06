@@ -14,8 +14,8 @@ void Station::setName(const string& name) {
 }
 
 Track* Station::getTrack(int line) {
-    for(vector<Track*>::iterator it = m_tracks.begin(); it != m_tracks.end(); ++it){
-        if((*it)->getLine() == line){
+    for (vector<Track*>::iterator it = m_tracks.begin(); it != m_tracks.end(); ++it) {
+        if ((*it)->getLine() == line) {
             return (*it);
         }
     }

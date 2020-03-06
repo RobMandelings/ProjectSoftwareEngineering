@@ -29,11 +29,11 @@ namespace utils{
         if(root == NULL) {
             std::cerr << "Failed to load file: No root element." << std::endl;
             doc.Clear();
+            return NULL;
         }
 
         //TODO: REQUIRE gtest keywords for exception handling
-        MetroNet* m = new MetroNet();
-        m->setName("Antwerpen");
+        MetroNet* m = new MetroNet("Antwerpen");
         for(TiXmlElement* root_elem = root->FirstChildElement(); root_elem != NULL; root_elem = root_elem->NextSiblingElement()){
             if(!strcmp(root_elem->Value(), "STATION")) {
                 Station *currentStation = new Station();

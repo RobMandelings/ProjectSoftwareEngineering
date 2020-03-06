@@ -7,17 +7,16 @@
 #include "Track.h"
 #include "Station.h"
 
-const string &MetroNet::getName() const {
+MetroNet::MetroNet(const string& name) :
+        m_name(name) {}
+
+const string& MetroNet::getName() const {
     return m_name;
 }
 
-void MetroNet::setName(const string& name) {
-    MetroNet::m_name = name;
-}
-
-Tram * MetroNet::getTram(int line) const{
-    for(unsigned int i = 0; i < MetroNet::m_trams.size(); i++){
-        if(MetroNet::m_trams[i]->getTramLine() == line){
+Tram* MetroNet::getTram(int line) const {
+    for (unsigned int i = 0; i < MetroNet::m_trams.size(); i++) {
+        if (MetroNet::m_trams[i]->getTramLine() == line) {
             return MetroNet::m_trams[i];
         }
     }
@@ -25,20 +24,20 @@ Tram * MetroNet::getTram(int line) const{
 }
 
 
-Station * MetroNet::getStation(const char* name) const{
-    for(unsigned int i = 0; i < MetroNet::m_stations.size(); i++){
-        if(MetroNet::m_stations[i]->getName() == name){
+Station* MetroNet::getStation(const char* name) const {
+    for (unsigned int i = 0; i < MetroNet::m_stations.size(); i++) {
+        if (MetroNet::m_stations[i]->getName() == name) {
             return MetroNet::m_stations[i];
         }
     }
     return NULL;
 }
 
-void MetroNet::addTram(Tram *tram) {
+void MetroNet::addTram(Tram* tram) {
     MetroNet::m_trams.push_back(tram);
 }
 
-void MetroNet::addStation(Station *station) {
+void MetroNet::addStation(Station* station) {
     MetroNet::m_stations.push_back(station);
 }
 
@@ -47,8 +46,8 @@ void MetroNet::addTrack(Track* track) {
 }
 
 Track* MetroNet::getTrack(int line) {
-    for(vector<Track*>::iterator it = m_tracks.begin(); it != m_tracks.end(); ++it){
-        if((*it)->getLine() == line){
+    for (vector<Track*>::iterator it = m_tracks.begin(); it != m_tracks.end(); ++it) {
+        if ((*it)->getLine() == line) {
             return (*it);
         }
     }

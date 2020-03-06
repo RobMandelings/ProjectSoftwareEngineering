@@ -32,10 +32,10 @@ void Tram::setAmountOfSeats(int amountOfSeats) {
 
 Tram::Tram() {}
 
-TrackNode *Tram::getBeginNode() const {
+TrackNode* Tram::getBeginNode() const {
     return m_beginNode;
 }
 
-void Tram::setBeginNode(TrackNode *beginNode) {
+void Tram::setBeginNode(TrackNode* beginNode) {
     Tram::m_beginNode = beginNode;
 }

@@ -7,6 +7,7 @@
 #include "library.h"
 
 class Track;
+
 class Station;
 
 class TrackNode {

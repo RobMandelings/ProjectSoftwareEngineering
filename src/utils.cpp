@@ -53,10 +53,12 @@ namespace utils{
                 int line = stoi(root_elem->Attribute("index"));
                 currentTrack->setLine(line);
                 for(TiXmlElement* elem = root_elem->FirstChildElement(); elem != NULL; elem = elem->NextSiblingElement()){
-                    Station* st = m->getStation(root_elem->Attribute("station"));
-                    st->addTrack(currentTrack);
-                    TrackNode* node = new TrackNode(line,m->getStation(root_elem->Attribute("station")));
-                    currentTrack->insertNode(node);
+                    if(!strcmp(elem->Value(), "LIJNNODE")){
+                        Station* st = m->getStation(root_elem->Attribute("station"));
+                        st->addTrack(currentTrack);
+                        TrackNode* node = new TrackNode(line,m->getStation(root_elem->Attribute("station")));
+                        currentTrack->insertNode(node);
+                    }
                 }
             } else if(!strcmp(root_elem->Value(), "TRAM")){
                 Tram* currentTram = new Tram();

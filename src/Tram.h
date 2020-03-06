@@ -15,12 +15,11 @@ private:
     int m_tramLine;
     int m_speed;
     int m_amountOfSeats;
-    Station* m_beginStation;
-    TrackNode* m_beginNode; // Waar aanmaken?
+    TrackNode* m_beginNode;
 public:
-    Station* getBeginStation() const;
+    TrackNode* getBeginNode() const;
 
-    void setBeginStation(Station* beginStation);
+    void setBeginNode(TrackNode* beginNode);
 
     Tram(int line, int speed, int amountOfSeats);
 

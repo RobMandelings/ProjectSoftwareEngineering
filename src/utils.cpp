@@ -66,8 +66,7 @@ namespace utils{
                         int snelheid = stoi(elem->GetText());
                         currentTram->setSpeed(snelheid);
                     } else if(elemName == "beginStation"){
-                        Station* station = m->getStation(elem->GetText());
-                        currentTram->setBeginStation(station);
+                        //TODO: get TrackNode
                     }
                 }
                 m->addTram(currentTram);

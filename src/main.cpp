@@ -20,7 +20,7 @@ void simulateTrams(MetroNet& metroNet) {
 }
 
 int main() {
-    MetroNet* metroNet = metroParser::parseMetroNetXml("../newVoorbeeld.xml");
+    MetroNet* metroNet = metroParser::parseMetroNetXml("../voorbeeld.xml");
     if (metroNet) {
 
         metroUtils::printMetroNet(metroNet, "../Summary.metro");

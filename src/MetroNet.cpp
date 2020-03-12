@@ -68,6 +68,7 @@ Track* MetroNet::getTrack(int line) {
 }
 
 void MetroNet::updateTramLocations() {
+
     for (vector<Tram*>::iterator it = m_trams.begin(); it != m_trams.end(); ++it) {
         Tram& tram = **it;
         tram.updateLocation();

@@ -7,16 +7,20 @@
 #include "utils/metroParser.h"
 #include "utils/metroUtils.h"
 
-static bool s_isFinished = false;
+static int s_endTime = 20;
 
 void simulateTrams(MetroNet& metroNet) {
 
+    std::ofstream out("../events.metro", std::ofstream::trunc);
+    out.close();
+
     cout << "Simulating trams..." << endl;
     //TODO create a reliable
-    while (!s_isFinished) {
+    while (s_endTime > 0) {
 
         metroNet.updateTramLocations();
         cout << "Updated tram locations " << endl;
+        s_endTime--;
         usleep(1000000);
     }
 }

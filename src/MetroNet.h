@@ -9,6 +9,7 @@
 #include "Track.h"
 
 class Station;
+
 class Tram;
 
 /**
@@ -25,30 +26,47 @@ public:
     explicit MetroNet(const string& name);
 
     /**
+     * @brief Simple getter
      * @return the name of this metronet
      */
-    const string &getName() const;
+    const string& getName() const;
 
     /**
      * @brief retrieves a tram from the list of trams corresponding to the given line
      * @param line: the line of the tram you want to retrieve
      * @return a pointer to the tram (NULL if no tram was found)
      */
-    Tram *getTram(int line) const;
+    Tram* getTram(int line) const;
 
     /**
      * @brief retrieves a station from the list of stations corresponding with its name
      * @param line: the name of the station you want to retrieve
      * @return a pointer to the station (NULL if none found)
      */
-    Station *getStation(const char* name) const;
+    Station* getStation(const char* name) const;
 
+    /**
+     * Gets the track corresponding to the given line
+     * @param line: the line you want to get the track for
+     * @return the track
+     */
     Track* getTrack(int line);
 
+    /**
+     * @brief Simple getter
+     * @return all trams present in this metronet
+     */
     const vector<Tram*>& getTrams() const;
 
+    /**
+     * @brief Simple getter
+     * @return all stations present in this metronet
+     */
     const vector<Station*>& getStations() const;
 
+    /**
+     * @return all tracks present in this metronet
+     */
     const vector<Track*>& getTracks() const;
 
     /**
@@ -63,8 +81,15 @@ public:
      */
     void addTram(Tram* tram);
 
+    /**
+     * @brief adds a track to this MetroNet
+     * @param station: a pointer to the track you want to add
+     */
     void addTrack(Track* track);
 
+    /**
+     * @brief updates the location of all trams in this metronet
+     */
     void updateTramLocations();
 
 };

@@ -14,12 +14,28 @@ private:
     string m_name;
     vector<Track*> m_tracks;
 public:
+
+    /**
+     * @brief Simple getter
+     * @return the name of this station
+     */
     const string& getName() const;
 
+    /**
+     * @brief sets the name of this station
+     * @param name: the name you want to set this station to
+     */
     void setName(const string& name);
 
+    /**
+     * @brief gets a track corresponding to the line given
+     * @return the track
+     */
     Track* getTrack(int line);
 
+    /**
+     * @brief adds a track to the list of tracks in this station
+     */
     void addTrack(Track* track);
 
 };

@@ -7,7 +7,7 @@
 #include "utils/metroUtils.h"
 
 int main() {
-    MetroNet* metroNet = metroParser::parseMetroNetXml("../newVoorbeeld.xml");
+    MetroNet* metroNet = metroParser::parseMetroNetXml("../voorbeeld.xml");
     metroUtils::printMetroNet(metroNet, "../Summary.metro");
 
     metroNet->updateTramLocations();

@@ -3,10 +3,18 @@ Stations:
 	Station 'A'
 	Station 'B'
 	Station 'C'
+	Station 'U'
+	Station 'P'
+	Station 'L'
 Tracks:
 	Track 12: Station A --> Station B --> Station C --> Station A --> ...
+	Track 5: Station A --> Station U --> Station P --> Station L --> Station A --> ...
 Trams:
 	Tram 12: 
 		Current location: A
 		Speed: 60
 		Amount of Seats: 32
+	Tram 5: 
+		Current location: P
+		Speed: 10
+		Amount of Seats: 800000

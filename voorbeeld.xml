@@ -1,22 +1,12 @@
 <METRONET>
-    <STATION>
-        <naam>A</naam>
-        <volgende>B</volgende>
-        <vorige>C</vorige>
-        <spoor>12</spoor>
-    </STATION>
-    <STATION>
-        <naam>B</naam>
-        <volgende>C</volgende>
-        <vorige>A</vorige>
-        <spoor>12</spoor>
-    </STATION>
-    <STATION>
-        <naam>C</naam>
-        <volgende>A</volgende>
-        <vorige>B</vorige>
-        <spoor>12</spoor>
-    </STATION>
+    <STATION naam="A"/>
+    <STATION naam="B"/>
+    <STATION naam="C"/>
+    <LIJN index="12">
+        <LIJNNODE station="A"/>
+        <LIJNNODE station="B"/>
+        <LIJNNODE station="C"/>
+    </LIJN>
     <TRAM>
         <lijn>12</lijn>
         <zitplaatsen>32</zitplaatsen>

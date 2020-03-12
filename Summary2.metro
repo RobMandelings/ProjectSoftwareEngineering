@@ -15,6 +15,6 @@ Trams:
 		Speed: 60
 		Amount of Seats: 32
 	Tram 5: 
-		Current location: P
+		Current location: A
 		Speed: 10
 		Amount of Seats: 800000

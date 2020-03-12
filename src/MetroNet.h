@@ -65,6 +65,8 @@ public:
 
     void addTrack(Track* track);
 
+    void updateTramLocations();
+
 };
 
 #endif //PROJECTSOFTWAREENGINEERING_METRONET_H

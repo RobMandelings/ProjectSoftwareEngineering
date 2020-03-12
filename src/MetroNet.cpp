@@ -66,3 +66,13 @@ Track* MetroNet::getTrack(int line) {
 
     return NULL;
 }
+
+void MetroNet::updateTramLocations() {
+    for (vector<Tram*>::iterator it = m_trams.begin(); it != m_trams.end(); ++it) {
+        Tram& tram = **it;
+        tram.updateLocation();
+        std::cout << "Tram " << tram.getTramLine() << " ging van station " << tram.getCurrentNode()->getPreviousNode()->getStation()->getName() << " naar station " << tram.getCurrentNode()->getStation()->getName() << endl;
+    }
+
+    cout << endl;
+}

@@ -48,6 +48,7 @@ void metroUtils::printMetroNet(MetroNet* metroNet, const char* outputFilename) {
     for (vector<Tram*>::iterator tramIt = trams.begin(); tramIt != trams.end(); tramIt++) {
         Tram* currentTram = *tramIt;
         outputFile << "\tTram " << currentTram->getTramLine() << ": " << endl;
+        outputFile << "\t\tCurrent location: " << currentTram->getCurrentNode()->getStation()->getName() << endl;
         outputFile << "\t\tSpeed: " << currentTram->getSpeed() << endl;
         outputFile << "\t\tAmount of Seats: " << currentTram->getAmountOfSeats() << endl;
     }

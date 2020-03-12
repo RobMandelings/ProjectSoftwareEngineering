@@ -25,6 +25,7 @@ MetroNet* metroParser::parseMetroNetXml(const char* filename) {
         return NULL;
     }
 
+    //TODO fix bug with "station=name" (|name| > 1)
     //TODO: REQUIRE gtest keywords for exception handling
     MetroNet* metroNet = new MetroNet("Antwerpen");
     for (TiXmlElement* root_elem = root->FirstChildElement(); root_elem != NULL; root_elem = root_elem->NextSiblingElement()) {
@@ -39,10 +40,14 @@ MetroNet* metroParser::parseMetroNetXml(const char* filename) {
             currentTrack->setLine(line);
             for (TiXmlElement* elem = root_elem->FirstChildElement(); elem != NULL; elem = elem->NextSiblingElement()) {
                 if (!strcmp(elem->Value(), "LIJNNODE")) {
-                    Station* st = metroNet->getStation(elem->Attribute("station"));
-                    st->addTrack(currentTrack);
-                    TrackNode* node = new TrackNode(line, metroNet->getStation(elem->Attribute("station")));
-                    currentTrack->insertNode(node);
+                    Station* station = metroNet->getStation(elem->Attribute("station"));
+                    if (station) {
+                        station->addTrack(currentTrack);
+                        TrackNode* node = new TrackNode(line, metroNet->getStation(elem->Attribute("station")));
+                        currentTrack->insertNode(node);
+                    } else {
+                        cerr << "MetroParser: Station with name " << elem->Attribute("station") << " wasn't found" << endl;
+                    }
                 }
             }
             metroNet->addTrack(currentTrack);
@@ -63,6 +68,7 @@ MetroNet* metroParser::parseMetroNetXml(const char* filename) {
                 } else if (elemName == "snelheid") {
                     speed = metroUtils::stoi(elem->GetText());
                 } else if (elemName == "beginStation") {
+                    //TODO: use gtest to test if the station was actually found
                     beginNode = metroNet->getTrack(line)->getNodeForStation(metroNet->getStation(elem->GetText()));
                 }
             }

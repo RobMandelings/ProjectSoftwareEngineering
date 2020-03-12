@@ -21,7 +21,7 @@ namespace metroUtils {
     int stoi(const string& input);
 
     /**
-     * Creates a file containing the current situation of the metronet given
+     * @brief Creates a file containing the current situation of the metronet given
      * @param metroNet: the metronet you want to create a file for
      * @param outputFilename: the location and name of the file
      */

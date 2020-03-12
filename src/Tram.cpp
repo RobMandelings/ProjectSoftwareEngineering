@@ -3,8 +3,17 @@
 //
 
 #include "Tram.h"
+#include "TrackNode.h"
 
 Tram::Tram(int line, int speed, int amountOfSeats, TrackNode* beginNode) : m_tramLine(line), m_speed(speed), m_amountOfSeats(amountOfSeats), m_beginNode(beginNode), m_currentNode(beginNode) {}
+
+const TrackNode* Tram::getBeginNode() const {
+    return m_beginNode;
+}
+
+const TrackNode* Tram::getCurrentNode() const {
+    return m_currentNode;
+}
 
 int Tram::getTramLine() const {
     return m_tramLine;
@@ -30,6 +39,6 @@ void Tram::setAmountOfSeats(int amountOfSeats) {
     Tram::m_amountOfSeats = amountOfSeats;
 }
 
-TrackNode* Tram::getBeginNode() const {
-    return m_beginNode;
+void Tram::updateLocation() {
+    m_currentNode = m_currentNode->getNextNode();
 }

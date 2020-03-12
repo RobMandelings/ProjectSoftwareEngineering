@@ -16,11 +16,14 @@ private:
     int m_tramLine;
     int m_speed;
     int m_amountOfSeats;
-    TrackNode* m_beginNode;
 
+    TrackNode* m_beginNode;
     TrackNode* m_currentNode;
 public:
-    TrackNode* getBeginNode() const;
+
+    const TrackNode* getBeginNode() const;
+
+    const TrackNode* getCurrentNode() const;
 
     Tram(int line, int speed, int amountOfSeats, TrackNode* beginNode);
 
@@ -35,6 +38,8 @@ public:
     void setSpeed(int speed);
 
     void setAmountOfSeats(int amountOfSeats);
+
+    void updateLocation();
 
 };
 

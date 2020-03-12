@@ -2,6 +2,7 @@
 // Created by thibaultpoels on 27/02/2020.
 //
 
+#include <fstream>
 #include "MetroNet.h"
 #include "Tram.h"
 #include "Track.h"
@@ -69,11 +70,18 @@ Track* MetroNet::getTrack(int line) {
 
 void MetroNet::updateTramLocations() {
 
+    std::ofstream outfile;
+    outfile.open("../events.metro", std::ios::app);
+
     for (vector<Tram*>::iterator it = m_trams.begin(); it != m_trams.end(); ++it) {
         Tram& tram = **it;
         tram.updateLocation();
-        std::cout << "Tram " << tram.getTramLine() << " ging van station " << tram.getCurrentNode()->getPreviousNode()->getStation()->getName() << " naar station " << tram.getCurrentNode()->getStation()->getName() << endl;
+
+        outfile << "Tram " << tram.getTramLine() << " ging van station " << tram.getCurrentNode()->getPreviousNode()->getStation()->getName() << " naar station " << tram.getCurrentNode()->getStation()->getName() << endl;
+
     }
 
-    cout << endl;
+    outfile << endl;
+
+    outfile.close();
 }

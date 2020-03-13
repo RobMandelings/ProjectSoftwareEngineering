@@ -61,7 +61,7 @@ Onherkenbaar element, ongeldige info, inconsistent metronet
     ```
     Voorbeeld bij voorbeeld.xml.
 
-## 3 Simulatie
+## 3 Simulatie (DONE)
 ### 3.1 Rijden van trams
 * Doel: Simuleren van rijdende tram
 * Preconditie: grondplan
@@ -88,6 +88,11 @@ Onherkenbaar element, ongeldige info, inconsistent metronet
             1.1.1 voer use case 3.1 uit op de tram
 
 Voor invoerformaat zie Appendix A opgave.
+
+## EXTRA:
+* Documentation
+* Good variable names
+* (Optional) more output tests
 
 ## Class Diagram (zonder methods):
 

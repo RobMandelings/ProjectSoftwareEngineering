@@ -435,7 +435,7 @@ public:
 
 	    /** An output stream operator, for every class. Note that this outputs
 		    without any newlines or formatting, as opposed to Print(), which
-		    includes tabs and new lines.
+		    libs tabs and new lines.
 
 		    The operator<< and operator>> are not completely symmetric. Writing
 		    a node to a stream is very well defined. You'll get a nice stream

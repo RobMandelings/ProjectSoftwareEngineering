@@ -6,7 +6,7 @@
         <LIJNNODE station="A"/>
         <LIJNNODE station="B"/>
         <LIJNNODE station="C"/>
-    </LIJN>
+    </LIJN> 
     <TRAM>
         <lijn>12</lijn>
         <zitplaatsen>32</zitplaatsen>

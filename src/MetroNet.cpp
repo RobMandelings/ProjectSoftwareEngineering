@@ -71,7 +71,7 @@ Track* MetroNet::getTrack(int line) {
 void MetroNet::updateTramLocations() {
 
     std::ofstream outfile;
-    outfile.open("../events.metro", std::ios::app);
+    outfile.open("../output/events.metro", std::ios::app);
 
     for (vector<Tram*>::iterator it = m_trams.begin(); it != m_trams.end(); ++it) {
         Tram& tram = **it;
@@ -80,8 +80,6 @@ void MetroNet::updateTramLocations() {
         outfile << "Tram " << tram.getTramLine() << " ging van station " << tram.getCurrentNode()->getPreviousNode()->getStation()->getName() << " naar station " << tram.getCurrentNode()->getStation()->getName() << endl;
 
     }
-
-    outfile << endl;
 
     outfile.close();
 }

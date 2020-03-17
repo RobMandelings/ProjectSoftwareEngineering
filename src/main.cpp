@@ -11,7 +11,7 @@ static int s_endTime = 20;
 
 void simulateTrams(MetroNet& metroNet) {
 
-    std::ofstream out("../events.metro", std::ofstream::trunc);
+    std::ofstream out("../output/events.metro", std::ofstream::trunc);
     out.close();
 
     cout << "Simulating trams..." << endl;
@@ -20,17 +20,17 @@ void simulateTrams(MetroNet& metroNet) {
         metroNet.updateTramLocations();
         cout << "Updated tram locations " << endl;
         s_endTime--;
-        usleep(1000000);
+        usleep(1);
     }
 }
 
 int main() {
 
     cout << "Started up MetroNet..." << endl;
-    MetroNet* metroNet = metroParser::parseMetroNetXml("../voorbeeld.xml");
+    MetroNet* metroNet = metroParser::parseMetroNetXml("../input/voorbeeld.xml");
     if (metroNet) {
 
-        metroUtils::printMetroNet(metroNet, "../Summary.metro");
+        metroUtils::printMetroNet(metroNet, "../output/Summary.metro");
         simulateTrams(*metroNet);
 
     } else {

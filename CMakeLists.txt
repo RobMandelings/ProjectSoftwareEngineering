@@ -8,7 +8,7 @@ set(CMAKE_EXE_LINKER_FLAGS -pthread)
 include_directories(src/libs)
 include_directories(src/libs/xmlparser)
 include_directories(src/tests)
-include_directories(gtest/include)
+include_directories(gtest/include/gtest)
 include_directories(src/utils)
 
 # Set include dir (gtest)

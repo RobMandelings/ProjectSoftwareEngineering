@@ -2,7 +2,7 @@
 // Created by jasper on 12/03/2020.
 //
 
-#include <gtest/gtest.h>
+#include <gtest.h>
 #include <fstream>
 #include "metroUtils.h"
 #include "metroParser.h"

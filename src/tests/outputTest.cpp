@@ -12,7 +12,7 @@ TEST(OutputTest, PositiveOutput){
     MetroNet* metroNet = metroParser::parseMetroNetXml("tests/voorbeeldTest.xml");
     metroUtils::printMetroNet(metroNet, "tests/SummaryTest.metro");
 
-    std::ifstream e("SummaryTestExample.metro");
+    std::ifstream e("./expected_outputs/SummaryTestExample.metro");
     std::stringstream strExample;
     strExample << e.rdbuf();
 
@@ -22,6 +22,9 @@ TEST(OutputTest, PositiveOutput){
 
     EXPECT_EQ(strExample, strTest);
 }
+
+
+
 
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);

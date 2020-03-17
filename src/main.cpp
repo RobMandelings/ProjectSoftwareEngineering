@@ -15,7 +15,6 @@ void simulateTrams(MetroNet& metroNet) {
     out.close();
 
     cout << "Simulating trams..." << endl;
-    //TODO create a reliable
     while (s_endTime > 0) {
 
         metroNet.updateTramLocations();

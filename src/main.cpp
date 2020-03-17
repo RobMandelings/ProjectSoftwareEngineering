@@ -11,10 +11,10 @@
 int main() {
 
     cout << "Started up MetroNet..." << endl;
-    MetroNet* metroNet = metroParser::parseMetroNetXml("../input/voorbeeld.xml");
+    MetroNet* metroNet = metroParser::parseMetroNetXml("input/voorbeeld.xml");
     if (metroNet) {
 
-        metroUtils::printMetroNet(metroNet, "../output/Summary.metro");
+        metroUtils::printMetroNet(metroNet, "output/Summary.metro");
         simulation::simulateTrams(*metroNet, 20);
 
     } else {

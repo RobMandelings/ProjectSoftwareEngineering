@@ -15,11 +15,13 @@ int main() {
     if (metroNet) {
 
         metroUtils::printMetroNet(metroNet, "output/Summary.metro");
-        simulation::simulateTrams(*metroNet, 20);
+        simulation::simulateTrams(*metroNet, 3);
 
     } else {
         cerr << "MetroNet main: failed to create metronet" << endl;
     }
+
+    delete metroNet;
 
     cout << "Done running MetroNet..." << endl;
 

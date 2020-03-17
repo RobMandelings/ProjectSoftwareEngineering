@@ -28,6 +28,8 @@ public:
      */
     Track();
 
+    ~Track();
+
     /**
      * @brief simple setter
      * @param line: the newLine of this track

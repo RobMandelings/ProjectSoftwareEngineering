@@ -7,7 +7,7 @@
 namespace simulation{
     void simulateTrams(MetroNet& metroNet, int MAXTIME) {
 
-        std::ofstream out("../output/events.metro", std::ofstream::trunc);
+        std::ofstream out("output/events.metro", std::ofstream::trunc);
         out.close();
 
         cout << "Simulating trams..." << endl;

@@ -9,14 +9,14 @@
 #include "simulationUtils.h"
 
 TEST(OutputTest, PositiveOutput){
-    MetroNet* metroNet = metroParser::parseMetroNetXml("tests/voorbeeldTest.xml");
-    metroUtils::printMetroNet(metroNet, "../../output/Summary.metro");
+    MetroNet* metroNet = metroParser::parseMetroNetXml("src/tests/voorbeeldTest.xml");
+    metroUtils::printMetroNet(metroNet, "output/Summary.metro");
 
-    std::ifstream e("./expected_outputs/SummaryTestExample.metro");
+    std::ifstream e("src/tests/expected_outputs/SummaryTestExample.metro");
     std::stringstream strExample;
     strExample << e.rdbuf();
 
-    std::ifstream t("SummaryTest.metro");
+    std::ifstream t("output/Summary.metro");
     std::stringstream strTest;
     strTest << t.rdbuf();
 
@@ -24,16 +24,18 @@ TEST(OutputTest, PositiveOutput){
 }
 
 TEST(EventOutputTest, PositiveOutput){
-    MetroNet* metroNet = metroParser::parseMetroNetXml("tests/voorbeeldTest.xml");
+    MetroNet* metroNet = metroParser::parseMetroNetXml("src/tests/voorbeeldTest.xml");
     simulation::simulateTrams((*metroNet), 20);
 
-    std::ifstream e("./expected_outputs/SummaryTestExample.metro");
+    std::ifstream e("src/tests/expected_outputs/eventsTestExample.metro");
     std::stringstream strExample;
     strExample << e.rdbuf();
 
-    std::ifstream t("SummaryTest.metro");
+    std::ifstream t("output/events.metro");
     std::stringstream strTest;
     strTest << t.rdbuf();
+
+    EXPECT_EQ(strExample,strTest);
 }
 
 int main(int argc, char **argv) {

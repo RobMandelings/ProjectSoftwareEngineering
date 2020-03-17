@@ -139,6 +139,6 @@ _deps
 # External projects
 *-prefix/
 
-gtest/*
+gtest/lib/*
 
 # End of https://www.gitignore.io/api/c++,cmake,clion

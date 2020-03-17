@@ -5,18 +5,18 @@
 #include "simulationUtils.h"
 
 namespace simulation{
-    void simulateTrams(MetroNet& metroNet, int MAXTIME) {
+    void simulateTrams(MetroNet& metroNet, int MAXTIME, bool debug) {
 
-        std::ofstream out("output/events.metro", std::ofstream::trunc);
+        std::ofstream out("../output/events.metro", std::ofstream::trunc);
         out.close();
 
-        cout << "Simulating trams..." << endl;
+        if(!debug) cout << "Simulating trams..." << endl;
         while (MAXTIME > 0) {
 
             metroNet.updateTramLocations();
-            cout << "Updated tram locations " << endl;
+            if(!debug) cout << "Updated tram locations " << endl;
             MAXTIME--;
-            usleep(1000000);
+            usleep(1);
         }
     }
 }

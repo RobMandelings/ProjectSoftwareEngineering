@@ -34,7 +34,7 @@ void metroUtils::printMetroNet(MetroNet* metroNet, const char* outputFilename) {
     vector<Tram*> trams = metroNet->getTrams();
 
     outputFile << "MetroNet: " << metroNet->getName() << std::endl;
-    outputFile << "Stations: " << std::endl;
+    outputFile << "Stations:" << std::endl;
     for (vector<Station*>::iterator stationIt = stations.begin(); stationIt != stations.end(); stationIt++) {
         outputFile << "\tStation '" << (*stationIt)->getName() << "'" << endl;
     }
@@ -47,7 +47,7 @@ void metroUtils::printMetroNet(MetroNet* metroNet, const char* outputFilename) {
     outputFile << "Trams:" << endl;
     for (vector<Tram*>::iterator tramIt = trams.begin(); tramIt != trams.end(); tramIt++) {
         Tram* currentTram = *tramIt;
-        outputFile << "\tTram " << currentTram->getTramLine() << ": " << endl;
+        outputFile << "\tTram " << currentTram->getTramLine() << ":" << endl;
         outputFile << "\t\tCurrent location: " << currentTram->getCurrentNode()->getStation()->getName() << endl;
         outputFile << "\t\tSpeed: " << currentTram->getSpeed() << endl;
         outputFile << "\t\tAmount of Seats: " << currentTram->getAmountOfSeats() << endl;

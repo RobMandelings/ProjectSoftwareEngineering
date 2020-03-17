@@ -9,6 +9,9 @@ Track::Track(int line, TrackNode* firstNode) :
         m_line(line),
         m_firstNode(firstNode) {}
 
+
+        //TODO test that the line is not -1
+        //TODO test station is not NULL
 Track::Track() : m_line(-1), m_firstNode(NULL) {}
 
 int Track::getLine() const {

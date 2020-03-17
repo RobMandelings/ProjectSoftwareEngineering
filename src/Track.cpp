@@ -10,9 +10,28 @@ Track::Track(int line, TrackNode* firstNode) :
         m_firstNode(firstNode) {}
 
 
-        //TODO test that the line is not -1
-        //TODO test station is not NULL
+//TODO test that the line is not -1
+//TODO test station is not NULL
 Track::Track() : m_line(-1), m_firstNode(NULL) {}
+
+Track::~Track() {
+    if (m_firstNode != NULL) {
+        TrackNode* currentTrackNode = m_firstNode;
+        do {
+
+            TrackNode* nextTrackNode = currentTrackNode->getNextNode();
+
+            if (nextTrackNode != NULL) {
+                nextTrackNode->setPreviousNode(NULL);
+            }
+            currentTrackNode->setNextNode(NULL);
+            delete currentTrackNode;
+
+            currentTrackNode = nextTrackNode;
+
+        } while (currentTrackNode != NULL);
+    }
+}
 
 int Track::getLine() const {
     return m_line;

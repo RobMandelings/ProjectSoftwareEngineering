@@ -11,6 +11,24 @@
 MetroNet::MetroNet(const string& name) :
         m_name(name) {}
 
+MetroNet::~MetroNet() {
+
+    //Delete all the stations of this metronet
+    for (vector<Station*>::iterator it = m_stations.begin(); it < m_stations.end(); it++) {
+        delete *it;
+    }
+
+    //Delete all the tracks of this metronet
+    for (vector<Track*>::iterator it = m_tracks.begin(); it < m_tracks.end(); it++) {
+        delete *it;
+    }
+
+    //Delete all the trams of this metronet
+    for (vector<Tram*>::iterator it = m_trams.begin(); it < m_trams.end(); it++) {
+        delete *it;
+    }
+}
+
 const string& MetroNet::getName() const {
     return m_name;
 }

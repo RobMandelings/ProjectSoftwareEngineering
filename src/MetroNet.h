@@ -25,6 +25,8 @@ public:
 
     explicit MetroNet(const string& name);
 
+    ~MetroNet();
+
     /**
      * @brief Simple getter
      * @return the name of this metronet

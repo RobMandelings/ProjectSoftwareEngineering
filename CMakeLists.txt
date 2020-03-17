@@ -31,7 +31,7 @@ set(RELEASE_SOURCE_FILES
         src/utils/metroUtils.cpp
         src/MetroNet.h
         src/MetroNet.cpp
-        src/Track.cpp src/Track.h src/TrackNode.cpp src/TrackNode.h src/utils/metroParser.cpp src/utils/metroParser.h
+        src/Track.cpp src/Track.h src/TrackNode.cpp src/TrackNode.h src/utils/metroParser.cpp src/utils/metroParser.h src/simulationUtils.cpp src/simulationUtils.h
         )
 
 # Set source files for DEBUG target
@@ -47,7 +47,7 @@ set(DEBUG_SOURCE_FILES
         src/utils/metroUtils.cpp
         src/MetroNet.h
         src/MetroNet.cpp
-        src/Track.cpp src/Track.h src/TrackNode.cpp src/TrackNode.h src/utils/metroParser.cpp src/utils/metroParser.h
+        src/Track.cpp src/Track.h src/TrackNode.cpp src/TrackNode.h src/utils/metroParser.cpp src/utils/metroParser.h src/simulationUtils.cpp src/simulationUtils.h
         src/tests/outputTest.cpp)
 
 # Create RELEASE target

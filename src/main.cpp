@@ -1,28 +1,12 @@
 #include <iostream>
-#include <unistd.h>
+#include "library.h"
 
 #include "MetroNet.h"
 #include "Tram.h"
 #include "Station.h"
 #include "utils/metroParser.h"
 #include "utils/metroUtils.h"
-
-static int s_endTime = 20;
-
-void simulateTrams(MetroNet& metroNet) {
-
-    std::ofstream out("../output/events.metro", std::ofstream::trunc);
-    out.close();
-
-    cout << "Simulating trams..." << endl;
-    while (s_endTime > 0) {
-
-        metroNet.updateTramLocations();
-        cout << "Updated tram locations " << endl;
-        s_endTime--;
-        usleep(1);
-    }
-}
+#include "simulationUtils.h"
 
 int main() {
 
@@ -31,7 +15,7 @@ int main() {
     if (metroNet) {
 
         metroUtils::printMetroNet(metroNet, "../output/Summary.metro");
-        simulateTrams(*metroNet);
+        simulation::simulateTrams(*metroNet, 20);
 
     } else {
         cerr << "MetroNet main: failed to create metronet" << endl;

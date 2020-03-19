@@ -93,6 +93,7 @@ Voor invoerformaat zie Appendix A opgave.
 * Documentation
 * Good variable names
 * (Optional) more output tests
+* Contracten & input/output tests
 
 ## Class Diagram (zonder methods):
 

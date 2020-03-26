@@ -2,9 +2,9 @@
 // Created by thibaultpoels on 17/03/2020.
 //
 
-#include "simulationUtils.h"
+#include "simulation_utils.h"
 
-namespace simulation{
+namespace simulation_utils{
     void simulateTrams(MetroNet& metroNet, int MAXTIME, bool debug) {
 
         std::ofstream out("../output/events.metro", std::ofstream::trunc);

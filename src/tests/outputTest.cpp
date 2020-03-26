@@ -4,13 +4,13 @@
 
 #include <gtest.h>
 #include <fstream>
-#include "metroUtils.h"
-#include "metroParser.h"
-#include "simulationUtils.h"
+#include "metro_utils.h"
+#include "metro_parser.h"
+#include "simulation_utils.h"
 
 TEST(OutputTest, PositiveOutput){
-    MetroNet* metroNet = metroParser::parseMetroNetXml("../src/tests/voorbeeldTest.xml");
-    metroUtils::printMetroNet(metroNet, "../output/Summary.metro");
+    MetroNet* metroNet = metro_parser::parseMetroNetXml("../src/tests/voorbeeldTest.xml");
+    metro_utils::printMetroNet(metroNet, "../output/Summary.metro");
 
     std::ifstream e("../src/tests/expected_outputs/SummaryTestExample.metro");
     std::stringstream strExample;
@@ -24,8 +24,8 @@ TEST(OutputTest, PositiveOutput){
 }
 
 TEST(EventOutputTest, PositiveOutput){
-    MetroNet* metroNet = metroParser::parseMetroNetXml("../src/tests/voorbeeldTest.xml");
-    simulation::simulateTrams((*metroNet), 20, true);
+    MetroNet* metroNet = metro_parser::parseMetroNetXml("../src/tests/voorbeeldTest.xml");
+    simulation_utils::simulateTrams((*metroNet), 20, true);
 
     std::ifstream e("../src/tests/expected_outputs/eventsTestExample.metro");
     std::stringstream strExample;

@@ -2,15 +2,15 @@
 // Created by Rob Mandelings on 6/03/2020.
 //
 
-#include "metroParser.h"
+#include "metro_parser.h"
 #include "../MetroNet.h"
 #include "../Tram.h"
 #include "../Station.h"
 #include "../Track.h"
 #include "../TrackNode.h"
-#include "metroUtils.h"
+#include "metro_utils.h"
 
-MetroNet* metroParser::parseMetroNetXml(const char* filename) {
+MetroNet* metro_parser::parseMetroNetXml(const char* filename) {
     /// Opens file in doc
     TiXmlDocument doc;
     if (!doc.LoadFile(filename)) {
@@ -36,7 +36,7 @@ MetroNet* metroParser::parseMetroNetXml(const char* filename) {
             metroNet->addStation(currentStation);
         } else if (!strcmp(root_elem->Value(), "LIJN")) {
             Track* currentTrack = new Track();
-            int line = metroUtils::stoi(root_elem->Attribute("index"));
+            int line = metro_utils::stoi(root_elem->Attribute("index"));
             currentTrack->setLine(line);
             for (TiXmlElement* elem = root_elem->FirstChildElement(); elem != NULL; elem = elem->NextSiblingElement()) {
                 if (!strcmp(elem->Value(), "LIJNNODE")) {
@@ -62,11 +62,11 @@ MetroNet* metroParser::parseMetroNetXml(const char* filename) {
                  elem = elem->NextSiblingElement()) {
                 string elemName = elem->Value();
                 if (elemName == "lijn") {
-                    line = metroUtils::stoi(elem->GetText());
+                    line = metro_utils::stoi(elem->GetText());
                 } else if (elemName == "zitplaatsen") {
-                    amountOfSeats = metroUtils::stoi(elem->GetText());
+                    amountOfSeats = metro_utils::stoi(elem->GetText());
                 } else if (elemName == "snelheid") {
-                    speed = metroUtils::stoi(elem->GetText());
+                    speed = metro_utils::stoi(elem->GetText());
                 } else if (elemName == "beginStation") {
                     //TODO: use gtest to test if the station was actually found
                     beginNode = metroNet->getTrack(line)->getNodeForStation(metroNet->getStation(elem->GetText()));

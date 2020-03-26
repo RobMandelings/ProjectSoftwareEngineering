@@ -1,4 +1,4 @@
-<METRONET>
+<METRONET>:w
     <STATION naam="A"/>
     <STATION naam="B"/>
     <STATION naam="C"/>
@@ -6,7 +6,7 @@
         <LIJNNODE station="A"/>
         <LIJNNODE station="B"/>
         <LIJNNODE station="C"/>
-    </LIJN> 
+    </LIJN>
     <TRAM>
         <lijn>12</lijn>
         <zitplaatsen>32</zitplaatsen>

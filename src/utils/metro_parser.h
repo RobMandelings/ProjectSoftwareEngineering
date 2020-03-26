@@ -9,7 +9,7 @@
 #include "../MetroNet.h"
 
 /** Utility file specific for parsing xml files into MetroNet objects */
-namespace metroParser {
+namespace metro_parser {
 
     /**
      * @brief Parses an XML file into a MetroNet object

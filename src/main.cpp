@@ -4,18 +4,18 @@
 #include "MetroNet.h"
 #include "Tram.h"
 #include "Station.h"
-#include "utils/metroParser.h"
-#include "utils/metroUtils.h"
-#include "simulationUtils.h"
+#include "metro_parser.h"
+#include "metro_utils.h"
+#include "simulation_utils.h"
 
 int main() {
 
     cout << "Started up MetroNet..." << endl;
-    MetroNet* metroNet = metroParser::parseMetroNetXml("../input/voorbeeld.xml");
+    MetroNet* metroNet = metro_parser::parseMetroNetXml("../input/voorbeeld.xml");
     if (metroNet) {
 
-        metroUtils::printMetroNet(metroNet, "../output/Summary.metro");
-        simulation::simulateTrams(*metroNet, 3);
+        metro_utils::printMetroNet(metroNet, "../output/Summary.metro");
+        simulation_utils::simulateTrams(*metroNet, 3);
 
     } else {
         cerr << "MetroNet main: failed to create metronet" << endl;

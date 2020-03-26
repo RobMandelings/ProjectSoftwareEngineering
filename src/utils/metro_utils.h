@@ -2,8 +2,8 @@
 // Created by thibaultpoels on 27/02/2020.
 //
 
-#ifndef PROJECTSOFTWAREENGINEERING_METROUTILS_H
-#define PROJECTSOFTWAREENGINEERING_METROUTILS_H
+#ifndef PROJECTSOFTWAREENGINEERING_METRO_UTILS_H
+#define PROJECTSOFTWAREENGINEERING_METRO_UTILS_H
 
 #include "../library.h"
 #include "tinyxml.h"
@@ -11,7 +11,7 @@
 class MetroNet;
 
 /** Common utility file containing various useful functions */
-namespace metroUtils {
+namespace metro_utils {
 
     /**
      * @brief converts a string into an integer
@@ -29,4 +29,4 @@ namespace metroUtils {
 
 }
 
-#endif //PROJECTSOFTWAREENGINEERING_METROUTILS_H
+#endif //PROJECTSOFTWAREENGINEERING_METRO_UTILS_H

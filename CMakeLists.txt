@@ -27,11 +27,11 @@ set(RELEASE_SOURCE_FILES
         src/libs/xmlparser/tinyxml.h src/libs/xmlparser/tinyxml.cpp
         src/libs/xmlparser/tinyxmlerror.cpp
         src/libs/xmlparser/tinyxmlparser.cpp
-        src/utils/metroUtils.h
-        src/utils/metroUtils.cpp
+        src/utils/metro_utils.h
+        src/utils/metro_utils.cpp
         src/MetroNet.h
         src/MetroNet.cpp
-        src/Track.cpp src/Track.h src/TrackNode.cpp src/TrackNode.h src/utils/metroParser.cpp src/utils/metroParser.h src/utils/simulationUtils.cpp src/utils/simulationUtils.h
+        src/Track.cpp src/Track.h src/TrackNode.cpp src/TrackNode.h src/utils/metro_parser.cpp src/utils/metro_parser.h src/utils/simulation_utils.cpp src/utils/simulation_utils.h
         )
 
 # Set source files for DEBUG target
@@ -43,11 +43,11 @@ set(DEBUG_SOURCE_FILES
         src/libs/xmlparser/tinyxml.h src/libs/xmlparser/tinyxml.cpp
         src/libs/xmlparser/tinyxmlerror.cpp
         src/libs/xmlparser/tinyxmlparser.cpp
-        src/utils/metroUtils.h
-        src/utils/metroUtils.cpp
+        src/utils/metro_utils.h
+        src/utils/metro_utils.cpp
         src/MetroNet.h
         src/MetroNet.cpp
-        src/Track.cpp src/Track.h src/TrackNode.cpp src/TrackNode.h src/utils/metroParser.cpp src/utils/metroParser.h src/utils/simulationUtils.cpp src/utils/simulationUtils.h
+        src/Track.cpp src/Track.h src/TrackNode.cpp src/TrackNode.h src/utils/metro_parser.cpp src/utils/metro_parser.h src/utils/simulation_utils.cpp src/utils/simulation_utils.h
         src/tests/outputTest.cpp)
 
 # Create RELEASE target

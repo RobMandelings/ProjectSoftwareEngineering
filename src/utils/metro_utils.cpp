@@ -4,18 +4,18 @@
 
 #include <fstream>
 #include "../TrackNode.h"
-#include "metroUtils.h"
+#include "metro_utils.h"
 #include "../MetroNet.h"
 #include "../Station.h"
 #include "../Tram.h"
 
-int metroUtils::stoi(const string& input) {
+int metro_utils::stoi(const string& input) {
     int i;
     istringstream(input) >> i;
     return i;
 }
 
-void metroUtils::printMetroNet(MetroNet* metroNet, const char* outputFilename) {
+void metro_utils::printMetroNet(MetroNet* metroNet, const char* outputFilename) {
 
     ofstream outputFile;
     outputFile.open(outputFilename);

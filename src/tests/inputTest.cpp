@@ -8,7 +8,7 @@
 #include "metro_parser.h"
 #include "simulation_utils.h"
 
-TEST(InputTest, FalseInputLijnNode){
+TEST(InputTest, NegativeInput_lijnNode){
     bool failed = false;
 
     try{
@@ -23,7 +23,7 @@ TEST(InputTest, FalseInputLijnNode){
     EXPECT_EQ(failed, true);
 }
 
-TEST(InputTest, FalseInput){
+TEST(InputTest, NegativeInput_falseAttribute){
     bool failed = false;
 
     try{

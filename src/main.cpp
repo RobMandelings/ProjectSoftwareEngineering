@@ -1,4 +1,5 @@
 #include <iostream>
+#include <exceptions.h>
 #include "library.h"
 
 #include "MetroNet.h"
@@ -11,17 +12,17 @@
 int main() {
 
     cout << "Started up MetroNet..." << endl;
-    MetroNet* metroNet = metro_parser::parseMetroNetXml("../input/voorbeeld.xml");
-    if (metroNet) {
+    MetroNet* metroNet = NULL;
+
+    try {
+        metroNet  = metro_parser::parseMetroNetXml("../input/voorbeeld.xml");
 
         metro_utils::printMetroNet(metroNet, "../output/Summary.metro");
         simulation_utils::simulateTrams(*metroNet, 3);
-
-    } else {
-        cerr << "MetroNet main: failed to create metronet" << endl;
+        delete metroNet;
+    } catch (const exceptions::MetroNetParseException& e) {
+        std::cout << e.what() << std::endl;
     }
-
-    delete metroNet;
 
     cout << "Done running MetroNet..." << endl;
 

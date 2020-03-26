@@ -9,6 +9,7 @@
 #include "../Track.h"
 #include "../TrackNode.h"
 #include "metro_utils.h"
+#include "exceptions.h"
 
 MetroNet* metro_parser::parseMetroNetXml(const char* filename) {
     /// Opens file in doc
@@ -20,8 +21,9 @@ MetroNet* metro_parser::parseMetroNetXml(const char* filename) {
     /// Loads first child element ("MetroNet") in root
     TiXmlElement* root = doc.FirstChildElement();
     if (root == NULL) {
-        std::cerr << "Failed to load file: No root element." << std::endl;
         doc.Clear();
+        std::cerr << "Failed to load file: No root element." << std::endl;
+        throw exceptions::MetroNetParseException();
         return NULL;
     }
 
@@ -75,6 +77,7 @@ MetroNet* metro_parser::parseMetroNetXml(const char* filename) {
             metroNet->addTram(new Tram(line, speed, amountOfSeats, beginNode));
         } else {
             std::cerr << "Failed to load file: Unrecognized element." << std::endl;
+            throw exceptions::MetroNetParseException();
         }
     }
     return metroNet;

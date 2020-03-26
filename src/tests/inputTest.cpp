@@ -18,6 +18,6 @@ TEST(InputTest, FalseInput){
     catch(metro_parser::MetroNetParseException const& e) {
         failed = true;
     }
-    
+
     EXPECT_EQ(failed, true);
 }

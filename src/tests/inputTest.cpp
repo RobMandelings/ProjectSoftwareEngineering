@@ -9,24 +9,15 @@
 #include "simulation_utils.h"
 
 TEST(InputTest, FalseInput){
-<<<<<<< HEAD
-=======
-
-
->>>>>>> master
     bool failed = false;
 
     try{
         MetroNet* metroNet = metro_parser::parseMetroNetXml("../src/tests/voorbeeldTestFalse.xml");
         metro_utils::printMetroNet(metroNet, "../output/SummaryTestFalse.metro");
     }
-    catch(metro_parser::MetroNetParseException const& e){
+    catch(metro_parser::MetroNetParseException const& e) {
         failed = true;
-<<<<<<< HEAD
     }
-=======
-    };
->>>>>>> master
-
+    
     EXPECT_EQ(failed, true);
 }

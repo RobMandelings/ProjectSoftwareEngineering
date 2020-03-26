@@ -32,7 +32,7 @@ set(RELEASE_SOURCE_FILES
         src/MetroNet.h
         src/MetroNet.cpp
         src/Track.cpp src/Track.h src/TrackNode.cpp src/TrackNode.h src/utils/metro_parser.cpp src/utils/metro_parser.h src/utils/simulation_utils.cpp src/utils/simulation_utils.h
-        src/utils/exceptions.cpp src/utils/exceptions.h)
+        )
 
 # Set source files for DEBUG target
 set(DEBUG_SOURCE_FILES

@@ -9,12 +9,15 @@
 #include "../Track.h"
 #include "../TrackNode.h"
 #include "metro_utils.h"
-#include "exceptions.h"
 
-MetroNet* metro_parser::parseMetroNetXml(const char* filename) {
+const char* metro_parser::MetroNetParseException::what() const throw(){
+    return "A metronet parse exception occurred";
+}
+
+MetroNet* metro_parser::parseMetroNetXml(const string& filename) {
     /// Opens file in doc
     TiXmlDocument doc;
-    if (!doc.LoadFile(filename)) {
+    if (!doc.LoadFile(filename.c_str())) {
         std::cerr << doc.ErrorDesc() << std::endl;
     }
 
@@ -23,7 +26,7 @@ MetroNet* metro_parser::parseMetroNetXml(const char* filename) {
     if (root == NULL) {
         doc.Clear();
         std::cerr << "Failed to load file: No root element." << std::endl;
-        throw exceptions::MetroNetParseException();
+        throw metro_parser::MetroNetParseException();
         return NULL;
     }
 
@@ -77,7 +80,7 @@ MetroNet* metro_parser::parseMetroNetXml(const char* filename) {
             metroNet->addTram(new Tram(line, speed, amountOfSeats, beginNode));
         } else {
             std::cerr << "Failed to load file: Unrecognized element." << std::endl;
-            throw exceptions::MetroNetParseException();
+            throw metro_parser::MetroNetParseException();
         }
     }
     return metroNet;

@@ -1,5 +1,4 @@
 #include <iostream>
-#include <exceptions.h>
 #include "library.h"
 
 #include "MetroNet.h"
@@ -20,7 +19,7 @@ int main() {
         metro_utils::printMetroNet(metroNet, "../output/Summary.metro");
         simulation_utils::simulateTrams(*metroNet, 3);
         delete metroNet;
-    } catch (const exceptions::MetroNetParseException& e) {
+    } catch (const metro_parser::MetroNetParseException& e) {
         std::cout << e.what() << std::endl;
     }
 

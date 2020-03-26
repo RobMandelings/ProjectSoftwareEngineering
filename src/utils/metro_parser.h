@@ -11,12 +11,17 @@
 /** Utility file specific for parsing xml files into MetroNet objects */
 namespace metro_parser {
 
+    class MetroNetParseException : public std::exception {
+    public:
+        const char* what() const throw();
+    };
+
     /**
      * @brief Parses an XML file into a MetroNet object
      * @param filename the path to a .xml file
      * @return a MetroNet object containing the different stations, trams and their connections
      */
-    MetroNet* parseMetroNetXml(const char* filename);
+    MetroNet* parseMetroNetXml(const string& filename);
 
 };
 

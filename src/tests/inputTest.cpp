@@ -12,7 +12,7 @@ TEST(InputTest, FalseInput){
     bool failed = false;
 
     try{
-        MetroNet* metroNet = metro_parser::parseMetroNetXml("../src/tests/voorbeeldTestFalse.xml");
+        MetroNet* metroNet = metro_parser::parseMetroNetXml("../src/tests/voorbeeldTestFalse.xml", true);
         metro_utils::printMetroNet(metroNet, "../output/SummaryTestFalse.metro");
     }
     catch(metro_parser::MetroNetParseException const& e) {

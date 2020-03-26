@@ -15,11 +15,11 @@ namespace metro_parser {
         return "A metronet parse exception occurred";
     }
 
-    MetroNet* parseMetroNetXml(const string& filename) {
+    MetroNet* parseMetroNetXml(const string& filename, bool debug) {
         /// Opens file in doc
         TiXmlDocument doc;
         if (!doc.LoadFile(filename.c_str())) {
-            std::cerr << doc.ErrorDesc() << std::endl;
+            if(!debug) std::cerr << doc.ErrorDesc() << std::endl;
             throw MetroNetParseException();
         }
 
@@ -27,7 +27,7 @@ namespace metro_parser {
         TiXmlElement* root = doc.FirstChildElement();
         if (root == NULL) {
             doc.Clear();
-            std::cerr << "Failed to load file: No root element." << std::endl;
+            if(!debug) std::cerr << "Failed to load file: No root element." << std::endl;
             throw metro_parser::MetroNetParseException();
         }
         //TODO: fix bug with "station=name" (|name| > 1)
@@ -56,7 +56,7 @@ namespace metro_parser {
                             TrackNode* node = new TrackNode(line, metroNet->getStation(elem->Attribute("station")));
                             currentTrack->insertNode(node);
                         } else {
-                            cerr << "MetroParser: Station with name " << elem->Attribute("station") << " wasn't found" << endl;
+                            if(!debug) cerr << "MetroParser: Station with name " << elem->Attribute("station") << " wasn't found" << endl;
                             throw MetroNetParseException();
                         }
                     }
@@ -85,7 +85,7 @@ namespace metro_parser {
                 }
                 metroNet->addTram(new Tram(line, speed, amountOfSeats, beginNode));
             } else {
-                std::cerr << "Failed to load file: Unrecognized element." << std::endl;
+                if(!debug) std::cerr << "Failed to load file: Unrecognized element." << std::endl;
                 throw MetroNetParseException();
             }
         }

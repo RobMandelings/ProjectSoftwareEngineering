@@ -21,6 +21,8 @@ private:
     vector<Tram*> m_trams;
     vector<Station*> m_stations;
     vector<Track*> m_tracks;
+
+    MetroNet* _initCheck;
 public:
 
     explicit MetroNet(const string& name);
@@ -93,6 +95,11 @@ public:
      * @brief updates the location of all trams in this metronet
      */
     void updateTramLocations();
+
+    /**
+     * @brief checks if this object was properly initialized
+     */
+    bool properlyInitialized() const;
 
 };
 

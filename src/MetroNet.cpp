@@ -7,9 +7,13 @@
 #include "Tram.h"
 #include "Track.h"
 #include "Station.h"
+#include "DesignByContract.h"
 
 MetroNet::MetroNet(const string& name) :
-        m_name(name) {}
+        m_name(name) {
+    MetroNet::_initCheck = this;
+    ENSURE(this->properlyInitialized(),"Constructor must end ...");
+}
 
 MetroNet::~MetroNet() {
 
@@ -30,10 +34,12 @@ MetroNet::~MetroNet() {
 }
 
 const string& MetroNet::getName() const {
+    REQUIRE(this->properlyInitialized(), "MetroNet must be initialized before its member variables are used.");
     return m_name;
 }
 
 Tram* MetroNet::getTram(int line) const {
+    REQUIRE(this->properlyInitialized(), "MetroNet must be initialized before its member variables are used.");
     for (unsigned int i = 0; i < MetroNet::m_trams.size(); i++) {
         if (MetroNet::m_trams[i]->getTramLine() == line) {
             return MetroNet::m_trams[i];
@@ -44,6 +50,7 @@ Tram* MetroNet::getTram(int line) const {
 
 
 Station* MetroNet::getStation(const char* name) const {
+    REQUIRE(this->properlyInitialized(), "MetroNet must be initialized before its member variables are used.");
     for (unsigned int i = 0; i < MetroNet::m_stations.size(); i++) {
         if (MetroNet::m_stations[i]->getName() == name) {
             return MetroNet::m_stations[i];
@@ -53,30 +60,37 @@ Station* MetroNet::getStation(const char* name) const {
 }
 
 const vector<Tram*>& MetroNet::getTrams() const {
+    REQUIRE(this->properlyInitialized(), "MetroNet must be initialized before its member variables are used.");
     return m_trams;
 }
 
 const vector<Station*>& MetroNet::getStations() const {
+    REQUIRE(this->properlyInitialized(), "MetroNet must be initialized before its member variables are used.");
     return m_stations;
 }
 
 const vector<Track*>& MetroNet::getTracks() const {
+    REQUIRE(this->properlyInitialized(), "MetroNet must be initialized before its member variables are used.");
     return m_tracks;
 }
 
 void MetroNet::addTram(Tram* tram) {
+    REQUIRE(this->properlyInitialized(), "MetroNet must be initialized before its member variables are used.");
     MetroNet::m_trams.push_back(tram);
 }
 
 void MetroNet::addStation(Station* station) {
+    REQUIRE(this->properlyInitialized(), "MetroNet must be initialized before its member variables are used.");
     MetroNet::m_stations.push_back(station);
 }
 
 void MetroNet::addTrack(Track* track) {
+    REQUIRE(this->properlyInitialized(), "MetroNet must be initialized before its member variables are used.");
     m_tracks.push_back(track);
 }
 
 Track* MetroNet::getTrack(int line) {
+    REQUIRE(this->properlyInitialized(), "MetroNet must be initialized before its member variables are used.");
     for (vector<Track*>::iterator it = m_tracks.begin(); it != m_tracks.end(); ++it) {
         if ((*it)->getLine() == line) {
             return (*it);
@@ -87,6 +101,7 @@ Track* MetroNet::getTrack(int line) {
 }
 
 void MetroNet::updateTramLocations() {
+    REQUIRE(this->properlyInitialized(), "MetroNet must be initialized before its member variables are used.");
 
     std::ofstream outfile;
     outfile.open("../output/events.metro", std::ios::app);
@@ -100,4 +115,8 @@ void MetroNet::updateTramLocations() {
     }
 
     outfile.close();
+}
+
+bool MetroNet::properlyInitialized() const {
+    return _initCheck == this;
 }

@@ -3,6 +3,7 @@
 //
 
 #include <fstream>
+#include <DesignByContract.h>
 #include "../TrackNode.h"
 #include "metro_utils.h"
 #include "../MetroNet.h"

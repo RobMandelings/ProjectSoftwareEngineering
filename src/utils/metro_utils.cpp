@@ -33,24 +33,24 @@ void metro_utils::printMetroNet(MetroNet* metroNet, const char* outputFilename) 
     vector<Track*> tracks = metroNet->getTracks();
     vector<Tram*> trams = metroNet->getTrams();
 
-    outputFile << "MetroNet: " << metroNet->getName() << std::endl;
-    outputFile << "Stations:" << std::endl;
+    outputFile << "MetroNet: " << metroNet->getName() << "\n";
+    outputFile << "Stations:" << "\n";
     for (vector<Station*>::iterator stationIt = stations.begin(); stationIt != stations.end(); stationIt++) {
-        outputFile << "\tStation '" << (*stationIt)->getName() << "'" << endl;
+        outputFile << "\tStation '" << (*stationIt)->getName() << "'" << "\n";
     }
 
-    outputFile << "Tracks:" << endl;
+    outputFile << "Tracks:" << "\n";
     for (vector<Track*>::iterator trackIt = tracks.begin(); trackIt != tracks.end(); trackIt++) {
-        outputFile << "\tTrack " << (*trackIt)->getLine() << ": " << (*trackIt)->getAsString() << std::endl;
+        outputFile << "\tTrack " << (*trackIt)->getLine() << ": " << (*trackIt)->getAsString() << "\n";
     }
 
-    outputFile << "Trams:" << endl;
+    outputFile << "Trams:" << "\n";
     for (vector<Tram*>::iterator tramIt = trams.begin(); tramIt != trams.end(); tramIt++) {
         Tram* currentTram = *tramIt;
-        outputFile << "\tTram " << currentTram->getTramLine() << ":" << endl;
-        outputFile << "\t\tCurrent location: " << currentTram->getCurrentNode()->getStation()->getName() << endl;
-        outputFile << "\t\tSpeed: " << currentTram->getSpeed() << endl;
-        outputFile << "\t\tAmount of Seats: " << currentTram->getAmountOfSeats() << endl;
+        outputFile << "\tTram " << currentTram->getTramLine() << ":" << "\n";
+        outputFile << "\t\tCurrent location: " << currentTram->getCurrentNode()->getStation()->getName() << "\n";
+        outputFile << "\t\tSpeed: " << currentTram->getSpeed() << "\n";
+        outputFile << "\t\tAmount of Seats: " << currentTram->getAmountOfSeats() << "\n";
     }
 
     outputFile.close();

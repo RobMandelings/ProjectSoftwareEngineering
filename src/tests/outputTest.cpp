@@ -38,6 +38,11 @@ TEST(EventOutputTest, PositiveOutput){
     EXPECT_EQ(strExample.str(),strTest.str());
 }
 
+//TEST(InputTest, negativeInput) {
+//    MetroNet* metroNet = metroParser::parseMetroNetXml("../src/tests/voorbeeldTestFalse.xml");
+//
+//}
+
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();

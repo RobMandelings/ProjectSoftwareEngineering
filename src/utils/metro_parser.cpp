@@ -9,6 +9,7 @@
 #include "../Track.h"
 #include "../TrackNode.h"
 #include "metro_utils.h"
+#include "DesignByContract.h"
 
 namespace metro_parser {
     const char* MetroNetParseException::what() const throw() {
@@ -89,6 +90,7 @@ namespace metro_parser {
                 throw MetroNetParseException();
             }
         }
+        ENSURE(metroNet, "MetroNet should not be null at the end of the parser function!");
         return metroNet;
     }
 }

@@ -19,10 +19,9 @@ namespace metro_parser {
     /**
      * @brief Parses an XML file into a MetroNet object
      * @param filename the path to a .xml file
+     * @throws MetroNetParseException
      * @return a MetroNet object containing the different stations, trams and their connections
      */
     MetroNet* parseMetroNetXml(const string& filename);
 
 };
-
-

@@ -1,31 +1,33 @@
-<METRONET naam="voorbeeldTestFalse2">
-    <STATION naam="A"/>
-    <STATION naam="B"/>
-    <STATION naam="C"/>
-    <STATION naam="U"/>
-    <STATION naam="P"/>
-    <STATION naam="L"/>
-    <LIJN index="12">
-        <LIJNNODE station="A"/>
-        <LIJNNODE station="B"/>
-        <LIJNNODE station="C"/>
-    </LIJN>
-    <LIJN index="5">
-        <LIJNNODE station="A"/>
-        <LIJNNODE station="U"/>
-        <LIJNNODE station="P"/>
-        <LIJNNODE station="L"/>
-    </LIJN>
-    <TRAM>
-        <lijn>12</lijn>
-        <zitplaatsen>32</zitplaatsen>
-        <snelheid>60</snelheid>
-        <beginStation>A</beginStation>
-    </TRAM>
-    <TRAM>
-        <lijn>5</lijn>
-        <zitplaatsen>800000</zitplaatsen>
-        <snelheid>10</snelheid>
-        <beginStation>P</beginStation>
-    </TRAM>
+<METRONET naam="voorbeeldTestPositive">
+<FALSEATTRIBUTE>
+</FALSEATTRIBUTE>
+<STATION naam="A"/>
+<STATION naam="B"/>
+<STATION naam="C"/>
+<STATION naam="U"/>
+<STATION naam="P"/>
+<STATION naam="L"/>
+<LIJN index="12">
+    <LIJNNODE station="A"/>
+    <LIJNNODE station="B"/>
+    <LIJNNODE station="C"/>
+</LIJN>
+<LIJN index="5">
+    <LIJNNODE station="A"/>
+    <LIJNNODE station="U"/>
+    <LIJNNODE station="P"/>
+    <LIJNNODE station="L"/>
+</LIJN>
+<TRAM>
+    <lijn>12</lijn>
+    <zitplaatsen>32</zitplaatsen>
+    <snelheid>60</snelheid>
+    <beginStation>A</beginStation>
+</TRAM>
+<TRAM>
+    <lijn>5</lijn>
+    <zitplaatsen>800000</zitplaatsen>
+    <snelheid>10</snelheid>
+    <beginStation>P</beginStation>
+</TRAM>
 </METRONET>

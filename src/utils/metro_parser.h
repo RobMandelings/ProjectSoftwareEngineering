@@ -22,6 +22,6 @@ namespace metro_parser {
      * @throws MetroNetParseException
      * @return a MetroNet object containing the different stations, trams and their connections
      */
-    MetroNet* parseMetroNetXml(const string& filename);
+    MetroNet* parseMetroNetXml(const string& filename, bool debug=false);
 
 };

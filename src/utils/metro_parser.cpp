@@ -30,9 +30,14 @@ MetroNet* metro_parser::parseMetroNetXml(const string& filename) {
         return NULL;
     }
 
-    //TODO fix bug with "station=name" (|name| > 1)
+    //TODO: fix bug with "station=name" (|name| > 1)
     //TODO: REQUIRE gtest keywords for exception handling
-    MetroNet* metroNet = new MetroNet("Antwerpen");
+    //TODO: check if ->Value(), ->Attribute() exists before giving their results to object member vars
+
+    /// Get the Metronet name
+    string metroNetName = root->Attribute("naam");
+    MetroNet* metroNet = new MetroNet(metroNetName);
+
     for (TiXmlElement* root_elem = root->FirstChildElement(); root_elem != NULL; root_elem = root_elem->NextSiblingElement()) {
         if (!strcmp(root_elem->Value(), "STATION")) {
             Station* currentStation = new Station();

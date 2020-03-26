@@ -37,6 +37,34 @@ TEST(InputTest, NegativeInput_falseAttribute){
     EXPECT_EQ(failed, true);
 }
 
+TEST(InputTest, NegativeInput_emptyFile){
+    bool failed = false;
+
+    try{
+        MetroNet* metroNet = metro_parser::parseMetroNetXml("../src/tests/voorbeeldTestFalse3.xml", true);
+        metroNet->getName();
+    }
+    catch(metro_parser::MetroNetParseException const& e) {
+        failed = true;
+    }
+
+    EXPECT_EQ(failed, true);
+}
+
+TEST(InputTest, NegativeInput_nonExistentFile){
+    bool failed = false;
+
+    try{
+        MetroNet* metroNet = metro_parser::parseMetroNetXml("../src/tests/voorbeeldTestFalse_nonExistent.xml", true);
+        metroNet->getName();
+    }
+    catch(metro_parser::MetroNetParseException const& e) {
+        failed = true;
+    }
+
+    EXPECT_EQ(failed, true);
+}
+
 TEST(InputTest, PositiveInput){
     bool failed = false;
 

@@ -9,6 +9,11 @@
 #include "simulation_utils.h"
 
 TEST(InputTest, FalseInput){
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> master
     bool failed = false;
 
     try{
@@ -17,7 +22,11 @@ TEST(InputTest, FalseInput){
     }
     catch(metro_parser::MetroNetParseException const& e){
         failed = true;
+<<<<<<< HEAD
     }
+=======
+    };
+>>>>>>> master
 
     EXPECT_EQ(failed, true);
 }

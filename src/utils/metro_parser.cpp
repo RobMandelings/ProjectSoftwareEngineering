@@ -34,7 +34,6 @@ namespace metro_parser {
         //TODO: fix bug with "station=name" (|name| > 1)
         //TODO: REQUIRE gtest keywords for exception handling
         //TODO: check if ->Value(), ->Attribute() exists before giving their results to object member vars
-
         /// Get the Metronet name
         string metroNetName = root->Attribute("naam");
         MetroNet* metroNet = new MetroNet(metroNetName);

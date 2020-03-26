@@ -1,0 +1,6 @@
+2020-03-26 18:38:27 main.cpp(33): INFO: Starting up MetroNet project
+2020-03-26 18:38:27 simulation_utils.cpp(15): INFO: Simulating trams...
+2020-03-26 18:38:27 simulation_utils.cpp(19): INFO: Updated tram locations 
+2020-03-26 18:38:27 simulation_utils.cpp(19): INFO: Updated tram locations 
+2020-03-26 18:38:27 simulation_utils.cpp(19): INFO: Updated tram locations 
+2020-03-26 18:38:27 main.cpp(47): INFO: Done running MetroNet

@@ -70,7 +70,7 @@ namespace testing {
 //
 //   testing::Message foo;
 //   foo << 1 << " != " << 2;
-//   std::cout << foo;
+//   std::clog_info(CLOG(constants::LOGGER_ID), foo;
 //
 // will print "1 != 2".
 //

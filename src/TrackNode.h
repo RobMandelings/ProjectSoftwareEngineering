@@ -24,6 +24,8 @@ private:
     TrackNode* m_previousNode;
     TrackNode* m_nextNode;
 
+    TrackNode* _initCheck;
+
 public:
 
     /**
@@ -84,4 +86,8 @@ public:
      */
     void setNextNode(TrackNode* nextNode);
 
+    /**
+     * @brief checks if this object was properly initialized
+     */
+    bool properlyInitialized() const;
 };

@@ -76,7 +76,7 @@ Onherkenbaar element, ongeldige info, inconsistent metronet
     ```
     Voorbeeld bij voorbeeld.xml.
 
-### 3.2 Automatische simulatie
+### 3.2 Automatische simulatie (DONE)
 * Doel: automatische simulatie - gegeven tijd
 * Preconditie: Schema metronet
 * Succesvol einde: simulatie eindigt.
@@ -90,10 +90,13 @@ Onherkenbaar element, ongeldige info, inconsistent metronet
 Voor invoerformaat zie Appendix A opgave.
 
 ## EXTRA:
-* Documentation
-* Good variable names
-* (Optional) more output tests
-* Contracten & input/output tests
+* Documentation (DONE)
+* Good variable names (DONE)
+* (Optional) more input/output tests (DONE)
+* Contracten
+
+## REQUIREMENTS/ENSURES:
+...
 
 ## Class Diagram (zonder methods):
 

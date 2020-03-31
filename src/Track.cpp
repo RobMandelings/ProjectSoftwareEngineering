@@ -7,12 +7,18 @@
 
 Track::Track(int line, TrackNode* firstNode) :
         m_line(line),
-        m_firstNode(firstNode) {}
+        m_firstNode(firstNode) {
+    Track::_initCheck = this;
+    ENSURE(this->properlyInitialized(),"Constructor must end ...");
+}
 
 
 //TODO test that the line is not -1
 //TODO test station is not NULL
-Track::Track() : m_line(-1), m_firstNode(NULL) {}
+Track::Track() : m_line(-1), m_firstNode(NULL) {
+    Track::_initCheck = this;
+    ENSURE(this->properlyInitialized(),"Constructor must end ...");
+}
 
 Track::~Track() {
     if (m_firstNode != NULL) {
@@ -34,18 +40,22 @@ Track::~Track() {
 }
 
 int Track::getLine() const {
+    REQUIRE(this->properlyInitialized(), "Track must be initialized before its member variables are used.");
     return m_line;
 }
 
 TrackNode* Track::getFirstNode() const {
+    REQUIRE(this->properlyInitialized(), "Track must be initialized before its member variables are used.");
     return m_firstNode;
 }
 
 void Track::setLine(int line) {
+    REQUIRE(this->properlyInitialized(), "Track must be initialized before its member variables are used.");
     this->m_line = line;
 }
 
 bool Track::insertNode(TrackNode* trackNode) {
+    REQUIRE(this->properlyInitialized(), "Track must be initialized before its member variables are used.");
 
     if (trackNode != NULL) {
         if (m_firstNode == NULL) {
@@ -68,6 +78,7 @@ bool Track::insertNode(TrackNode* trackNode) {
 }
 
 bool Track::disableNodeForStation(Station* station) {
+    REQUIRE(this->properlyInitialized(), "Track must be initialized before its member variables are used.");
 
     TrackNode* trackNode = getNodeForStation(station);
 
@@ -79,6 +90,7 @@ bool Track::disableNodeForStation(Station* station) {
 }
 
 TrackNode* Track::getNodeForStation(Station* station) {
+    REQUIRE(this->properlyInitialized(), "Track must be initialized before its member variables are used.");
 
     if (m_firstNode != NULL && station != NULL) {
         TrackNode* trackNode = m_firstNode;
@@ -97,6 +109,7 @@ TrackNode* Track::getNodeForStation(Station* station) {
 }
 
 std::string Track::getAsString() const {
+    REQUIRE(this->properlyInitialized(), "Track must be initialized before its member variables are used.");
     std::string trackString;
     if (m_firstNode != NULL) {
         TrackNode* currentTrackNode = m_firstNode;
@@ -108,4 +121,8 @@ std::string Track::getAsString() const {
         trackString += "Station " + m_firstNode->getStation()->getName() + " --> ...";
     }
     return trackString;
+}
+
+bool Track::properlyInitialized() const {
+    return _initCheck == this;
 }

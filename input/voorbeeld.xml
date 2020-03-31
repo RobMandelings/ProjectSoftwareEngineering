@@ -13,4 +13,14 @@
         <snelheid>60</snelheid>
         <beginStation>A</beginStation>
     </TRAM>
+    <TRAM>
+        <lijn>12</lijn>
+        <type>Albatros</type>
+        <beginStation>A</beginStation>
+    </TRAM>
+    <TRAM>
+        <lijn>12</lijn>
+        <type>Albatron</type>
+        <beginStation>A</beginStation>
+    </TRAM>
 </METRONET>

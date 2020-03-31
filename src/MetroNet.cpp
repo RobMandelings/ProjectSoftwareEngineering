@@ -4,7 +4,7 @@
 
 #include "library.h"
 #include "MetroNet.h"
-#include "Tram.h"
+#include "trams/Tram.h"
 #include "Track.h"
 #include "Station.h"
 #include "DesignByContract.h"
@@ -29,6 +29,7 @@ MetroNet::~MetroNet() {
 
     //Delete all the trams of this metronet
     for (vector<Tram*>::iterator it = m_trams.begin(); it < m_trams.end(); it++) {
+
         delete *it;
     }
 }

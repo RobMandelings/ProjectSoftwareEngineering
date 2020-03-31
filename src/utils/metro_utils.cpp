@@ -8,10 +8,16 @@
 #include "metro_utils.h"
 #include "../MetroNet.h"
 #include "../Station.h"
-#include "../Tram.h"
+#include "../trams/Tram.h"
 
 int metro_utils::stoi(const string& input) {
     int i;
+    istringstream(input) >> i;
+    return i;
+}
+
+double metro_utils::stod(const string& input) {
+    double i;
     istringstream(input) >> i;
     return i;
 }
@@ -45,13 +51,16 @@ void metro_utils::printMetroNet(MetroNet* metroNet, const char* outputFilename) 
         outputFile << "\tTrack " << (*trackIt)->getLine() << ": " << (*trackIt)->getAsString() << "\n";
     }
 
-    outputFile << "Trams:" << "\n";
+    outputFile << "Trams: " << "\n";
     for (vector<Tram*>::iterator tramIt = trams.begin(); tramIt != trams.end(); tramIt++) {
         Tram* currentTram = *tramIt;
-        outputFile << "\tTram " << currentTram->getTramLine() << ":" << "\n";
-        outputFile << "\t\tCurrent location: " << currentTram->getCurrentNode()->getStation()->getName() << "\n";
-        outputFile << "\t\tSpeed: " << currentTram->getSpeed() << "\n";
+        outputFile << "\t" << "Tram " << currentTram->getTramLine() << ":" << "\n";
+        outputFile << "\t\tType: " << currentTram->TYPE << "\n";
+        outputFile << "\t\tMax Speed: " << currentTram->MAX_SPEED << "\n";
+        outputFile << "\t\tCurrent speed: " << currentTram->getCurrentSpeed() << "\n";
         outputFile << "\t\tAmount of Seats: " << currentTram->getAmountOfSeats() << "\n";
+        outputFile << "\t\tLength: " << currentTram->LENGTH << "\n";
+        outputFile << "\t\tCurrent location: " << currentTram->getCurrentNode()->getStation()->getName() << "\n";
     }
 
     outputFile.close();

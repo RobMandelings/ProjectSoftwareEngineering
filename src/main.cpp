@@ -3,7 +3,7 @@
 #include "library.h"
 
 #include "MetroNet.h"
-#include "Tram.h"
+#include "trams/Tram.h"
 #include "Station.h"
 #include "metro_parser.h"
 #include "metro_utils.h"

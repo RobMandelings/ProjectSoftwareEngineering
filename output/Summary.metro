@@ -5,8 +5,25 @@ Stations:
 	Station 'C'
 Tracks:
 	Track 12: Station A --> Station B --> Station C --> Station A --> ...
-Trams:
+Trams: 
 	Tram 12:
-		Current location: A
-		Speed: 60
+		Type: Tram
+		Max Speed: 60
+		Current speed: 60
 		Amount of Seats: 32
+		Length: -1
+		Current location: A
+	Tram 12:
+		Type: Albatros
+		Max Speed: 70
+		Current speed: 70
+		Amount of Seats: 72
+		Length: 42
+		Current location: A
+	Tram 12:
+		Type: Albatron
+		Max Speed: -1
+		Current speed: -1
+		Amount of Seats: -1
+		Length: -1
+		Current location: A

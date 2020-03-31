@@ -4,12 +4,14 @@
 
 #include "metro_parser.h"
 #include "../MetroNet.h"
-#include "../Tram.h"
+#include "../trams/Tram.h"
 #include "../Station.h"
 #include "../Track.h"
 #include "../TrackNode.h"
 #include "metro_utils.h"
 #include "DesignByContract.h"
+#include "Albatros.h"
+#include "PCC.h"
 
 namespace metro_parser {
     const char* MetroNetParseException::what() const throw() {
@@ -20,7 +22,7 @@ namespace metro_parser {
         /// Opens file in doc
         TiXmlDocument doc;
         if (!doc.LoadFile(filename.c_str())) {
-            if(!debug) std::cerr << doc.ErrorDesc() << std::endl;
+            if (!debug) std::cerr << doc.ErrorDesc() << std::endl;
             throw MetroNetParseException();
         }
 
@@ -28,7 +30,7 @@ namespace metro_parser {
         TiXmlElement* root = doc.FirstChildElement();
         if (root == NULL) {
             doc.Clear();
-            if(!debug) std::cerr << "Failed to load file: No root element." << std::endl;
+            if (!debug) std::cerr << "Failed to load file: No root element." << std::endl;
             throw metro_parser::MetroNetParseException();
         }
         //TODO: fix bug with "station=name" (|name| > 1)
@@ -56,7 +58,7 @@ namespace metro_parser {
                             TrackNode* node = new TrackNode(line, metroNet->getStation(elem->Attribute("station")));
                             currentTrack->insertNode(node);
                         } else {
-                            if(!debug) cerr << "MetroParser: Station with name " << elem->Attribute("station") << " wasn't found" << endl;
+                            if (!debug) cerr << "MetroParser: Station with name " << elem->Attribute("station") << " wasn't found" << endl;
                             throw MetroNetParseException();
                         }
                     }
@@ -64,28 +66,41 @@ namespace metro_parser {
                 metroNet->addTrack(currentTrack);
             } else if (!strcmp(root_elem->Value(), "TRAM")) {
 
-                int line = 0;
-                int amountOfSeats = 0;
-                int speed = 0;
+                int line = -1;
+                int amountOfSeats = -1;
+                double speed = -1;
+                double length = -1;
                 TrackNode* beginNode = NULL;
+                std::string type = "Tram";
 
                 for (TiXmlElement* elem = root_elem->FirstChildElement(); elem != NULL;
                      elem = elem->NextSiblingElement()) {
                     string elemName = elem->Value();
                     if (elemName == "lijn") {
                         line = metro_utils::stoi(elem->GetText());
-                    } else if (elemName == "zitplaatsen") {
+                    } else if (elemName == "type") {
+                        type = elem->GetText();
+                    } else if (elemName == "length") {
+                        length = metro_utils::stod(elem->GetText());
+                    }
+                    if (elemName == "zitplaatsen") {
                         amountOfSeats = metro_utils::stoi(elem->GetText());
                     } else if (elemName == "snelheid") {
-                        speed = metro_utils::stoi(elem->GetText());
+                        speed = metro_utils::stod(elem->GetText());
                     } else if (elemName == "beginStation") {
                         //TODO: use gtest to test if the station was actually found
                         beginNode = metroNet->getTrack(line)->getNodeForStation(metroNet->getStation(elem->GetText()));
                     }
                 }
-                metroNet->addTram(new Tram(line, speed, amountOfSeats, beginNode));
+                if (type == "PCC") {
+                    metroNet->addTram(new PCC(line, beginNode));
+                } else if (type == "Albatros") {
+                    metroNet->addTram(new Albatros(line, beginNode));
+                } else {
+                    metroNet->addTram(new Tram(line, beginNode, speed, amountOfSeats, length, type));
+                }
             } else {
-                if(!debug) std::cerr << "Failed to load file: Unrecognized element." << std::endl;
+                if (!debug) std::cerr << "Failed to load file: Unrecognized element." << std::endl;
                 throw MetroNetParseException();
             }
         }

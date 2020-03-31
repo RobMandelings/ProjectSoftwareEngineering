@@ -13,7 +13,10 @@ class Station {
 private:
     string m_name;
     vector<Track*> m_tracks;
+    Station* _initCheck;
 public:
+
+    explicit Station();
 
     /**
      * @brief Simple getter
@@ -38,6 +41,10 @@ public:
      */
     void addTrack(Track* track);
 
+    /**
+     * @brief checks if this object was properly initialized
+     */
+    bool properlyInitialized() const;
 };
 
 

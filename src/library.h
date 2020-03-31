@@ -15,6 +15,7 @@
 #include <sstream>
 #include <fstream>
 #include <unistd.h>
+#include <DesignByContract.h>
 
 using namespace std;
 

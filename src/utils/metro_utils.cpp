@@ -7,7 +7,7 @@
 #include "../TrackNode.h"
 #include "metro_utils.h"
 #include "../MetroNet.h"
-#include "../Station.h"
+#include "stations/Station.h"
 #include "../trams/Tram.h"
 
 int metro_utils::stoi(const string& input) {
@@ -43,7 +43,7 @@ void metro_utils::printMetroNet(MetroNet* metroNet, const char* outputFilename) 
     outputFile << "MetroNet: " << metroNet->getName() << "\n";
     outputFile << "Stations:" << "\n";
     for (vector<Station*>::iterator stationIt = stations.begin(); stationIt != stations.end(); stationIt++) {
-        outputFile << "\tStation '" << (*stationIt)->getName() << "'" << "\n";
+        outputFile << "\t(" << (*stationIt)->getType() << ") station '" << (*stationIt)->getName() << "'" << "\n";
     }
 
     outputFile << "Tracks:" << "\n";

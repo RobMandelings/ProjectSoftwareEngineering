@@ -5,13 +5,15 @@
 #include "metro_parser.h"
 #include "../MetroNet.h"
 #include "../trams/Tram.h"
-#include "../Station.h"
+#include "stations/Station.h"
 #include "../Track.h"
 #include "../TrackNode.h"
 #include "metro_utils.h"
 #include "DesignByContract.h"
 #include "Albatros.h"
 #include "PCC.h"
+#include "MetroStation.h"
+#include "TramStop.h"
 
 namespace metro_parser {
     const char* MetroNetParseException::what() const throw() {
@@ -42,7 +44,21 @@ namespace metro_parser {
 
         for (TiXmlElement* root_elem = root->FirstChildElement(); root_elem != NULL; root_elem = root_elem->NextSiblingElement()) {
             if (!strcmp(root_elem->Value(), "STATION")) {
-                Station* currentStation = new Station();
+                std::string stationType;
+                for (TiXmlElement* elem = root_elem->FirstChildElement(); elem != NULL;
+                     elem = elem->NextSiblingElement()) {
+                    string elemName = elem->Value();
+                    if (elemName == "type") {
+                        stationType = elem->GetText();
+                    }
+                }
+                Station* currentStation = NULL;
+                if (stationType == "MetroStation") {
+                    currentStation = new MetroStation();
+                } else if (stationType == "TramStop") {
+                    currentStation = new TramStop();
+                }
+                REQUIRE(currentStation != NULL, "Metro parser error: the station type wasn't recognized!");
                 string name = root_elem->Attribute("naam");
                 currentStation->setName(name);
                 metroNet->addStation(currentStation);
@@ -83,6 +99,7 @@ namespace metro_parser {
                     } else if (elemName == "length") {
                         length = metro_utils::stod(elem->GetText());
                     }
+                    //TODO what to do if the type is not a default tram but PCC for example? 'zitplaatsen' should not be used in this case
                     if (elemName == "zitplaatsen") {
                         amountOfSeats = metro_utils::stoi(elem->GetText());
                     } else if (elemName == "snelheid") {

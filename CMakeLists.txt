@@ -12,6 +12,7 @@ include_directories(src/tests)
 include_directories(gtest/include/gtest)
 include_directories(src/utils)
 include_directories(src/trams)
+include_directories(src/stations)
 
 # Set include dir (gtest)
 include_directories(gtest/include)
@@ -22,7 +23,7 @@ link_directories(gtest/lib)
 # Set source files for RELEASE target
 set(RELEASE_SOURCE_FILES
         src/main.cpp
-        src/Station.h src/Station.cpp
+        src/stations/Station.h src/stations/Station.cpp
         src/trams/Tram.h src/trams/Tram.cpp
         src/library.h
         src/libs/xmlparser/tinystr.cpp src/libs/xmlparser/tinystr.h
@@ -34,11 +35,11 @@ set(RELEASE_SOURCE_FILES
         src/MetroNet.h
         src/MetroNet.cpp
         src/Track.cpp src/Track.h src/TrackNode.cpp src/TrackNode.h src/utils/metro_parser.cpp src/utils/metro_parser.h src/utils/simulation_utils.cpp src/utils/simulation_utils.h
-        src/utils/constants.cpp src/utils/constants.h src/trams/Albatros.cpp src/trams/Albatros.h src/trams/PCC.cpp src/trams/PCC.h)
+        src/utils/constants.cpp src/utils/constants.h src/trams/Albatros.cpp src/trams/Albatros.h src/trams/PCC.cpp src/trams/PCC.h src/stations/TramStop.cpp src/stations/TramStop.h src/stations/MetroStation.cpp src/stations/MetroStation.h)
 
 # Set source files for DEBUG target
 set(DEBUG_SOURCE_FILES
-        src/Station.h src/Station.cpp
+        src/stations/Station.h src/stations/Station.cpp
         src/trams/Tram.h src/trams/Tram.cpp
         src/library.h
         src/libs/xmlparser/tinystr.cpp src/libs/xmlparser/tinystr.h
@@ -50,7 +51,7 @@ set(DEBUG_SOURCE_FILES
         src/MetroNet.h
         src/MetroNet.cpp
         src/Track.cpp src/Track.h src/TrackNode.cpp src/TrackNode.h src/utils/metro_parser.cpp src/utils/metro_parser.h src/utils/simulation_utils.cpp src/utils/simulation_utils.h
-        src/tests/outputTest.cpp src/tests/inputTest.cpp src/tests/DesignByContract.h src/utils/constants.h src/utils/constants.cpp src/libs/clog.h)
+        src/tests/outputTest.cpp src/tests/inputTest.cpp src/tests/DesignByContract.h src/utils/constants.h src/utils/constants.cpp src/libs/clog.h src/stations/TramStop.cpp src/stations/TramStop.h src/stations/MetroStation.cpp src/stations/MetroStation.h)
 
 # Create RELEASE target
 add_executable(metroNet ${RELEASE_SOURCE_FILES})

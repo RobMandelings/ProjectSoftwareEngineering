@@ -16,7 +16,11 @@ private:
     Station* _initCheck;
 public:
 
+    virtual ~Station();
+
     explicit Station();
+
+    virtual const char* getType() const = 0;
 
     /**
      * @brief Simple getter

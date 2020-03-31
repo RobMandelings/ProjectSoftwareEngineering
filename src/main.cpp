@@ -4,7 +4,7 @@
 
 #include "MetroNet.h"
 #include "trams/Tram.h"
-#include "Station.h"
+#include "stations/Station.h"
 #include "metro_parser.h"
 #include "metro_utils.h"
 #include "simulation_utils.h"

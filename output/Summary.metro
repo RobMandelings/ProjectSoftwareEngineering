@@ -1,8 +1,8 @@
 MetroNet: Antwerpen
 Stations:
-	Station 'A'
-	Station 'B'
-	Station 'C'
+	(MetroStation) station 'A'
+	(TramStop) station 'B'
+	(MetroStation) station 'C'
 Tracks:
 	Track 12: Station A --> Station B --> Station C --> Station A --> ...
 Trams: 

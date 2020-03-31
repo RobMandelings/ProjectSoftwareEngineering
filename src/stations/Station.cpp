@@ -5,6 +5,8 @@
 #include "Station.h"
 #include "Track.h"
 
+Station::~Station() {}
+
 const string& Station::getName() const {
     REQUIRE(this->properlyInitialized(), "Station must be initialized before its member variables are used.");
     return m_name;
@@ -31,9 +33,10 @@ void Station::addTrack(Track* track) {
     m_tracks.push_back(track);
 }
 
-Station::Station() {
+Station::Station()
+{
     Station::_initCheck = this;
-    ENSURE(this->properlyInitialized(),"Constructor must end ...");
+    ENSURE(this->properlyInitialized(), "Constructor must end ...");
 }
 
 bool Station::properlyInitialized() const {

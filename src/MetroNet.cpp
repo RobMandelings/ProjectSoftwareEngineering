@@ -6,7 +6,7 @@
 #include "MetroNet.h"
 #include "trams/Tram.h"
 #include "Track.h"
-#include "Station.h"
+#include "stations/Station.h"
 #include "DesignByContract.h"
 
 MetroNet::MetroNet(const string& name) :

@@ -1,7 +1,13 @@
 <METRONET naam="Antwerpen">
-    <STATION naam="A"/>
-    <STATION naam="B"/>
-    <STATION naam="C"/>
+    <STATION naam="A">
+        <type>MetroStation</type>
+    </STATION>
+    <STATION naam="B">
+        <type>TramStop</type>
+    </STATION>
+    <STATION naam="C">
+        <type>MetroStation</type>
+    </STATION>
     <LIJN index="12">
         <LIJNNODE station="A"/>
         <LIJNNODE station="B"/>

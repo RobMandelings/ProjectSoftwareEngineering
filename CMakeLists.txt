@@ -49,8 +49,11 @@ set(DEBUG_SOURCE_FILES
         src/utils/metro_utils.cpp
         src/MetroNet.h
         src/MetroNet.cpp
-        src/Track.cpp src/Track.h src/TrackNode.cpp src/TrackNode.h src/utils/metro_parser.cpp src/utils/metro_parser.h src/utils/simulation_utils.cpp src/utils/simulation_utils.h
-        src/tests/outputTest.cpp src/tests/inputTest.cpp src/tests/DesignByContract.h src/utils/constants.h src/utils/constants.cpp src/libs/clog.h)
+        src/Track.cpp src/Track.h src/TrackNode.cpp src/TrackNode.h src/utils/metro_parser.cpp src/utils/metro_parser.h
+        src/utils/simulation_utils.cpp src/utils/simulation_utils.h
+        src/tests/outputTest.cpp src/tests/inputTest.cpp src/tests/DesignByContract.h src/utils/constants.h src/utils/constants.cpp src/libs/clog.h
+        src/trams/Albatros.cpp src/trams/Albatros.h src/trams/PCC.h src/trams/PCC.cpp
+        )
 
 # Create RELEASE target
 add_executable(metroNet ${RELEASE_SOURCE_FILES})

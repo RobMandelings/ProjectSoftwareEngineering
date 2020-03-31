@@ -26,6 +26,8 @@ private:
     TrackNode* m_beginNode;
     TrackNode* m_currentNode;
 
+    Tram* _initCheck;
+
 public:
 
     const double LENGTH;
@@ -79,6 +81,10 @@ public:
      */
     void updateLocation();
 
+    /**
+     * @brief checks if this object was properly initialized
+     */
+    bool properlyInitialized() const;
 };
 
 

@@ -96,7 +96,97 @@ Voor invoerformaat zie Appendix A opgave.
 * Contracten
 
 ## REQUIREMENTS/ENSURES:
-...
+* MetroNet.cpp:
+    * constructor:
+        * REQUIREMENT: name can't be empty string
+    * getName():
+        * ENSURE: return can't be empty string
+    * getTram(int line):
+        * REQUIREMENT: line >= 0
+    * getStation(const char* name):
+        * REQUIREMENT: name can't be empty
+    * addTram(Tram* tram):
+        * REQUIREMENT: tram is not NULL
+    * addStation(Station* station):
+        * REQUIREMENT: station is not NULL
+    * addTrack(Track* track):
+        * REQUIREMENT: track is not NULL
+    * getTrack(int line)
+        * REQUIREMENT: line >= 0
+        
+* Station.cpp:
+    * getName():
+        * ENSURE: return can't be empty string
+    * setName(const string& name):
+        * REQUIREMENT: name can't be empty string
+    * getTrack(int line):
+        * REQUIREMENT: line >= 0
+    * addTrack(Track* track):
+        * REQUIREMENT: track is not NULL
+
+* Track.cpp:
+    * Track(int line, TrackNode* firstNode):
+        * REQUIREMENT: line >= 0
+        * REQUIREMENT: firstNode is not NULL
+    * getFirstNode():
+        * ENSURE: return is not NULL
+    * setLine(int line):
+        * REQUIREMENT: line >= 0
+    * insertNode(TrackNode* trackNode):
+        * REQUIREMENT: trackNode is not NULL
+        * ENSURE: m_firstNode can't be NULL
+    * disableNodeForStation(Station* station):
+        * REQUIREMENT: station is not NULL
+        * ENSURE: trackNode.m_underConstruction = true
+    * getNodeForStation(Station* station):
+        * REQUIREMENT: station is not NULL
+        * ENSURE: return trackNode is not NULL
+
+* TrackNode.cpp
+    * TrackNode(int trackIndex, Station* station):
+        * REQUIREMENT: trackIndex >= 0
+        * REQUIREMENT: station is not NULL
+        * ENSURE: properly initialized
+    * TrackNode(int trackIndex, Station* station, TrackNode* previousNode, TrackNode* nextNode):
+        * REQUIREMENT: trackIndex >= 0
+        * REQUIREMENT: station is not NULL
+        * REQUIREMENT: previousNode is not NULL
+        * REQUIREMENT: nextNode is not NULL
+        * ENSURE: properly initialized
+    * getStation():
+        * ENSURE: return is not NULL
+    * setPreviousNode(TrackNode* PreviousNode):
+        * REQUIREMENT: PreviousNode is not NULL
+    * setNextNode(TrackNode* NextNode):
+        * REQUIREMENT: NextNode is not NULL
+        
+* Tram.cpp:
+    * Tram(int line, int speed, int amountOfSeats, TrackNode* beginNode):
+        * REQUIREMENT: line >= 0
+        * REQUIREMENT: speed >= 0
+        * REQUIREMENT: amountOfSeats >= 0
+        * REQUIREMENT: beginNode is not NULL
+        * ENSURE: properly initialised
+    * getBeginNode():
+        * ENSURE: return is not NULL
+    * getCurrentNode():
+        * ENSURE: return is not NULL
+    * getTramLine():
+        * ENSURE: return >= 0
+    * getSpeed():
+        * ENSURE: return >= 0
+    * getAmountOfSeats():
+        * ENSURE: return >= 0
+    * setTramLine(int tramLine):
+        * REQUIREMENT: tramLine >= 0
+    * setSpeed(int speed):
+        * REQUIREMENT: speed >= 0
+    * setAmountOfSeats(int amountOfSeats):
+        * REQUIREMENT: amountOfSeats >= 0
+    * updateLocation(): 
+        * ENSURE: m_currentNode is not NULL
+        
+        
 
 ## Class Diagram (zonder methods):
 

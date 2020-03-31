@@ -97,7 +97,6 @@ Track* MetroNet::getTrack(int line) {
             return (*it);
         }
     }
-
     return NULL;
 }
 

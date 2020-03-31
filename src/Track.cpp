@@ -54,45 +54,36 @@ void Track::setLine(int line) {
     this->m_line = line;
 }
 
-bool Track::insertNode(TrackNode* trackNode) {
+void Track::insertNode(TrackNode* trackNode) {
     REQUIRE(this->properlyInitialized(), "Track must be initialized before its member variables are used.");
 
-    if (trackNode != NULL) {
-        if (m_firstNode == NULL) {
-            m_firstNode = trackNode;
-            m_firstNode->setPreviousNode(trackNode);
-            m_firstNode->setNextNode(trackNode);
+    if (m_firstNode == NULL) {
+        m_firstNode = trackNode;
+        m_firstNode->setPreviousNode(trackNode);
+        m_firstNode->setNextNode(trackNode);
 
-        } else {
-            TrackNode* lastNode = m_firstNode->getPreviousNode();
-            trackNode->setNextNode(m_firstNode);
-            trackNode->setPreviousNode(lastNode);
+    } else {
+        TrackNode* lastNode = m_firstNode->getPreviousNode();
+        trackNode->setNextNode(m_firstNode);
+        trackNode->setPreviousNode(lastNode);
 
-            lastNode->setNextNode(trackNode);
-            m_firstNode->setPreviousNode(trackNode);
-        }
-
-        return true;
+        lastNode->setNextNode(trackNode);
+        m_firstNode->setPreviousNode(trackNode);
     }
-    return false;
 }
 
-bool Track::disableNodeForStation(Station* station) {
+void Track::disableNodeForStation(Station* station) {
     REQUIRE(this->properlyInitialized(), "Track must be initialized before its member variables are used.");
 
     TrackNode* trackNode = getNodeForStation(station);
 
-    if (trackNode != NULL) {
-        trackNode->setUnderConstruction(true);
-        return true;
-    }
-    return false;
+    trackNode->setUnderConstruction(true);
 }
 
 TrackNode* Track::getNodeForStation(Station* station) {
     REQUIRE(this->properlyInitialized(), "Track must be initialized before its member variables are used.");
 
-    if (m_firstNode != NULL && station != NULL) {
+    if (m_firstNode != NULL) {
         TrackNode* trackNode = m_firstNode;
 
         do {

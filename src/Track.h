@@ -6,6 +6,7 @@
 
 #include <string>
 #include "TrackNode.h"
+#include "library.h"
 
 class Track {
 
@@ -14,6 +15,7 @@ private:
     int m_line;
     TrackNode* m_firstNode;
 
+    Track* _initCheck;
 public:
 
     /**
@@ -75,4 +77,8 @@ public:
      */
     std::string getAsString() const;
 
+    /**
+     * @brief checks if this object was properly initialized
+     */
+    bool properlyInitialized() const;
 };

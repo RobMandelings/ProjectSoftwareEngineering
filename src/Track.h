@@ -60,16 +60,14 @@ public:
     /**
      * Inserts a node as the last element of the track
      * @param trackNode the node you want to add to the track
-     * @return true if the operation was successful
      */
-    bool insertNode(TrackNode* trackNode);
+    void insertNode(TrackNode* trackNode);
 
     /**
      * @brief disables the TrackNode corresponding to a station in this track
      * @param station: pointer to the station you want to disable a trackNode for
-     * @return true if the operation was succesful
      */
-    bool disableNodeForStation(Station* station);
+    void disableNodeForStation(Station* station);
 
     /**
      * @brief creates a string representation of the complete track (with all TrackNodes)

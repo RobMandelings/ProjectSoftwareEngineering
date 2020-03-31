@@ -26,7 +26,7 @@ Track* Station::getTrack(int line) {
     return NULL;
 }
 
-void Station::addTrack(Track* track) {
+    void Station::addTrack(Track* track) {
     REQUIRE(this->properlyInitialized(), "Station must be initialized before its member variables are used.");
     m_tracks.push_back(track);
 }

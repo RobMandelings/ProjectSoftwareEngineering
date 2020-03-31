@@ -8,12 +8,13 @@
 #include "metro_parser.h"
 #include "simulation_utils.h"
 
-TEST(InputTest, FalseInput){
+TEST(InputTest, NegativeInput_lijnNode){
     bool failed = false;
 
     try{
-        MetroNet* metroNet = metro_parser::parseMetroNetXml("../src/tests/voorbeeldTestFalse.xml", true);
-        metro_utils::printMetroNet(metroNet, "../output/SummaryTestFalse.metro");
+        MetroNet* metroNet = metro_parser::parseMetroNetXml("../src/tests/voorbeeldTestFalse1.xml", true);
+        // Avoid "not used" warning
+        metroNet->getName();
     }
     catch(metro_parser::MetroNetParseException const& e) {
         failed = true;
@@ -21,3 +22,60 @@ TEST(InputTest, FalseInput){
 
     EXPECT_EQ(failed, true);
 }
+
+TEST(InputTest, NegativeInput_falseAttribute){
+    bool failed = false;
+
+    try{
+        MetroNet* metroNet = metro_parser::parseMetroNetXml("../src/tests/voorbeeldTestFalse2.xml", true);
+        metroNet->getName();
+    }
+    catch(metro_parser::MetroNetParseException const& e) {
+        failed = true;
+    }
+
+    EXPECT_EQ(failed, true);
+}
+
+TEST(InputTest, NegativeInput_emptyFile){
+    bool failed = false;
+
+    try{
+        MetroNet* metroNet = metro_parser::parseMetroNetXml("../src/tests/voorbeeldTestFalse3.xml", true);
+        metroNet->getName();
+    }
+    catch(metro_parser::MetroNetParseException const& e) {
+        failed = true;
+    }
+
+    EXPECT_EQ(failed, true);
+}
+
+TEST(InputTest, NegativeInput_nonExistentFile){
+    bool failed = false;
+
+    try{
+        MetroNet* metroNet = metro_parser::parseMetroNetXml("../src/tests/voorbeeldTestFalse_nonExistent.xml", true);
+        metroNet->getName();
+    }
+    catch(metro_parser::MetroNetParseException const& e) {
+        failed = true;
+    }
+
+    EXPECT_EQ(failed, true);
+}
+
+TEST(InputTest, PositiveInput){
+    bool failed = false;
+
+    try{
+        MetroNet* metroNet = metro_parser::parseMetroNetXml("../src/tests/voorbeeldTestPositive.xml", true);
+        metroNet->getName();
+    }
+    catch(metro_parser::MetroNetParseException const& e) {
+        failed = true;
+    }
+
+    EXPECT_EQ(failed, false);
+}
+

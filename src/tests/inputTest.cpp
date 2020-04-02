@@ -65,6 +65,20 @@ TEST(InputTest, NegativeInput_nonExistentFile){
     EXPECT_EQ(failed, true);
 }
 
+TEST(InputTest, NegativeInput_falseType){
+    bool failed = false;
+
+    try{
+        MetroNet* metroNet = metro_parser::parseMetroNetXml("../src/tests/voorbeeldTestFalse4.xml", true);
+        metroNet->getName();
+    }
+    catch(metro_parser::MetroNetParseException const& e) {
+        failed = true;
+    }
+
+    EXPECT_EQ(failed, true);
+}
+
 TEST(InputTest, PositiveInput){
     bool failed = false;
 

@@ -20,7 +20,6 @@ private:
     string m_name;
     vector<Track*> m_tracks;
     Station* _initCheck;
-    StationType m_stationType;
 
 public:
 
@@ -33,14 +32,14 @@ public:
      *
      \n ENSURE(this->properlyInitialized(), "Constructor must end ...");
      */
-    explicit Station(StationType stationType);
+    explicit Station();
 
     /**
      * @return station type
      *
      \n REQUIRE(this->properlyInitialized(), "Station must be initialized before its member variables are used.");
      */
-    StationType getType() const;
+    virtual StationType getType() const = 0;
 
     /**
      * @brief Simple getter

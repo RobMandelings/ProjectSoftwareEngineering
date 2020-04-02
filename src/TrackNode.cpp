@@ -3,6 +3,7 @@
 //
 
 #include "TrackNode.h"
+#include "Station.h"
 
 TrackNode::TrackNode(int trackIndex, Station* station) :
         m_underConstruction(false),
@@ -11,6 +12,8 @@ TrackNode::TrackNode(int trackIndex, Station* station) :
         m_previousNode(NULL),
         m_nextNode(NULL) {
     TrackNode::_initCheck = this;
+    ENSURE(m_line>=0, "Line must be a positive number.");
+    ENSURE(m_station->properlyInitialized(), "Station cannot be NULL.");
     ENSURE(this->properlyInitialized(),"Constructor must end ...");
 }
 
@@ -21,11 +24,16 @@ TrackNode::TrackNode(int trackIndex, Station* station, TrackNode* previousNode, 
         m_previousNode(previousNode),
         m_nextNode(nextNode) {
     TrackNode::_initCheck = this;
+    ENSURE(m_line>=0, "Line must be a positive number.");
+    ENSURE(m_station->properlyInitialized(),"Station cannot be NULL.");
+    ENSURE(m_previousNode->properlyInitialized(), "Node cannot be NULL.");
+    ENSURE(nextNode->properlyInitialized(), "Node cannot be NULL");
     ENSURE(this->properlyInitialized(),"Constructor must end ...");
 }
 
 Station* TrackNode::getStation() const {
     REQUIRE(this->properlyInitialized(), "TrackNode must be initialized before its member variables are used.");
+    ENSURE(m_station->properlyInitialized(),"Station cannot be NULL.");
     return m_station;
 }
 
@@ -41,6 +49,7 @@ TrackNode* TrackNode::getNextNode() const {
 
 void TrackNode::setPreviousNode(TrackNode* PreviousNode) {
     REQUIRE(this->properlyInitialized(), "TrackNode must be initialized before its member variables are used.");
+    REQUIRE(PreviousNode->properlyInitialized(), "A new node cannot be NULL.");
     m_previousNode = PreviousNode;
 }
 

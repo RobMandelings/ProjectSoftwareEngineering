@@ -8,9 +8,9 @@
 Track::Track(int line, TrackNode* firstNode) :
         m_line(line),
         m_firstNode(firstNode) {
-    REQUIRE(line>=0,"Line must be a positive number.");
-    REQUIRE(firstNode->properlyInitialized(), "The first node cannot be NULL.");
     Track::_initCheck = this;
+    ENSURE(m_line>=0,"Line must be a positive number.");
+    ENSURE(m_firstNode->properlyInitialized(), "The first node cannot be NULL.");
     ENSURE(this->properlyInitialized(),"Constructor must end ...");
 }
 

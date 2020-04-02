@@ -11,8 +11,8 @@
 
 MetroNet::MetroNet(const string& name) :
         m_name(name) {
-    REQUIRE(name.length()>0, "Name can't be the empty string.");
     MetroNet::_initCheck = this;
+    ENSURE(m_name.length()>0, "Name can't be the empty string.");
     ENSURE(this->properlyInitialized(),"Constructor must end ...");
 }
 

@@ -4,7 +4,6 @@
 
 #include "simulation_utils.h"
 #include "constants.h"
-#include "clog.h"
 
 namespace simulation_utils{
     void simulateTrams(MetroNet& metroNet, int MAXTIME, bool debug) {
@@ -12,11 +11,11 @@ namespace simulation_utils{
         std::ofstream out("../output/events.metro", std::ofstream::trunc);
         out.close();
 
-        if(!debug) clog_info(CLOG(constants::LOGGER_ID), "Simulating trams...");
+        if(!debug) std::cout << "Simulating trams..." << std::endl;
         while (MAXTIME > 0) {
 
             metroNet.updateTramLocations();
-            if(!debug) clog_info(CLOG(constants::LOGGER_ID), "Updated tram locations ");
+            if(!debug) std::cout << "Updated tram locations " << std::endl;
             MAXTIME--;
             usleep(1);
         }

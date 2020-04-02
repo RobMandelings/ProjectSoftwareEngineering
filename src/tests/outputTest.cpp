@@ -8,9 +8,6 @@
 #include "metro_parser.h"
 #include "simulation_utils.h"
 
-#define CLOG_MAIN
-#include "clog.h"
-
 TEST(OutputTest, PositiveOutput){
     MetroNet* metroNet = metro_parser::parseMetroNetXml("../src/tests/voorbeeldTest.xml");
     metro_utils::printMetroNet(metroNet, "../output/Summary.metro");

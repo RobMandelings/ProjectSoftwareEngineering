@@ -55,12 +55,14 @@ void TrackNode::setPreviousNode(TrackNode* PreviousNode) {
 
 void TrackNode::setNextNode(TrackNode* NextNode) {
     REQUIRE(this->properlyInitialized(), "TrackNode must be initialized before its member variables are used.");
+    REQUIRE(NextNode->properlyInitialized(), "A new node cannot be NULL");
     m_nextNode = NextNode;
 }
 
 void TrackNode::setUnderConstruction(bool underConstruction) {
     REQUIRE(this->properlyInitialized(), "TrackNode must be initialized before its member variables are used.");
     m_underConstruction = underConstruction;
+    
 }
 
 bool TrackNode::isUnderConstruction() const {

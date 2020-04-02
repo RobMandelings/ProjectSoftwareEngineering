@@ -45,19 +45,16 @@ LineNode* LineNode::getPreviousNode() const {
 
 LineNode* LineNode::getNextNode() const {
     REQUIRE(this->properlyInitialized(), "LineNode must be initialized before its member variables are used.");
-    ENSURE(m_nextNode!=NULL && m_nextNode->properlyInitialized(),"Node cannot be NULL.");
     return m_nextNode;
 }
 
 void LineNode::setPreviousNode(LineNode* PreviousNode) {
     REQUIRE(this->properlyInitialized(), "LineNode must be initialized before its member variables are used.");
-    REQUIRE(PreviousNode!= NULL && PreviousNode->properlyInitialized(), "A new node cannot be NULL.");
     m_previousNode = PreviousNode;
 }
 
 void LineNode::setNextNode(LineNode* NextNode) {
     REQUIRE(this->properlyInitialized(), "LineNode must be initialized before its member variables are used.");
-    REQUIRE(NextNode!=NULL && NextNode->properlyInitialized(), "A new node cannot be NULL");
     m_nextNode = NextNode;
 }
 

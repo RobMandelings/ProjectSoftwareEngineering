@@ -4,10 +4,6 @@
 
 #include "MetroStation.h"
 
-StationType MetroStation::getType() const {
-    return UNDERGROUND;
-}
-
 std::vector<Track*> MetroStation::getTracks() const {
     return m_tracks;
 }

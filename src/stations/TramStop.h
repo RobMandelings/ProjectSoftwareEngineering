@@ -16,8 +16,8 @@ private:
 
 public:
 
-    Track* getTrack() const;
+    StationType getType() const {return ABOVE_GROUND; };
 
-    StationType getType() const;
+    Track* getTrack() const;
 
 };

@@ -25,15 +25,6 @@ public:
 
     virtual ~Station();
 
-
-    /**
-     * Constructor
-     * @param stationType
-     *
-     \n ENSURE(this->properlyInitialized(), "Constructor must end ...");
-     */
-    explicit Station();
-
     /**
      * @return station type
      *

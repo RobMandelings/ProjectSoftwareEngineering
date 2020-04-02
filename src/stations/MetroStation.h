@@ -16,12 +16,12 @@ private:
 
 public:
 
+    StationType getType() const {return UNDERGROUND; };
+
     std::vector<Track*> getTracks() const;
 
     Track* getTrack(int index) const;
 
     void addTrack(Track* track);
-
-    StationType getType() const;
 
 };

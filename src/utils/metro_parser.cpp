@@ -5,13 +5,15 @@
 #include "metro_parser.h"
 #include "../MetroNet.h"
 #include "../trams/Tram.h"
-#include "Station.h"
 #include "../Track.h"
 #include "../TrackNode.h"
 #include "metro_utils.h"
 #include "DesignByContract.h"
 #include "Albatros.h"
 #include "PCC.h"
+#include "Station.h"
+#include "MetroStation.h"
+#include "TramStop.h"
 
 namespace metro_parser {
     const char* MetroNetParseException::what() const throw() {
@@ -52,9 +54,9 @@ namespace metro_parser {
                 }
                 Station *currentStation = NULL;
                 if (stationType == "MetroStation") {
-                    currentStation = new Station();
+                    currentStation = new MetroStation();
                 } else if (stationType == "TramStop") {
-                    currentStation = new Station();
+                    currentStation = new TramStop();
                 }
                 string name = root_elem->Attribute("naam");
                 currentStation->setName(name);

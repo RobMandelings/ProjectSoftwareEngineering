@@ -4,10 +4,6 @@
 
 #include "TramStop.h"
 
-StationType TramStop::getType() const {
-    return ABOVE_GROUND;
-}
-
 Track* TramStop::getTrack() const {
     return m_track;
 }

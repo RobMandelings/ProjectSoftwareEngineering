@@ -16,8 +16,12 @@ private:
 
 public:
 
+
     StationType getType() const {return ABOVE_GROUND; };
 
+    /**
+    \n REQUIRE(this->properlyInitialized(),"TramStop must be initialized before its member variables are used.");
+    */
     Line* getLine() const;
 
 };

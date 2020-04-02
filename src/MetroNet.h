@@ -28,8 +28,8 @@ public:
      * @brief simple constructor of MetroNet
      * @param name: name of MetroNet
      *
-     * \n ENSURE(m_name.length()>0, "Name can't be the empty string.");
-     * \n ENSURE(this->properlyInitialized(),"Constructor must end ...");
+     \n ENSURE(m_name.length()>0, "Name can't be the empty string.");
+     \n ENSURE(this->properlyInitialized(),"Constructor must end ...");
      */
 
     explicit MetroNet(const string& name);
@@ -41,7 +41,7 @@ public:
      * @return the name of this metronet
      *
      \n REQUIRE(this->properlyInitialized(), "MetroNet must be initialized before its member variables are used.");
-     \n ENSURE(m_name.length()>0,"Name can't be the empty string.");
+     \n REQUIRE(m_name.length()>0,"Name can't be the empty string.");
      */
     const string& getName() const;
 
@@ -61,7 +61,7 @@ public:
      * @return a pointer to the station (NULL if none found)
      *
      \n REQUIRE(this->properlyInitialized(), "MetroNet must be initialized before its member variables are used.");
-     \n REQUIRE(name==NULL,"Name cannot be empty.");
+     \n REQUIRE(name!=NULL,"Name cannot be empty.");
      */
     Station* getStation(const char* name) const;
 
@@ -86,7 +86,6 @@ public:
     /**
      * @brief Simple getter
      * @return all stations present in this metronet
-     *
      \n REQUIRE(this->properlyInitialized(), "MetroNet must be initialized before its member variables are used.");
      */
     const vector<Station*>& getStations() const;
@@ -103,7 +102,7 @@ public:
      * @param station: a pointer to the station you want to add
      *
      \n REQUIRE(this->properlyInitialized(), "MetroNet must be initialized before its member variables are used.");
-     \n REQUIRE(station->properlyInitialized(), "Station cannot be NULL.");
+     \n REQUIRE(station!=NULL && station->properlyInitialized(), "Station cannot be NULL.");
      */
     void addStation(Station* station);
 
@@ -112,7 +111,7 @@ public:
      * @param station: a pointer to the tram you want to add
      *
      \n REQUIRE(this->properlyInitialized(), "MetroNet must be initialized before its member variables are used.");
-     \n REQUIRE(tram->properlyInitialized(),"Tram cannot be NULL.");
+     \n REQUIRE(tram!=NULL && tram->properlyInitialized(),"Tram cannot be NULL.");
      */
     void addTram(Tram* tram);
 
@@ -121,7 +120,7 @@ public:
      * @param station: a pointer to the line you want to add
      *
      \n REQUIRE(this->properlyInitialized(), "MetroNet must be initialized before its member variables are used.");
-     \n REQUIRE(line->properlyInitialized(), "Line cannot be NULL.");
+     \n REQUIRE(line!=NULL && line->properlyInitialized(), "Line cannot be NULL.");
      */
     void addLine(Line* line);
 

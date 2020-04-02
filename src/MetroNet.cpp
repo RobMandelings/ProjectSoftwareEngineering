@@ -37,7 +37,7 @@ MetroNet::~MetroNet() {
 
 const string& MetroNet::getName() const {
     REQUIRE(this->properlyInitialized(), "MetroNet must be initialized before its member variables are used.");
-    ENSURE(m_name.length()>0,"Name can't be the empty string.");
+    REQUIRE(m_name.length()>0,"Name can't be the empty string.");
     return m_name;
 }
 

@@ -33,13 +33,13 @@ LineNode::LineNode(int lineIndex, Station* station, LineNode* previousNode, Line
 
 Station* LineNode::getStation() const {
     REQUIRE(this->properlyInitialized(), "LineNode must be initialized before its member variables are used.");
-    ENSURE(m_station!=NULL && m_station->properlyInitialized(),"Station cannot be NULL.");
+    REQUIRE(m_station!=NULL && m_station->properlyInitialized(),"Station cannot be NULL.");
     return m_station;
 }
 
 LineNode* LineNode::getPreviousNode() const {
     REQUIRE(this->properlyInitialized(), "LineNode must be initialized before its member variables are used.");
-    ENSURE(m_previousNode!=NULL && m_previousNode->properlyInitialized(),"Node cannot be NULL.");
+    REQUIRE(m_previousNode!=NULL && m_previousNode->properlyInitialized(),"Node cannot be NULL.");
     return m_previousNode;
 }
 
@@ -51,17 +51,19 @@ LineNode* LineNode::getNextNode() const {
 void LineNode::setPreviousNode(LineNode* PreviousNode) {
     REQUIRE(this->properlyInitialized(), "LineNode must be initialized before its member variables are used.");
     m_previousNode = PreviousNode;
+    ENSURE(m_previousNode == PreviousNode, "m_previousNode must be set to PreviousNode.");
 }
 
 void LineNode::setNextNode(LineNode* NextNode) {
     REQUIRE(this->properlyInitialized(), "LineNode must be initialized before its member variables are used.");
     m_nextNode = NextNode;
+    ENSURE(m_nextNode == NextNode, "m_nextNode must be set to NextNode.");
 }
 
 void LineNode::setUnderConstruction(bool underConstruction) {
     REQUIRE(this->properlyInitialized(), "LineNode must be initialized before its member variables are used.");
     m_underConstruction = underConstruction;
-
+    REQUIRE(this->isUnderConstruction() == underConstruction, "m_underConstruction must be set to underConstruction.");
 }
 
 bool LineNode::isUnderConstruction() const {

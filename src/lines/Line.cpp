@@ -43,12 +43,13 @@ Line::~Line() {
 
 int Line::getLine() const {
     REQUIRE(this->properlyInitialized(), "Line must be initialized before its member variables are used.");
+    REQUIRE(m_line>=0, "Line cannot be a negative number.");
     return m_line;
 }
 
 LineNode* Line::getFirstNode() const {
     REQUIRE(this->properlyInitialized(), "Line must be initialized before its member variables are used.");
-    ENSURE(m_firstNode!=NULL && m_firstNode->properlyInitialized(), "The first node cannot be NULL.");
+    REQUIRE(m_firstNode!=NULL && m_firstNode->properlyInitialized(), "The first node cannot be NULL.");
     return m_firstNode;
 }
 
@@ -56,6 +57,7 @@ void Line::setLine(int line) {
     REQUIRE(this->properlyInitialized(), "Line must be initialized before its member variables are used.");
     REQUIRE(line>=0,"Line must be a positive number.");
     this->m_line = line;
+    ENSURE(m_line==line,"m_line must be set to line.");
 }
 
 void Line::insertNode(LineNode* lineNode) {
@@ -98,7 +100,7 @@ LineNode* Line::getNodeForStation(Station* station) {
         do {
 
             if (lineNode->getStation() == station) {
-                ENSURE(lineNode->properlyInitialized(),"The line node cannot be NULL.");
+                ENSURE(lineNode!=NULL && lineNode->properlyInitialized(),"The line node cannot be NULL.");
                 return lineNode;
             }
 

@@ -23,6 +23,9 @@ private:
 
 public:
 
+    /**
+     \n REQUIRE(this->properlyInitialized(), "Constructor must end ...");
+     */
     Station();
 
     virtual ~Station();
@@ -58,6 +61,7 @@ public:
      *
      \n REQUIRE(this->properlyInitialized(), "Station must be initialized before its member variables are used.");
      \n REQUIRE(line>=0,"Line must be a positive number.");
+     \n ENSURE(m_name==name,"m_name has to be set to name.");
      */
     Line* getLine(int line);
 
@@ -71,6 +75,8 @@ public:
 
     /**
      * @brief checks if this object was properly initialized
+     \n REQUIRE(this->properlyInitialized(), "Station must be initialized before its member variables are used.");
+     \n REQUIRE(line!=NULL && line->properlyInitialized(), "Line cannot be NULL.");
      */
     bool properlyInitialized() const;
 };

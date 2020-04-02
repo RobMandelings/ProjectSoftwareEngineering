@@ -51,7 +51,7 @@ LineNode* LineNode::getNextNode() const {
 
 void LineNode::setPreviousNode(LineNode* PreviousNode) {
     REQUIRE(this->properlyInitialized(), "LineNode must be initialized before its member variables are used.");
-    REQUIRE(PreviousNode!=NULL && PreviousNode->properlyInitialized(), "A new node cannot be NULL.");
+    REQUIRE(PreviousNode!= NULL && PreviousNode->properlyInitialized(), "A new node cannot be NULL.");
     m_previousNode = PreviousNode;
 }
 

@@ -23,6 +23,8 @@ private:
 
 public:
 
+    Station();
+
     virtual ~Station();
 
     /**

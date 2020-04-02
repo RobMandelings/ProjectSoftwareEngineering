@@ -21,9 +21,9 @@ Trams:
 		Length: 42
 		Current location: A
 	Tram 12:
-		Type: Albatron
-		Max Speed: -1
-		Current speed: -1
-		Amount of Seats: -1
-		Length: -1
+		Type: Albatros
+		Max Speed: 70
+		Current speed: 70
+		Amount of Seats: 72
+		Length: 42
 		Current location: A

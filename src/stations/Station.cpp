@@ -39,6 +39,11 @@ bool Station::properlyInitialized() const {
     return _initCheck == this;
 }
 
+Station::Station() {
+    Station::_initCheck = this;
+    ENSURE(this->properlyInitialized(), "Constructor must end ...");
+}
+
 Station::~Station() {
 
 }

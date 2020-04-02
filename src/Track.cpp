@@ -8,6 +8,7 @@
 Track::Track(int line, TrackNode* firstNode) :
         m_line(line),
         m_firstNode(firstNode) {
+    REQUIRE(line>=0,"Line must be a positive number.");
     Track::_initCheck = this;
     ENSURE(this->properlyInitialized(),"Constructor must end ...");
 }
@@ -46,16 +47,19 @@ int Track::getLine() const {
 
 TrackNode* Track::getFirstNode() const {
     REQUIRE(this->properlyInitialized(), "Track must be initialized before its member variables are used.");
+    ENSURE(m_firstNode!=NULL, "The first node cannot be NULL.");
     return m_firstNode;
 }
 
 void Track::setLine(int line) {
     REQUIRE(this->properlyInitialized(), "Track must be initialized before its member variables are used.");
+    REQUIRE(line>=0,"Line must be a positive number.");
     this->m_line = line;
 }
 
 void Track::insertNode(TrackNode* trackNode) {
     REQUIRE(this->properlyInitialized(), "Track must be initialized before its member variables are used.");
+    REQUIRE(trackNode!=NULL, "A track node cannot be NULL.");
 
     if (m_firstNode == NULL) {
         m_firstNode = trackNode;
@@ -70,25 +74,30 @@ void Track::insertNode(TrackNode* trackNode) {
         lastNode->setNextNode(trackNode);
         m_firstNode->setPreviousNode(trackNode);
     }
+
+    ENSURE(m_firstNode!=NULL, "After an insert, the first node cannot be NULL.");
 }
 
 void Track::disableNodeForStation(Station* station) {
     REQUIRE(this->properlyInitialized(), "Track must be initialized before its member variables are used.");
+    REQUIRE(station->properlyInitialized(), "Station cannot be NULL.");
 
     TrackNode* trackNode = getNodeForStation(station);
 
     trackNode->setUnderConstruction(true);
+    ENSURE(trackNode->isUnderConstruction(),"The track node must be under construction.");
 }
 
 TrackNode* Track::getNodeForStation(Station* station) {
     REQUIRE(this->properlyInitialized(), "Track must be initialized before its member variables are used.");
-
+    REQUIRE(station->properlyInitialized(), "Station cannot be NULL.");
     if (m_firstNode != NULL) {
         TrackNode* trackNode = m_firstNode;
 
         do {
 
             if (trackNode->getStation() == station) {
+                ENSURE(trackNode->properlyInitialized(),"The track node cannot be NULL.");
                 return trackNode;
             }
 

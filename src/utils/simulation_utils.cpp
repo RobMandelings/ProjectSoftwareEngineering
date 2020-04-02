@@ -3,7 +3,6 @@
 //
 
 #include "simulation_utils.h"
-#include "constants.h"
 
 namespace simulation_utils{
     void simulateTrams(MetroNet& metroNet, int MAXTIME, bool debug) {

@@ -11,6 +11,7 @@
 
 MetroNet::MetroNet(const string& name) :
         m_name(name) {
+    REQUIRE(name.length()>0, "Name can't be the empty string.");
     MetroNet::_initCheck = this;
     ENSURE(this->properlyInitialized(),"Constructor must end ...");
 }
@@ -36,11 +37,13 @@ MetroNet::~MetroNet() {
 
 const string& MetroNet::getName() const {
     REQUIRE(this->properlyInitialized(), "MetroNet must be initialized before its member variables are used.");
+    ENSURE(m_name.length()>0,"Name can't be the empty string.");
     return m_name;
 }
 
 Tram* MetroNet::getTram(int line) const {
     REQUIRE(this->properlyInitialized(), "MetroNet must be initialized before its member variables are used.");
+    REQUIRE(line>=0,"Line must be a positive number.");
     for (unsigned int i = 0; i < MetroNet::m_trams.size(); i++) {
         if (MetroNet::m_trams[i]->getTramLine() == line) {
             return MetroNet::m_trams[i];
@@ -52,6 +55,7 @@ Tram* MetroNet::getTram(int line) const {
 
 Station* MetroNet::getStation(const char* name) const {
     REQUIRE(this->properlyInitialized(), "MetroNet must be initialized before its member variables are used.");
+    REQUIRE(name=="","Name cannot be empty.");
     for (unsigned int i = 0; i < MetroNet::m_stations.size(); i++) {
         if (MetroNet::m_stations[i]->getName() == name) {
             return MetroNet::m_stations[i];
@@ -77,21 +81,25 @@ const vector<Track*>& MetroNet::getTracks() const {
 
 void MetroNet::addTram(Tram* tram) {
     REQUIRE(this->properlyInitialized(), "MetroNet must be initialized before its member variables are used.");
+    REQUIRE(tram->properlyInitialized(),"Tram cannot be NULL.");
     MetroNet::m_trams.push_back(tram);
 }
 
 void MetroNet::addStation(Station* station) {
     REQUIRE(this->properlyInitialized(), "MetroNet must be initialized before its member variables are used.");
+    REQUIRE(station->properlyInitialized(), "Station cannot be NULL.");
     MetroNet::m_stations.push_back(station);
 }
 
 void MetroNet::addTrack(Track* track) {
     REQUIRE(this->properlyInitialized(), "MetroNet must be initialized before its member variables are used.");
+    REQUIRE(track->properlyInitialized(), "Track cannot be NULL.");
     m_tracks.push_back(track);
 }
 
 Track* MetroNet::getTrack(int line) {
     REQUIRE(this->properlyInitialized(), "MetroNet must be initialized before its member variables are used.");
+    REQUIRE(line>=0,"Line must be a positive number.");
     for (vector<Track*>::iterator it = m_tracks.begin(); it != m_tracks.end(); ++it) {
         if ((*it)->getLine() == line) {
             return (*it);

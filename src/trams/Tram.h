@@ -7,7 +7,7 @@
 
 #include <string>
 
-class TrackNode;
+class LineNode;
 class Station;
 
 /**
@@ -23,8 +23,8 @@ private:
     double m_currentSpeed;
     int m_amountOfSeats;
 
-    TrackNode* m_beginNode;
-    TrackNode* m_currentNode;
+    LineNode* m_beginNode;
+    LineNode* m_currentNode;
 
     Tram* _initCheck;
 
@@ -42,15 +42,15 @@ public:
      * @brief Simple getter
      * @return pointer to the tram line begin node
      */
-    const TrackNode* getBeginNode() const;
+    const LineNode* getBeginNode() const;
 
     /**
      * @brief Simple getter
      * @return pointer to the current node in which the tram is located
      */
-    const TrackNode* getCurrentNode() const;
+    const LineNode* getCurrentNode() const;
 
-    Tram(int line, TrackNode* beginNode, double maxSpeed, int amountOfSeats, double length, const std::string& type);
+    Tram(int line, LineNode* beginNode, double maxSpeed, int amountOfSeats, double length, const std::string& type);
 
     /**
      * @brief Simple getter

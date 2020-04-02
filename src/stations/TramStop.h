@@ -6,18 +6,18 @@
 
 #include "Station.h"
 
-class Track;
+class Line;
 
 class TramStop : public virtual Station {
 
 private:
 
-    Track* m_track;
+    Line* m_line;
 
 public:
 
     StationType getType() const {return ABOVE_GROUND; };
 
-    Track* getTrack() const;
+    Line* getLine() const;
 
 };

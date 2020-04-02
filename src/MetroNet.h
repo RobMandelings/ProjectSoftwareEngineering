@@ -6,7 +6,7 @@
 #define PROJECTSOFTWAREENGINEERING_METRONET_H
 
 #include "library.h"
-#include "Track.h"
+#include "lines/Line.h"
 
 class Station;
 
@@ -20,7 +20,7 @@ private:
     string m_name;
     vector<Tram*> m_trams;
     vector<Station*> m_stations;
-    vector<Track*> m_tracks;
+    vector<Line*> m_lines;
 
     MetroNet* _initCheck;
 public:
@@ -66,14 +66,14 @@ public:
     Station* getStation(const char* name) const;
 
     /**
-     * Gets the track corresponding to the given line
-     * @param line: the line you want to get the track for
-     * @return the track
+     * Gets the line corresponding to the given line
+     * @param line: the line you want to get the line for
+     * @return the line
      *
      \n REQUIRE(this->properlyInitialized(), "MetroNet must be initialized before its member variables are used.");
      \n REQUIRE(line>=0,"Line must be a positive number.");
      */
-    Track* getTrack(int line);
+    Line* getLine(int line);
 
     /**
      * @brief Simple getter
@@ -92,11 +92,11 @@ public:
     const vector<Station*>& getStations() const;
 
     /**
-     * @return all tracks present in this metronet
+     * @return all lines present in this metronet
      *
      \n REQUIRE(this->properlyInitialized(), "MetroNet must be initialized before its member variables are used.");
      */
-    const vector<Track*>& getTracks() const;
+    const vector<Line*>& getLines() const;
 
     /**
      * @brief adds a station to this MetroNet
@@ -117,13 +117,13 @@ public:
     void addTram(Tram* tram);
 
     /**
-     * @brief adds a track to this MetroNet
-     * @param station: a pointer to the track you want to add
+     * @brief adds a line to this MetroNet
+     * @param station: a pointer to the line you want to add
      *
      \n REQUIRE(this->properlyInitialized(), "MetroNet must be initialized before its member variables are used.");
-     \n REQUIRE(track->properlyInitialized(), "Track cannot be NULL.");
+     \n REQUIRE(line->properlyInitialized(), "Line cannot be NULL.");
      */
-    void addTrack(Track* track);
+    void addLine(Line* line);
 
     /**
      * @brief updates the location of all trams in this metronet

@@ -109,9 +109,9 @@ Voor invoerformaat zie Appendix A opgave.
         * REQUIREMENT: tram is not NULL
     * addStation(Station* station):
         * REQUIREMENT: station is not NULL
-    * addTrack(Track* track):
-        * REQUIREMENT: track is not NULL
-    * getTrack(int line)
+    * addLine(Line* line):
+        * REQUIREMENT: line is not NULL
+    * getLine(int line)
         * REQUIREMENT: line >= 0
         
 * Station.cpp:
@@ -119,49 +119,49 @@ Voor invoerformaat zie Appendix A opgave.
         * ENSURE: return can't be empty string
     * setName(const string& name):
         * REQUIREMENT: name can't be empty string
-    * getTrack(int line):
+    * getLine(int line):
         * REQUIREMENT: line >= 0
-    * addTrack(Track* track):
-        * REQUIREMENT: track is not NULL
+    * addLine(Line* line):
+        * REQUIREMENT: line is not NULL
 
-* Track.cpp:
-    * Track(int line, TrackNode* firstNode):
+* Line.cpp:
+    * Line(int line, LineNode* firstNode):
         * REQUIREMENT: line >= 0
         * REQUIREMENT: firstNode is not NULL
     * getFirstNode():
         * ENSURE: return is not NULL
     * setLine(int line):
         * REQUIREMENT: line >= 0
-    * insertNode(TrackNode* trackNode):
-        * REQUIREMENT: trackNode is not NULL
+    * insertNode(LineNode* lineNode):
+        * REQUIREMENT: lineNode is not NULL
         * ENSURE: m_firstNode can't be NULL
     * disableNodeForStation(Station* station):
         * REQUIREMENT: station is not NULL
-        * ENSURE: trackNode.m_underConstruction = true
+        * ENSURE: lineNode.m_underConstruction = true
     * getNodeForStation(Station* station):
         * REQUIREMENT: station is not NULL
-        * ENSURE: return trackNode is not NULL
+        * ENSURE: return lineNode is not NULL
 
-* TrackNode.cpp
-    * TrackNode(int trackIndex, Station* station):
-        * REQUIREMENT: trackIndex >= 0
+* LineNode.cpp
+    * LineNode(int lineIndex, Station* station):
+        * REQUIREMENT: lineIndex >= 0
         * REQUIREMENT: station is not NULL
         * ENSURE: properly initialized
-    * TrackNode(int trackIndex, Station* station, TrackNode* previousNode, TrackNode* nextNode):
-        * REQUIREMENT: trackIndex >= 0
+    * LineNode(int lineIndex, Station* station, LineNode* previousNode, LineNode* nextNode):
+        * REQUIREMENT: lineIndex >= 0
         * REQUIREMENT: station is not NULL
         * REQUIREMENT: previousNode is not NULL
         * REQUIREMENT: nextNode is not NULL
         * ENSURE: properly initialized
     * getStation():
         * ENSURE: return is not NULL
-    * setPreviousNode(TrackNode* PreviousNode):
+    * setPreviousNode(LineNode* PreviousNode):
         * REQUIREMENT: PreviousNode is not NULL
-    * setNextNode(TrackNode* NextNode):
+    * setNextNode(LineNode* NextNode):
         * REQUIREMENT: NextNode is not NULL
         
 * Tram.cpp:
-    * Tram(int line, int speed, int amountOfSeats, TrackNode* beginNode):
+    * Tram(int line, int speed, int amountOfSeats, LineNode* beginNode):
         * REQUIREMENT: line >= 0
         * REQUIREMENT: speed >= 0
         * REQUIREMENT: amountOfSeats >= 0

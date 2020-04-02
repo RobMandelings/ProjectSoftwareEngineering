@@ -11,6 +11,6 @@ class Albatros : public virtual Tram {
 
 public:
 
-    Albatros(int line, TrackNode* beginNode);
+    Albatros(int line, LineNode* beginNode);
 
 };

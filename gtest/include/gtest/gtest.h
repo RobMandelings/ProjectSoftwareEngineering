@@ -1028,7 +1028,7 @@ class EmptyTestEventListener : public TestEventListener {
   virtual void OnTestProgramEnd(const UnitTest& /*unit_test*/) {}
 };
 
-// TestEventListeners lets users add listeners to track events in Google Test.
+// TestEventListeners lets users add listeners to line events in Google Test.
 class GTEST_API_ TestEventListeners {
  public:
   TestEventListeners();
@@ -1149,7 +1149,7 @@ class GTEST_API_ UnitTest {
   int random_seed() const;
 
 #if GTEST_HAS_PARAM_TEST
-  // Returns the ParameterizedTestCaseRegistry object used to keep track of
+  // Returns the ParameterizedTestCaseRegistry object used to keep line of
   // value-parameterized tests and instantiate and register them.
   //
   // INTERNAL IMPLEMENTATION - DO NOT USE IN A USER PROGRAM.
@@ -1213,7 +1213,7 @@ class GTEST_API_ UnitTest {
   // properties logged outside of individual test cases.
   const TestResult& ad_hoc_test_result() const;
 
-  // Returns the list of event listeners that can be used to track events
+  // Returns the list of event listeners that can be used to line events
   // inside Google Test.
   TestEventListeners& listeners();
 

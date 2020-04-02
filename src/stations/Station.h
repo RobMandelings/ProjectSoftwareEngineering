@@ -7,7 +7,7 @@
 
 #include "library.h"
 
-class Track;
+class Line;
 
 enum StationType {
     ABOVE_GROUND,
@@ -18,7 +18,7 @@ class Station {
 
 private:
     string m_name;
-    vector<Track*> m_tracks;
+    vector<Line*> m_lines;
     Station* _initCheck;
 
 public:
@@ -51,21 +51,21 @@ public:
     void setName(const string& name);
 
     /**
-     * @brief gets a track corresponding to the line given
-     * @return the track
+     * @brief gets a line corresponding to the line given
+     * @return the line
      *
      \n REQUIRE(this->properlyInitialized(), "Station must be initialized before its member variables are used.");
      \n REQUIRE(line>=0,"Line must be a positive number.");
      */
-    Track* getTrack(int line);
+    Line* getLine(int line);
 
     /**
-     * @brief adds a track to the list of tracks in this station
+     * @brief adds a line to the list of lines in this station
      *
      \n REQUIRE(this->properlyInitialized(), "Station must be initialized before its member variables are used.");
-     \n REQUIRE(track->properlyInitialized(), "Track cannot be NULL.");
+     \n REQUIRE(line->properlyInitialized(), "Line cannot be NULL.");
      */
-    void addTrack(Track* track);
+    void addLine(Line* line);
 
     /**
      * @brief checks if this object was properly initialized

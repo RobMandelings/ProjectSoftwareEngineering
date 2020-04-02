@@ -93,7 +93,7 @@ const int TIXML_MAJOR_VERSION = 2;
 const int TIXML_MINOR_VERSION = 6;
 const int TIXML_PATCH_VERSION = 2;
 
-/*	Internal structure for tracking location of items 
+/*	Internal structure for lineing location of items
 	in the XML file.
 */
 struct TiXmlCursor
@@ -1483,14 +1483,14 @@ public:
 		
 		By calling this method, with a tab size
 		greater than 0, the row and column of each node and attribute is stored
-		when the file is loaded. Very useful for tracking the DOM back in to
+		when the file is loaded. Very useful for lineing the DOM back in to
 		the source file.
 
 		The tab size is required for calculating the location of nodes. If not
 		set, the default of 4 is used. The tabsize is set per document. Setting
-		the tabsize to 0 disables row/column tracking.
+		the tabsize to 0 disables row/column lineing.
 
-		Note that row and column tracking is not supported when using operator>>.
+		Note that row and column lineing is not supported when using operator>>.
 
 		The tab size needs to be enabled before the parse or load. Correct usage:
 		@verbatim

@@ -6,22 +6,22 @@
 
 #include "Station.h"
 
-class Track;
+class Line;
 
 class MetroStation : public virtual Station {
 
 private:
 
-    std::vector<Track*> m_tracks;
+    std::vector<Line*> m_lines;
 
 public:
 
     StationType getType() const {return UNDERGROUND; };
 
-    std::vector<Track*> getTracks() const;
+    std::vector<Line*> getLines() const;
 
-    Track* getTrack(int index) const;
+    Line* getLine(int index) const;
 
-    void addTrack(Track* track);
+    void addLine(Line* line);
 
 };

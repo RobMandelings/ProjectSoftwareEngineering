@@ -4,6 +4,6 @@
 
 #include "TramStop.h"
 
-Track* TramStop::getTrack() const {
-    return m_track;
+Line* TramStop::getLine() const {
+    return m_line;
 }

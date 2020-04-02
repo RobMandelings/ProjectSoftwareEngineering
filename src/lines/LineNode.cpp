@@ -2,28 +2,28 @@
 // Created by Rob Mandelings on 5/03/2020.
 //
 
-#include "TrackNode.h"
+#include "LineNode.h"
 #include "Station.h"
 
-TrackNode::TrackNode(int trackIndex, Station* station) :
+LineNode::LineNode(int lineIndex, Station* station) :
         m_underConstruction(false),
-        m_line(trackIndex),
+        m_line(lineIndex),
         m_station(station),
         m_previousNode(NULL),
         m_nextNode(NULL) {
-    TrackNode::_initCheck = this;
+    LineNode::_initCheck = this;
     ENSURE(m_line>=0, "Line must be a positive number.");
     ENSURE(m_station!=NULL && m_station->properlyInitialized(), "Station cannot be NULL.");
     ENSURE(this->properlyInitialized(),"Constructor must end ...");
 }
 
-TrackNode::TrackNode(int trackIndex, Station* station, TrackNode* previousNode, TrackNode* nextNode) :
+LineNode::LineNode(int lineIndex, Station* station, LineNode* previousNode, LineNode* nextNode) :
         m_underConstruction(false),
-        m_line(trackIndex),
+        m_line(lineIndex),
         m_station(station),
         m_previousNode(previousNode),
         m_nextNode(nextNode) {
-    TrackNode::_initCheck = this;
+    LineNode::_initCheck = this;
     ENSURE(m_line>=0, "Line must be a positive number.");
     ENSURE(m_station!=NULL && m_station->properlyInitialized(),"Station cannot be NULL.");
     ENSURE(m_previousNode!=NULL && m_previousNode->properlyInitialized(), "Node cannot be NULL.");
@@ -31,47 +31,47 @@ TrackNode::TrackNode(int trackIndex, Station* station, TrackNode* previousNode, 
     ENSURE(this->properlyInitialized(),"Constructor must end ...");
 }
 
-Station* TrackNode::getStation() const {
-    REQUIRE(this->properlyInitialized(), "TrackNode must be initialized before its member variables are used.");
+Station* LineNode::getStation() const {
+    REQUIRE(this->properlyInitialized(), "LineNode must be initialized before its member variables are used.");
     ENSURE(m_station!=NULL && m_station->properlyInitialized(),"Station cannot be NULL.");
     return m_station;
 }
 
-TrackNode* TrackNode::getPreviousNode() const {
-    REQUIRE(this->properlyInitialized(), "TrackNode must be initialized before its member variables are used.");
+LineNode* LineNode::getPreviousNode() const {
+    REQUIRE(this->properlyInitialized(), "LineNode must be initialized before its member variables are used.");
     ENSURE(m_previousNode!=NULL && m_previousNode->properlyInitialized(),"Node cannot be NULL.");
     return m_previousNode;
 }
 
-TrackNode* TrackNode::getNextNode() const {
-    REQUIRE(this->properlyInitialized(), "TrackNode must be initialized before its member variables are used.");
+LineNode* LineNode::getNextNode() const {
+    REQUIRE(this->properlyInitialized(), "LineNode must be initialized before its member variables are used.");
     ENSURE(m_nextNode!=NULL && m_nextNode->properlyInitialized(),"Node cannot be NULL.");
     return m_nextNode;
 }
 
-void TrackNode::setPreviousNode(TrackNode* PreviousNode) {
-    REQUIRE(this->properlyInitialized(), "TrackNode must be initialized before its member variables are used.");
+void LineNode::setPreviousNode(LineNode* PreviousNode) {
+    REQUIRE(this->properlyInitialized(), "LineNode must be initialized before its member variables are used.");
     REQUIRE(PreviousNode!=NULL && PreviousNode->properlyInitialized(), "A new node cannot be NULL.");
     m_previousNode = PreviousNode;
 }
 
-void TrackNode::setNextNode(TrackNode* NextNode) {
-    REQUIRE(this->properlyInitialized(), "TrackNode must be initialized before its member variables are used.");
+void LineNode::setNextNode(LineNode* NextNode) {
+    REQUIRE(this->properlyInitialized(), "LineNode must be initialized before its member variables are used.");
     REQUIRE(NextNode!=NULL && NextNode->properlyInitialized(), "A new node cannot be NULL");
     m_nextNode = NextNode;
 }
 
-void TrackNode::setUnderConstruction(bool underConstruction) {
-    REQUIRE(this->properlyInitialized(), "TrackNode must be initialized before its member variables are used.");
+void LineNode::setUnderConstruction(bool underConstruction) {
+    REQUIRE(this->properlyInitialized(), "LineNode must be initialized before its member variables are used.");
     m_underConstruction = underConstruction;
 
 }
 
-bool TrackNode::isUnderConstruction() const {
-    REQUIRE(this->properlyInitialized(), "TrackNode must be initialized before its member variables are used.");
+bool LineNode::isUnderConstruction() const {
+    REQUIRE(this->properlyInitialized(), "LineNode must be initialized before its member variables are used.");
     return m_underConstruction;
 }
 
-bool TrackNode::properlyInitialized() const {
+bool LineNode::properlyInitialized() const {
     return _initCheck == this;
 }

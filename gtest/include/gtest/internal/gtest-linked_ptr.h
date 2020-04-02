@@ -29,7 +29,7 @@
 //
 // Authors: Dan Egnor (egnor@google.com)
 //
-// A "smart" pointer type with reference tracking.  Every pointer to a
+// A "smart" pointer type with reference lineing.  Every pointer to a
 // particular object is kept on a circular linked list.  When the last pointer
 // to an object is destroyed or reassigned, the object is deleted.
 //
@@ -40,7 +40,7 @@
 // - Every time a pointer is assigned, the entire list of pointers to that
 //   object is traversed.  This class is therefore NOT SUITABLE when there
 //   will often be more than two or three pointers to a particular object.
-// - References are only tracked as long as linked_ptr<> objects are copied.
+// - References are only lineed as long as linked_ptr<> objects are copied.
 //   If a linked_ptr<> is converted to a raw pointer and back, BAD THINGS
 //   will happen (double deletion).
 //

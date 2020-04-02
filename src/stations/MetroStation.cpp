@@ -4,15 +4,15 @@
 
 #include "MetroStation.h"
 
-std::vector<Track*> MetroStation::getTracks() const {
-    return m_tracks;
+std::vector<Line*> MetroStation::getLines() const {
+    return m_lines;
 }
 
-Track* MetroStation::getTrack(int index) const {
-    //TODO REQUIRE index < m_tracks.length
-    return m_tracks.at(index);
+Line* MetroStation::getLine(int index) const {
+    //TODO REQUIRE index < m_lines.length
+    return m_lines.at(index);
 }
 
-void MetroStation::addTrack(Track* track) {
-    Station::addTrack(track);
+void MetroStation::addLine(Line* line) {
+    Station::addLine(line);
 }

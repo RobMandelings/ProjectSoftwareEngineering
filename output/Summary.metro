@@ -3,8 +3,8 @@ Stations:
 	(1) station 'A'
 	(0) station 'B'
 	(1) station 'C'
-Tracks:
-	Track 12: Station A --> Station B --> Station C --> Station A --> ...
+Lines:
+	Line 12: Station A --> Station B --> Station C --> Station A --> ...
 Trams: 
 	Tram 12:
 		Type: Tram

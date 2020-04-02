@@ -3,9 +3,9 @@
 //
 
 #include "Tram.h"
-#include "TrackNode.h"
+#include "lines/LineNode.h"
 
-Tram::Tram(int line, TrackNode* beginNode, double maxSpeed, int amountOfSeats, double length, const std::string& type) :
+Tram::Tram(int line, LineNode* beginNode, double maxSpeed, int amountOfSeats, double length, const std::string& type) :
         m_tramLine(line),
         m_currentSpeed(maxSpeed),
         m_amountOfSeats(amountOfSeats),
@@ -24,13 +24,13 @@ Tram::Tram(int line, TrackNode* beginNode, double maxSpeed, int amountOfSeats, d
 
 Tram::~Tram() {}
 
-const TrackNode* Tram::getBeginNode() const {
+const LineNode* Tram::getBeginNode() const {
     REQUIRE(this->properlyInitialized(), "Tram must be initialized before its member variables are used.");
     ENSURE(m_beginNode!=NULL && m_beginNode->properlyInitialized(),"The begin node cannot be NULL.");
     return m_beginNode;
 }
 
-const TrackNode* Tram::getCurrentNode() const {
+const LineNode* Tram::getCurrentNode() const {
     REQUIRE(this->properlyInitialized(), "Tram must be initialized before its member variables are used.");
     ENSURE( m_currentNode!=NULL && m_currentNode->properlyInitialized(),"The current node cannot be NULL.");
     return m_currentNode;

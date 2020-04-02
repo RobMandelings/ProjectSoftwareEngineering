@@ -5,8 +5,8 @@
 #include "metro_parser.h"
 #include "../MetroNet.h"
 #include "../trams/Tram.h"
-#include "../Track.h"
-#include "../TrackNode.h"
+#include "lines/Line.h"
+#include "lines/LineNode.h"
 #include "metro_utils.h"
 #include "DesignByContract.h"
 #include "Albatros.h"
@@ -62,17 +62,17 @@ namespace metro_parser {
                 currentStation->setName(name);
                 metroNet->addStation(currentStation);
             } else if (!strcmp(root_elem->Value(), "LIJN")) {
-                Track *currentTrack = new Track();
+                Line *currentLine = new Line();
                 int line = metro_utils::stoi(root_elem->Attribute("index"));
-                currentTrack->setLine(line);
+                currentLine->setLine(line);
                 for (TiXmlElement *elem = root_elem->FirstChildElement();
                      elem != NULL; elem = elem->NextSiblingElement()) {
                     if (!strcmp(elem->Value(), "LIJNNODE")) {
                         Station *station = metroNet->getStation(elem->Attribute("station"));
                         if (station) {
-                            station->addTrack(currentTrack);
-                            TrackNode *node = new TrackNode(line, metroNet->getStation(elem->Attribute("station")));
-                            currentTrack->insertNode(node);
+                            station->addLine(currentLine);
+                            LineNode *node = new LineNode(line, metroNet->getStation(elem->Attribute("station")));
+                            currentLine->insertNode(node);
                         } else {
                             if (!debug)
                                 cerr << "MetroParser: Station with name " << elem->Attribute("station")
@@ -81,14 +81,14 @@ namespace metro_parser {
                         }
                     }
                 }
-                metroNet->addTrack(currentTrack);
+                metroNet->addLine(currentLine);
             } else if (!strcmp(root_elem->Value(), "TRAM")) {
 
                 int line = -1;
                 int amountOfSeats = -1;
                 double speed = -1;
                 double length = -1;
-                TrackNode *beginNode = NULL;
+                LineNode *beginNode = NULL;
                 std::string type = "Tram";
 
                 for (TiXmlElement *elem = root_elem->FirstChildElement(); elem != NULL;
@@ -108,7 +108,7 @@ namespace metro_parser {
                         speed = metro_utils::stod(elem->GetText());
                     } else if (elemName == "beginStation") {
                         //TODO: use gtest to test if the station was actually found
-                        beginNode = metroNet->getTrack(line)->getNodeForStation(metroNet->getStation(elem->GetText()));
+                        beginNode = metroNet->getLine(line)->getNodeForStation(metroNet->getStation(elem->GetText()));
                     }
                 }
                 if (type == "PCC") {

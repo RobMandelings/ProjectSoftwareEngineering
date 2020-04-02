@@ -4,7 +4,7 @@
 
 #include <fstream>
 #include <DesignByContract.h>
-#include "../TrackNode.h"
+#include "lines/LineNode.h"
 #include "metro_utils.h"
 #include "../MetroNet.h"
 #include "Station.h"
@@ -37,7 +37,7 @@ void metro_utils::printMetroNet(MetroNet* metroNet, const char* outputFilename) 
     }
 
     vector<Station*> stations = metroNet->getStations();
-    vector<Track*> tracks = metroNet->getTracks();
+    vector<Line*> lines = metroNet->getLines();
     vector<Tram*> trams = metroNet->getTrams();
 
     outputFile << "MetroNet: " << metroNet->getName() << "\n";
@@ -46,9 +46,9 @@ void metro_utils::printMetroNet(MetroNet* metroNet, const char* outputFilename) 
         outputFile << "\t(" << (*stationIt)->getType() << ") station '" << (*stationIt)->getName() << "'" << "\n";
     }
 
-    outputFile << "Tracks:" << "\n";
-    for (vector<Track*>::iterator trackIt = tracks.begin(); trackIt != tracks.end(); trackIt++) {
-        outputFile << "\tTrack " << (*trackIt)->getLine() << ": " << (*trackIt)->getAsString() << "\n";
+    outputFile << "Lines:" << "\n";
+    for (vector<Line*>::iterator lineIt = lines.begin(); lineIt != lines.end(); lineIt++) {
+        outputFile << "\tLine " << (*lineIt)->getLine() << ": " << (*lineIt)->getAsString() << "\n";
     }
 
     outputFile << "Trams: " << "\n";

@@ -24,6 +24,13 @@ private:
 
     MetroNet* _initCheck;
 public:
+    /**
+     * @brief simple constructor of MetroNet
+     * @param name: name of MetroNet
+     * 
+     * \n REQUIRE(name.length()>0, "Name can't be the empty string.");
+     * \n ENSURE(this->properlyInitialized(),"Constructor must end ...");
+     */
 
     explicit MetroNet(const string& name);
 

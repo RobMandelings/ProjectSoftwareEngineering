@@ -12,7 +12,7 @@ std::vector<Line*> MetroStation::getLines() const {
 
 Line* MetroStation::getLine(int index) const {
     REQUIRE(this->properlyInitialized(),"MetroStation must be initialized before its member variables are used.");
-    REQUIRE(index<m_lines.size()-1,"Index must be smaller than the size of the list of lines.");
+    REQUIRE((unsigned int)index<m_lines.size()-1,"Index must be smaller than the size of the list of lines.");
     return m_lines.at(index);
 }
 

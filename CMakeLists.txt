@@ -36,7 +36,7 @@ set(RELEASE_SOURCE_FILES
         src/MetroNet.cpp
         src/Track.cpp src/Track.h src/TrackNode.cpp src/TrackNode.h src/utils/metro_parser.cpp src/utils/metro_parser.h
         src/utils/simulation_utils.cpp src/utils/simulation_utils.h
-        src/utils/constants.cpp src/utils/constants.h src/trams/Albatros.cpp
+        src/trams/Albatros.cpp
         src/trams/Albatros.h src/trams/PCC.cpp src/trams/PCC.h
         )
 
@@ -57,7 +57,7 @@ set(DEBUG_SOURCE_FILES
         src/MetroNet.cpp
         src/Track.cpp src/Track.h src/TrackNode.cpp src/TrackNode.h src/utils/metro_parser.cpp src/utils/metro_parser.h
         src/utils/simulation_utils.cpp src/utils/simulation_utils.h
-        src/tests/outputTest.cpp src/tests/inputTest.cpp src/tests/DesignByContract.h src/utils/constants.h src/utils/constants.cpp
+        src/tests/outputTest.cpp src/tests/inputTest.cpp src/tests/DesignByContract.h
         src/trams/Albatros.cpp src/trams/Albatros.h src/trams/PCC.h src/trams/PCC.cpp
         src/stations/TramStop.cpp src/stations/TramStop.h)
 

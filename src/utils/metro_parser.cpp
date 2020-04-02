@@ -43,36 +43,38 @@ namespace metro_parser {
         for (TiXmlElement* root_elem = root->FirstChildElement(); root_elem != NULL; root_elem = root_elem->NextSiblingElement()) {
             if (!strcmp(root_elem->Value(), "STATION")) {
                 std::string stationType;
-                for (TiXmlElement* elem = root_elem->FirstChildElement(); elem != NULL;
+                for (TiXmlElement *elem = root_elem->FirstChildElement(); elem != NULL;
                      elem = elem->NextSiblingElement()) {
                     string elemName = elem->Value();
                     if (elemName == "type") {
                         stationType = elem->GetText();
                     }
                 }
-                Station* currentStation = NULL;
+                Station *currentStation = NULL;
                 if (stationType == "MetroStation") {
                     currentStation = new Station();
                 } else if (stationType == "TramStop") {
                     currentStation = new Station();
                 }
-                REQUIRE(currentStation != NULL, "Metro parser error: the station type wasn't recognized!");
                 string name = root_elem->Attribute("naam");
                 currentStation->setName(name);
                 metroNet->addStation(currentStation);
             } else if (!strcmp(root_elem->Value(), "LIJN")) {
-                Track* currentTrack = new Track();
+                Track *currentTrack = new Track();
                 int line = metro_utils::stoi(root_elem->Attribute("index"));
                 currentTrack->setLine(line);
-                for (TiXmlElement* elem = root_elem->FirstChildElement(); elem != NULL; elem = elem->NextSiblingElement()) {
+                for (TiXmlElement *elem = root_elem->FirstChildElement();
+                     elem != NULL; elem = elem->NextSiblingElement()) {
                     if (!strcmp(elem->Value(), "LIJNNODE")) {
-                        Station* station = metroNet->getStation(elem->Attribute("station"));
+                        Station *station = metroNet->getStation(elem->Attribute("station"));
                         if (station) {
                             station->addTrack(currentTrack);
-                            TrackNode* node = new TrackNode(line, metroNet->getStation(elem->Attribute("station")));
+                            TrackNode *node = new TrackNode(line, metroNet->getStation(elem->Attribute("station")));
                             currentTrack->insertNode(node);
                         } else {
-                            if (!debug) cerr << "MetroParser: Station with name " << elem->Attribute("station") << " wasn't found" << endl;
+                            if (!debug)
+                                cerr << "MetroParser: Station with name " << elem->Attribute("station")
+                                     << " wasn't found" << endl;
                             throw MetroNetParseException();
                         }
                     }
@@ -84,10 +86,10 @@ namespace metro_parser {
                 int amountOfSeats = -1;
                 double speed = -1;
                 double length = -1;
-                TrackNode* beginNode = NULL;
+                TrackNode *beginNode = NULL;
                 std::string type = "Tram";
 
-                for (TiXmlElement* elem = root_elem->FirstChildElement(); elem != NULL;
+                for (TiXmlElement *elem = root_elem->FirstChildElement(); elem != NULL;
                      elem = elem->NextSiblingElement()) {
                     string elemName = elem->Value();
                     if (elemName == "lijn") {
@@ -119,7 +121,6 @@ namespace metro_parser {
                 throw MetroNetParseException();
             }
         }
-        ENSURE(metroNet, "MetroNet should not be null at the end of the parser function!");
         return metroNet;
     }
 }

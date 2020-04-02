@@ -9,18 +9,26 @@
 
 class Track;
 
+enum StationType {
+    ABOVE_GROUND,
+    UNDERGROUND
+};
+
 class Station {
+
 private:
     string m_name;
     vector<Track*> m_tracks;
     Station* _initCheck;
+    StationType m_stationType;
+
 public:
 
     virtual ~Station();
 
-    explicit Station();
+    explicit Station(StationType stationType);
 
-    virtual const char* getType() const = 0;
+    StationType getType() const;
 
     /**
      * @brief Simple getter

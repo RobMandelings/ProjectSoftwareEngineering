@@ -28,17 +28,21 @@ Track* Station::getTrack(int line) {
     return NULL;
 }
 
-    void Station::addTrack(Track* track) {
+void Station::addTrack(Track* track) {
     REQUIRE(this->properlyInitialized(), "Station must be initialized before its member variables are used.");
     m_tracks.push_back(track);
 }
 
-Station::Station()
-{
+Station::Station(StationType stationType) :
+        m_stationType(stationType) {
     Station::_initCheck = this;
     ENSURE(this->properlyInitialized(), "Constructor must end ...");
 }
 
 bool Station::properlyInitialized() const {
     return _initCheck == this;
+}
+
+Station::StationType Station::getType() const {
+    return
 }

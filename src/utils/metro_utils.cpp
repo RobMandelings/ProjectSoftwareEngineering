@@ -7,7 +7,7 @@
 #include "../TrackNode.h"
 #include "metro_utils.h"
 #include "../MetroNet.h"
-#include "stations/Station.h"
+#include "Station.h"
 #include "../trams/Tram.h"
 
 int metro_utils::stoi(const string& input) {

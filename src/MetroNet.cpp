@@ -81,19 +81,19 @@ const vector<Track*>& MetroNet::getTracks() const {
 
 void MetroNet::addTram(Tram* tram) {
     REQUIRE(this->properlyInitialized(), "MetroNet must be initialized before its member variables are used.");
-    REQUIRE(tram->properlyInitialized(),"Tram cannot be NULL.");
+    REQUIRE(tram!=NULL && tram->properlyInitialized(),"Tram cannot be NULL.");
     MetroNet::m_trams.push_back(tram);
 }
 
 void MetroNet::addStation(Station* station) {
     REQUIRE(this->properlyInitialized(), "MetroNet must be initialized before its member variables are used.");
-    REQUIRE(station->properlyInitialized(), "Station cannot be NULL.");
+    REQUIRE(station!=NULL && station->properlyInitialized(), "Station cannot be NULL.");
     MetroNet::m_stations.push_back(station);
 }
 
 void MetroNet::addTrack(Track* track) {
     REQUIRE(this->properlyInitialized(), "MetroNet must be initialized before its member variables are used.");
-    REQUIRE(track->properlyInitialized(), "Track cannot be NULL.");
+    REQUIRE(track!=NULL && track->properlyInitialized(), "Track cannot be NULL.");
     m_tracks.push_back(track);
 }
 

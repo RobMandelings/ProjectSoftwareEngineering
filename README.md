@@ -89,13 +89,13 @@ Onherkenbaar element, ongeldige info, inconsistent metronet
 
 Voor invoerformaat zie Appendix A opgave.
 
-## EXTRA:
+## EXTRA - na evaluatie 1: (DONE)
 * Documentation (DONE)
 * Good variable names (DONE)
 * (Optional) more input/output tests (DONE)
-* Contracten
+* Contracten (DONE)
 
-## REQUIREMENTS/ENSURES:
+## REQUIREMENTS/ENSURES: (DONE)
 * MetroNet.cpp:
     * constructor:
         * REQUIREMENT: name can't be empty string
@@ -186,6 +186,11 @@ Voor invoerformaat zie Appendix A opgave.
     * updateLocation(): 
         * ENSURE: m_currentNode is not NULL
         
+## TODO - 7/04:
+* Verder werken nieuwe functionaliteit
+* Nieuwe functionaliteit (types) testen
+* (Eventueel) lengte normale tram aanpassen
+* Class Diagram aanpassen
         
 
 ## Class Diagram (zonder methods):

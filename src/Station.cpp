@@ -42,3 +42,7 @@ Station::Station(StationType stationType) :
 bool Station::properlyInitialized() const {
     return _initCheck == this;
 }
+
+StationType Station::getType() const {
+    return m_stationType;
+}

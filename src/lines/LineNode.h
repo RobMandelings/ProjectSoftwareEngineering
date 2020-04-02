@@ -72,6 +72,7 @@ public:
      * @brief simple getter
      * @return the next node of this lineNode
      \n REQUIRE(this->properlyInitialized(), "LineNode must be initialized before its member variables are used.");
+     \n REQUIRE(m_nextNode!=NULL && m_nextNode->properlyInitialized(),"Node cannot be NULL.");
      */
     LineNode* getNextNode() const;
 
@@ -79,7 +80,7 @@ public:
      * @brief simple setter
      * @param underConstruction: true if the lineNode should be marked as 'under construction', false if not
      \n REQUIRE(this->properlyInitialized(), "LineNode must be initialized before its member variables are used.");
-     \n REQUIRE(this->isUnderConstruction() == underConstruction, "m_underConstruction must be set to underConstruction.");
+     \n ENSURE(this->isUnderConstruction() == underConstruction, "m_underConstruction must be set to underConstruction.");
      */
     void setUnderConstruction(bool underConstruction);
 

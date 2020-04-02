@@ -24,6 +24,7 @@ private:
 
     MetroNet* _initCheck;
 public:
+
     /**
      * @brief simple constructor of MetroNet
      * @param name: name of MetroNet

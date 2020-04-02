@@ -37,15 +37,9 @@ void Station::addTrack(Track* track) {
     m_tracks.push_back(track);
 }
 
-Station::Station(StationType stationType) :
-        m_stationType(stationType) {
+Station::Station() {
     Station::_initCheck = this;
     ENSURE(this->properlyInitialized(), "Constructor must end ...");
-}
-
-StationType Station::getType() const {
-    REQUIRE(this->properlyInitialized(), "Station must be initialized before its member variables are used.");
-    return m_stationType;
 }
 
 bool Station::properlyInitialized() const {

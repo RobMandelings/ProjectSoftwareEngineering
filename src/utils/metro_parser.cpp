@@ -52,9 +52,9 @@ namespace metro_parser {
                 }
                 Station* currentStation = NULL;
                 if (stationType == "MetroStation") {
-                    currentStation = new Station(UNDERGROUND);
+                    currentStation = new Station();
                 } else if (stationType == "TramStop") {
-                    currentStation = new Station(ABOVE_GROUND);
+                    currentStation = new Station();
                 }
                 REQUIRE(currentStation != NULL, "Metro parser error: the station type wasn't recognized!");
                 string name = root_elem->Attribute("naam");

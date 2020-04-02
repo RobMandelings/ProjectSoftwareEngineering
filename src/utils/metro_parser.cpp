@@ -115,8 +115,11 @@ namespace metro_parser {
                     metroNet->addTram(new PCC(line, beginNode));
                 } else if (type == "Albatros") {
                     metroNet->addTram(new Albatros(line, beginNode));
-                } else {
+                } else if (type == "Tram"){
                     metroNet->addTram(new Tram(line, beginNode, speed, amountOfSeats, length, type));
+                } else {
+                    if (!debug) std::cerr << "Metro Parser: unable to recognize tram type" << std::endl;
+                    throw MetroNetParseException();
                 }
             } else {
                 if (!debug) std::cerr << "Failed to load file: Unrecognized element." << std::endl;

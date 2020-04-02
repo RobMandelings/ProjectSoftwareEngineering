@@ -1,20 +1,15 @@
-MetroNet: voorbeeldTest
+MetroNet: Antwerpen
 Stations:
-	Station 'A'
-	Station 'B'
-	Station 'C'
-	Station 'U'
-	Station 'P'
-	Station 'L'
+	(1) station 'A'
+	(0) station 'B'
+	(1) station 'C'
 Lines:
 	Line 12: Station A --> Station B --> Station C --> Station A --> ...
-	Line 5: Station A --> Station U --> Station P --> Station L --> Station A --> ...
 Trams:
 	Tram 12:
-		Current location: A
-		Speed: 60
+		Type: Tram
+		Max Speed: 60
+		Current speed: 60
 		Amount of Seats: 32
-	Tram 5:
-		Current location: P
-		Speed: 10
-		Amount of Seats: 800000
+		Length: -1
+		Current location: A

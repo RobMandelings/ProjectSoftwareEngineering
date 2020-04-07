@@ -82,6 +82,8 @@ TEST(InputTest, NegativeInput_falseType){
 TEST(InputTest, PositiveInput){
     bool failed = false;
 
+    // TODO: This test currently fails because of the way the Albatros Tram type works -> fix + extra tests on these properties
+
     try{
         MetroNet* metroNet = metro_parser::parseMetroNetXml("../src/tests/voorbeeldTestPositive.xml", true);
         metroNet->getName();

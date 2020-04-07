@@ -23,6 +23,10 @@ private:
     /** The current speed of this tram in km/h */
     double m_currentSpeed;
     int m_amountOfSeats;
+    int m_vehicleNumber;
+
+private:
+
 
     LineNode* m_beginNode;
     LineNode* m_currentNode;
@@ -60,10 +64,11 @@ public:
     \n ENSURE(m_tramLine>=0, "Line must be a positive number.");
     \n ENSURE(MAX_SPEED>=0, "Speed cannot be negative.");
     \n ENSURE(m_amountOfSeats>=0,"The amount of seats cannot be negative.");
+    \n ENSURE(m_vehicleNumber>=0,"Vehicle number must be a positive number.");
     \n ENSURE(m_beginNode!=NULL && m_beginNode->properlyInitialized(),"The begin node cannot be NULL.");
     \n ENSURE(this->properlyInitialized(),"Constructor must end ...");
     */
-    Tram(Line* line, Station* beginStation, double maxSpeed, int amountOfSeats, double length, const std::string& type);
+    Tram(Line* line, Station* beginStation, double maxSpeed, int amountOfSeats, int vehicleNumber, double length, const std::string& type);
 
     /**
      * @brief Simple getter
@@ -97,6 +102,24 @@ public:
      \n ENSURE(m_currentSpeed == currentSpeed, "m_currentSpeed has to be set to currentSpeed.");
      */
     void setCurrentSpeed(int currentSpeed);
+
+    /**
+     * @brief Simple getter
+     * @return The vehicle number
+     \n REQUIRE(this->properlyInitialized(), "Tram must be initialized before its member variables are used.");
+     */
+
+    int getVehicleNumber() const;
+
+    /**
+    * @brief Simple setter
+    * @return Set the Tram vehicle number
+    \n REQUIRE(this->properlyInitialized(), "Tram must be initialized before its member variables are used.");
+    \n REQUIRE(vehicleNumber>=0,"Vehicle number must be a positive integer.");
+    \n ENSURE(getVehicleNumber() == vehicleNumber,"m_vehicleNumber must be set to the vehicleNumber.");
+    */
+
+    void setVehicleNumber(int vehicleNumber);
 
     /**
      * @brief updates the location of the tram to the next station

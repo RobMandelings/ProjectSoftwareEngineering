@@ -4,6 +4,6 @@
 
 #include "PCC.h"
 
-PCC::PCC(Line* line, Station* beginStation) :
+PCC::PCC(Line* line, int vehicleNumber,Station* beginStation) :
         // TODO what should the length of this PCC be?
-        Tram(line, beginStation, 40, 16, 25, "PCC") {}
+        Tram(line, beginStation, 40, 16, vehicleNumber, 25, "PCC") {}

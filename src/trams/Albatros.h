@@ -11,6 +11,6 @@ class Albatros : public virtual Tram {
 
 public:
 
-    Albatros(Line* line, Station* beginStation);
+    Albatros(Line* line, int vehicleNumber,Station* beginStation);
 
 };

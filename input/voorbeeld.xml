@@ -15,17 +15,20 @@
     </LIJN>
     <TRAM>
         <lijn>12</lijn>
+        <voertuigNr>1</voertuigNr>
         <zitplaatsen>32</zitplaatsen>
         <snelheid>60</snelheid>
         <beginStation>A</beginStation>
     </TRAM>
     <TRAM>
         <lijn>12</lijn>
+        <voertuigNr>2</voertuigNr>
         <type>Albatros</type>
         <beginStation>A</beginStation>
     </TRAM>
     <TRAM>
         <lijn>12</lijn>
+        <voertuigNr>3</voertuigNr>
         <type>Albatros</type>
         <beginStation>A</beginStation>
     </TRAM>

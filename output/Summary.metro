@@ -6,21 +6,21 @@ Stations:
 Lines:
 	Line 12: Station A --> Station B --> Station C --> Station A --> ...
 Trams:
-	Tram 0x7ffff0ae22c0:
+	Tram 12 (1):
 		Type: Tram
 		Max Speed: 60
 		Current speed: 60
 		Amount of Seats: 32
 		Length: -1
 		Current location: A
-	Tram 0x7ffff0ae22c0:
+	Tram 12 (2):
 		Type: Albatros
 		Max Speed: 70
 		Current speed: 70
 		Amount of Seats: 72
 		Length: 42
 		Current location: A
-	Tram 0x7ffff0ae22c0:
+	Tram 12 (3):
 		Type: Albatros
 		Max Speed: 70
 		Current speed: 70

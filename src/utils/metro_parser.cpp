@@ -86,6 +86,7 @@ namespace metro_parser {
 
                 int lineIndex = -1;
                 int amountOfSeats = -1;
+                int voertuigNr = -1;
                 double speed = -1;
                 double length = -1;
                 Station* beginStation = NULL;
@@ -100,6 +101,8 @@ namespace metro_parser {
                         type = elem->GetText();
                     } else if (elemName == "length") {
                         length = metro_utils::stod(elem->GetText());
+                    } else if (elemName == "voertuigNr"){
+                        voertuigNr = metro_utils::stoi(elem->GetText());
                     }
                     //TODO what to do if the type is not a default tram but PCC for example? 'zitplaatsen' should not be used in this case
                     if (elemName == "zitplaatsen") {
@@ -112,11 +115,11 @@ namespace metro_parser {
                     }
                 }
                 if (type == "PCC") {
-                    metroNet->addTram(new PCC(metroNet->getLine(lineIndex), beginStation));
+                    metroNet->addTram(new PCC(metroNet->getLine(lineIndex), voertuigNr,beginStation));
                 } else if (type == "Albatros") {
-                    metroNet->addTram(new Albatros(metroNet->getLine(lineIndex), beginStation));
+                    metroNet->addTram(new Albatros(metroNet->getLine(lineIndex), voertuigNr,beginStation));
                 } else if (type == "Tram") {
-                    metroNet->addTram(new Tram(metroNet->getLine(lineIndex), beginStation, speed, amountOfSeats, length, type));
+                    metroNet->addTram(new Tram(metroNet->getLine(lineIndex), beginStation, speed, amountOfSeats, voertuigNr, length, type));
                 } else {
                     if (!debug) std::cerr << "Metro Parser: unable to recognize tram type" << std::endl;
                     throw MetroNetParseException();

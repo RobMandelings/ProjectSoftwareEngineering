@@ -5,10 +5,11 @@
 #include "Tram.h"
 #include "lines/LineNode.h"
 
-Tram::Tram(Line* line, Station* beginStation, double maxSpeed, int amountOfSeats, double length, const std::string& type) :
+Tram::Tram(Line* line, Station* beginStation, double maxSpeed, int amountOfSeats, int vehicleNumber,double length, const std::string& type) :
         m_tramLine(line),
         m_currentSpeed(maxSpeed),
         m_amountOfSeats(amountOfSeats),
+        m_vehicleNumber(vehicleNumber),
         m_beginNode(line->getNodeForStation(beginStation)),
         m_currentNode(line->getNodeForStation(beginStation)),
         LENGTH(length),
@@ -19,6 +20,7 @@ Tram::Tram(Line* line, Station* beginStation, double maxSpeed, int amountOfSeats
     ENSURE(m_tramLine != NULL, "Line must be a positive number.");
     ENSURE(MAX_SPEED>=0, "Speed cannot be negative.");
     ENSURE(m_amountOfSeats>=0,"The amount of seats cannot be negative.");
+    ENSURE(m_vehicleNumber>=0,"Vehicle number must be a positive number.");
     ENSURE(m_beginNode!=NULL && m_beginNode->properlyInitialized(),"The begin node cannot be NULL.");
     ENSURE(this->properlyInitialized(),"Constructor must end ...");
 }
@@ -68,6 +70,19 @@ void Tram::updateLocation() {
     m_currentNode = m_currentNode->getNextNode();
 }
 
+int Tram::getVehicleNumber() const {
+    REQUIRE(this->properlyInitialized(), "Tram must be initialized before its member variables are used.");
+    return m_vehicleNumber;
+}
+
+void Tram::setVehicleNumber(int vehicleNumber) {
+    REQUIRE(this->properlyInitialized(), "Tram must be initialized before its member variables are used.");
+    REQUIRE(vehicleNumber>=0,"Vehicle number must be a positive integer.");
+    m_vehicleNumber = vehicleNumber;
+    ENSURE(getVehicleNumber() == vehicleNumber,"m_vehicleNumber must be set to the vehicleNumber.");
+}
+
 bool Tram::properlyInitialized() const {
     return _initCheck == this;
 }
+

@@ -122,6 +122,7 @@ public:
      *
      \n REQUIRE(this->properlyInitialized(), "MetroNet must be initialized before its member variables are used.");
      \n REQUIRE(line!=NULL && line->properlyInitialized(), "Line cannot be NULL.");
+     \n REQUIRE(this->checkVehicleNumberAvailability(tram), "Tram number must be available in this line.");
      */
     void addLine(Line* line);
 
@@ -131,6 +132,14 @@ public:
      \n REQUIRE(this->properlyInitialized(), "MetroNet must be initialized before its member variables are used.");
      */
     void updateTramLocations();
+
+    /**
+     * @brief checks whether a certain vehicle number is still available in a certain line
+     *
+     \n REQUIRE(this->properlyInitialized(), "MetroNet must be initialized before its member variables are used.");
+     */
+
+    bool checkVehicleNumberAvailability(Tram* tram);
 
     /**
      * @brief checks if this object was properly initialized

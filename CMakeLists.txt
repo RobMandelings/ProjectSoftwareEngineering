@@ -12,6 +12,7 @@ include_directories(src/tests)
 include_directories(gtest/include/gtest)
 include_directories(src/utils)
 include_directories(src/trams)
+include_directories(src/lines/)
 include_directories(src/stations)
 include_directories(src/timer)
 

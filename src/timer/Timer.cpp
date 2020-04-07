@@ -6,15 +6,10 @@
 #include "DesignByContract.h"
 #include <unistd.h>
 
-void Timer::stationSleep() {
-    REQUIRE(this->properlyInitialized(),"Timer must be properly initialized to use its methods.");
-    usleep(60); // 60 seconds sleep
-}
+const Timer& Timer::get() const {
+    static Timer timer;
 
-void Timer::driveSleep(int speed) {
-    REQUIRE(this->properlyInitialized(),"Timer must be properly initialized to use its methods.");
-    int sleepTime = (7200/speed);
-    usleep(sleepTime);
+    return timer;
 }
 
 bool Timer::properlyInitialized() const {

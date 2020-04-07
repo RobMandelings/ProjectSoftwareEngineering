@@ -13,6 +13,8 @@ class Timer {
 private:
     Timer* _initCheck;
 
+    long updateTime;
+
     /**
      * @brief simple constructor of Timer
      \n ENSURE(this->properlyInitialized(),"Constructor must end ...");

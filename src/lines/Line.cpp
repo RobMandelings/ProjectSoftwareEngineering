@@ -44,6 +44,7 @@ Line::~Line() {
 bool Line::completelyUnderground() const {
     REQUIRE(this->properlyInitialized(), "Line must be initialized before its member variables are used.");
     REQUIRE(m_firstNode != NULL, "The first node of this line cannot be null");
+
     LineNode* currentNode = m_firstNode;
 
     do {

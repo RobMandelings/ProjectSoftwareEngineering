@@ -6,6 +6,7 @@
 #define PROJECTSOFTWAREENGINEERING_TRAM_H
 
 #include <string>
+#include <lines/Line.h>
 
 class LineNode;
 class Station;
@@ -17,7 +18,7 @@ class Tram {
 
 private:
 
-    int m_tramLine;
+    Line* m_tramLine;
 
     /** The current speed of this tram in km/h */
     double m_currentSpeed;
@@ -62,7 +63,7 @@ public:
     \n ENSURE(m_beginNode!=NULL && m_beginNode->properlyInitialized(),"The begin node cannot be NULL.");
     \n ENSURE(this->properlyInitialized(),"Constructor must end ...");
     */
-    Tram(int line, LineNode* beginNode, double maxSpeed, int amountOfSeats, double length, const std::string& type);
+    Tram(Line* line, Station* beginStation, double maxSpeed, int amountOfSeats, double length, const std::string& type);
 
     /**
      * @brief Simple getter
@@ -70,7 +71,7 @@ public:
      \n REQUIRE(this->properlyInitialized(), "Tram must be initialized before its member variables are used.");
      \n REQUIRE(m_tramLine>=0,"Line must be a positive number.");
      */
-    int getTramLine() const;
+    Line* getTramLine() const;
 
     /**
      * @brief Simple getter

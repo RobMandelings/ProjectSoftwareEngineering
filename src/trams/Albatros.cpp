@@ -5,6 +5,7 @@
 #include <clocale>
 #include "Albatros.h"
 
-Albatros::Albatros(int line, LineNode* beginNode) :
-        //TODO test albatros: completely underground track
-        Tram(line, beginNode, 70, 72, 42, "Albatros") {}
+Albatros::Albatros(Line* line, Station* beginStation) :
+        Tram(line, beginStation, 70, 72, 42, "Albatros") {
+    REQUIRE(line->completelyUnderground(), " The line given is invalid; The albatros can only go underground");
+}

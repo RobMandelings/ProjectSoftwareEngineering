@@ -3,7 +3,7 @@
         <type>MetroStation</type>
     </STATION>
     <STATION naam="B">
-        <type>TramStop</type>
+        <type>MetroStation</type>
     </STATION>
     <STATION naam="C">
         <type>MetroStation</type>

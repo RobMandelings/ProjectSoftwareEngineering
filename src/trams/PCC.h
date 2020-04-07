@@ -10,6 +10,6 @@ class PCC : public virtual Tram {
 
 public:
 
-    PCC(int line, LineNode* beginNode);
+    PCC(Line* line, Station* beginStation);
 
 };

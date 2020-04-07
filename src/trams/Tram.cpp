@@ -5,17 +5,18 @@
 #include "Tram.h"
 #include "lines/LineNode.h"
 
-Tram::Tram(int line, LineNode* beginNode, double maxSpeed, int amountOfSeats, double length, const std::string& type) :
+Tram::Tram(Line* line, Station* beginStation, double maxSpeed, int amountOfSeats, double length, const std::string& type) :
         m_tramLine(line),
         m_currentSpeed(maxSpeed),
         m_amountOfSeats(amountOfSeats),
-        m_beginNode(beginNode),
-        m_currentNode(beginNode),
+        m_beginNode(line->getNodeForStation(beginStation)),
+        m_currentNode(line->getNodeForStation(beginStation)),
         LENGTH(length),
         MAX_SPEED(maxSpeed),
         TYPE(type) {
     Tram::_initCheck = this;
-    ENSURE(m_tramLine>=0, "Line must be a positive number.");
+    ENSURE(line->getNodeForStation(beginStation) != NULL, "Tram constructor: the begin station given is not within the line!");
+    ENSURE(m_tramLine != NULL, "Line must be a positive number.");
     ENSURE(MAX_SPEED>=0, "Speed cannot be negative.");
     ENSURE(m_amountOfSeats>=0,"The amount of seats cannot be negative.");
     ENSURE(m_beginNode!=NULL && m_beginNode->properlyInitialized(),"The begin node cannot be NULL.");
@@ -36,9 +37,9 @@ const LineNode* Tram::getCurrentNode() const {
     return m_currentNode;
 }
 
-int Tram::getTramLine() const {
+Line* Tram::getTramLine() const {
     REQUIRE(this->properlyInitialized(), "Tram must be initialized before its member variables are used.");
-    REQUIRE(m_tramLine>=0,"Line must be a positive number.");
+    REQUIRE(m_tramLine != NULL,"The tram line should not be a nullptr");
     return m_tramLine;
 }
 

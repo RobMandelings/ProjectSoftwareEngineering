@@ -41,18 +41,6 @@ const string& MetroNet::getName() const {
     return m_name;
 }
 
-Tram* MetroNet::getTram(int line) const {
-    REQUIRE(this->properlyInitialized(), "MetroNet must be initialized before its member variables are used.");
-    REQUIRE(line>=0,"Line must be a positive number.");
-    for (unsigned int i = 0; i < MetroNet::m_trams.size(); i++) {
-        if (MetroNet::m_trams[i]->getTramLine() == line) {
-            return MetroNet::m_trams[i];
-        }
-    }
-    return NULL;
-}
-
-
 Station* MetroNet::getStation(const char* name) const {
     REQUIRE(this->properlyInitialized(), "MetroNet must be initialized before its member variables are used.");
     REQUIRE(name!=NULL,"Name cannot be empty.");

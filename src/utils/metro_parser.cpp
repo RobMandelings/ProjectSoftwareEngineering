@@ -63,15 +63,15 @@ namespace metro_parser {
                 metroNet->addStation(currentStation);
             } else if (!strcmp(root_elem->Value(), "LIJN")) {
                 Line *currentLine = new Line();
-                int line = metro_utils::stoi(root_elem->Attribute("index"));
-                currentLine->setLine(line);
+                int lineIndex = metro_utils::stoi(root_elem->Attribute("index"));
+                currentLine->setLineIndex(lineIndex);
                 for (TiXmlElement *elem = root_elem->FirstChildElement();
                      elem != NULL; elem = elem->NextSiblingElement()) {
                     if (!strcmp(elem->Value(), "LIJNNODE")) {
                         Station *station = metroNet->getStation(elem->Attribute("station"));
                         if (station) {
                             station->addLine(currentLine);
-                            LineNode *node = new LineNode(line, metroNet->getStation(elem->Attribute("station")));
+                            LineNode *node = new LineNode(lineIndex, metroNet->getStation(elem->Attribute("station")));
                             currentLine->insertNode(node);
                         } else {
                             if (!debug)

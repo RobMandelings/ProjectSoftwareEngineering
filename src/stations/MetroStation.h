@@ -17,7 +17,7 @@ private:
 
 public:
 
-    StationType getType() const {return UNDERGROUND; };
+    StationType getType() const { return UNDERGROUND; };
 
     /**
      \n REQUIRE(this->properlyInitialized(),"MetroStation must be initialized before its member variables are used.");

@@ -38,6 +38,8 @@ public:
 
     ~Line();
 
+    bool completelyUnderground() const;
+
     /**
      * @brief simple setter
      * @param line: the newLine of this line
@@ -45,7 +47,7 @@ public:
      \n REQUIRE(this->properlyInitialized(), "Line must be initialized before its member variables are used.");
      \n REQUIRE(line>=0,"Line must be a positive number.");
      */
-    void setLine(int line);
+    void setLineIndex(int line);
 
     /**
      * @brief simple getter

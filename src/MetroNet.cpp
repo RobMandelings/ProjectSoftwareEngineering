@@ -106,7 +106,7 @@ void MetroNet::updateTramLocations() {
         Tram& tram = **it;
         tram.updateLocation();
 
-        outfile << "Tram " << tram.getTramLine() << " ging van station " << tram.getCurrentNode()->getPreviousNode()->getStation()->getName() << " naar station " << tram.getCurrentNode()->getStation()->getName() << "\n";
+        outfile << "Tram " << tram.getTramLine()->getLine() << " ging van station " << tram.getCurrentNode()->getPreviousNode()->getStation()->getName() << " naar station " << tram.getCurrentNode()->getStation()->getName() << "\n";
 
     }
 

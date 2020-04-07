@@ -109,6 +109,7 @@ void MetroNet::updateTramLocations() {
 
         outfile << "Tram " << tram.getTramLine()->getLine() << " (" << tram.getVehicleNumber() << ")" << " ging van station " << tram.getCurrentNode()->getPreviousNode()->getStation()->getName() << " naar station " << tram.getCurrentNode()->getStation()->getName() << "\n";
 
+
     }
 
     outfile.close();

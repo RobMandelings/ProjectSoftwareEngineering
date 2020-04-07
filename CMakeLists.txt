@@ -13,6 +13,7 @@ include_directories(gtest/include/gtest)
 include_directories(src/utils)
 include_directories(src/trams)
 include_directories(src/stations)
+include_directories(src/timer)
 
 # Set include dir (gtest)
 include_directories(gtest/include)
@@ -38,7 +39,8 @@ set(RELEASE_SOURCE_FILES
         src/utils/simulation_utils.cpp src/utils/simulation_utils.h
         src/trams/Albatros.cpp
         src/trams/Albatros.h src/trams/PCC.cpp src/trams/PCC.h
-        src/Track.cpp src/Track.h)
+        src/Track.cpp src/Track.h
+        src/timer/Timer.cpp src/timer/Timer.h)
 
 # Set source files for DEBUG target
 set(DEBUG_SOURCE_FILES
@@ -59,7 +61,8 @@ set(DEBUG_SOURCE_FILES
         src/utils/simulation_utils.cpp src/utils/simulation_utils.h
         src/tests/outputTest.cpp src/tests/inputTest.cpp src/tests/DesignByContract.h
         src/trams/Albatros.cpp src/trams/Albatros.h src/trams/PCC.h src/trams/PCC.cpp
-        src/stations/TramStop.cpp src/stations/TramStop.h src/Track.cpp src/Track.h)
+        src/stations/TramStop.cpp src/stations/TramStop.h src/Track.cpp src/Track.h
+        src/timer/Timer.cpp src/timer/Timer.h)
 
 # Create RELEASE target
 add_executable(metroNet ${RELEASE_SOURCE_FILES})

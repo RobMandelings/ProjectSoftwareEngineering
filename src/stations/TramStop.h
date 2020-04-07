@@ -6,22 +6,20 @@
 
 #include "Station.h"
 
+class Track;
 class Line;
 
 class TramStop : public virtual Station {
 
 private:
 
-    Line* m_line;
+    std::pair<int, Track*> m_track;
 
 public:
 
 
     StationType getType() const {return ABOVE_GROUND; };
 
-    /**
-    \n REQUIRE(this->properlyInitialized(),"TramStop must be initialized before its member variables are used.");
-    */
-    Line* getLine() const;
+    std::pair<int, Track*> getTrack() const;
 
 };

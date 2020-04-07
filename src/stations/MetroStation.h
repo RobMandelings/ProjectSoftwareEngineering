@@ -6,14 +6,16 @@
 
 #include "Station.h"
 #include "library.h"
+#include "map"
 
+class Track;
 class Line;
 
 class MetroStation : public virtual Station {
 
 private:
 
-    std::vector<Line*> m_lines;
+    std::map<int, Track*> m_tracks;
 
 public:
 
@@ -21,21 +23,10 @@ public:
 
     /**
      \n REQUIRE(this->properlyInitialized(),"MetroStation must be initialized before its member variables are used.");
-     */
-    std::vector<Line*> getLines() const;
-
-    /**
-     * @return Line pointer
-     *
-     \n REQUIRE(this->properlyInitialized(),"MetroStation must be initialized before its member variables are used.");
-     \n REQUIRE(index<m_lines.size()-1,"Index must be smaller than the size of the list of lines.");
-     */
-    Line* getLine(int index) const;
-
-    /**
-     \n REQUIRE(this->properlyInitialized(),"MetroStation must be initialized before its member variables are used.");
      \n REQUIRE(line!=NULL && line->properlyInitialized(),"Line cannot be NULL.");
      */
-    void addLine(Line* line);
+    Track* getTrack(int index) const;
+
+    void addTrack(std::pair<int, Track*> track);
 
 };

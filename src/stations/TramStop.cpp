@@ -4,7 +4,6 @@
 
 #include "TramStop.h"
 
-Line* TramStop::getLine() const {
-    REQUIRE(this->properlyInitialized(),"TramStop must be initialized before its member variables are used.");
-    return m_line;
+std::pair<int, Track*> TramStop::getTrack() const {
+    return m_track;
 }

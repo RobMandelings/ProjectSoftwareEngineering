@@ -5,19 +5,14 @@
 #include "MetroStation.h"
 #include "lines/Line.h"
 
-std::vector<Line*> MetroStation::getLines() const {
-    REQUIRE(this->properlyInitialized(),"MetroStation must be initialized before its member variables are used.");
-    return m_lines;
+Track* MetroStation::getTrack(int index) const {
+    REQUIRE(index >= 0, "Metrostation getTrack(): index given is invalid");
+    return m_tracks.at(index);
 }
 
-Line* MetroStation::getLine(int index) const {
-    REQUIRE(this->properlyInitialized(),"MetroStation must be initialized before its member variables are used.");
-    REQUIRE((unsigned int)index<m_lines.size()-1,"Index must be smaller than the size of the list of lines.");
-    return m_lines.at(index);
-}
-
-void MetroStation::addLine(Line* line) {
-    REQUIRE(this->properlyInitialized(),"MetroStation must be initialized before its member variables are used.");
-    REQUIRE(line!=NULL && line->properlyInitialized(),"Line cannot be NULL.");
-    Station::addLine(line);
+void MetroStation::addTrack(std::pair<int, Track*> track) {
+    REQUIRE(track.first >= 0, "Metrostation addTrack(): the index of the track to insert is invalid (neg.)");
+    REQUIRE(track.second != NULL, "The track pointer cannot be NULL");
+    REQUIRE(m_tracks.at(track.first) == NULL, "There already exists a track at this index");
+    m_tracks.insert(track);
 }

@@ -6,6 +6,6 @@
 #include "Albatros.h"
 
 Albatros::Albatros(Line* line, int vehicleNumber, Station* beginStation) :
-        Tram(line, beginStation, 70, 72,vehicleNumber, 42, "Albatros") {
+        Tram(line, beginStation, NULL, 70, 72, vehicleNumber, 42, "Albatros") {
     REQUIRE(line->completelyUnderground(), " The line given is invalid; The albatros can only go underground");
 }

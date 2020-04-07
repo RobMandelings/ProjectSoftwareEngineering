@@ -6,10 +6,11 @@
 #define PROJECTSOFTWAREENGINEERING_TRAM_H
 
 #include <string>
-#include <lines/Line.h>
+#include "Line.h"
 
 class LineNode;
 class Station;
+class Track;
 
 /**
  * Class containing settings and values of a Tram in the MetroNet
@@ -27,9 +28,10 @@ private:
 
 private:
 
-
     LineNode* m_beginNode;
     LineNode* m_currentNode;
+
+    Track* m_currentTrack;
 
     Tram* _initCheck;
 
@@ -68,7 +70,7 @@ public:
     \n ENSURE(m_beginNode!=NULL && m_beginNode->properlyInitialized(),"The begin node cannot be NULL.");
     \n ENSURE(this->properlyInitialized(),"Constructor must end ...");
     */
-    Tram(Line* line, Station* beginStation, double maxSpeed, int amountOfSeats, int vehicleNumber, double length, const std::string& type);
+    Tram(Line* line, Station* beginStation, Track* beginTrack, double maxSpeed, int amountOfSeats, int vehicleNumber, double length, const std::string& type);
 
     /**
      * @brief Simple getter
@@ -126,6 +128,7 @@ public:
      \n REQUIRE(this->properlyInitialized(), "Tram must be initialized before its member variables are used.");
      \n REQUIRE(m_currentNode != NULL && m_currentNode->properlyInitialized(), "Current node cannot be NULL.");
      */
+    // TODO needs to be more sophisticated (taking into account the current track and such)
     void updateLocation();
 
     /**

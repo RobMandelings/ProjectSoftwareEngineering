@@ -8,9 +8,9 @@
 
 Tram::Tram(Line* line, Station* beginStation, Track* beginTrack, double maxSpeed, int amountOfSeats, int vehicleNumber, double length, const std::string& type) :
         m_tramLine(line),
-        m_currentSpeed(maxSpeed),
         m_amountOfSeats(amountOfSeats),
         m_vehicleNumber(vehicleNumber),
+        m_currentSpeed(maxSpeed),
         m_beginNode(line->getNodeForStation(beginStation)),
         m_currentNode(line->getNodeForStation(beginStation)),
         m_currentTrack(beginTrack),

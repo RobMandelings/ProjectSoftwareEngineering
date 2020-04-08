@@ -7,6 +7,7 @@
 #include "Station.h"
 
 class Track;
+
 class Line;
 
 class TramStop : public virtual Station {
@@ -18,7 +19,7 @@ private:
 public:
 
 
-    StationType getType() const {return ABOVE_GROUND; };
+    StationType getType() const { return ABOVE_GROUND; };
 
     std::pair<int, Track*> getTrack() const;
 

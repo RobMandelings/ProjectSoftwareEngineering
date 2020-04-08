@@ -9,7 +9,9 @@
 #include "Line.h"
 
 class LineNode;
+
 class Station;
+
 class Track;
 
 /**
@@ -21,10 +23,14 @@ private:
 
     Line* m_tramLine;
 
-    /** The current speed of this tram in km/h */
-    double m_currentSpeed;
     int m_amountOfSeats;
     int m_vehicleNumber;
+
+    /** The current speed of this tram in km/h */
+    double m_currentSpeed;
+
+    double m_currentTrackProgress;
+    double m_currentWaitTime;
 
 private:
 

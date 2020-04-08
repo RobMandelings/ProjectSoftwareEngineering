@@ -12,9 +12,9 @@ LineNode::LineNode(int lineIndex, Station* station) :
         m_previousNode(NULL),
         m_nextNode(NULL) {
     LineNode::_initCheck = this;
-    ENSURE(m_line>=0, "Line must be a positive number.");
-    ENSURE(m_station!=NULL && m_station->properlyInitialized(), "Station cannot be NULL.");
-    ENSURE(this->properlyInitialized(),"Constructor must end ...");
+    ENSURE(m_line >= 0, "Line must be a positive number.");
+    ENSURE(m_station != NULL && m_station->properlyInitialized(), "Station cannot be NULL.");
+    ENSURE(this->properlyInitialized(), "Constructor must end ...");
 }
 
 LineNode::LineNode(int lineIndex, Station* station, LineNode* previousNode, LineNode* nextNode) :
@@ -24,16 +24,16 @@ LineNode::LineNode(int lineIndex, Station* station, LineNode* previousNode, Line
         m_previousNode(previousNode),
         m_nextNode(nextNode) {
     LineNode::_initCheck = this;
-    ENSURE(m_line>=0, "Line must be a positive number.");
-    ENSURE(m_station!=NULL && m_station->properlyInitialized(),"Station cannot be NULL.");
-    ENSURE(m_previousNode!=NULL && m_previousNode->properlyInitialized(), "Node cannot be NULL.");
-    ENSURE(m_nextNode!=NULL && m_nextNode->properlyInitialized(), "Node cannot be NULL");
-    ENSURE(this->properlyInitialized(),"Constructor must end ...");
+    ENSURE(m_line >= 0, "Line must be a positive number.");
+    ENSURE(m_station != NULL && m_station->properlyInitialized(), "Station cannot be NULL.");
+    ENSURE(m_previousNode != NULL && m_previousNode->properlyInitialized(), "Node cannot be NULL.");
+    ENSURE(m_nextNode != NULL && m_nextNode->properlyInitialized(), "Node cannot be NULL");
+    ENSURE(this->properlyInitialized(), "Constructor must end ...");
 }
 
 Station* LineNode::getStation() const {
     REQUIRE(this->properlyInitialized(), "LineNode must be initialized before its member variables are used.");
-    REQUIRE(m_station!=NULL && m_station->properlyInitialized(),"Station cannot be NULL.");
+    REQUIRE(m_station != NULL && m_station->properlyInitialized(), "Station cannot be NULL.");
     return m_station;
 }
 

@@ -9,6 +9,7 @@
 #include "map"
 
 class Track;
+
 class Line;
 
 class MetroStation : public virtual Station {
@@ -25,7 +26,7 @@ public:
      \n REQUIRE(this->properlyInitialized(),"MetroStation must be initialized before its member variables are used.");
      \n REQUIRE(line!=NULL && line->properlyInitialized(),"Line cannot be NULL.");
      */
-    Track* getTrack(int index) const;
+    Track* getTrack(int trackNumber) const;
 
     void addTrack(std::pair<int, Track*> track);
 

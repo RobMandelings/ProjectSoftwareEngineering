@@ -42,7 +42,7 @@ namespace metro_parser {
         void parseLine(MetroNet* metroNet, TiXmlElement* lineElement, bool debug) {
             Line* currentLine = new Line();
             int lineIndex = metro_utils::stoi(lineElement->Attribute("index"));
-            currentLine->setLineIndex(lineIndex);
+            currentLine->setLineNumber(lineIndex);
             for (TiXmlElement* elem = lineElement->FirstChildElement();
                  elem != NULL; elem = elem->NextSiblingElement()) {
                 if (!strcmp(elem->Value(), "LIJNNODE")) {

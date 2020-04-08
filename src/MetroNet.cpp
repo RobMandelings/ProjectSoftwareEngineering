@@ -12,8 +12,8 @@
 MetroNet::MetroNet(const string& name) :
         m_name(name) {
     MetroNet::_initCheck = this;
-    ENSURE(m_name.length()>0, "Name can't be the empty string.");
-    ENSURE(this->properlyInitialized(),"Constructor must end ...");
+    ENSURE(m_name.length() > 0, "Name can't be the empty string.");
+    ENSURE(this->properlyInitialized(), "Constructor must end ...");
 }
 
 MetroNet::~MetroNet() {
@@ -37,13 +37,13 @@ MetroNet::~MetroNet() {
 
 const string& MetroNet::getName() const {
     REQUIRE(this->properlyInitialized(), "MetroNet must be initialized before its member variables are used.");
-    REQUIRE(m_name.length()>0,"Name can't be the empty string.");
+    REQUIRE(m_name.length() > 0, "Name can't be the empty string.");
     return m_name;
 }
 
 Station* MetroNet::getStation(const char* name) const {
     REQUIRE(this->properlyInitialized(), "MetroNet must be initialized before its member variables are used.");
-    REQUIRE(name!=NULL,"Name cannot be empty.");
+    REQUIRE(name != NULL, "Name cannot be empty.");
     for (unsigned int i = 0; i < MetroNet::m_stations.size(); i++) {
         if (MetroNet::m_stations[i]->getName() == name) {
             return MetroNet::m_stations[i];
@@ -69,28 +69,28 @@ const vector<Line*>& MetroNet::getLines() const {
 
 void MetroNet::addTram(Tram* tram) {
     REQUIRE(this->properlyInitialized(), "MetroNet must be initialized before its member variables are used.");
-    REQUIRE(tram!=NULL && tram->properlyInitialized(),"Tram cannot be NULL.");
+    REQUIRE(tram != NULL && tram->properlyInitialized(), "Tram cannot be NULL.");
     REQUIRE(this->checkVehicleNumberAvailability(tram), "Tram number must be available in this line.");
     MetroNet::m_trams.push_back(tram);
 }
 
 void MetroNet::addStation(Station* station) {
     REQUIRE(this->properlyInitialized(), "MetroNet must be initialized before its member variables are used.");
-    REQUIRE(station!=NULL && station->properlyInitialized(), "Station cannot be NULL.");
+    REQUIRE(station != NULL && station->properlyInitialized(), "Station cannot be NULL.");
     MetroNet::m_stations.push_back(station);
 }
 
 void MetroNet::addLine(Line* line) {
     REQUIRE(this->properlyInitialized(), "MetroNet must be initialized before its member variables are used.");
-    REQUIRE(line!=NULL && line->properlyInitialized(), "Line cannot be NULL.");
+    REQUIRE(line != NULL && line->properlyInitialized(), "Line cannot be NULL.");
     m_lines.push_back(line);
 }
 
 Line* MetroNet::getLine(int line) {
     REQUIRE(this->properlyInitialized(), "MetroNet must be initialized before its member variables are used.");
-    REQUIRE(line>=0,"Line must be a positive number.");
+    REQUIRE(line >= 0, "Line must be a positive number.");
     for (vector<Line*>::iterator it = m_lines.begin(); it != m_lines.end(); ++it) {
-        if ((*it)->getLine() == line) {
+        if ((*it)->getLineNumber() == line) {
             return (*it);
         }
     }
@@ -107,7 +107,8 @@ void MetroNet::updateTramLocations() {
         Tram& tram = **it;
         tram.updateLocation();
 
-        outfile << "Tram " << tram.getTramLine()->getLine() << " (" << tram.getVehicleNumber() << ")" << " ging van station " << tram.getCurrentNode()->getPreviousNode()->getStation()->getName() << " naar station " << tram.getCurrentNode()->getStation()->getName() << "\n";
+        outfile << "Tram " << tram.getTramLine()->getLineNumber() << " (" << tram.getVehicleNumber() << ")" << " ging van station "
+                << tram.getCurrentNode()->getPreviousNode()->getStation()->getName() << " naar station " << tram.getCurrentNode()->getStation()->getName() << "\n";
 
 
     }
@@ -119,11 +120,11 @@ bool MetroNet::properlyInitialized() const {
     return _initCheck == this;
 }
 
-bool MetroNet::checkVehicleNumberAvailability(Tram *tram) {
+bool MetroNet::checkVehicleNumberAvailability(Tram* tram) {
     REQUIRE(this->properlyInitialized(), "MetroNet must be initialized before its member variables are used.");
-    for(unsigned int i = 0; i<m_trams.size();i++){
-        if(m_trams[i]->getTramLine()->getLine() == tram->getTramLine()->getLine()){
-            if(m_trams[i]->getVehicleNumber() == tram->getVehicleNumber()){
+    for (unsigned int i = 0; i < m_trams.size(); i++) {
+        if (m_trams[i]->getTramLine()->getLineNumber() == tram->getTramLine()->getLineNumber()) {
+            if (m_trams[i]->getVehicleNumber() == tram->getVehicleNumber()) {
                 return false;
             }
         }

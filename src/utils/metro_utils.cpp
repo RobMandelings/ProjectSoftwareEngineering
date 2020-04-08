@@ -48,13 +48,13 @@ void metro_utils::printMetroNet(MetroNet* metroNet, const char* outputFilename) 
 
     outputFile << "Lines:" << "\n";
     for (vector<Line*>::iterator lineIt = lines.begin(); lineIt != lines.end(); lineIt++) {
-        outputFile << "\tLine " << (*lineIt)->getLine() << ": " << (*lineIt)->getAsString() << "\n";
+        outputFile << "\tLine " << (*lineIt)->getLineNumber() << ": " << (*lineIt)->getAsString() << "\n";
     }
 
     outputFile << "Trams:" << "\n";
     for (vector<Tram*>::iterator tramIt = trams.begin(); tramIt != trams.end(); tramIt++) {
         Tram* currentTram = *tramIt;
-        outputFile << "\t" << "Tram " << currentTram->getTramLine()->getLine() << " (" << currentTram->getVehicleNumber() << ")" << ":" << "\n";
+        outputFile << "\t" << "Tram " << currentTram->getTramLine()->getLineNumber() << " (" << currentTram->getVehicleNumber() << ")" << ":" << "\n";
         outputFile << "\t\tType: " << currentTram->TYPE << "\n";
         outputFile << "\t\tMax Speed: " << currentTram->MAX_SPEED << "\n";
         outputFile << "\t\tCurrent speed: " << currentTram->getCurrentSpeed() << "\n";

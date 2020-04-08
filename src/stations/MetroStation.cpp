@@ -5,9 +5,9 @@
 #include "MetroStation.h"
 #include "lines/Line.h"
 
-Track* MetroStation::getTrack(int index) const {
-    REQUIRE(index >= 0, "Metrostation getTrack(): index given is invalid");
-    return m_tracks.at(index);
+Track* MetroStation::getTrack(int trackNumber) const {
+    REQUIRE(trackNumber >= 0, "Metrostation getTrack(): index given is invalid");
+    return m_tracks.at(trackNumber);
 }
 
 void MetroStation::addTrack(std::pair<int, Track*> track) {

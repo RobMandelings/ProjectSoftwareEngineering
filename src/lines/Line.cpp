@@ -6,10 +6,10 @@
 #include "Station.h"
 
 Line::Line(int line, LineNode* firstNode) :
-        m_line(line),
+        m_lineNumber(line),
         m_firstNode(firstNode) {
     Line::_initCheck = this;
-    ENSURE(m_line >= 0, "Line must be a positive number.");
+    ENSURE(m_lineNumber >= 0, "Line must be a positive number.");
     ENSURE(m_firstNode != NULL && m_firstNode->properlyInitialized(), "The first node cannot be NULL.");
     ENSURE(this->properlyInitialized(), "Constructor must end ...");
 }
@@ -17,7 +17,7 @@ Line::Line(int line, LineNode* firstNode) :
 
 //TODO test that the line is not -1
 //TODO test station is not NULL
-Line::Line() : m_line(-1), m_firstNode(NULL) {
+Line::Line() : m_lineNumber(-1), m_firstNode(NULL) {
     Line::_initCheck = this;
     ENSURE(this->properlyInitialized(), "Constructor must end ...");
 }
@@ -60,10 +60,10 @@ bool Line::completelyUnderground() const {
     return true;
 }
 
-int Line::getLine() const {
+int Line::getLineNumber() const {
     REQUIRE(this->properlyInitialized(), "Line must be initialized before its member variables are used.");
-    REQUIRE(m_line >= 0, "Line cannot be a negative number.");
-    return m_line;
+    REQUIRE(m_lineNumber >= 0, "Line cannot be a negative number.");
+    return m_lineNumber;
 }
 
 LineNode* Line::getFirstNode() const {
@@ -72,11 +72,11 @@ LineNode* Line::getFirstNode() const {
     return m_firstNode;
 }
 
-void Line::setLineIndex(int line) {
+void Line::setLineNumber(int line) {
     REQUIRE(this->properlyInitialized(), "Line must be initialized before its member variables are used.");
     REQUIRE(line >= 0, "Line must be a positive number.");
-    this->m_line = line;
-    ENSURE(m_line == line, "m_line must be set to line.");
+    this->m_lineNumber = line;
+    ENSURE(m_lineNumber == line, "m_line must be set to line.");
 }
 
 void Line::insertNode(LineNode* lineNode) {

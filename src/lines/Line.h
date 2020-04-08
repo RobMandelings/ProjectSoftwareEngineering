@@ -12,7 +12,7 @@ class Line {
 
 private:
 
-    int m_line;
+    int m_lineNumber;
     LineNode* m_firstNode;
 
     Line* _initCheck;
@@ -47,7 +47,7 @@ public:
      \n REQUIRE(this->properlyInitialized(), "Line must be initialized before its member variables are used.");
      \n REQUIRE(line>=0,"Line must be a positive number.");
      */
-    void setLineIndex(int line);
+    void setLineNumber(int line);
 
     /**
      * @brief simple getter
@@ -57,7 +57,7 @@ public:
      \n REQUIRE(m_line>=0, "Line cannot be a negative number.");
      \n ENSURE(m_line==line,"m_line must be set to line.");
      */
-    int getLine() const;
+    int getLineNumber() const;
 
     /**
      * @brief simple getter

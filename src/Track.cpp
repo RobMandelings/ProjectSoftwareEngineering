@@ -22,11 +22,15 @@ Station* Track::getDestinationStation() const {
     return m_destinationStation;
 }
 
-std::vector<Tram*> Track::getCurrentTrams() const {
+std::queue<Tram*> Track::getCurrentTrams() const {
     return m_currentTrams;
+}
+
+Tram* Track::getFirstTram() const {
+    return m_currentTrams.front();
 }
 
 void Track::addTram(Tram* tram) {
     REQUIRE(tram, "the tram to be added to track should not be null!");
-    m_currentTrams.push_back(tram);
+    m_currentTrams.push(tram);
 }

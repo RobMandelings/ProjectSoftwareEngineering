@@ -3,7 +3,8 @@
 //
 
 #include "Station.h"
-#include "lines/Line.h"
+#include "Line.h"
+#include "Tram.h"
 
 const string& Station::getName() const {
     REQUIRE(this->properlyInitialized(), "Station must be initialized before its member variables are used.");
@@ -38,6 +39,19 @@ void Station::addLine(Line* line) {
 
 bool Station::properlyInitialized() const {
     return _initCheck == this;
+}
+
+void Station::setTram(Tram* tram) {
+    REQUIRE(!hasTram(), " cannot set tram: there already is a tram in the station!");
+    m_tram = tram;
+}
+
+Tram* Station::getTram() const {
+    return m_tram;
+}
+
+bool Station::hasTram() const {
+    return getTram() != NULL;
 }
 
 Station::Station() {

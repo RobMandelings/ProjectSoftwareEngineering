@@ -8,6 +8,7 @@
 #include "library.h"
 
 class Line;
+class Tram;
 
 enum StationType {
     ABOVE_GROUND,
@@ -19,7 +20,10 @@ class Station {
 private:
     string m_name;
     vector<Line*> m_lines;
+
     Station* _initCheck;
+
+    Tram* m_tram;
 
 public:
 
@@ -29,6 +33,12 @@ public:
     Station();
 
     virtual ~Station();
+
+    void setTram(Tram* tram);
+
+    Tram* getTram() const;
+
+    bool hasTram() const;
 
     /**
      * @return station type

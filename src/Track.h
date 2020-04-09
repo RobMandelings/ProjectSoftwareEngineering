@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "vector"
+#include <queue>
 
 class Tram;
 
@@ -23,7 +23,7 @@ private:
     Station* m_destinationStation;
 
     /** The trams which are currently riding on this track */
-    std::vector<Tram*> m_currentTrams;
+    std::queue<Tram*> m_currentTrams;
 
 public:
 
@@ -49,7 +49,9 @@ public:
      * @brief simple getter
      * @return the trams currently riding on this track
      */
-    std::vector<Tram*> getCurrentTrams() const;
+    std::queue<Tram*> getCurrentTrams() const;
+
+    Tram* getFirstTram() const;
 
     /**
      * @brief adds a tram to the trams currently riding on this tram (should be used by tram->updateLocation())

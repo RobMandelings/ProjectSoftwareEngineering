@@ -1,0 +1,85 @@
+<METRONET naam="Antwerpen">
+    <STATION naam="A">
+        <type>MetroStation</type>
+        <perron>
+            <nummer>1</nummer>
+        </perron>
+    </STATION>
+    <STATION naam="B">
+        <type>MetroStation</type>
+    </STATION>
+    <STATION naam="C">
+        <type>MetroStation</type>
+    </STATION>
+    <TRACK>
+        <station>
+            <naam>A</naam>
+            <perron>1</perron>
+        </station>
+        <perron>
+            <station>B</station>
+            <nummer>1</nummer>
+        </perron>
+        <perron>
+            <station>C</station>
+            <nummer>1</nummer>
+        </perron>
+    </TRACK>
+    <TRACK>
+        <perron>
+            <station>D</station>
+            <nummer>9</nummer>
+        </perron>
+        <perron>
+            <station>B</station>
+            <nummer>1</nummer>
+        </perron>
+    </TRACK>
+    <TRACK>
+        <perron>
+            <station>D</station>
+            <nummer>10</nummer>
+        </perron>
+        <perron>
+            <station>B</station>
+            <nummer>5</nummer>
+        </perron>
+    </TRACK>
+    <TRACK>
+        <perron>
+            <station>B</station>
+            <nummer>5</nummer>
+        </perron>
+        <perron>
+            <station>E</station>
+            <nummer>1</nummer>
+        </perron>
+    </TRACK>
+    <LIJN index="12">
+        <LIJNNODE station="A"/>
+        <LIJNNODE station="B"/>
+        <LIJNNODE station="C"/>
+    </LIJN>
+    <TRAM>
+        <startperron>
+            <station>A</station>
+            <nummer>1</nummer>
+        </startperron>
+        <lijn>12</lijn>
+        <voertuigNr>1</voertuigNr>
+        <zitplaatsen>32</zitplaatsen>
+        <snelheid>60</snelheid>
+    </TRAM>
+    <TRAM>
+        <lijn>12</lijn>
+        <voertuigNr>2</voertuigNr>
+        <type>Albatros</type>
+        <beginStation>A</beginStation>
+    </TRAM>
+    <TRAM>
+        <lijn>12</lijn>
+        <voertuigNr>3</voertuigNr>
+        <type>Albatros</type>
+        <beginStation>A</beginStation>
+    </TRAM>
+</METRONET>

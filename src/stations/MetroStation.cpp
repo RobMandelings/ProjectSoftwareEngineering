@@ -8,7 +8,7 @@
 
 std::vector<Platform*> MetroStation::getPlatforms() const {
     return m_platforms;
-};
+}
 
 void MetroStation::addPlatform(Platform* platform) {
     m_platforms.push_back(platform);

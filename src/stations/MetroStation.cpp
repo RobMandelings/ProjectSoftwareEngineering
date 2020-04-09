@@ -30,7 +30,7 @@ Track* MetroStation::getTrackForDestination(Station* destinationStation) {
 
     Track* trackForDestination = NULL;
     for (std::map<int, Track*>::iterator trackIt = m_outgoingTracks.begin(); trackIt != m_outgoingTracks.end(); trackIt++) {
-        if (trackIt->second->getDestinationStation() == destinationStation) {
+        if (trackIt->second->getDestinationPlatform() == destinationStation) {
             trackForDestination = trackIt->second;
         }
     }

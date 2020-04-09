@@ -5,21 +5,21 @@
 #include "Track.h"
 #include "library.h"
 
-Track::Track(Station* sourceStation, Station* destinationStation) :
-        m_sourceStation(sourceStation),
-        m_destinationStation(destinationStation) {
-    ENSURE(sourceStation, "sourceStation may not be null!");
-    ENSURE(destinationStation, "destinationStation may not be null!");
+Track::Track(Platform* sourcePlatform, Platform* destinationPlatform) :
+        m_sourcePlatform(sourcePlatform),
+        m_destinationPlatform(destinationPlatform) {
+    ENSURE(sourcePlatform, "sourceStation may not be null!");
+    ENSURE(destinationPlatform, "destinationStation may not be null!");
 }
 
-Station* Track::getSourceStation() const {
-    REQUIRE(m_sourceStation, "sourceStation cannot be null!");
-    return m_sourceStation;
+Platform* Track::getSourcePlatform() const {
+    REQUIRE(m_sourcePlatform, "sourceStation cannot be null!");
+    return m_sourcePlatform;
 }
 
-Station* Track::getDestinationStation() const {
-    REQUIRE(m_destinationStation, "destinationStation cannot be null!");
-    return m_destinationStation;
+Platform* Track::getDestinationPlatform() const {
+    REQUIRE(m_destinationPlatform, "destinationStation cannot be null!");
+    return m_destinationPlatform;
 }
 
 std::queue<Tram*> Track::getWaitingTrams() const {

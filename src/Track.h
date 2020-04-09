@@ -8,7 +8,7 @@
 
 class Tram;
 
-class Station;
+class Platform;
 
 class Track {
 
@@ -16,34 +16,34 @@ private:
 
     // TODO maybe add a length (which is calculated from the destinationStation and ?
 
-    /** The source station of this track (where the track starts) */
-    Station* m_sourceStation;
+    /** The source platform of this track (where the track starts) */
+    Platform* m_sourcePlatform;
 
-    /** The destination station of this track (where the track ends) */
-    Station* m_destinationStation;
+    /** The destination platform of this track (where the track ends) */
+    Platform* m_destinationPlatform;
 
-    /** The trams which are currently waiting to enter the destination station */
+    /** The trams which are currently waiting to enter the destination platform */
     std::queue<Tram*> m_waitingTrams;
 
 public:
 
     /** @brief simple constructor
-     * @param sourceStation The source station of this track (where the track starts)
-     * @param destinationStation The destination station of this track (where the track ends)
+     * @param sourcePlatform The source platform of this track (where the track starts)
+     * @param destinationPlatform The destination platform of this track (where the track ends)
      */
-    Track(Station* sourceStation, Station* destinationStation);
+    Track(Platform* sourcePlatform, Platform* destinationPlatform);
 
     /**
      * @brief simple getter
-     * @return the source station of this track
+     * @return the source platform of this track
      */
-    Station* getSourceStation() const;
+    Platform* getSourcePlatform() const;
 
     /**
      * @brief simple getter
-     * @return the destination station of this track
+     * @return the destination platform of this track
      */
-    Station* getDestinationStation() const;
+    Platform* getDestinationPlatform() const;
 
     /**
      * @brief simple getter

@@ -15,6 +15,7 @@ include_directories(src/trams)
 include_directories(src/lines/)
 include_directories(src/stations)
 include_directories(src/timer)
+include_directories(src/platform)
 
 # Set include dir (gtest)
 include_directories(gtest/include)
@@ -41,7 +42,8 @@ set(RELEASE_SOURCE_FILES
         src/trams/Albatros.cpp
         src/trams/Albatros.h src/trams/PCC.cpp src/trams/PCC.h
         src/Track.cpp src/Track.h
-        src/timer/Timer.cpp src/timer/Timer.h src/constants.cpp src/constants.h src/signals/Signal.cpp src/signals/Signal.h)
+        src/timer/Timer.cpp src/timer/Timer.h src/constants.cpp src/constants.h src/signals/Signal.cpp src/signals/Signal.h
+        src/platform/Platform.h src/platform/Platform.cpp)
 
 # Set source files for DEBUG target
 set(DEBUG_SOURCE_FILES
@@ -63,7 +65,8 @@ set(DEBUG_SOURCE_FILES
         src/tests/outputTest.cpp src/tests/inputTest.cpp src/tests/DesignByContract.h
         src/trams/Albatros.cpp src/trams/Albatros.h src/trams/PCC.h src/trams/PCC.cpp
         src/stations/TramStop.cpp src/stations/TramStop.h src/Track.cpp src/Track.h
-        src/timer/Timer.cpp src/timer/Timer.h src/constants.cpp src/constants.h src/signals/Signal.cpp src/signals/Signal.h)
+        src/timer/Timer.cpp src/timer/Timer.h src/constants.cpp src/constants.h src/signals/Signal.cpp src/signals/Signal.h
+        src/platform/Platform.h src/platform/Platform.cpp)
 
 # Create RELEASE target
 add_executable(metroNet ${RELEASE_SOURCE_FILES})

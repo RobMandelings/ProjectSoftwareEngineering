@@ -1,0 +1,14 @@
+//
+// Created by thibaultpoels on 09/04/2020.
+//
+
+#ifndef PROJECTSOFTWAREENGINEERING_PERRON_H
+#define PROJECTSOFTWAREENGINEERING_PERRON_H
+
+
+class Platform {
+
+};
+
+
+#endif //PROJECTSOFTWAREENGINEERING_PERRON_H

@@ -4,7 +4,7 @@
 
 #include "TramStop.h"
 
-std::pair<int, Track*> TramStop::getTrack() const {
+Track* TramStop::getTrack() const {
     return m_outgoingTrack;
 }
 
@@ -14,13 +14,9 @@ void TramStop::setTram(Tram* tram) {
 }
 
 Tram* TramStop::getTram() const {
-    return m_trams.at();
+    return m_tram;
 }
 
 bool TramStop::hasTram() const {
     return getTram() != NULL;
-}
-
-Track* TramStop::getTrack() const {
-    return m_tracks.at();
 }

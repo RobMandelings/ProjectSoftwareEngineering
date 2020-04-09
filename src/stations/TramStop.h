@@ -14,13 +14,19 @@ class TramStop : public virtual Station {
 
 private:
 
-    std::pair<int, Track*> m_track;
+    Track* m_outgoingTrack;
+    Tram* m_tram;
 
 public:
 
+    void setTram(Tram* tram);
+
+    Tram* getTram() const;
+
+    bool hasTram() const;
 
     StationType getType() const { return ABOVE_GROUND; };
 
-    std::pair<int, Track*> getTrack() const;
+    Track* getTrack() const;
 
 };

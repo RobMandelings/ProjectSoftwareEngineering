@@ -41,19 +41,6 @@ bool Station::properlyInitialized() const {
     return _initCheck == this;
 }
 
-void Station::setTram(Tram* tram) {
-    REQUIRE(!hasTram(), " cannot set tram: there already is a tram in the station!");
-    m_tram = tram;
-}
-
-Tram* Station::getTram() const {
-    return m_tram;
-}
-
-bool Station::hasTram() const {
-    return getTram() != NULL;
-}
-
 Station::Station() {
     Station::_initCheck = this;
     ENSURE(this->properlyInitialized(), "Constructor must end ...");

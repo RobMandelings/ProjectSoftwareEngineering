@@ -23,8 +23,6 @@ private:
 
     Station* _initCheck;
 
-    Tram* m_tram;
-
 public:
 
     /**
@@ -33,12 +31,6 @@ public:
     Station();
 
     virtual ~Station();
-
-    void setTram(Tram* tram);
-
-    Tram* getTram() const;
-
-    bool hasTram() const;
 
     /**
      * @return station type

@@ -16,9 +16,17 @@ class MetroStation : public virtual Station {
 
 private:
 
-    std::map<int, Track*> m_tracks;
+    std::map<int, Track*> m_outgoingTracks;
+
+    std::map<int, Tram*> m_trams;
 
 public:
+
+    void setTramOn(int trackNumber, Tram* tram);
+
+    Tram* getTramOn(int trackNumber) const;
+
+    bool hasTramOn(int trackNumber) const;
 
     StationType getType() const { return UNDERGROUND; };
 

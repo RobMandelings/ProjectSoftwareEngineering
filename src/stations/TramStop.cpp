@@ -5,6 +5,3 @@
 #include "TramStop.h"
 
 #include "Platform.h"
-
-TramStop::TramStop(Platform* platform) :
-        m_platform(platform) {}

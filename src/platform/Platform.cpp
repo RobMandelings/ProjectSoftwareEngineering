@@ -3,7 +3,7 @@
 //
 
 #include "Platform.h"
-#include "stations/Station.h"
+#include "Station.h"
 #include "Track.h"
 
 Platform::Platform(Station *station, int number) :m_station(station), m_number(number){

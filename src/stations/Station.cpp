@@ -5,6 +5,9 @@
 #include "Station.h"
 #include "Line.h"
 #include "Tram.h"
+#include "TramStop.h"
+#include "Platform.h"
+#include "MetroStation.h"
 
 const string& Station::getName() const {
     REQUIRE(this->properlyInitialized(), "Station must be initialized before its member variables are used.");
@@ -48,4 +51,11 @@ Station::Station() {
 
 Station::~Station() {
 
+}
+
+TramStop::TramStop(Platform* platform) :
+        m_platform(platform) {}
+
+void MetroStation::addPlatform(Platform* platform) {
+    m_platforms.push_back(platform);
 }

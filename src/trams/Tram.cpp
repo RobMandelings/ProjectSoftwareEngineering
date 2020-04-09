@@ -25,8 +25,8 @@ Tram::Tram(Line* line, Station* beginStation, Track* beginTrack, double maxSpeed
     ENSURE(m_amountOfSeats >= 0, "The amount of seats cannot be negative.");
     ENSURE(m_vehicleNumber >= 0, "Vehicle number must be a positive number.");
     ENSURE(m_beginNode != NULL && m_beginNode->properlyInitialized(), "The begin node cannot be NULL.");
-    ENSURE(m_currentTrack != NULL && m_currentTrack->getSourcePlatform() == m_currentNode->getStation() &&
-                   m_currentTrack->getDestinationPlatform() == m_currentNode->getNextNode()->getStation(), "The given track does not correspond to the line this tram is on!");
+//    TODO ENSURE(m_currentTrack != NULL && m_currentTrack->getSourcePlatform() == m_currentNode->getStation() &&
+//                   m_currentTrack->getDestinationPlatform() == m_currentNode->getNextNode()->getStation(), "The given track does not correspond to the line this tram is on!");
     ENSURE(this->properlyInitialized(), "Constructor must end ...");
 }
 

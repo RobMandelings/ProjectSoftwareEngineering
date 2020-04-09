@@ -13,7 +13,7 @@ int main() {
     MetroNet* metroNet = NULL;
 
     try {
-        metroNet = metro_parser::parseMetroNetXml("../input/voorbeeld.xml");
+        metroNet = metro_parser::parseMetroNetXml("../input/voorbeeldMetTracks.xml");
 
         metro_utils::printMetroNet(metroNet, "../output/Summary.metro");
         simulation_utils::simulateTrams(*metroNet, 3);

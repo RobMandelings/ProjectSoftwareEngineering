@@ -14,27 +14,64 @@
 #include "Station.h"
 #include "MetroStation.h"
 #include "TramStop.h"
+#include "Platform.h"
 
 namespace metro_parser {
 
     namespace {
 
-        void parseStation(MetroNet* metroNet, TiXmlElement* stationElement, bool debug) {
+        void parseStation(MetroNet* metroNet, TiXmlElement* stationTag, bool debug) {
+
             std::string stationType;
-            for (TiXmlElement* elem = stationElement->FirstChildElement(); elem != NULL;
-                 elem = elem->NextSiblingElement()) {
-                string elemName = elem->Value();
-                if (elemName == "type") {
-                    stationType = elem->GetText();
+            std::vector<Platform*> platforms;
+
+            for (TiXmlElement* currentChildElement = stationTag->FirstChildElement(); currentChildElement != NULL;
+                 currentChildElement = currentChildElement->NextSiblingElement()) {
+                string childElementName = currentChildElement->Value();
+                if (childElementName == "type") {
+                    stationType = currentChildElement->GetText();
+                } else if (childElementName == "perron") {
+                    int platformNumber = -1;
+                    for (TiXmlElement* currentPerronChildElement = currentChildElement->FirstChildElement();
+                         currentPerronChildElement != NULL; currentPerronChildElement = currentPerronChildElement->NextSiblingElement()) {
+                        if (!strcmp(currentPerronChildElement->Value(), "nummer")) {
+                            platformNumber = metro_utils::stoi(currentPerronChildElement->GetText());
+                        }
+                    }
+                    if (platformNumber < 0) {
+                        throw MetroNetParseException();
+                    } else {
+                        platforms.push_back(new Platform(platformNumber));
+                    }
                 }
+            }
+
+            if (platforms.empty()) {
+                throw MetroNetParseException();
             }
             Station* currentStation = NULL;
             if (stationType == "MetroStation") {
-                currentStation = new MetroStation();
+                MetroStation* metroStation = new MetroStation();
+                metroStation->getPlatforms();
+                for (std::vector<Platform*>::iterator it = platforms.begin(); it != platforms.end(); ++it) {
+                    metroStation->addPlatform(*it);
+                }
+                currentStation = metroStation;
             } else if (stationType == "TramStop") {
-                currentStation = new TramStop();
+                if (platforms.size() > 1) {
+                    throw MetroNetParseException();
+                } else {
+                    currentStation = new TramStop(platforms.at(0));
+                }
+            } else {
+                throw MetroNetParseException();
             }
-            string name = stationElement->Attribute("naam");
+
+            // The station of the platform is set to the currentStation
+            for (std::vector<Platform*>::iterator it = platforms.begin(); it != platforms.end(); it++) {
+                (*it)->setStation(currentStation);
+            }
+            string name = stationTag->Attribute("naam");
             currentStation->setName(name);
             metroNet->addStation(currentStation);
         }
@@ -72,26 +109,26 @@ namespace metro_parser {
             Station* beginStation = NULL;
             std::string type = "Tram";
 
-            for (TiXmlElement* elem = tramElement->FirstChildElement(); elem != NULL;
-                 elem = elem->NextSiblingElement()) {
-                string elemName = elem->Value();
-                if (elemName == "lijn") {
-                    lineIndex = metro_utils::stoi(elem->GetText());
-                } else if (elemName == "type") {
-                    type = elem->GetText();
-                } else if (elemName == "length") {
-                    length = metro_utils::stod(elem->GetText());
-                } else if (elemName == "voertuigNr") {
-                    voertuigNr = metro_utils::stoi(elem->GetText());
+            for (TiXmlElement* tag = tramElement->FirstChildElement(); tag != NULL;
+                 tag = tag->NextSiblingElement()) {
+                string tagName = tag->Value();
+                if (tagName == "lijn") {
+                    lineIndex = metro_utils::stoi(tag->GetText());
+                } else if (tagName == "type") {
+                    type = tag->GetText();
+                } else if (tagName == "length") {
+                    length = metro_utils::stod(tag->GetText());
+                } else if (tagName == "voertuigNr") {
+                    voertuigNr = metro_utils::stoi(tag->GetText());
                 }
                 //TODO what to do if the type is not a default tram but PCC for example? 'zitplaatsen' should not be used in this case
-                if (elemName == "zitplaatsen") {
-                    amountOfSeats = metro_utils::stoi(elem->GetText());
-                } else if (elemName == "snelheid") {
-                    speed = metro_utils::stod(elem->GetText());
-                } else if (elemName == "beginStation") {
+                if (tagName == "zitplaatsen") {
+                    amountOfSeats = metro_utils::stoi(tag->GetText());
+                } else if (tagName == "snelheid") {
+                    speed = metro_utils::stod(tag->GetText());
+                } else if (tagName == "beginStation") {
                     //TODO: use gtest to test if the station was actually found
-                    beginStation = metroNet->getStation(elem->GetText());
+                    beginStation = metroNet->getStation(tag->GetText());
                 }
             }
             if (type == "PCC") {

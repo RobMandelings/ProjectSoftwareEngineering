@@ -16,14 +16,29 @@ private:
     long updateTime;
 
     /**
-     * @brief simple constructor of Timer
+     * @brief simple constructor for Timer
      \n ENSURE(this->properlyInitialized(),"Constructor must end ...");
      */
     Timer();
 
 public:
 
+    /**
+     * @brief function which returns the singleton for Timer
+     */
     const Timer& get() const;
+
+    /**
+     * @brief function which returns the difference between the time now and the time saved by the member variable updateTime
+     \n REQUIRE(this->properlyInitialized(),"Timer must be properly initialized to use its member methods.");
+     */
+    long getTimeSinceLastUpdate();
+
+    /**
+     * @brief simple setter for updateTime
+     \n REQUIRE(this->properlyInitialized(),"Timer must be properly initialized to use its member methods.");
+     */
+    void setUpdateTime();
 
     bool properlyInitialized() const;
 

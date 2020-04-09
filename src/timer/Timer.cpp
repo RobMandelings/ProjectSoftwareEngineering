@@ -3,8 +3,7 @@
 //
 
 #include "Timer.h"
-#include "DesignByContract.h"
-#include <unistd.h>
+#include "library.h"
 
 const Timer& Timer::get() const {
     static Timer timer;
@@ -19,4 +18,14 @@ bool Timer::properlyInitialized() const {
 Timer::Timer() {
     Timer::_initCheck = this;
     ENSURE(this->properlyInitialized(), "Constructor must end ...");
+}
+
+long Timer::getTimeSinceLastUpdate() {
+    REQUIRE(this->properlyInitialized(),"Timer must be properly initialized to use its member methods.");
+    return static_cast<long>(static_cast<long>(time(NULL))-this->updateTime);
+}
+
+void Timer::setUpdateTime() {
+    REQUIRE(this->properlyInitialized(),"Timer must be properly initialized to use its member methods.");
+    this->updateTime = static_cast<long>(time(NULL));
 }

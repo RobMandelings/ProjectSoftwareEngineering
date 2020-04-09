@@ -1,6 +1,7 @@
 //
 // Created by rob on 27/02/2020.
 //
+#include <cmath>
 
 #include "Tram.h"
 #include "LineNode.h"
@@ -67,9 +68,37 @@ void Tram::setCurrentSpeed(int currentSpeed) {
     ENSURE(m_currentSpeed == currentSpeed, "m_currentspeed has to be set to currentSpeed.");
 }
 
-void Tram::updateLocation() {
+void Tram::update(long timeSinceLastUpdate) {
     REQUIRE(this->properlyInitialized(), "Tram must be initialized before its member variables are used.");
     m_currentNode = m_currentNode->getNextNode();
+
+    // If the tram is currently in a station
+    if (!isOnTrack()) {
+
+        bool waitTimeZero = true;
+        if (m_currentWaitTime > 0) {
+
+            m_currentWaitTime -= (double) timeSinceLastUpdate;
+
+            // If the current wait time is now smaller than or equal to 0
+            if (m_currentWaitTime < 0) {
+                // Tijd dat er te veel is afgegaan van de currentWait time zetten in timeSinceLastUpdate
+                timeSinceLastUpdate = (long) std::abs(m_currentWaitTime);
+                m_currentWaitTime = 0;
+            } else {
+                waitTimeZero = false;
+            }
+        }
+
+        // If the condition is true, do other checks to see whether or not the tram should leave its station
+        if (waitTimeZero) {
+            // TODO Collision prevention: check if no other trams are currently in the next station
+
+        }
+
+    } else {
+        // Verander positie
+    }
 }
 
 int Tram::getVehicleNumber() const {
@@ -88,3 +117,6 @@ bool Tram::properlyInitialized() const {
     return _initCheck == this;
 }
 
+bool Tram::isOnTrack() const {
+    return m_currentTrack != NULL;
+}

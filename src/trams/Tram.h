@@ -51,6 +51,8 @@ public:
 
     virtual ~Tram();
 
+    bool isOnTrack() const;
+
     /**
      * @brief Simple getter
      * @return pointer to the tram line begin node
@@ -134,8 +136,7 @@ public:
      \n REQUIRE(this->properlyInitialized(), "Tram must be initialized before its member variables are used.");
      \n REQUIRE(m_currentNode != NULL && m_currentNode->properlyInitialized(), "Current node cannot be NULL.");
      */
-    // TODO needs to be more sophisticated (taking into account the current track and such)
-    void updateLocation();
+    void update(long timeSinceLastUpdate);
 
     /**
      * @brief checks if this object was properly initialized

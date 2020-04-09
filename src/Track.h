@@ -22,8 +22,8 @@ private:
     /** The destination station of this track (where the track ends) */
     Station* m_destinationStation;
 
-    /** The trams which are currently riding on this track */
-    std::queue<Tram*> m_currentTrams;
+    /** The trams which are currently waiting to enter the destination station */
+    std::queue<Tram*> m_waitingTrams;
 
 public:
 
@@ -49,14 +49,14 @@ public:
      * @brief simple getter
      * @return the trams currently riding on this track
      */
-    std::queue<Tram*> getCurrentTrams() const;
+    std::queue<Tram*> getWaitingTrams() const;
 
-    Tram* getFirstTram() const;
+    Tram* getFirstTramInLine() const;
 
     /**
      * @brief adds a tram to the trams currently riding on this tram (should be used by tram->updateLocation())
      * @param tram the tram to add to the track
      */
-    void addTram(Tram* tram);
+    void addWaitingTram(Tram* tram);
 
 };

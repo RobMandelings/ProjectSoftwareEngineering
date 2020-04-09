@@ -28,6 +28,8 @@ public:
      */
     Track* getTrack(int trackNumber) const;
 
+    Track* getTrackForDestination(Station* destinationStation);
+
     void addTrack(std::pair<int, Track*> track);
 
 };

@@ -26,7 +26,7 @@ public:
     /**
      * @brief function which returns the singleton for Timer
      */
-    const Timer& get() const;
+    static Timer& get();
 
     /**
      * @brief function which returns the difference between the time now and the time saved by the member variable updateTime

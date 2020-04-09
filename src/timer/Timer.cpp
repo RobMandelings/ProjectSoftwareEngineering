@@ -5,7 +5,7 @@
 #include "Timer.h"
 #include "library.h"
 
-const Timer& Timer::get() const {
+Timer& Timer::get() {
     static Timer timer;
 
     return timer;

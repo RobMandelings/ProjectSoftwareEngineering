@@ -7,7 +7,7 @@
 #include "metro_parser.h"
 #include "metro_utils.h"
 #include "simulation_utils.h"
-
+#include "Timer.h"
 int main() {
 
     MetroNet* metroNet = NULL;

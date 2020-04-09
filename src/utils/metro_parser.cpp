@@ -52,7 +52,6 @@ namespace metro_parser {
             Station* currentStation = NULL;
             if (stationType == "MetroStation") {
                 MetroStation* metroStation = new MetroStation();
-                metroStation->getPlatforms();
                 for (std::vector<Platform*>::iterator it = platforms.begin(); it != platforms.end(); ++it) {
                     metroStation->addPlatform(*it);
                 }

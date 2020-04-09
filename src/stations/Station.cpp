@@ -59,3 +59,7 @@ TramStop::TramStop(Platform* platform) :
 void MetroStation::addPlatform(Platform* platform) {
     m_platforms.push_back(platform);
 }
+
+std::vector<Platform*> MetroStation::getPlatforms() const {
+    return m_platforms;
+}

@@ -7,6 +7,3 @@
 #include "Track.h"
 #include "Platform.h"
 
-std::vector<Platform*> MetroStation::getPlatforms() const {
-    return m_platforms;
-}

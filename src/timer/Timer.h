@@ -27,6 +27,10 @@ public:
 
     bool properlyInitialized() const;
 
+    long getTimeSinceLastUpdate();
+
+    void setUpdateTime();
+
 };
 
 

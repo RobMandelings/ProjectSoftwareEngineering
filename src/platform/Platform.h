@@ -26,6 +26,8 @@ public:
 
     Platform(Station* station, int number);
 
+    Platform(int number);
+
     vector<Track*>& getTracks();
 
     void addTrack(Track* track);

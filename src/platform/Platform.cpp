@@ -11,6 +11,11 @@ Platform::Platform(Station *station, int number) :m_station(station), m_number(n
     ENSURE(this->properlyInitialized(),"Constructor must end ...");
 }
 
+Platform::Platform(int number) : m_number(number){
+    Platform::_initCheck = this;
+    ENSURE(this->properlyInitialized(), "Constructor must end ...");
+}
+
 vector<Track*>& Platform::getTracks() {
     REQUIRE(this->properlyInitialized(), "Platform must be properly initialized to use its member methods.");
     return m_tracks;

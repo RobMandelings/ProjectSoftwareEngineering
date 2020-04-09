@@ -9,24 +9,18 @@
 class Track;
 
 class Line;
+class Platform;
 
 class TramStop : public virtual Station {
 
 private:
 
-    Track* m_outgoingTrack;
-    Tram* m_tram;
+    Platform* m_platform;
 
 public:
 
-    void setTram(Tram* tram);
-
-    Tram* getTram() const;
-
-    bool hasTram() const;
+    explicit TramStop(Platform* platform);
 
     StationType getType() const { return ABOVE_GROUND; };
-
-    Track* getTrack() const;
 
 };

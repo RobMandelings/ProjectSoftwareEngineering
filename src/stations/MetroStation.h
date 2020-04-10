@@ -14,7 +14,7 @@ class Line;
 
 class Platform;
 
-class MetroStation : public virtual Station {
+class MetroStation : public Station {
 
 private:
 
@@ -23,6 +23,8 @@ private:
 public:
 
     std::vector<Platform*> getPlatforms() const;
+
+    Platform* getPlatform(int number);
 
     void addPlatform(Platform* platform);
 

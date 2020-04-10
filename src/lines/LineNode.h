@@ -76,6 +76,10 @@ public:
      */
     LineNode* getNextNode() const;
 
+    Station* getNextStation() const;
+
+    Station* getPreviousStation() const;
+
     /**
      * @brief simple setter
      * @param underConstruction: true if the lineNode should be marked as 'under construction', false if not

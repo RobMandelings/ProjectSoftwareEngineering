@@ -8,6 +8,8 @@
 #include "LineNode.h"
 #include "library.h"
 
+class Tram;
+
 class Line {
 
 private:

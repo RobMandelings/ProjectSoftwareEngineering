@@ -11,7 +11,7 @@ class Track;
 class Line;
 class Platform;
 
-class TramStop : public virtual Station {
+class TramStop : public Station {
 
 private:
 
@@ -20,6 +20,8 @@ private:
 public:
 
     explicit TramStop(Platform* platform);
+
+    Platform* getPlatform() const;
 
     StationType getType() const { return ABOVE_GROUND; };
 

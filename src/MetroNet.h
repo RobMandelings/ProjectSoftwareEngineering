@@ -12,6 +12,10 @@ class Station;
 
 class Tram;
 
+class Track;
+
+class Platform;
+
 /**
  * Class containing settings and values of the complete MetroNet you want to simulate
  */
@@ -21,6 +25,7 @@ private:
     vector<Tram*> m_trams;
     vector<Station*> m_stations;
     vector<Line*> m_lines;
+    vector<Track*> m_tracks;
 
     MetroNet* _initCheck;
 public:
@@ -99,6 +104,15 @@ public:
     const vector<Line*>& getLines() const;
 
     /**
+     * @return all tracks present in this metronet
+     *
+     \n REQUIRE(this->properlyInitialized(), "MetroNet must be initialized before its member variables are used.");
+     */
+    const vector<Track*>& getTracks() const;
+
+    bool trackExists(Platform* sourcePlatform, Platform* destinationPlatform);
+
+    /**
      * @brief adds a station to this MetroNet
      * @param station: a pointer to the station you want to add
      *
@@ -125,6 +139,15 @@ public:
      \n REQUIRE(this->checkVehicleNumberAvailability(tram), "Tram number must be available in this line.");
      */
     void addLine(Line* line);
+
+    /**
+     * @brief adds a track to this MetroNet
+     * @param station: a pointer to the track you want to add
+     *
+     \n REQUIRE(this->properlyInitialized(), "MetroNet must be initialized before its member variables are used.");
+     \n REQUIRE(tram!=NULL && tram->properlyInitialized(),"Track cannot be NULL.");
+     */
+    void addTrack(Track* track);
 
     /**
      * @brief updates the location of all trams in this metronet

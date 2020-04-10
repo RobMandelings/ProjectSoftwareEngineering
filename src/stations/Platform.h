@@ -9,6 +9,7 @@
 
 class Station;
 class Track;
+class Tram;
 
 class Platform {
 
@@ -18,7 +19,10 @@ private:
 
     int m_number;
 
-    vector<Track*> m_tracks;
+    vector<Track*> m_outgoingTracks;
+    vector<Track*> m_incomingTracks;
+
+    Tram* m_currentTram;
 
     Platform* _initCheck;
 
@@ -28,11 +32,13 @@ public:
 
     Platform(int number);
 
-    vector<Track*>& getTracks();
+    vector<Track*>& getOutgoingTracks();
 
-    void addTrack(Track* track);
+    void addOutgoingTrack(Track* track);
 
-    void setTracks(const vector<Track*>& tracks);
+    vector<Track*>& getIncomingTracks();
+
+    void addIncomingTrack(Track* track);
 
     Station *getStation();
 
@@ -41,6 +47,12 @@ public:
     int getNumber() const;
 
     void setNumber(int number);
+
+    void setCurrentTram(Tram* currentTram);
+
+    Tram* getCurrentTram() const;
+
+    bool hasCurrentTram() const;
 
     bool properlyInitialized();
 

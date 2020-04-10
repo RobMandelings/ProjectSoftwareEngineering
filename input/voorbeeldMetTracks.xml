@@ -7,79 +7,123 @@
     </STATION>
     <STATION naam="B">
         <type>MetroStation</type>
+        <perron>
+            <nummer>1</nummer>
+        </perron>
+        <perron>
+            <nummer>5</nummer>
+        </perron>
     </STATION>
     <STATION naam="C">
         <type>MetroStation</type>
+        <perron>
+            <nummer>1</nummer>
+        </perron>
+    </STATION>
+    <STATION naam="D">
+        <type>MetroStation</type>
+        <perron>
+            <nummer>9</nummer>
+        </perron>
+        <perron>
+            <nummer>10</nummer>
+        </perron>
+    </STATION>
+    <STATION naam="E">
+        <type>TramStop</type>
+        <perron>
+            <nummer>1</nummer>
+        </perron>
     </STATION>
     <TRACK>
         <station>
             <naam>A</naam>
             <perron>1</perron>
         </station>
-        <perron>
-            <station>B</station>
-            <nummer>1</nummer>
-        </perron>
-        <perron>
-            <station>C</station>
-            <nummer>1</nummer>
-        </perron>
+        <station>
+            <naam>B</naam>
+            <perron>1</perron>
+        </station>
     </TRACK>
     <TRACK>
-        <perron>
-            <station>D</station>
-            <nummer>9</nummer>
-        </perron>
-        <perron>
-            <station>B</station>
-            <nummer>1</nummer>
-        </perron>
+        <station>
+            <naam>B</naam>
+            <perron>1</perron>
+        </station>
+        <station>
+            <naam>C</naam>
+            <perron>1</perron>
+        </station>
     </TRACK>
     <TRACK>
-        <perron>
-            <station>D</station>
-            <nummer>10</nummer>
-        </perron>
-        <perron>
-            <station>B</station>
-            <nummer>5</nummer>
-        </perron>
+        <station>
+            <naam>D</naam>
+            <perron>9</perron>
+        </station>
+        <station>
+            <naam>B</naam>
+            <perron>1</perron>
+        </station>
     </TRACK>
     <TRACK>
-        <perron>
-            <station>B</station>
-            <nummer>5</nummer>
-        </perron>
-        <perron>
-            <station>E</station>
-            <nummer>1</nummer>
-        </perron>
+        <station>
+            <naam>D</naam>
+            <perron>10</perron>
+        </station>
+        <station>
+            <naam>B</naam>
+            <perron>5</perron>
+        </station>
+    </TRACK>
+    <TRACK>
+        <station>
+            <naam>B</naam>
+            <perron>5</perron>
+        </station>
+        <station>
+            <naam>E</naam>
+            <perron>1</perron>
+        </station>
     </TRACK>
     <LIJN index="12">
         <LIJNNODE station="A"/>
         <LIJNNODE station="B"/>
         <LIJNNODE station="C"/>
     </LIJN>
+    <LIJN index="10">
+        <LIJNNODE station="D"/>
+        <LIJNNODE station="B"/>
+    </LIJN>
+    <LIJN index="9">
+        <LIJNNODE station="B"/>
+        <LIJNNODE station="C"/>
+    </LIJN>
     <TRAM>
-        <startperron>
-            <station>A</station>
-            <nummer>1</nummer>
-        </startperron>
+        <beginStation>
+            <naam>A</naam>
+            <perron>1</perron>
+        </beginStation>
         <lijn>12</lijn>
         <voertuigNr>1</voertuigNr>
         <zitplaatsen>32</zitplaatsen>
         <snelheid>60</snelheid>
     </TRAM>
     <TRAM>
-        <lijn>12</lijn>
+        <beginStation>
+            <naam>D</naam>
+            <perron>9</perron>
+        </beginStation>
+        <lijn>10</lijn>
         <voertuigNr>2</voertuigNr>
         <type>Albatros</type>
-        <beginStation>A</beginStation>
     </TRAM>
     <TRAM>
-        <lijn>12</lijn>
+        <beginStation>
+            <naam>B</naam>
+            <perron>1</perron>
+        </beginStation>
+        <lijn>9</lijn>
         <voertuigNr>3</voertuigNr>
         <type>Albatros</type>
-        <beginStation>A</beginStation>
     </TRAM>
 </METRONET>

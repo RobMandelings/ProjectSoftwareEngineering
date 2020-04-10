@@ -37,6 +37,20 @@ Station* LineNode::getStation() const {
     return m_station;
 }
 
+Station* LineNode::getNextStation() const {
+    REQUIRE(getNextNode() != NULL, " The previous node must not be null");
+    REQUIRE(this->properlyInitialized(), "LineNode must be initialized before its member variables are used.");
+    REQUIRE(getNextNode()->getStation() != NULL && getNextNode()->getStation()->properlyInitialized(), "Station cannot be NULL.");
+    return getNextNode()->getStation();
+}
+
+Station* LineNode::getPreviousStation() const {
+    REQUIRE(getPreviousNode() != NULL, " The previous node must not be null");
+    REQUIRE(this->properlyInitialized(), "LineNode must be initialized before its member variables are used.");
+    REQUIRE(getPreviousNode()->getStation() != NULL && getPreviousNode()->getStation()->properlyInitialized(), "Station cannot be NULL.");
+    return getPreviousNode()->getStation();
+}
+
 LineNode* LineNode::getPreviousNode() const {
     REQUIRE(this->properlyInitialized(), "LineNode must be initialized before its member variables are used.");
     return m_previousNode;

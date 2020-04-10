@@ -7,6 +7,7 @@
 #include "trams/Tram.h"
 #include "lines/Line.h"
 #include "Station.h"
+#include "Track.h"
 #include "DesignByContract.h"
 
 MetroNet::MetroNet(const string& name) :
@@ -33,6 +34,8 @@ MetroNet::~MetroNet() {
 
         delete *it;
     }
+
+    // TODO delete tracks
 }
 
 const string& MetroNet::getName() const {
@@ -67,6 +70,22 @@ const vector<Line*>& MetroNet::getLines() const {
     return m_lines;
 }
 
+const vector<Track*>& MetroNet::getTracks() const {
+    REQUIRE(this->properlyInitialized(), "MetroNet must be initialized before its member variables are used.");
+    return m_tracks;
+}
+
+bool MetroNet::trackExists(Platform* sourcePlatform, Platform* destinationPlatform) {
+
+    for (vector<Track*>::iterator it = m_tracks.begin(); it < m_tracks.end(); it++) {
+        Track* track = *it;
+        if (track->getSourcePlatform() == sourcePlatform && track->getDestinationPlatform() == destinationPlatform) {
+            return true;
+        }
+    }
+    return false;
+}
+
 void MetroNet::addTram(Tram* tram) {
     REQUIRE(this->properlyInitialized(), "MetroNet must be initialized before its member variables are used.");
     REQUIRE(tram != NULL && tram->properlyInitialized(), "Tram cannot be NULL.");
@@ -84,6 +103,12 @@ void MetroNet::addLine(Line* line) {
     REQUIRE(this->properlyInitialized(), "MetroNet must be initialized before its member variables are used.");
     REQUIRE(line != NULL && line->properlyInitialized(), "Line cannot be NULL.");
     m_lines.push_back(line);
+}
+
+void MetroNet::addTrack(Track* track) {
+    REQUIRE(this->properlyInitialized(), "MetroNet must be initialized before its member variables are used.");
+    // TODO REQUIRE(track != NULL && track->properlyInitialized(), "Track cannot be NULL.");
+    m_tracks.push_back(track);
 }
 
 Line* MetroNet::getLine(int line) {

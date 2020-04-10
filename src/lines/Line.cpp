@@ -4,6 +4,7 @@
 
 #include "Line.h"
 #include "Station.h"
+#include "Tram.h"
 
 Line::Line(int line, LineNode* firstNode) :
         m_lineNumber(line),

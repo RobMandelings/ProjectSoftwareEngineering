@@ -14,6 +14,8 @@ class Station;
 
 class Track;
 
+class Platform;
+
 /**
  * Class containing settings and values of a Tram in the MetroNet
  */
@@ -28,14 +30,11 @@ private:
 
     /** The current speed of this tram in km/h */
     double m_currentSpeed;
-
     double m_currentTrackProgress;
     double m_currentWaitTime;
 
-private:
-
-    LineNode* m_beginNode;
-    LineNode* m_currentNode;
+    Platform* m_currentPlatform;
+    LineNode* m_currentLineNode;
 
     Track* m_currentTrack;
 
@@ -78,7 +77,7 @@ public:
     \n ENSURE(m_beginNode!=NULL && m_beginNode->properlyInitialized(),"The begin node cannot be NULL.");
     \n ENSURE(this->properlyInitialized(),"Constructor must end ...");
     */
-    Tram(Line* line, Station* beginStation, Track* beginTrack, double maxSpeed, int amountOfSeats, int vehicleNumber, double length, const std::string& type);
+    Tram(Line* line, Platform* beginPlatform, double maxSpeed, int amountOfSeats, int vehicleNumber, double length, const std::string& type);
 
     /**
      * @brief Simple getter
@@ -130,6 +129,8 @@ public:
     */
 
     void setVehicleNumber(int vehicleNumber);
+
+    Track* getTrackForNextDestination();
 
     /**
      * @brief updates the location of the tram to the next station

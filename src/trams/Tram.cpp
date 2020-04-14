@@ -68,27 +68,6 @@ void Tram::update(long timeSinceLastUpdate) {
     // If the tram is currently in a station
     if (!isOnTrack()) {
 
-        bool waitTimeZero = true;
-        if (m_currentWaitTime > 0) {
-
-            m_currentWaitTime -= (double) timeSinceLastUpdate;
-
-            // If the current wait time is now smaller than or equal to 0
-            if (m_currentWaitTime < 0) {
-                // Tijd dat er te veel is afgegaan van de currentWait time zetten in timeSinceLastUpdate
-                timeSinceLastUpdate = (long) std::abs(m_currentWaitTime);
-                m_currentWaitTime = 0;
-            } else {
-                waitTimeZero = false;
-            }
-        }
-
-        // If the condition is true, do other checks to see whether or not the tram should leave its station
-        if (waitTimeZero) {
-            // TODO Collision prevention: check if no other trams are currently in the next station
-
-        }
-
     } else {
         // Verander positie
     }

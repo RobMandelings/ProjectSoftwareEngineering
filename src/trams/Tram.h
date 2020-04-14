@@ -54,14 +54,6 @@ public:
 
     /**
      * @brief Simple getter
-     * @return pointer to the tram line begin node
-     \n REQUIRE(this->properlyInitialized(), "Tram must be initialized before its member variables are used.");
-     \n REQUIRE(m_beginNode!=NULL && m_beginNode->properlyInitialized(),"The begin node cannot be NULL.");
-     */
-    const LineNode* getBeginNode() const;
-
-    /**
-     * @brief Simple getter
      * @return pointer to the current node in which the tram is located
      \n REQUIRE(this->properlyInitialized(), "Tram must be initialized before its member variables are used.");
      \n REQUIRE( m_currentNode!=NULL && m_currentNode->properlyInitialized(),"The current node cannot be NULL.");

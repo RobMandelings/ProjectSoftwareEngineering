@@ -16,7 +16,7 @@ int main() {
         metroNet = metro_parser::parseMetroNetXml("../input/voorbeeldMetTracks.xml");
 
         metro_utils::printMetroNet(metroNet, "../output/Summary.metro");
-        simulation_utils::simulateTrams(*metroNet, 3);
+        simulation_utils::simulateTrams(*metroNet);
         delete metroNet;
     } catch (const metro_parser::MetroNetParseException& e) {
         std::cerr << e.what();

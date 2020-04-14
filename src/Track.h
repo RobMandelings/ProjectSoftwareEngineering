@@ -25,6 +25,11 @@ private:
     /** The trams which are currently waiting to enter the destination platform */
     std::queue<Tram*> m_waitingTrams;
 
+    /** Amount of trams driving on the track */
+    unsigned int m_amountOfTrams;
+
+    Track* _initCheck;
+
 public:
 
     /** @brief simple constructor
@@ -58,5 +63,13 @@ public:
      * @param tram the tram to add to the track
      */
     void addWaitingTram(Tram* tram);
+
+    void addTram();
+
+    void deleteTram();
+
+    bool hasSpace() const;
+
+    bool properlyInitialized() const;
 
 };

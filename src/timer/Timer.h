@@ -13,6 +13,8 @@ class Timer {
 private:
     Timer* _initCheck;
 
+    long runTime;
+
     long updateTime;
 
     /**
@@ -39,6 +41,13 @@ public:
      \n REQUIRE(this->properlyInitialized(),"Timer must be properly initialized to use its member methods.");
      */
     void setUpdateTime();
+
+    /**
+     *
+     * @return
+     */
+
+    bool programRunTime();
 
     bool properlyInitialized() const;
 

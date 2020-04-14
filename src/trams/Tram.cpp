@@ -7,12 +7,14 @@
 #include "LineNode.h"
 #include "Track.h"
 #include "Platform.h"
+#include "Timer.h"
 
 Tram::Tram(Line* line, Platform* beginPlatform, double maxSpeed, int amountOfSeats, int vehicleNumber, double length, const std::string& type) :
         m_tramLine(line),
         m_amountOfSeats(amountOfSeats),
         m_vehicleNumber(vehicleNumber),
         m_currentSpeed(maxSpeed),
+        m_direction(FORWARDS),
         m_currentPlatform(beginPlatform),
         m_currentLineNode(line->getNodeForStation(beginPlatform->getStation())),
         m_currentTrack(NULL),
@@ -26,6 +28,7 @@ Tram::Tram(Line* line, Platform* beginPlatform, double maxSpeed, int amountOfSea
     ENSURE(m_amountOfSeats >= 0, "The amount of seats cannot be negative.");
     ENSURE(m_vehicleNumber >= 0, "Vehicle number must be a positive number.");
     ENSURE(m_currentPlatform != NULL && m_currentPlatform->properlyInitialized(), "The begin node cannot be NULL.");
+    ENSURE(m_direction == FORWARDS, "Direction has to be forward when initializing a tram.");
     ENSURE(this->properlyInitialized(), "Constructor must end ...");
 }
 
@@ -61,15 +64,32 @@ void Tram::setCurrentSpeed(int currentSpeed) {
     ENSURE(m_currentSpeed == currentSpeed, "m_currentspeed has to be set to currentSpeed.");
 }
 
-void Tram::update(long timeSinceLastUpdate) {
+void Tram::update() {
     REQUIRE(this->properlyInitialized(), "Tram must be initialized before its member variables are used.");
     m_currentLineNode = m_currentLineNode->getNextNode();
 
     // If the tram is currently in a station
     if (!isOnTrack()) {
-
+        m_currentWaitTime -= (double)Timer::get().getTimeSinceLastUpdate();
+        if(m_currentWaitTime < 0) {
+            if(this->getTrackForNextDestination()->hasSpace()){
+                m_currentTrack = this->getTrackForNextDestination();
+                m_currentTrack->addTram();
+                m_currentWaitTime = 0;
+                m_currentPlatform->getIncomingTram();
+                this->updateLineNode();
+                m_currentPlatform = NULL;
+                m_currentTrackProgress = 0;
+            }
+        }
     } else {
-        // Verander positie
+        if(m_currentTrackProgress < 1){
+            m_currentTrackProgress += ((double)Timer::get().getTimeSinceLastUpdate())/(3600/MAX_SPEED);
+            if(m_currentTrackProgress >= 1){
+                m_currentTrack->addWaitingTram(this);
+                m_currentTrackProgress = 1;
+            }
+        }
     }
 }
 
@@ -86,6 +106,7 @@ void Tram::setVehicleNumber(int vehicleNumber) {
 }
 
 Track* Tram::getTrackForNextDestination() {
+    REQUIRE(this->properlyInitialized(), "Tram must be initialized before its member variables are used.");
     Track* trackForNextDestination = NULL;
     // If it is not in a station but already on a track, just return that track
     if (!m_currentPlatform) {
@@ -110,5 +131,15 @@ bool Tram::properlyInitialized() const {
 }
 
 bool Tram::isOnTrack() const {
+    REQUIRE(this->properlyInitialized(), "Tram must be initialized before its member variables are used.");
     return m_currentTrack != NULL;
+}
+
+void Tram::updateLineNode() {
+    REQUIRE(this->properlyInitialized(), "Tram must be initialized before its member variables are used.");
+    if(m_direction == FORWARDS){
+        m_currentLineNode = m_currentLineNode->getNextNode();
+    } else {
+        m_currentLineNode = m_currentLineNode->getPreviousNode();
+    }
 }

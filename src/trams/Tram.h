@@ -7,6 +7,7 @@
 
 #include <string>
 #include "Line.h"
+#include "enums.h"
 
 class LineNode;
 
@@ -32,6 +33,8 @@ private:
     double m_currentSpeed;
     double m_currentTrackProgress;
     double m_currentWaitTime;
+
+    Direction m_direction;
 
     Platform* m_currentPlatform;
     LineNode* m_currentLineNode;
@@ -129,7 +132,9 @@ public:
      \n REQUIRE(this->properlyInitialized(), "Tram must be initialized before its member variables are used.");
      \n REQUIRE(m_currentNode != NULL && m_currentNode->properlyInitialized(), "Current node cannot be NULL.");
      */
-    void update(long timeSinceLastUpdate);
+    void update();
+
+    void updateLineNode();
 
     /**
      * @brief checks if this object was properly initialized

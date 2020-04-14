@@ -22,4 +22,16 @@ namespace constants {
      */
     extern const double TRACK_LENGTH;
 
+    /**
+     * The time the program should run
+     */
+
+    extern const int RUNTIME_SECONDS;
+
+    /**
+     *
+     */
+
+    extern const unsigned int MAX_TRAMS_ON_TRACK;
+
 };

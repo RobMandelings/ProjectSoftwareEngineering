@@ -4,6 +4,9 @@
 
 #include "Timer.h"
 #include "library.h"
+#include "constants.h"
+
+using namespace constants;
 
 Timer& Timer::get() {
     static Timer timer;
@@ -17,6 +20,7 @@ bool Timer::properlyInitialized() const {
 
 Timer::Timer() {
     Timer::_initCheck = this;
+    runTime = static_cast<long>(time(NULL)) + RUNTIME_SECONDS;
     ENSURE(this->properlyInitialized(), "Constructor must end ...");
 }
 
@@ -28,4 +32,8 @@ long Timer::getTimeSinceLastUpdate() {
 void Timer::setUpdateTime() {
     REQUIRE(this->properlyInitialized(),"Timer must be properly initialized to use its member methods.");
     this->updateTime = static_cast<long>(time(NULL));
+}
+
+bool Timer::programRunTime() {
+    return (static_cast<long>(time(NULL)) <= runTime);
 }

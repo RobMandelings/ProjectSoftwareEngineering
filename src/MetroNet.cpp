@@ -130,7 +130,7 @@ void MetroNet::updateTramLocations() {
 
     for (vector<Tram*>::iterator it = m_trams.begin(); it != m_trams.end(); ++it) {
         Tram& tram = **it;
-        tram.update(0);
+        tram.update();
 
         outfile << "Tram " << tram.getTramLine()->getLineNumber() << " (" << tram.getVehicleNumber() << ")" << " ging van station "
                 << tram.getCurrentNode()->getPreviousNode()->getStation()->getName() << " naar station " << tram.getCurrentNode()->getStation()->getName() << "\n";

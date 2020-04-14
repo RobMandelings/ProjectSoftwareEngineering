@@ -12,6 +12,7 @@ Platform::Platform(Station* station, int number, Direction direction) :
         m_number(number),
         m_currentTram(NULL) {
     Platform::_initCheck = this;
+    nextTrackIndex = 0;
     ENSURE(this->properlyInitialized(), "Constructor must end ...");
 }
 
@@ -20,6 +21,7 @@ Platform::Platform(int number, Direction direction) :
         m_number(number),
         m_currentTram(NULL) {
     Platform::_initCheck = this;
+    nextTrackIndex = 0;
     ENSURE(this->properlyInitialized(), "Constructor must end ...");
 }
 
@@ -81,4 +83,17 @@ bool Platform::hasCurrentTram() const {
 
 bool Platform::properlyInitialized() {
     return Platform::_initCheck == this;
+}
+
+void Platform::getIncomingTram() {
+    REQUIRE(this->properlyInitialized(), "Platform must be properly initialized to use its member variables.");
+    m_currentTram = m_incomingTracks[nextTrackIndex]->getWaitingTrams().front();
+    m_incomingTracks[nextTrackIndex]->getWaitingTrams().pop();
+    m_incomingTracks[nextTrackIndex]->deleteTram();
+
+    if(nextTrackIndex == m_incomingTracks.size()-1){
+        nextTrackIndex = 0;
+    } else {
+        nextTrackIndex++;
+    }
 }

@@ -3,20 +3,23 @@
 //
 
 #include "simulation_utils.h"
+#include "Timer.h"
+#include "constants.h"
 
 namespace simulation_utils {
-    void simulateTrams(MetroNet& metroNet, int MAXTIME, bool debug) {
+    void simulateTrams(MetroNet& metroNet, bool debug) {
 
         std::ofstream out("../output/events.metro", std::ofstream::trunc);
         out.close();
 
         if (!debug) std::cout << "Simulating trams..." << std::endl;
-        while (MAXTIME > 0) {
+        while (Timer::get().programRunTime()) {
+
+            Timer::get().setUpdateTime();
 
             metroNet.updateTramLocations();
             if (!debug) std::cout << "Updated tram locations " << std::endl;
-            MAXTIME--;
-            usleep(1);
+            usleep(1/constants::UPDATES_PER_SECOND);
         }
     }
 }

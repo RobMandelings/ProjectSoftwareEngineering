@@ -17,6 +17,7 @@
 #include "Platform.h"
 #include "Track.h"
 
+// TODO improve metro parser by removing duplicate code (such as the station values that need to be parsed, the error messages which are basically the same
 namespace metro_parser {
 
     namespace {
@@ -175,20 +176,82 @@ namespace metro_parser {
             Line* currentLine = new Line();
             int lineIndex = metro_utils::stoi(lineElement->Attribute("index"));
             currentLine->setLineNumber(lineIndex);
-            for (TiXmlElement* elem = lineElement->FirstChildElement();
-                 elem != NULL; elem = elem->NextSiblingElement()) {
-                if (!strcmp(elem->Value(), "LIJNNODE")) {
-                    Station* station = metroNet->getStation(elem->Attribute("station"));
-                    if (station) {
-                        station->addLine(currentLine);
-                        LineNode* node = new LineNode(lineIndex, metroNet->getStation(elem->Attribute("station")));
-                        currentLine->insertNode(node);
-                    } else {
-                        if (!debug)
-                            cerr << "MetroParser: Station with name " << elem->Attribute("station")
-                                 << " wasn't found" << endl;
-                        throw MetroNetParseException();
+            for (TiXmlElement* lineNodeElement = lineElement->FirstChildElement();
+                 lineNodeElement != NULL; lineNodeElement = lineNodeElement->NextSiblingElement()) {
+                if (!strcmp(lineNodeElement->Value(), "LIJNNODE")) {
+
+                    Platform* platform = NULL;
+
+                    for (TiXmlElement* stationElement = lineNodeElement->FirstChildElement();
+                         stationElement != NULL; stationElement = stationElement->NextSiblingElement()) {
+
+                        if (platform == NULL) {
+                            if (!strcmp(stationElement->Value(), "station")) {
+
+                                Station* station = NULL;
+                                std::string stationName;
+                                int platformNumber = -1;
+
+                                for (TiXmlElement* stationChildElement = stationElement->FirstChildElement();
+                                     stationChildElement != NULL; stationChildElement = stationChildElement->NextSiblingElement()) {
+
+                                    if (!strcmp(stationChildElement->Value(), "naam")) {
+                                        station = metroNet->getStation(stationChildElement->GetText());
+                                        stationName = stationChildElement->GetText();
+                                    } else if (!strcmp(stationChildElement->Value(), "perron")) {
+                                        platformNumber = metro_utils::stoi((stationChildElement->GetText()));
+                                    } else {
+                                        if (!debug) std::cerr << " unrecognized element '" << stationChildElement->Value() << "' within station" << std::endl;
+                                        throw MetroNetParseException();
+                                    }
+                                }
+
+                                if (station) {
+                                    station->addLine(currentLine);
+                                    if (station->getType() == UNDERGROUND) {
+                                        MetroStation* metroStation = (MetroStation*) station;
+                                        platform = metroStation->getPlatform(platformNumber);
+                                    } else {
+                                        TramStop* tramStop = (TramStop*) station;
+                                        if (tramStop->getPlatform()->getNumber() == platformNumber) {
+                                            platform = tramStop->getPlatform();
+                                        } else {
+                                            // TODO Throw error
+                                        }
+                                    }
+                                } else {
+                                    if (!debug)
+                                        cerr << "MetroParser: Station with name " << lineNodeElement->Attribute("station")
+                                             << " wasn't found" << endl;
+                                    throw MetroNetParseException();
+                                }
+
+                            } else {
+                                if (!debug)
+                                    cerr << "MetroParser: element with name '" << stationElement->Value() << "' not recognized within '" << lineNodeElement->Value() << "'"
+                                         << std::endl;
+                                throw MetroNetParseException();
+                            }
+
+                        } else {
+                            if (!debug)
+                                cerr << "MetroParser: multiple platforms are not allowed in a linenode " << std::endl;
+                            throw MetroNetParseException();
+                        }
+
+                        if (platform) {
+
+                            LineNode* node = new LineNode(lineIndex, platform);
+                            currentLine->insertNode(node);
+
+                        } else {
+                            // Throw error
+                        }
                     }
+                } else {
+                    if (!debug)
+                        cerr << "MetroParser: Element with name '" << lineNodeElement->Value() << "' not recognized within '" << lineElement->Value() << "'" << std::endl;
+                    throw MetroNetParseException();
                 }
             }
             metroNet->addLine(currentLine);
@@ -201,6 +264,7 @@ namespace metro_parser {
             std::string type = "Tram";
 
             // Only used if the type is tram
+            int lineIndex = -1;
             int amountOfSeats = -1;
             int vechicleNumber = -1;
             double speed = -1;
@@ -210,7 +274,7 @@ namespace metro_parser {
                  tramChildElement = tramChildElement->NextSiblingElement()) {
                 string elementName = tramChildElement->Value();
                 if (elementName == "lijn") {
-                    int lineIndex = metro_utils::stoi(tramChildElement->GetText());
+                    lineIndex = metro_utils::stoi(tramChildElement->GetText());
                     if (lineIndex > 0) {
                         line = metroNet->getLine(lineIndex);
                     }
@@ -280,7 +344,7 @@ namespace metro_parser {
             }
 
             if (!line) {
-                if (!debug) std::cerr << " no line was parsed from the xml " << std::endl;
+                if (!debug) std::cerr << " no line '" << lineIndex << "' was parsed from the xml " << std::endl;
                 throw MetroNetParseException();
             }
 

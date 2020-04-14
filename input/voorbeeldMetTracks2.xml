@@ -120,4 +120,22 @@
         <zitplaatsen>32</zitplaatsen>
         <snelheid>60</snelheid>
     </TRAM>
+    <TRAM>
+        <beginStation>
+            <naam>D</naam>
+            <perron>9</perron>
+        </beginStation>
+        <lijn>10</lijn>
+        <voertuigNr>2</voertuigNr>
+        <type>Albatros</type>
+    </TRAM>
+    <TRAM>
+        <beginStation>
+            <naam>B</naam>
+            <perron>1</perron>
+        </beginStation>
+        <lijn>9</lijn>
+        <voertuigNr>3</voertuigNr>
+        <type>Albatros</type>
+    </TRAM>
 </METRONET>

@@ -110,21 +110,19 @@ Track* Tram::getTrackForNextDestination() {
     Track* trackForNextDestination = NULL;
     // If it is not in a station but already on a track, just return that track
     if (!m_currentPlatform) {
-        REQUIRE(m_currentTrack, " if the tram is not on a platform, the tram should be on a track!");
+        REQUIRE(m_currentTrack, "If the tram is not on a platform, the tram should be on a track!");
         return m_currentTrack;
     } else {
-        REQUIRE(!m_currentTrack, " if the tram is on a platform, the tram should not be on a track!");
-        Station* nextStation = m_currentLineNode->getNextStation();
+        REQUIRE(!m_currentTrack, "If the tram is on a platform, the tram should not be on a track!");
+        Platform* nextPlatform = this->getCurrentNode()->getNextPlatform();
         for (std::vector<Track*>::iterator trackIt = m_currentPlatform->getOutgoingTracks().begin(); trackIt < m_currentPlatform->getOutgoingTracks().end(); trackIt++) {
-            // TODO if multiple tracks can bring the same tram to the same location, choose the current best track to put the tram on
-            // (probably defined by the amount of trams on a specific track)
-            if ((*trackIt)->getDestinationPlatform()->getStation() == nextStation) {
-                trackForNextDestination = *trackIt;
+            if ((*trackIt)->getDestinationPlatform() == nextPlatform) {
+                trackForNextDestination = (*trackIt);
             }
         }
     }
 
-//    TODO ENSURE(trackForNextDestination != NULL, " the track for the next destination does not exists, this should not be possible.");
+    ENSURE(trackForNextDestination != NULL, "The track for the next destination does not exists, this should not be possible.");
     return trackForNextDestination;
 }
 

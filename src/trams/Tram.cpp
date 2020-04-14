@@ -116,6 +116,8 @@ Track* Tram::getTrackForNextDestination() {
         REQUIRE(!m_currentTrack, " if the tram is on a platform, the tram should not be on a track!");
         Station* nextStation = m_currentLineNode->getNextStation();
         for (std::vector<Track*>::iterator trackIt = m_currentPlatform->getOutgoingTracks().begin(); trackIt < m_currentPlatform->getOutgoingTracks().end(); trackIt++) {
+            // TODO if multiple tracks can bring the same tram to the same location, choose the current best track to put the tram on
+            // (probably defined by the amount of trams on a specific track)
             if ((*trackIt)->getDestinationPlatform()->getStation() == nextStation) {
                 trackForNextDestination = *trackIt;
             }

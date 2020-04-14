@@ -131,6 +131,23 @@ LineNode* Line::getNodeForStation(Station* station) {
     return NULL;
 }
 
+std::vector<LineNode*> Line::getAsVector() const {
+    std::vector<LineNode*> lineAsVector;
+
+    if (m_firstNode != NULL) {
+        LineNode* currentLineNode = m_firstNode;
+
+        do {
+
+            lineAsVector.push_back(currentLineNode);
+
+            currentLineNode = currentLineNode->getNextNode();
+
+        } while (currentLineNode != NULL && currentLineNode != m_firstNode);
+    }
+    return lineAsVector;
+}
+
 std::string Line::getAsString() const {
     REQUIRE(this->properlyInitialized(), "Line must be initialized before its member variables are used.");
     std::string lineString;

@@ -2,6 +2,7 @@
 // Created by rob on 27/02/2020.
 //
 #include <cmath>
+#include <utils/constants.h>
 
 #include "Tram.h"
 #include "LineNode.h"
@@ -14,7 +15,9 @@ Tram::Tram(Line* line, Platform* beginPlatform, double maxSpeed, int amountOfSea
         m_amountOfSeats(amountOfSeats),
         m_vehicleNumber(vehicleNumber),
         m_currentSpeed(maxSpeed),
-        m_direction(FORWARDS),
+        m_currentTrackProgress(0),
+        m_currentWaitTime(constants::TRAM_WAIT_TIME),
+        m_currentDirection(HEEN),
         m_currentPlatform(beginPlatform),
         m_currentLineNode(line->getNodeForStation(beginPlatform->getStation())),
         m_currentTrack(NULL),
@@ -28,7 +31,7 @@ Tram::Tram(Line* line, Platform* beginPlatform, double maxSpeed, int amountOfSea
     ENSURE(m_amountOfSeats >= 0, "The amount of seats cannot be negative.");
     ENSURE(m_vehicleNumber >= 0, "Vehicle number must be a positive number.");
     ENSURE(m_currentPlatform != NULL && m_currentPlatform->properlyInitialized(), "The begin node cannot be NULL.");
-    ENSURE(m_direction == FORWARDS, "Direction has to be forward when initializing a tram.");
+    ENSURE(m_currentDirection != TERUG, "Direction has to be forward when initializing a tram.");
     ENSURE(this->properlyInitialized(), "Constructor must end ...");
 }
 
@@ -70,9 +73,9 @@ void Tram::update() {
 
     // If the tram is currently in a station
     if (!isOnTrack()) {
-        m_currentWaitTime -= (double)Timer::get().getTimeSinceLastUpdate();
-        if(m_currentWaitTime < 0) {
-            if(this->getTrackForNextDestination()->hasSpace()){
+        m_currentWaitTime -= (double) Timer::get().getTimePassedMillis() / 1000;
+        if (m_currentWaitTime <= 0) {
+            if (this->getTrackForNextDestination()->hasSpace()) {
                 m_currentTrack = this->getTrackForNextDestination();
                 m_currentTrack->addTram();
                 m_currentWaitTime = 0;
@@ -83,9 +86,9 @@ void Tram::update() {
             }
         }
     } else {
-        if(m_currentTrackProgress < 1){
-            m_currentTrackProgress += ((double)Timer::get().getTimeSinceLastUpdate())/(3600/MAX_SPEED);
-            if(m_currentTrackProgress >= 1){
+        if (m_currentTrackProgress < 1) {
+            m_currentTrackProgress += ((double) Timer::get().getTimePassedMillis()) / (3600 / MAX_SPEED);
+            if (m_currentTrackProgress >= 1) {
                 m_currentTrack->addWaitingTram(this);
                 m_currentTrackProgress = 1;
             }
@@ -114,7 +117,7 @@ Track* Tram::getTrackForNextDestination() {
         return m_currentTrack;
     } else {
         REQUIRE(!m_currentTrack, "If the tram is on a platform, the tram should not be on a track!");
-        Platform* nextPlatform = this->getCurrentNode()->getNextPlatform();
+        Platform* nextPlatform = this->getNextLineNode()->getPlatform(m_currentDirection);
         for (std::vector<Track*>::iterator trackIt = m_currentPlatform->getOutgoingTracks().begin(); trackIt < m_currentPlatform->getOutgoingTracks().end(); trackIt++) {
             if ((*trackIt)->getDestinationPlatform() == nextPlatform) {
                 trackForNextDestination = (*trackIt);
@@ -135,11 +138,23 @@ bool Tram::isOnTrack() const {
     return m_currentTrack != NULL;
 }
 
+LineNode* Tram::getNextLineNode() {
+    if (m_currentDirection == HEEN) {
+        return m_currentLineNode->getNextNode();
+    } else {
+        return m_currentLineNode->getPreviousNode();
+    }
+}
+
 void Tram::updateLineNode() {
     REQUIRE(this->properlyInitialized(), "Tram must be initialized before its member variables are used.");
-    if(m_direction == FORWARDS){
-        m_currentLineNode = m_currentLineNode->getNextNode();
-    } else {
-        m_currentLineNode = m_currentLineNode->getPreviousNode();
+    m_currentLineNode = getNextLineNode();
+
+    // Reached the end of the 'heen' journey
+    if (m_currentDirection == HEEN && m_currentLineNode == m_tramLine->getFirstNode()->getPreviousNode()) {
+        m_currentDirection = TERUG;
+        // Reached the end of the 'terug' journey
+    } else if (m_currentDirection == TERUG && m_currentLineNode == m_tramLine->getFirstNode()) {
+        m_currentDirection = HEEN;
     }
 }

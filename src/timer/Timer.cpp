@@ -5,6 +5,8 @@
 #include "Timer.h"
 #include "library.h"
 #include "constants.h"
+#include <cstdlib>
+#include <sys/timeb.h>
 
 using namespace constants;
 
@@ -14,26 +16,34 @@ Timer& Timer::get() {
     return timer;
 }
 
+/** Found: http://www.cplusplus.com/forum/general/43203/ */
+int Timer::getCurrentTimeMillis() {
+    timeb tb = {};
+    ftime(&tb);
+    int nCount = tb.millitm + (tb.time & 0xfffff) * 1000;
+    return nCount;
+}
+
 bool Timer::properlyInitialized() const {
     return _initCheck == this;
 }
 
 Timer::Timer() {
     Timer::_initCheck = this;
-    runTime = static_cast<long>(time(NULL)) + RUNTIME_SECONDS;
+    timeAtEnd = getCurrentTimeMillis() + (int) (RUNTIME_SECONDS * 1000);
     ENSURE(this->properlyInitialized(), "Constructor must end ...");
 }
 
-long Timer::getTimeSinceLastUpdate() {
+long Timer::getTimePassedMillis() {
     REQUIRE(this->properlyInitialized(),"Timer must be properly initialized to use its member methods.");
-    return static_cast<long>(static_cast<long>(time(NULL))-this->updateTime);
+    return getCurrentTimeMillis() - updateTime;
 }
 
 void Timer::setUpdateTime() {
     REQUIRE(this->properlyInitialized(),"Timer must be properly initialized to use its member methods.");
-    this->updateTime = static_cast<long>(time(NULL));
+    this->updateTime = getCurrentTimeMillis();
 }
 
-bool Timer::programRunTime() {
-    return (static_cast<long>(time(NULL)) <= runTime);
+bool Timer::shouldRun() {
+    return getCurrentTimeMillis() <= timeAtEnd;
 }

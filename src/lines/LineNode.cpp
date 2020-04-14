@@ -5,27 +5,29 @@
 #include "LineNode.h"
 #include "Station.h"
 
-LineNode::LineNode(int lineIndex, Platform* platform) :
+LineNode::LineNode(int lineIndex, Platform* platformHeen, Platform* platformTerug) :
         m_underConstruction(false),
         m_line(lineIndex),
-        m_platform(platform),
+        m_platformHeen(platformHeen),
+        m_platformTerug(platformTerug),
         m_previousNode(NULL),
         m_nextNode(NULL) {
     LineNode::_initCheck = this;
     ENSURE(m_line >= 0, "Line must be a positive number.");
-    ENSURE(m_platform != NULL && m_platform->properlyInitialized(), "Station cannot be NULL.");
+    ENSURE(m_platformHeen != NULL && m_platformHeen->properlyInitialized(), "Station cannot be NULL.");
     ENSURE(this->properlyInitialized(), "Constructor must end ...");
 }
 
-LineNode::LineNode(int lineIndex, Platform* platform, LineNode* previousNode, LineNode* nextNode) :
+LineNode::LineNode(int lineIndex, Platform* platformHeen, Platform* platformTerug, LineNode* previousNode, LineNode* nextNode) :
         m_underConstruction(false),
         m_line(lineIndex),
-        m_platform(platform),
+        m_platformHeen(platformHeen),
+        m_platformTerug(platformTerug),
         m_previousNode(previousNode),
         m_nextNode(nextNode) {
     LineNode::_initCheck = this;
     ENSURE(m_line >= 0, "Line must be a positive number.");
-    ENSURE(m_platform != NULL && m_platform->properlyInitialized(), "Station cannot be NULL.");
+    ENSURE(m_platformHeen != NULL && m_platformHeen->properlyInitialized(), "Station cannot be NULL.");
     ENSURE(m_previousNode != NULL && m_previousNode->properlyInitialized(), "Node cannot be NULL.");
     ENSURE(m_nextNode != NULL && m_nextNode->properlyInitialized(), "Node cannot be NULL");
     ENSURE(this->properlyInitialized(), "Constructor must end ...");
@@ -33,26 +35,14 @@ LineNode::LineNode(int lineIndex, Platform* platform, LineNode* previousNode, Li
 
 Station* LineNode::getStation() const {
     REQUIRE(this->properlyInitialized(), "LineNode must be initialized before its member variables are used.");
-    REQUIRE(m_platform != NULL && m_platform->properlyInitialized(), "Platform cannot be NULL.");
-    REQUIRE(m_platform->getStation() != NULL, " The station of the platform cannot be NULL.");
-    return m_platform->getStation();
+    REQUIRE(m_platformHeen != NULL && m_platformHeen->properlyInitialized(), "Platform cannot be NULL.");
+    REQUIRE(m_platformHeen->getStation() != NULL, " The station of the platform cannot be NULL.");
+    return m_platformHeen->getStation();
 }
 
-Platform* LineNode::getPlatform() const {
-    REQUIRE(m_platform, "The platform cannot be null");
-    return m_platform;
-}
-
-Platform* LineNode::getNextPlatform() const {
-    REQUIRE(getNextNode() != NULL, "The next node cannot be null");
-    REQUIRE(getNextNode()->getPlatform() != NULL, "The platform of the next node cannot be null");
-    return getNextNode()->getPlatform();
-}
-
-Platform* LineNode::getPreviousPlatform() const {
-    REQUIRE(getPreviousNode() != NULL, "The previous node cannot be null");
-    REQUIRE(getPreviousNode()->getPlatform() != NULL, "The platform of the previous node cannot be null");
-    return getPreviousNode()->getPlatform();
+Platform* LineNode::getPlatform(Direction direction) const {
+    REQUIRE(m_platformHeen, "The platform cannot be null");
+    return m_platformHeen;
 }
 
 Station* LineNode::getNextStation() const {

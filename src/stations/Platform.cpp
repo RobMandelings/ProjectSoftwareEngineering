@@ -6,8 +6,7 @@
 #include "Station.h"
 #include "Track.h"
 
-Platform::Platform(Station* station, int number, Direction direction) :
-        m_direction(direction),
+Platform::Platform(Station* station, int number) :
         m_station(station),
         m_number(number),
         m_currentTram(NULL) {
@@ -16,17 +15,12 @@ Platform::Platform(Station* station, int number, Direction direction) :
     ENSURE(this->properlyInitialized(), "Constructor must end ...");
 }
 
-Platform::Platform(int number, Direction direction) :
-        m_direction(direction),
+Platform::Platform(int number) :
         m_number(number),
         m_currentTram(NULL) {
     Platform::_initCheck = this;
     nextTrackIndex = 0;
     ENSURE(this->properlyInitialized(), "Constructor must end ...");
-}
-
-Direction Platform::getDirection() const {
-    return m_direction;
 }
 
 vector<Track*>& Platform::getOutgoingTracks() {

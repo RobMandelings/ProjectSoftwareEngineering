@@ -57,29 +57,6 @@ Station* MetroNet::getStation(const char* name) const {
     return NULL;
 }
 
-Platform* MetroNet::getPlatform(const char* name, int platformNumber, Direction direction) const {
-    REQUIRE(this->properlyInitialized(), "MetroNet must be initialized before its member variables are used.");
-    REQUIRE(name != NULL, "Name given cannot be NULL");
-    REQUIRE(platformNumber >= 0, "Invalid (negative) platform number given");
-    REQUIRE(direction == HEEN || direction == TERUG, " The direction given should be FORWARDS (heen) or BACKWARDS (terug)");
-    Station* station = getStation(name);
-
-    if (station->getType() == UNDERGROUND) {
-        MetroStation* metroStation = (MetroStation*) station;
-
-        return metroStation->getPlatform(platformNumber, TERUG);
-
-    } else {
-        TramStop* tramStop = (TramStop*) station;
-
-        if (tramStop->getPlatform()->getNumber() == platformNumber && tramStop->getPlatform()->getDirection() == direction) {
-            return tramStop->getPlatform();
-        } else {
-            return NULL;
-        }
-    }
-}
-
 const vector<Tram*>& MetroNet::getTrams() const {
     REQUIRE(this->properlyInitialized(), "MetroNet must be initialized before its member variables are used.");
     return m_trams;
@@ -159,7 +136,6 @@ void MetroNet::updateTramLocations() {
 
         outfile << "Tram " << tram.getTramLine()->getLineNumber() << " (" << tram.getVehicleNumber() << ")" << " ging van station "
                 << tram.getCurrentNode()->getPreviousNode()->getStation()->getName() << " naar station " << tram.getCurrentNode()->getStation()->getName() << "\n";
-
 
     }
 

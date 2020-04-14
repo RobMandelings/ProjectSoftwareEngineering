@@ -15,13 +15,16 @@ class TramStop : public Station {
 
 private:
 
-    Platform* m_platform;
+    Platform* m_platformHeen;
+    Platform* m_platformTerug;
 
 public:
 
     explicit TramStop(Platform* platform);
 
-    Platform* getPlatform() const;
+    Platform* getPlatformHeen() const;
+
+    Platform* getPlatformTerug() const;
 
     StationType getType() const { return ABOVE_GROUND; };
 

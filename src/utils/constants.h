@@ -26,7 +26,7 @@ namespace constants {
      * The time the program should run
      */
 
-    extern const int RUNTIME_SECONDS;
+    extern const double RUNTIME_SECONDS;
 
     /**
      *

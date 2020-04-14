@@ -101,6 +101,8 @@ public:
      */
     void disableNodeForStation(Station* station);
 
+    std::vector<LineNode*> getAsVector() const;
+
     /**
      * @brief creates a string representation of the complete line (with all LineNodes)
      * @return the string representation of the line

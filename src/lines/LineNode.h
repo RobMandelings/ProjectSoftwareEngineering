@@ -20,7 +20,8 @@ private:
 
     int m_line;
 
-    Platform* m_platform;
+    Platform* m_platformHeen;
+    Platform* m_platformTerug;
 
     LineNode* m_previousNode;
     LineNode* m_nextNode;
@@ -37,7 +38,7 @@ public:
      \n ENSURE(m_station!=NULL && m_station->properlyInitialized(), "Station cannot be NULL.");
      \n ENSURE(this->properlyInitialized(),"Constructor must end ...");
      */
-    LineNode(int line, Platform* station);
+    LineNode(int line, Platform* platformHeen, Platform* platformTerug);
 
     /**
      * @brief simple constructor
@@ -51,7 +52,7 @@ public:
      \n ENSURE(m_nextNode!=NULL && m_nextNode->properlyInitialized(), "Node cannot be NULL");
      \n ENSURE(this->properlyInitialized(),"Constructor must end ...");
      */
-    LineNode(int line, Platform* platform, LineNode* previousNode, LineNode* nextNode);
+    LineNode(int line, Platform* platformHeen, Platform* platformTerug, LineNode* previousNode, LineNode* nextNode);
 
     /**
      * @brief simple getter
@@ -61,7 +62,7 @@ public:
      */
     Station* getStation() const;
 
-    Platform* getPlatform() const;
+    Platform* getPlatform(Direction currentDirection) const;
 
     /**
      * @brief simple getter
@@ -78,10 +79,6 @@ public:
      \n REQUIRE(m_nextNode!=NULL && m_nextNode->properlyInitialized(),"Node cannot be NULL.");
      */
     LineNode* getNextNode() const;
-
-    Platform* getNextPlatform() const;
-
-    Platform* getPreviousPlatform() const;
 
     Station* getNextStation() const;
 

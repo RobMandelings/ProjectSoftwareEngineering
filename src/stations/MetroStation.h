@@ -24,7 +24,7 @@ public:
 
     std::vector<Platform*> getPlatforms() const;
 
-    Platform* getPlatform(int number, Direction direction);
+    Platform* getPlatform(int number);
 
     void addPlatform(Platform* platform);
 

@@ -54,20 +54,25 @@ Station::~Station() {
 }
 
 TramStop::TramStop(Platform* platform) :
-        m_platform(platform) {}
+        m_platformHeen(platform),
+        m_platformTerug(new Platform(platform->getStation(), platform->getNumber())){}
 
-Platform* TramStop::getPlatform() const {
-    return m_platform;
+Platform* TramStop::getPlatformHeen() const {
+    return m_platformHeen;
+}
+
+Platform* TramStop::getPlatformTerug() const {
+    return m_platformTerug;
 }
 
 void MetroStation::addPlatform(Platform* platform) {
     m_platforms.push_back(platform);
 }
 
-Platform* MetroStation::getPlatform(int number, Direction direction) {
+Platform* MetroStation::getPlatform(int number) {
     REQUIRE(number > 0, "The given number must be greater than 0!");
     for (std::vector<Platform*>::iterator platformIt = m_platforms.begin(); platformIt < m_platforms.end(); platformIt++) {
-        if ((*platformIt)->getNumber() == number && (*platformIt)->getDirection() == direction) {
+        if ((*platformIt)->getNumber() == number) {
             return *platformIt;
         }
     }

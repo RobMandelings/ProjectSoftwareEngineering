@@ -13,9 +13,10 @@ int main() {
     MetroNet* metroNet = NULL;
 
     try {
-        metroNet = metro_parser::parseMetroNetXml("../input/voorbeeldMetTracks.xml");
+        metroNet = metro_parser::parseMetroNetXml("../input/voorbeeld.xml");
 
         metro_utils::printMetroNet(metroNet, "../output/Summary.metro");
+        Timer::get().setUpdateTime();
         simulation_utils::simulateTrams(*metroNet);
         delete metroNet;
     } catch (const metro_parser::MetroNetParseException& e) {

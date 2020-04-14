@@ -1,35 +1,152 @@
 <METRONET naam="Antwerpen">
-    <STATION naam="A">
+    <STATION>
+        <naam>A</naam>
         <type>MetroStation</type>
+        <perron>
+            <nummer>1</nummer>
+        </perron>
+        <perron>
+            <nummer>2</nummer>
+        </perron>
     </STATION>
-    <STATION naam="B">
+    <STATION>
+        <naam>B</naam>
         <type>MetroStation</type>
+        <perron>
+            <nummer>1</nummer>
+        </perron>
+        <perron>
+            <nummer>2</nummer>
+        </perron>
+        <perron>
+            <nummer>8</nummer>
+        </perron>
+        <perron>
+            <nummer>9</nummer>
+        </perron>
     </STATION>
-    <STATION naam="C">
+    <STATION>
+        <naam>C</naam>
         <type>MetroStation</type>
+        <perron>
+            <nummer>1</nummer>
+        </perron>
+        <perron>
+            <nummer>2</nummer>
+        </perron>
     </STATION>
-    <LIJN index="12">
-        <LIJNNODE station="A"/>
-        <LIJNNODE station="B"/>
-        <LIJNNODE station="C"/>
+    <STATION>
+        <naam>D</naam>
+        <type>MetroStation</type>
+        <perron>
+            <nummer>1</nummer>
+        </perron>
+        <perron>
+            <nummer>2</nummer>
+        </perron>
+        <perron>
+            <nummer>3</nummer>
+        </perron>
+        <perron>
+            <nummer>4</nummer>
+        </perron>
+    </STATION>
+    <STATION>
+        <naam>E</naam>
+        <type>TramStop</type>
+        <perron>
+            <nummer>5</nummer>
+        </perron>
+    </STATION>
+    <LIJN nr="3">
+        <LIJNNODE>
+            <station>
+                <naam>D</naam>
+                <heenperron>1</heenperron>
+                <terugperron>2</terugperron>
+            </station>
+        </LIJNNODE>
+        <LIJNNODE>
+            <station>
+                <naam>B</naam>
+                <heenperron>1</heenperron>
+                <terugperron>2</terugperron>
+            </station>
+        </LIJNNODE>
     </LIJN>
-    <TRAM>
-        <lijn>12</lijn>
-        <voertuigNr>1</voertuigNr>
-        <zitplaatsen>32</zitplaatsen>
-        <snelheid>60</snelheid>
-        <beginStation>A</beginStation>
-    </TRAM>
-    <TRAM>
-        <lijn>12</lijn>
-        <voertuigNr>2</voertuigNr>
+    <LIJN nr="6">
+        <LIJNNODE>
+            <station>
+                <naam>E</naam>
+                <heenperron>5</heenperron>
+                <terugperron>6</terugperron>
+            </station>
+        </LIJNNODE>
+        <LIJNNODE>
+            <station>
+                <naam>B</naam>
+                <heenperron>8</heenperron>
+                <terugperron>9</terugperron>
+            </station>
+        </LIJNNODE>
+    </LIJN>
+    <LIJN nr="8">
+        <LIJNNODE>
+            <station>
+                <naam>B</naam>
+                <heenperron>9</heenperron>
+                <terugperron>8</terugperron>
+            </station>
+        </LIJNNODE>
+        <LIJNNODE>
+            <station>
+                <naam>D</naam>
+                <heenperron>3</heenperron>
+                <terugperron>4</terugperron>
+            </station>
+        </LIJNNODE>
+    </LIJN>
+    <LIJN nr="12">
+        <LIJNNODE>
+            <station>
+                <naam>A</naam>
+                <heenperron>1</heenperron>
+                <terugperron>2</terugperron>
+            </station>
+        </LIJNNODE>
+        <LIJNNODE>
+            <station>
+                <naam>B</naam>
+                <heenperron>1</heenperron>
+                <terugperron>2</terugperron>
+            </station>
+        </LIJNNODE>
+        <LIJNNODE>
+            <station>
+                <naam>C</naam>
+                <heenperron>1</heenperron>
+                <terugperron>2</terugperron>
+            </station>
+        </LIJNNODE>
+    </LIJN>
+    <TRAM voertuignr="1">
         <type>Albatros</type>
-        <beginStation>A</beginStation>
+        <lijn>3</lijn>
+        <beginStation>D</beginStation>
     </TRAM>
-    <TRAM>
-        <lijn>12</lijn>
-        <voertuigNr>3</voertuigNr>
+    <TRAM voertuignr="2">
         <type>Albatros</type>
+        <lijn>8</lijn>
+        <beginStation>B</beginStation>
+    </TRAM>
+    <TRAM voertuignr="4">
+        <type>PCC</type>
+        <lijn>6</lijn>
+        <beginStation>E</beginStation>
+    </TRAM>
+    <TRAM voertuignr="3">
+        <type>Albatros</type>
+        <lijn>12</lijn>
         <beginStation>A</beginStation>
     </TRAM>
 </METRONET>

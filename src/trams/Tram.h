@@ -34,7 +34,7 @@ private:
     double m_currentTrackProgress;
     double m_currentWaitTime;
 
-    Direction m_direction;
+    Direction m_currentDirection;
 
     Platform* m_currentPlatform;
     LineNode* m_currentLineNode;
@@ -133,6 +133,8 @@ public:
      \n REQUIRE(m_currentNode != NULL && m_currentNode->properlyInitialized(), "Current node cannot be NULL.");
      */
     void update();
+
+    LineNode* getNextLineNode();
 
     void updateLineNode();
 

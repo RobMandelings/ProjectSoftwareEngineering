@@ -16,8 +16,6 @@ class Platform {
 
 private:
 
-    Direction m_direction;
-
     Station* m_station;
 
     int m_number;
@@ -34,11 +32,9 @@ private:
 
 public:
 
-    Platform(Station* station, int number, Direction direction);
+    Platform(Station* station, int number);
 
-    Platform(int number, Direction direction);
-
-    Direction getDirection() const;
+    explicit Platform(int number);
 
     vector<Track*>& getOutgoingTracks();
 

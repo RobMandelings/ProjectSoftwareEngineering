@@ -7,6 +7,8 @@
 #include "trams/Tram.h"
 #include "lines/Line.h"
 #include "Station.h"
+#include "TramStop.h"
+#include "MetroStation.h"
 #include "Track.h"
 #include "DesignByContract.h"
 
@@ -53,6 +55,29 @@ Station* MetroNet::getStation(const char* name) const {
         }
     }
     return NULL;
+}
+
+Platform* MetroNet::getPlatform(const char* name, int platformNumber, Direction direction) const {
+    REQUIRE(this->properlyInitialized(), "MetroNet must be initialized before its member variables are used.");
+    REQUIRE(name != NULL, "Name given cannot be NULL");
+    REQUIRE(platformNumber >= 0, "Invalid (negative) platform number given");
+    REQUIRE(direction == HEEN || direction == TERUG, " The direction given should be FORWARDS (heen) or BACKWARDS (terug)");
+    Station* station = getStation(name);
+
+    if (station->getType() == UNDERGROUND) {
+        MetroStation* metroStation = (MetroStation*) station;
+
+        return metroStation->getPlatform(platformNumber, TERUG);
+
+    } else {
+        TramStop* tramStop = (TramStop*) station;
+
+        if (tramStop->getPlatform()->getNumber() == platformNumber && tramStop->getPlatform()->getDirection() == direction) {
+            return tramStop->getPlatform();
+        } else {
+            return NULL;
+        }
+    }
 }
 
 const vector<Tram*>& MetroNet::getTrams() const {

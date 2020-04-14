@@ -64,10 +64,10 @@ void MetroStation::addPlatform(Platform* platform) {
     m_platforms.push_back(platform);
 }
 
-Platform* MetroStation::getPlatform(int number) {
+Platform* MetroStation::getPlatform(int number, Direction direction) {
     REQUIRE(number > 0, "The given number must be greater than 0!");
     for (std::vector<Platform*>::iterator platformIt = m_platforms.begin(); platformIt < m_platforms.end(); platformIt++) {
-        if ((*platformIt)->getNumber() == number) {
+        if ((*platformIt)->getNumber() == number && (*platformIt)->getDirection() == direction) {
             return *platformIt;
         }
     }

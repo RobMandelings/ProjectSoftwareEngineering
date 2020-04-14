@@ -71,6 +71,8 @@ public:
      */
     Station* getStation(const char* name) const;
 
+    Platform* getPlatform(const char* name, int platformNumber, Direction direction) const;
+
     /**
      * Gets the line corresponding to the given line
      * @param line: the line you want to get the line for

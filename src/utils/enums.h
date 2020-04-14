@@ -5,6 +5,6 @@
 #pragma once
 
 enum Direction {
-    FORWARDS,
-    BACKWARDS
+    HEEN,
+    TERUG
 };

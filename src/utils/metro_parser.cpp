@@ -23,6 +23,29 @@ namespace metro_parser {
 
     namespace {
 
+        void addTrackBetweenPlatforms(MetroNet* metroNet, Platform* sourcePlatform, Platform* destinationPlatform, bool debug) {
+
+            if (sourcePlatform != destinationPlatform) {
+                if (!metroNet->trackExists(sourcePlatform, destinationPlatform)) {
+                    Track* track = new Track(sourcePlatform, destinationPlatform);
+                    sourcePlatform->addOutgoingTrack(track);
+                    destinationPlatform->addIncomingTrack(track);
+                    metroNet->addTrack(track);
+                } else {
+                    if (!debug)
+                        std::cerr << "track with source platform 'station " << sourcePlatform->getStation()->getName() << ", number " << sourcePlatform->getNumber() << "'"
+                                  << " and destination platform 'station " << destinationPlatform->getStation()->getName() << ", number " << destinationPlatform->getNumber()
+                                  << "' already exists in the metronet" << std::endl;
+                    throw MetroNetParseException();
+                }
+            } else {
+                if (!debug)
+                    std::cerr << "The destination of the track is equal to the source (station: " << sourcePlatform->getStation()->getName() << ", number: "
+                              << sourcePlatform->getNumber() << ")" << std::endl;
+                throw MetroNetParseException();
+            }
+        }
+
         Platform* getPlatformFromStationElement(MetroNet* metroNet, TiXmlElement* stationElement, bool debug) {
 
             Station* station = NULL;
@@ -44,7 +67,7 @@ namespace metro_parser {
             if (station) {
                 if (station->getType() == UNDERGROUND) {
                     MetroStation* metroStation = (MetroStation*) station;
-                    return metroStation->getPlatform(platformNumber);
+                    return metroStation->getPlatform(platformNumber, HEEN);
                 } else {
                     TramStop* tramStop = (TramStop*) station;
                     if (tramStop->getPlatform()->getNumber() == platformNumber) {
@@ -72,7 +95,7 @@ namespace metro_parser {
                 if (!debug) std::cerr << "The platform number cannot be negative" << std::endl;
                 throw MetroNetParseException();
             } else {
-                return new Platform(platformNumber, FORWARDS);
+                return new Platform(platformNumber, HEEN);
             }
         }
 
@@ -84,33 +107,32 @@ namespace metro_parser {
                  stationElement != NULL; stationElement = stationElement->NextSiblingElement()) {
                 if (!strcmp(stationElement->Value(), "station")) {
 
-                    Platform* platform = getPlatformFromStationElement(metroNet, stationElement, debug);
+                    Platform* platformHeen = getPlatformFromStationElement(metroNet, stationElement, debug);
+                    if (platformHeen) {
+                        Platform* platformTerug =
+                                metroNet->getPlatform(platformHeen->getStation()->getName().c_str(), platformHeen->getNumber(), platformHeen->getDirection()) != NULL
+                                ? metroNet->getPlatform(platformHeen->getStation()->getName().c_str(), platformHeen->getNumber(), platformHeen->getDirection())
+                                : new Platform(platformHeen->getStation(), platformHeen->getNumber(), platformHeen->getDirection());
 
-                    platformNodes.push_back(platform);
+                        platformNodes.push_back(platformHeen);
+                        platformNodes.push_back(platformTerug);
+                    } else {
+                        if (!debug) std::cerr << " no forwards platform from station element found " << std::endl;
+                        throw MetroNetParseException();
+                    }
                 } else {
                     if (!debug) std::cerr << " the node within track '" << stationElement->Value() << "' is not recognized as station" << std::endl;
                     throw MetroNetParseException();
                 }
             }
 
-            if (platformNodes.size() == 2) {
-                Platform* sourcePlatform = platformNodes.at(0);
-                Platform* destinationPlatform = platformNodes.at(1);
-                if (sourcePlatform != destinationPlatform) {
-                    if (!metroNet->trackExists(sourcePlatform, destinationPlatform)) {
-                        Track* track = new Track(sourcePlatform, destinationPlatform);
-                        sourcePlatform->addOutgoingTrack(track);
-                        destinationPlatform->addIncomingTrack(track);
-                        metroNet->addTrack(track);
-                    } else {
-                        if (!debug) std::cerr << "track with source platform 'station " << sourcePlatform->getStation()->getName() << ", number " << sourcePlatform->getNumber() << "'" << " and destination platform 'station " << destinationPlatform->getStation()->getName() << ", number " << destinationPlatform->getNumber() << "' already exists in the metronet" << std::endl;
-                        throw MetroNetParseException();
-                    }
-                } else {
-                    if (!debug)
-                        std::cerr << "The destination of the track is equal to the source (station: " << sourcePlatform->getStation()->getName() << ", number: " << sourcePlatform->getNumber() << ")" << std::endl;
-                    throw MetroNetParseException();
-                }
+            if (platformNodes.size() == 4) {
+                Platform* sourcePlatformHeen = platformNodes.at(0);
+                Platform* sourcePlatformTerug = platformNodes.at(1);
+                Platform* destinationPlatformHeen = platformNodes.at(2);
+                Platform* destinationPlatformTerug = platformNodes.at(3);
+                addTrackBetweenPlatforms(metroNet, sourcePlatformHeen, destinationPlatformHeen, debug);
+                addTrackBetweenPlatforms(metroNet, sourcePlatformTerug, destinationPlatformTerug, debug);
             } else {
                 if (!debug)
                     std::cerr << "The amount of platforms for a track should be equal to 2. Given: " << platformNodes.size() << std::endl;
@@ -144,7 +166,7 @@ namespace metro_parser {
             if (stationType == "MetroStation") {
                 MetroStation* metroStation = new MetroStation();
                 for (std::vector<Platform*>::iterator it = platforms.begin(); it != platforms.end(); ++it) {
-                    if (metroStation->getPlatform((*it)->getNumber()) == NULL) {
+                    if (metroStation->getPlatform((*it)->getNumber(), TERUG) == NULL) {
                         metroStation->addPlatform(*it);
                     } else {
                         if (!debug) std::cerr << "The platform with number " << (*it)->getNumber() << " already exists in the metrostation" << std::endl;
@@ -210,7 +232,7 @@ namespace metro_parser {
                                     station->addLine(currentLine);
                                     if (station->getType() == UNDERGROUND) {
                                         MetroStation* metroStation = (MetroStation*) station;
-                                        platform = metroStation->getPlatform(platformNumber);
+                                        platform = metroStation->getPlatform(platformNumber, TERUG);
                                     } else {
                                         TramStop* tramStop = (TramStop*) station;
                                         if (tramStop->getPlatform()->getNumber() == platformNumber) {
@@ -317,7 +339,7 @@ namespace metro_parser {
 
                                 MetroStation* metroStation = (MetroStation*) station;
 
-                                beginPlatform = metroStation->getPlatform(platformNumber);
+                                beginPlatform = metroStation->getPlatform(platformNumber, HEEN);
 
                             } else {
 

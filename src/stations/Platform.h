@@ -5,6 +5,7 @@
 #ifndef PROJECTSOFTWAREENGINEERING_PERRON_H
 #define PROJECTSOFTWAREENGINEERING_PERRON_H
 
+#include "enums.h"
 #include "library.h"
 
 class Station;
@@ -14,6 +15,8 @@ class Tram;
 class Platform {
 
 private:
+
+    Direction m_direction;
 
     Station* m_station;
 
@@ -28,9 +31,11 @@ private:
 
 public:
 
-    Platform(Station* station, int number);
+    Platform(Station* station, int number, Direction direction);
 
-    Platform(int number);
+    Platform(int number, Direction direction);
+
+    Direction getDirection() const;
 
     vector<Track*>& getOutgoingTracks();
 

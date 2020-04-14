@@ -72,13 +72,12 @@ namespace metro_parser {
                 if (!debug) std::cerr << "The platform number cannot be negative" << std::endl;
                 throw MetroNetParseException();
             } else {
-                return new Platform(platformNumber);
+                return new Platform(platformNumber, FORWARDS);
             }
         }
 
         void parseTrack(MetroNet* metroNet, TiXmlElement* trackElement, bool debug) {
 
-            //TODO mirror tracks?
             std::vector<Platform*> platformNodes;
 
             for (TiXmlElement* stationElement = trackElement->FirstChildElement();
@@ -94,67 +93,28 @@ namespace metro_parser {
                 }
             }
 
-            if (platformNodes.
-
-                    size()
-
-                == 2) {
+            if (platformNodes.size() == 2) {
                 Platform* sourcePlatform = platformNodes.at(0);
                 Platform* destinationPlatform = platformNodes.at(1);
                 if (sourcePlatform != destinationPlatform) {
-                    if (!metroNet->
-                            trackExists(sourcePlatform, destinationPlatform
-                    )) {
+                    if (!metroNet->trackExists(sourcePlatform, destinationPlatform)) {
                         Track* track = new Track(sourcePlatform, destinationPlatform);
-                        sourcePlatform->
-                                addOutgoingTrack(track);
-                        destinationPlatform->
-                                addIncomingTrack(track);
-                        metroNet->
-                                addTrack(track);
+                        sourcePlatform->addOutgoingTrack(track);
+                        destinationPlatform->addIncomingTrack(track);
+                        metroNet->addTrack(track);
                     } else {
-                        if (!debug)
-                            std::cerr << "track with source platform 'station " << sourcePlatform->getStation()->getName() << ", number " << sourcePlatform->
-
-                                    getNumber()
-
-                                      << "'"
-                                      << " and destination platform 'station " << destinationPlatform->getStation()->getName() << ", number " << destinationPlatform->
-
-                                    getNumber()
-
-                                      << "' already exists in the metronet" <<
-                                      std::endl;
-                        throw
-
-                                MetroNetParseException();
+                        if (!debug) std::cerr << "track with source platform 'station " << sourcePlatform->getStation()->getName() << ", number " << sourcePlatform->getNumber() << "'" << " and destination platform 'station " << destinationPlatform->getStation()->getName() << ", number " << destinationPlatform->getNumber() << "' already exists in the metronet" << std::endl;
+                        throw MetroNetParseException();
                     }
                 } else {
                     if (!debug)
-                        std::cerr << "The destination of the track is equal to the source (station: " << sourcePlatform->getStation()->getName() << ", number: "
-                                  << sourcePlatform->
-
-                                          getNumber()
-
-                                  << ")" <<
-                                  std::endl;
-                    throw
-
-                            MetroNetParseException();
-
+                        std::cerr << "The destination of the track is equal to the source (station: " << sourcePlatform->getStation()->getName() << ", number: " << sourcePlatform->getNumber() << ")" << std::endl;
+                    throw MetroNetParseException();
                 }
             } else {
                 if (!debug)
-                    std::cerr << "The amount of platforms for a track should be equal to 2. Given: " << platformNodes.
-
-                            size()
-
-                              <<
-                              std::endl;
-                throw
-
-                        MetroNetParseException();
-
+                    std::cerr << "The amount of platforms for a track should be equal to 2. Given: " << platformNodes.size() << std::endl;
+                throw MetroNetParseException();
             }
         }
 

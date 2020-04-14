@@ -28,6 +28,8 @@ private:
     /** Amount of trams driving on the track */
     unsigned int m_amountOfTrams;
 
+    Track* _initCheck;
+
 public:
 
     /** @brief simple constructor
@@ -67,5 +69,7 @@ public:
     void deleteTram();
 
     bool hasSpace() const;
+
+    bool properlyInitialized() const;
 
 };

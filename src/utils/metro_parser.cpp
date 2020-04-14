@@ -119,14 +119,16 @@ namespace metro_parser {
 
         void parseStation(MetroNet* metroNet, TiXmlElement* stationElement, bool debug) {
 
-            string stationName = stationElement->Attribute("naam");
+            string stationName;
             std::string stationType;
             std::vector<Platform*> platforms;
 
             for (TiXmlElement* currentChildElement = stationElement->FirstChildElement(); currentChildElement != NULL;
                  currentChildElement = currentChildElement->NextSiblingElement()) {
                 string childElementName = currentChildElement->Value();
-                if (childElementName == "type") {
+                if (childElementName == "naam") {
+                    stationName = currentChildElement->GetText();
+                } else if (childElementName == "type") {
                     stationType = currentChildElement->GetText();
                 } else if (childElementName == "perron") {
                     platforms.push_back(parsePlatform(currentChildElement, debug));

@@ -5,6 +5,7 @@
 #pragma once
 
 #include "library.h"
+#include "Platform.h"
 
 class Line;
 
@@ -19,7 +20,7 @@ private:
 
     int m_line;
 
-    Station* m_station;
+    Platform* m_platform;
 
     LineNode* m_previousNode;
     LineNode* m_nextNode;
@@ -36,7 +37,7 @@ public:
      \n ENSURE(m_station!=NULL && m_station->properlyInitialized(), "Station cannot be NULL.");
      \n ENSURE(this->properlyInitialized(),"Constructor must end ...");
      */
-    LineNode(int line, Station* station);
+    LineNode(int line, Platform* station);
 
     /**
      * @brief simple constructor
@@ -50,7 +51,7 @@ public:
      \n ENSURE(m_nextNode!=NULL && m_nextNode->properlyInitialized(), "Node cannot be NULL");
      \n ENSURE(this->properlyInitialized(),"Constructor must end ...");
      */
-    LineNode(int line, Station* station, LineNode* previousNode, LineNode* nextNode);
+    LineNode(int line, Platform* platform, LineNode* previousNode, LineNode* nextNode);
 
     /**
      * @brief simple getter
@@ -59,6 +60,8 @@ public:
      \n REQUIRE(m_station!=NULL && m_station->properlyInitialized(),"Station cannot be NULL.");
      */
     Station* getStation() const;
+
+    Platform* getPlatform() const;
 
     /**
      * @brief simple getter
@@ -75,6 +78,10 @@ public:
      \n REQUIRE(m_nextNode!=NULL && m_nextNode->properlyInitialized(),"Node cannot be NULL.");
      */
     LineNode* getNextNode() const;
+
+    Platform* getNextPlatform() const;
+
+    Platform* getPreviousPlatform() const;
 
     Station* getNextStation() const;
 

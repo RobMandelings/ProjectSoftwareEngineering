@@ -17,6 +17,8 @@ namespace constants {
      */
     extern const double TRAM_WAIT_TIME;
 
+    extern const double TRAM_ACCELERATION;
+
     /**
      * The length of each track between stations in km
      */

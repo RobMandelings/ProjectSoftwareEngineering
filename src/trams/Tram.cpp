@@ -88,7 +88,7 @@ void Tram::update(std::ofstream& outfile) {
         }
     } else {
         if (m_currentTrackProgress < 1) {
-            m_currentTrackProgress += ((double) Timer::get().getTimePassedMillis()) / (3600 / MAX_SPEED);
+            m_currentTrackProgress += ((double) Timer::get().getTimePassedMillis() / 1000) / (3600 / MAX_SPEED);
             if (m_currentTrackProgress >= 1) {
                 outfile << "Tram nr " << getVehicleNumber() << " has completed a track journey to: " << this->getTrackForNextDestination()->getDestinationPlatform()->getStation()->getName()
                         << ", adding it to the waiting list" << std::endl;

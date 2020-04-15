@@ -74,22 +74,6 @@
             </station>
         </LIJNNODE>
     </LIJN>
-    <LIJN nr="5">
-        <LIJNNODE>
-            <station>
-                <naam>D</naam>
-                <heenperron>1</heenperron>
-                <terugperron>2</terugperron>
-            </station>
-        </LIJNNODE>
-        <LIJNNODE>
-            <station>
-                <naam>B</naam>
-                <heenperron>1</heenperron>
-                <terugperron>2</terugperron>
-            </station>
-        </LIJNNODE>
-    </LIJN>
     <LIJN nr="6">
         <LIJNNODE>
             <station>

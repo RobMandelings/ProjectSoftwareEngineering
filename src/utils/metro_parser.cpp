@@ -31,6 +31,7 @@ namespace metro_parser {
                         sourcePlatform->addOutgoingTrack(track);
                         destinationPlatform->addIncomingTrack(track);
                         metroNet->addTrack(track);
+
                     } else {
                         if (!debug)
                             std::cerr << "track with source platform 'station " << sourcePlatform->getStation()->getName() << ", number " << sourcePlatform->getNumber() << "'"

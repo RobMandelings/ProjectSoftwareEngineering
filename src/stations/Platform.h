@@ -58,7 +58,7 @@ public:
 
     bool hasCurrentTram() const;
 
-    void getIncomingTram();
+    void receiveIncomingTram();
 
     bool properlyInitialized();
 

@@ -124,7 +124,7 @@ Line* MetroNet::getLine(int line) {
     return NULL;
 }
 
-void MetroNet::updateTramLocations() {
+void MetroNet::updateTrams() {
     REQUIRE(this->properlyInitialized(), "MetroNet must be initialized before its member variables are used.");
 
     std::ofstream outfile;
@@ -132,10 +132,7 @@ void MetroNet::updateTramLocations() {
 
     for (vector<Tram*>::iterator it = m_trams.begin(); it != m_trams.end(); ++it) {
         Tram& tram = **it;
-        tram.update();
-
-        outfile << "Tram " << tram.getTramLine()->getLineNumber() << " (" << tram.getVehicleNumber() << ")" << " ging van station "
-                << tram.getCurrentNode()->getPreviousNode()->getStation()->getName() << " naar station " << tram.getCurrentNode()->getStation()->getName() << "\n";
+        tram.update(outfile);
 
     }
 

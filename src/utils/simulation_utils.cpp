@@ -19,7 +19,7 @@ namespace simulation_utils {
         if (!debug) std::cout << "Simulating trams..." << std::endl;
         int timeBefore = Timer::getCurrentTimeMillis();
         while (Timer::get().shouldRun()) {
-            metroNet.updateTramLocations();
+            metroNet.updateTrams();
 
             if (!debug) std::cout << "Updated tram locations " << std::endl;
             Timer::get().setUpdateTime();

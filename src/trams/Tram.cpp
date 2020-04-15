@@ -8,6 +8,7 @@
 #include "LineNode.h"
 #include "Track.h"
 #include "Platform.h"
+#include "Station.h"
 #include "Timer.h"
 
 Tram::Tram(Line* line, Platform* beginPlatform, double maxSpeed, int amountOfSeats, int vehicleNumber, double length, const std::string& type) :
@@ -67,19 +68,19 @@ void Tram::setCurrentSpeed(int currentSpeed) {
     ENSURE(m_currentSpeed == currentSpeed, "m_currentspeed has to be set to currentSpeed.");
 }
 
-void Tram::update() {
+void Tram::update(std::ofstream& outfile) {
     REQUIRE(this->properlyInitialized(), "Tram must be initialized before its member variables are used.");
-    m_currentLineNode = m_currentLineNode->getNextNode();
 
     // If the tram is currently in a station
     if (!isOnTrack()) {
         m_currentWaitTime -= (double) Timer::get().getTimePassedMillis() / 1000;
         if (m_currentWaitTime <= 0) {
             if (this->getTrackForNextDestination()->hasSpace()) {
+                outfile << "Putting tram nr " << getVehicleNumber() << " on the next track, destination: " << this->getTrackForNextDestination()->getDestinationPlatform()->getStation()->getName() << std::endl;
                 m_currentTrack = this->getTrackForNextDestination();
                 m_currentTrack->addTram();
                 m_currentWaitTime = 0;
-                m_currentPlatform->getIncomingTram();
+                m_currentPlatform->receiveIncomingTram();
                 this->updateLineNode();
                 m_currentPlatform = NULL;
                 m_currentTrackProgress = 0;
@@ -89,6 +90,8 @@ void Tram::update() {
         if (m_currentTrackProgress < 1) {
             m_currentTrackProgress += ((double) Timer::get().getTimePassedMillis()) / (3600 / MAX_SPEED);
             if (m_currentTrackProgress >= 1) {
+                outfile << "Tram nr " << getVehicleNumber() << " has completed a track journey to: " << this->getTrackForNextDestination()->getDestinationPlatform()->getStation()->getName()
+                        << ", adding it to the waiting list" << std::endl;
                 m_currentTrack->addWaitingTram(this);
                 m_currentTrackProgress = 1;
             }

@@ -79,15 +79,19 @@ bool Platform::properlyInitialized() {
     return Platform::_initCheck == this;
 }
 
-void Platform::getIncomingTram() {
+void Platform::receiveIncomingTram() {
     REQUIRE(this->properlyInitialized(), "Platform must be properly initialized to use its member variables.");
-    m_currentTram = m_incomingTracks[nextTrackIndex]->getWaitingTrams().front();
-    m_incomingTracks[nextTrackIndex]->getWaitingTrams().pop();
-    m_incomingTracks[nextTrackIndex]->deleteTram();
+    if (!m_incomingTracks.empty()) {
+        m_currentTram = m_incomingTracks.at(nextTrackIndex)->getWaitingTrams().front();
+        m_incomingTracks.at(nextTrackIndex)->getWaitingTrams().pop();
+        m_incomingTracks.at(nextTrackIndex)->deleteTram();
 
-    if(nextTrackIndex == m_incomingTracks.size()-1){
-        nextTrackIndex = 0;
+        if (nextTrackIndex == m_incomingTracks.size() - 1) {
+            nextTrackIndex = 0;
+        } else {
+            nextTrackIndex++;
+        }
     } else {
-        nextTrackIndex++;
+        // TODO should we be able to handle this? If it is an end station, there are no incoming tracks to the platform
     }
 }

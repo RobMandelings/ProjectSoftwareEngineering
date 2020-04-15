@@ -156,7 +156,7 @@ public:
      *
      \n REQUIRE(this->properlyInitialized(), "MetroNet must be initialized before its member variables are used.");
      */
-    void updateTramLocations();
+    void updateTrams();
 
     /**
      * @brief checks whether a certain vehicle number is still available in a certain line

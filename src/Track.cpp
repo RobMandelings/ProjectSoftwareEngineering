@@ -56,6 +56,26 @@ void Track::deleteTram() {
     m_amountOfTrams--;
 }
 
+SpeedSignal* Track::getSpeedSignal() const {
+    REQUIRE(this->properlyInitialized(), "Track must be properly initialized before its member methods are used.");
+    return m_speedSignal;
+}
+
+StopSignal* Track::getStopSignal() const {
+    REQUIRE(this->properlyInitialized(), "Track must be properly initialized before its member methods are used.");
+    return m_stopSignal;
+}
+
+void Track::setSpeedSignal(SpeedSignal* speedSignal) {
+    REQUIRE(this->properlyInitialized(), "Track must be properly initialized before its member methods are used.");
+    m_speedSignal = speedSignal;
+}
+
+void Track::setStopSignal(StopSignal* stopSignal) {
+    REQUIRE(this->properlyInitialized(), "Track must be properly initialized before its member methods are used.");
+    m_stopSignal = stopSignal;
+}
+
 bool Track::hasSpace() const {
     REQUIRE(this->properlyInitialized(), "Track must be properly initialized before its member methods are used.");
     return (m_amountOfTrams < constants::MAX_TRAMS_ON_TRACK);

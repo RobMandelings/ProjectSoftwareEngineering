@@ -19,9 +19,9 @@ private:
 
     // TODO maybe add a length (which is calculated from the destinationStation and ?
 
-    SpeedSignal* speedSignal;
+    SpeedSignal* m_speedSignal;
 
-    StopSignal* stopSignal;
+    StopSignal* m_stopSignal;
 
     /** The source platform of this track (where the track starts) */
     Platform* m_sourcePlatform;
@@ -74,6 +74,14 @@ public:
     void addTram();
 
     void deleteTram();
+
+    SpeedSignal* getSpeedSignal() const;
+
+    StopSignal* getStopSignal() const;
+
+    void setSpeedSignal(SpeedSignal* speedSignal);
+
+    void setStopSignal(StopSignal* stopSignal);
 
     bool hasSpace() const;
 

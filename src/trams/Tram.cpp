@@ -76,6 +76,7 @@ void Tram::update(std::ofstream& outfile) {
         m_currentWaitTime -= (double) Timer::get().getTimePassedMillis() / 1000;
         if (m_currentWaitTime <= 0) {
             if (this->getTrackForNextDestination()->hasSpace()) {
+                // TODO if not debug print as well, also add correct time of day
                 outfile << "Putting tram nr " << getVehicleNumber() << " on the next track, destination: " << this->getTrackForNextDestination()->getDestinationPlatform()->getStation()->getName() << std::endl;
                 m_currentTrack = this->getTrackForNextDestination();
                 m_currentTrack->addTram();

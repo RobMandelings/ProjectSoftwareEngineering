@@ -27,13 +27,13 @@ namespace constants {
     /**
      * The time the program should run
      */
-
     extern const double RUNTIME_SECONDS;
 
     /**
      *
      */
-
     extern const unsigned int MAX_TRAMS_ON_TRACK;
+
+    // TODO add start time of simulation (12:00:00)
 
 };

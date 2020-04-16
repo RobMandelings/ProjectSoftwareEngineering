@@ -8,12 +8,12 @@ namespace constants {
 
     const int UPDATES_PER_SECOND = 50;
 
-    const double TRAM_WAIT_TIME = 1;
+    const double TRAM_WAIT_TIME = 0;
 
     const double TRACK_LENGTH = 1;
 
     const double RUNTIME_SECONDS = 60;
 
-    const unsigned int MAX_TRAMS_ON_TRACK = 5;
+    const int MAX_TRAMS_ON_TRACK = 5;
 
 }

@@ -163,7 +163,7 @@ public:
      \n REQUIRE(this->properlyInitialized(), "Tram must be initialized before its member variables are used.");
      */
 
-    void setCurrentPlatform(Platform *currentPlatform);
+    void putOnPlatform(Platform *currentPlatform);
 
     /**
      * @brief Simple getter
@@ -179,7 +179,9 @@ public:
      \n REQUIRE(this->properlyInitialized(), "Tram must be initialized before its member variables are used.");
      */
 
-    void setCurrentTrack(Track *currentTrack);
+    void putOnTrack(Track *currentTrack);
+
+    bool willReachEndOfLine() const;
 
     void updateLineNode();
 

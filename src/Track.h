@@ -33,7 +33,7 @@ private:
     std::queue<Tram*> m_waitingTrams;
 
     /** Amount of trams driving on the track */
-    unsigned int m_amountOfTrams;
+    int m_amountOfTrams;
 
     Track* _initCheck;
 
@@ -61,7 +61,7 @@ public:
      * @brief simple getter
      * @return the trams currently riding on this track
      */
-    std::queue<Tram*> getWaitingTrams() const;
+    std::queue<Tram*>& getWaitingTrams();
 
     Tram* getFirstTramInLine() const;
 
@@ -71,7 +71,7 @@ public:
      */
     void addWaitingTram(Tram* tram);
 
-    void addTram();
+    void increaseAmountOfTrams();
 
     void deleteTram();
 
@@ -83,7 +83,7 @@ public:
 
     void setStopSignal(StopSignal* stopSignal);
 
-    bool hasSpace() const;
+    bool tramCapacityReached() const;
 
     int getAmountOfTrams() const;
 

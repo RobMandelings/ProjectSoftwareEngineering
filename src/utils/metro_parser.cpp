@@ -355,73 +355,83 @@ namespace metro_parser {
 
             // TODO check if there is a way for the tram to reach all its stations in the line (and back)
         }
-        void parseSignal(MetroNet* metroNet, TiXmlElement* signalElement, bool debug){
+
+        void parseSignal(MetroNet* metroNet, TiXmlElement* signalElement, bool debug) {
 
             std::string type = "Signal";
 
-            int queuesize = -1;
-            int amountOfSeats = -1;
+            int maxAmountOfTrams = -1;
+            // Not implemented yet
+            int speedLimitation = -1;
 
-            const char *beginStation = NULL;
-            const char *eindStation = NULL;
+            const char* beginStationName = NULL;
+            const char* eindStationName = NULL;
 
-            int beginNummer = -1;
-            int eindNummer = -1;
+            int beginPlatformNummer = -1;
+            int eindPlatformNummer = -1;
 
             for (TiXmlElement* signalChildElement = signalElement->FirstChildElement(); signalChildElement != NULL;
-                 signalChildElement = signalChildElement->NextSiblingElement()){
+                 signalChildElement = signalChildElement->NextSiblingElement()) {
 
                 string elementName = signalChildElement->Value();
 
-                if(elementName == "type"){
+                if (elementName == "type") {
                     type = signalChildElement->GetText();
-                } else if (type == "STOP" and elementName == "queuesize"){
-                    queuesize = metro_utils::stoi(signalChildElement->GetText());
-                }else if(type == "SNELHEID") {
-                    amountOfSeats = metro_utils::stoi(signalChildElement->GetText());
+                } else if (type == "STOP" and elementName == "queuesize") {
+                    maxAmountOfTrams = metro_utils::stoi(signalChildElement->GetText());
+                } else if (type == "SNELHEID") {
+                    speedLimitation = metro_utils::stoi(signalChildElement->GetText());
+                } else if (elementName == "beginPerron") {
+                    beginStationName = signalChildElement->FirstChildElement()->GetText();
+                    beginPlatformNummer = metro_utils::stoi(signalChildElement->FirstChildElement()->NextSiblingElement()->GetText());
+                } else if (elementName == "eindPerron") {
+                    eindStationName = signalChildElement->FirstChildElement()->GetText();
+                    eindPlatformNummer = metro_utils::stoi(signalChildElement->FirstChildElement()->NextSiblingElement()->GetText());
                 }
-                else if(elementName == "beginPerron"){
-                    beginStation = signalChildElement->FirstChildElement()->GetText();
-                    beginNummer = metro_utils::stoi(signalChildElement->FirstChildElement()->NextSiblingElement()->GetText());
-                } else if(elementName == "eindPerron"){
-                    eindStation = signalChildElement->FirstChildElement()->GetText();
-                    eindNummer = metro_utils::stoi(signalChildElement->FirstChildElement()->NextSiblingElement()->GetText());
-                }
-
-                Station* beginS = metroNet->getStation(beginStation);
-                Station* eindS = metroNet->getStation(eindStation);
-
-                Platform* beginPlatform = NULL;
-                Platform* eindPlatform = NULL;
-
-                if(beginS->getType() == UNDERGROUND){
-                    beginPlatform = beginS->getPlatform(beginNummer);
-                } else if(beginS->getType() == ABOVE_GROUND){
-                    beginPlatform = beginS->getPlatform(beginNummer);
-                }
-
-                if(eindS->getType() == UNDERGROUND){
-                    eindPlatform = eindS->getPlatform(eindNummer);
-                } else if(eindS->getType() == ABOVE_GROUND){
-                    eindPlatform = eindS->getPlatform(eindNummer);
-                }
-
-                Track* t = metroNet->getTrack(beginPlatform, eindPlatform);
-
-                if(type == "STOP"){
-                    StopSignal* signal = new StopSignal(t,queuesize);
-                    t->setStopSignal(signal);
-                } else if(type == "SNELHEID"){
-                    SpeedSignal* signal = new SpeedSignal(t, amountOfSeats);
-                    t->setSpeedSignal(signal);
-                }
-
-
-
             }
 
-        }
+            Station* beginStation = metroNet->getStation(beginStationName);
+            Station* eindStation = metroNet->getStation(eindStationName);
 
+            Platform* beginPlatform = NULL;
+            Platform* eindPlatform = NULL;
+
+            // TODO improve: one method to get the correct platform
+
+            if (beginStation->getType() == UNDERGROUND) {
+                MetroStation* metroStation = (MetroStation*) beginStation;
+                beginPlatform = metroStation->getPlatform(beginPlatformNummer);
+            } else if (beginStation->getType() == ABOVE_GROUND) {
+                TramStop* tramStop = (TramStop*) beginStation;
+                if (tramStop->getPlatformHeen()->getNumber() == beginPlatformNummer) {
+                    beginPlatform = tramStop->getPlatformHeen();
+                } else {
+                    beginPlatform = tramStop->getPlatformTerug();
+                }
+            }
+
+            if (eindStation->getType() == UNDERGROUND) {
+                MetroStation* metroStation = (MetroStation*) eindStation;
+                eindPlatform = metroStation->getPlatform(eindPlatformNummer);
+            } else if (eindStation->getType() == ABOVE_GROUND) {
+                TramStop* tramStop = (TramStop*) eindStation;
+                if (tramStop->getPlatformHeen()->getNumber() == eindPlatformNummer) {
+                    eindPlatform = tramStop->getPlatformHeen();
+                } else {
+                    eindPlatform = tramStop->getPlatformTerug();
+                }
+            }
+
+            Track* track = metroNet->getTrack(beginPlatform, eindPlatform);
+
+            if (type == "STOP") {
+                StopSignal* signal = new StopSignal(track, maxAmountOfTrams);
+                track->setStopSignal(signal);
+            } else if (type == "SNELHEID") {
+                SpeedSignal* signal = new SpeedSignal(track, speedLimitation);
+                track->setSpeedSignal(signal);
+            }
+        }
     }
 
     const char* MetroNetParseException::what() const throw() {
@@ -456,6 +466,8 @@ namespace metro_parser {
                 parseLine(metroNet, rootElement, debug);
             } else if (!strcmp(rootElement->Value(), "TRAM")) {
                 parseTram(metroNet, rootElement, debug);
+            } else if (!strcmp(rootElement->Value(), "SIGNAAL")) {
+                parseSignal(metroNet, rootElement, debug);
             } else {
                 if (!debug) std::cerr << "Failed to load file: Unrecognized element '" << rootElement->Value() << "' " << std::endl;
                 throw MetroNetParseException();

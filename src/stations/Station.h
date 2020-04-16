@@ -76,8 +76,6 @@ public:
      */
     void addLine(Line* line);
 
-    virtual Platform* getPlatform(int platformNumber) = 0;
-
     /**
      * @brief checks if this object was properly initialized
      \n REQUIRE(this->properlyInitialized(), "Station must be initialized before its member variables are used.");

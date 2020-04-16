@@ -20,7 +20,7 @@ private:
 
     int m_number;
 
-    unsigned int nextTrackIndex;
+    unsigned int m_currentTrackIndex;
 
     vector<Track*> m_outgoingTracks;
 
@@ -58,7 +58,11 @@ public:
 
     bool hasCurrentTram() const;
 
-    void receiveIncomingTram();
+    bool canReceiveNewIncomingTram() const;
+
+    void receiveNewIncomingTram();
+
+    unsigned int getNextTrackIndex(unsigned int currentTrackIndex);
 
     bool properlyInitialized();
 

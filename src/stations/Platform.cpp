@@ -12,7 +12,7 @@ Platform::Platform(Station* station, int number) :
         m_number(number),
         m_currentTram(NULL) {
     Platform::_initCheck = this;
-    nextTrackIndex = 0;
+    m_currentTrackIndex = 0;
     ENSURE(this->properlyInitialized(), "Constructor must end ...");
 }
 
@@ -20,7 +20,7 @@ Platform::Platform(int number) :
         m_number(number),
         m_currentTram(NULL) {
     Platform::_initCheck = this;
-    nextTrackIndex = 0;
+    m_currentTrackIndex = 0;
     ENSURE(this->properlyInitialized(), "Constructor must end ...");
 }
 
@@ -76,32 +76,60 @@ bool Platform::hasCurrentTram() const {
     return getCurrentTram() != NULL;
 }
 
+unsigned int Platform::getNextTrackIndex(unsigned int currentTrackIndex) {
+    if (currentTrackIndex == m_incomingTracks.size() - 1) {
+        return 0;
+    } else {
+        return currentTrackIndex + 1;
+    }
+}
+
 bool Platform::properlyInitialized() {
     return Platform::_initCheck == this;
 }
 
-void Platform::receiveIncomingTram() {
-    REQUIRE(this->properlyInitialized(), "Platform must be properly initialized to use its member variables.");
-
-    if (!m_incomingTracks.empty()) {
-        if(m_incomingTracks.at(nextTrackIndex)->getStopSignal()){
-            m_currentTram = m_incomingTracks.at(nextTrackIndex)->getWaitingTrams().front();
-            m_incomingTracks.at(nextTrackIndex)->getWaitingTrams().pop();
-            m_incomingTracks.at(nextTrackIndex)->deleteTram();
-            m_currentTram->setCurrentPlatform(this);
-            m_currentTram->setCurrentTrack(NULL);
-
-            if (nextTrackIndex == m_incomingTracks.size() - 1) {
-                nextTrackIndex = 0;
-            } else {
-                nextTrackIndex++;
-            }
-        } else {
-            if (nextTrackIndex == m_incomingTracks.size() - 1) {
-                nextTrackIndex = 0;
-            } else {
-                nextTrackIndex++;
+bool Platform::canReceiveNewIncomingTram() const {
+    if (!getCurrentTram()) {
+        // Check if there is currently a tram directly heading to this platform (so no tram which is going to a queue via a stopSignal)
+        for (std::vector<Track*>::const_iterator trackIt = m_incomingTracks.begin(); trackIt < m_incomingTracks.end(); trackIt++) {
+            if (!(*trackIt)->getStopSignal()) {
+                if ((*trackIt)->getAmountOfTrams() > 0) {
+                    return false;
+                }
             }
         }
+        return true;
+    } else {
+        return false;
     }
+}
+
+// Omdat je zo nog steeds een eerlijke verdeling hebt tussen trams die mogen vertrekken
+void Platform::receiveNewIncomingTram() {
+    REQUIRE(this->properlyInitialized(), "Platform must be properly initialized to use its member variables.");
+    REQUIRE(!m_incomingTracks.empty(), "This method should not be called if it cannot be reached by a track");
+    REQUIRE(canReceiveNewIncomingTram(), "This platform cannot receive a new incoming tram yet!");
+
+    unsigned int trackIndexToCheck = m_currentTrackIndex;
+    bool success = false;
+    do {
+
+        Track* trackToCheck = m_incomingTracks.at(trackIndexToCheck);
+        if (trackToCheck->getStopSignal()) {
+            std::queue<Tram*>& waitingTrams = m_incomingTracks.at(trackIndexToCheck)->getWaitingTrams();
+            if (!waitingTrams.empty()) {
+                m_currentTram = waitingTrams.front();
+                waitingTrams.pop();
+                m_currentTram->putOnPlatform(this);
+                success = true;
+            }
+        } else {
+            Tram* tramToReceive = trackToCheck->getSourcePlatform()->getCurrentTram();
+            if (tramToReceive) {
+                tramToReceive->putOnTrack(trackToCheck);
+            }
+        }
+
+        trackIndexToCheck = getNextTrackIndex(trackIndexToCheck);
+    } while (!success && trackIndexToCheck != m_currentTrackIndex);
 }

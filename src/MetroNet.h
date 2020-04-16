@@ -52,16 +52,6 @@ public:
     const string& getName() const;
 
     /**
-     * @brief retrieves a tram from the list of trams corresponding to the given line
-     * @param line: the line of the tram you want to retrieve
-     * @return a pointer to the tram (NULL if no tram was found)
-     *
-     \n REQUIRE(this->properlyInitialized(), "MetroNet must be initialized before its member variables are used.");
-     \n REQUIRE(line>=0,"Line must be a positive number.");
-     */
-    Tram* getTram(int line) const;
-
-    /**
      * @brief retrieves a station from the list of stations corresponding with its name
      * @param line: the name of the station you want to retrieve
      * @return a pointer to the station (NULL if none found)
@@ -71,7 +61,7 @@ public:
      */
     Station* getStation(const char* name) const;
 
-    Platform* getPlatform(const char* name, int platformNumber, Direction direction) const;
+    Platform* getPlatform(const char* stationName, int platformNumber) const;
 
     /**
      * Gets the line corresponding to the given line

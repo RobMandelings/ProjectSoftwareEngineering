@@ -9,9 +9,11 @@
 #include "SpeedSignal.h"
 
 Track::Track(Platform* sourcePlatform, Platform* destinationPlatform) :
+        m_speedSignal(NULL),
+        m_stopSignal(NULL),
         m_sourcePlatform(sourcePlatform),
         m_destinationPlatform(destinationPlatform),
-        m_amountOfTrams(0){
+        m_amountOfTrams(0) {
     Track::_initCheck = this;
     ENSURE(sourcePlatform, "sourceStation may not be null!");
     ENSURE(destinationPlatform, "destinationStation may not be null!");
@@ -31,7 +33,7 @@ Platform* Track::getDestinationPlatform() const {
     return m_destinationPlatform;
 }
 
-std::queue<Tram*> Track::getWaitingTrams() const {
+std::queue<Tram*>& Track::getWaitingTrams() {
     REQUIRE(this->properlyInitialized(), "Track must be properly initialized before its member methods are used.");
     return m_waitingTrams;
 }
@@ -47,7 +49,7 @@ void Track::addWaitingTram(Tram* tram) {
     m_waitingTrams.push(tram);
 }
 
-void Track::addTram() {
+void Track::increaseAmountOfTrams() {
     REQUIRE(this->properlyInitialized(), "Track must be properly initialized before its member methods are used.");
     m_amountOfTrams++;
     ENSURE(m_amountOfTrams <= constants::MAX_TRAMS_ON_TRACK, "The maximum amount of trams has been reached.");
@@ -55,6 +57,7 @@ void Track::addTram() {
 
 void Track::deleteTram() {
     REQUIRE(this->properlyInitialized(), "Track must be properly initialized before its member methods are used.");
+    REQUIRE(m_amountOfTrams > 0, "The amount of trams is not greater than 0 but deleteTram is still called.");
     m_amountOfTrams--;
 }
 
@@ -78,9 +81,11 @@ void Track::setStopSignal(StopSignal* stopSignal) {
     m_stopSignal = stopSignal;
 }
 
-bool Track::hasSpace() const {
+bool Track::tramCapacityReached() const {
     REQUIRE(this->properlyInitialized(), "Track must be properly initialized before its member methods are used.");
-    return (m_amountOfTrams < m_stopSignal->getMaxAmountOfTrams());
+    REQUIRE(m_stopSignal, "This track does not have a stop signal. The function hasSpace() should not be called");
+    REQUIRE(m_amountOfTrams <= m_stopSignal->getMaxAmountOfTrams(), "There are more trams than this track can hold in the queue!");
+    return (m_amountOfTrams == m_stopSignal->getMaxAmountOfTrams());
 }
 
 int Track::getAmountOfTrams() const{

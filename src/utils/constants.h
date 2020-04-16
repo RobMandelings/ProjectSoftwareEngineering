@@ -31,7 +31,7 @@ namespace constants {
     /**
      *
      */
-    extern const unsigned int MAX_TRAMS_ON_TRACK;
+    extern const int MAX_TRAMS_ON_TRACK;
 
     // TODO add start time of simulation (12:00:00)
 

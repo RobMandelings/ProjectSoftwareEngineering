@@ -193,6 +193,6 @@ Voor invoerformaat zie Appendix A opgave.
 * Class Diagram aanpassen
         
 
-## Class Diagram (zonder methods):
+## Class Diagram (zonder methods) OUTDATED:
 
 [![Screenshot-from-2020-03-06-18-27-11.png](https://i.postimg.cc/QMt04rH3/Screenshot-from-2020-03-06-18-27-11.png)](https://postimg.cc/68krqgrj)

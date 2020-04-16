@@ -4,7 +4,6 @@
 
 #pragma once
 
-
 namespace constants {
 
     /**
@@ -36,4 +35,4 @@ namespace constants {
 
     // TODO add start time of simulation (12:00:00)
 
-};
+}

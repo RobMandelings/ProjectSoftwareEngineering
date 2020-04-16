@@ -43,7 +43,7 @@ set(RELEASE_SOURCE_FILES
         src/trams/Albatros.h src/trams/PCC.cpp src/trams/PCC.h
         src/Track.cpp src/Track.h
         src/timer/Timer.cpp src/timer/Timer.h src/utils/constants.cpp src/utils/constants.h src/signals/Signal.cpp src/signals/Signal.h
-        src/stations/Platform.h src/stations/Platform.cpp src/utils/enums.cpp src/utils/enums.h)
+        src/stations/Platform.h src/stations/Platform.cpp src/utils/enums.cpp src/utils/enums.h src/signals/SpeedSignal.cpp src/signals/SpeedSignal.h src/signals/StopSignal.cpp src/signals/StopSignal.h)
 
 # Set source files for DEBUG target
 set(DEBUG_SOURCE_FILES

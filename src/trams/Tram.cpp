@@ -18,7 +18,7 @@ Tram::Tram(Line* line, Platform* beginPlatform, double maxSpeed, int amountOfSea
         m_currentSpeed(maxSpeed),
         m_currentTrackProgress(0),
         m_currentWaitTime(constants::TRAM_WAIT_TIME),
-        m_currentDirection(HEEN),
+        m_currentDirection(TO),
         m_currentPlatform(beginPlatform),
         m_currentLineNode(line->getNodeForStation(beginPlatform->getStation())),
         m_currentTrack(NULL),
@@ -32,7 +32,7 @@ Tram::Tram(Line* line, Platform* beginPlatform, double maxSpeed, int amountOfSea
     ENSURE(m_amountOfSeats >= 0, "The amount of seats cannot be negative.");
     ENSURE(m_vehicleNumber >= 0, "Vehicle number must be a positive number.");
     ENSURE(m_currentPlatform != NULL && m_currentPlatform->properlyInitialized(), "The begin node cannot be NULL.");
-    ENSURE(m_currentDirection != TERUG, "Direction has to be forward when initializing a tram.");
+    ENSURE(m_currentDirection != FROM, "Direction has to be forward when initializing a tram.");
     ENSURE(this->properlyInitialized(), "Constructor must end ...");
 }
 
@@ -143,7 +143,7 @@ bool Tram::isOnTrack() const {
 }
 
 LineNode* Tram::getNextLineNode() {
-    if (m_currentDirection == HEEN) {
+    if (m_currentDirection == TO) {
         return m_currentLineNode->getNextNode();
     } else {
         return m_currentLineNode->getPreviousNode();
@@ -155,10 +155,10 @@ void Tram::updateLineNode() {
     m_currentLineNode = getNextLineNode();
 
     // Reached the end of the 'heen' journey
-    if (m_currentDirection == HEEN && m_currentLineNode == m_tramLine->getFirstNode()->getPreviousNode()) {
-        m_currentDirection = TERUG;
+    if (m_currentDirection == TO && m_currentLineNode == m_tramLine->getFirstNode()->getPreviousNode()) {
+        m_currentDirection = FROM;
         // Reached the end of the 'terug' journey
-    } else if (m_currentDirection == TERUG && m_currentLineNode == m_tramLine->getFirstNode()) {
-        m_currentDirection = HEEN;
+    } else if (m_currentDirection == FROM && m_currentLineNode == m_tramLine->getFirstNode()) {
+        m_currentDirection = TO;
     }
 }

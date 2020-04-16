@@ -4,10 +4,20 @@
 
 #pragma once
 
+#include "Track.h"
+
 class Signal {
+
+private:
+
+    Track* m_track;
 
 public:
 
-    virtual void execute() = 0;
+    virtual ~Signal() = 0;
+
+    explicit Signal(Track* track);
+
+    Track* getTrack() const;
 
 };

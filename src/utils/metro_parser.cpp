@@ -220,8 +220,8 @@ namespace metro_parser {
                     LineNode* currentLineNode = lineAsVector.at(i);
                     LineNode* nextLineNode = lineAsVector.at(i + 1);
 
-                    Platform* sourcePlatform = currentLineNode->getPlatform(HEEN);
-                    Platform* destinationPlatform = nextLineNode->getPlatform(HEEN);
+                    Platform* sourcePlatform = currentLineNode->getPlatform(TO);
+                    Platform* destinationPlatform = nextLineNode->getPlatform(TO);
 
                     if (!metroNet->trackExists(sourcePlatform, destinationPlatform)) {
                         addTrackBetweenPlatforms(metroNet, sourcePlatform, destinationPlatform, debug);
@@ -233,8 +233,8 @@ namespace metro_parser {
                     LineNode* currentLineNode = lineAsVector.at(i);
                     LineNode* nextLineNode = lineAsVector.at(i - 1);
 
-                    Platform* sourcePlatform = currentLineNode->getPlatform(TERUG);
-                    Platform* destinationPlatform = nextLineNode->getPlatform(TERUG);
+                    Platform* sourcePlatform = currentLineNode->getPlatform(FROM);
+                    Platform* destinationPlatform = nextLineNode->getPlatform(FROM);
 
                     if (!metroNet->trackExists(sourcePlatform, destinationPlatform)) {
                         addTrackBetweenPlatforms(metroNet, sourcePlatform, destinationPlatform, debug);
@@ -308,7 +308,7 @@ namespace metro_parser {
                     }
 
                     if (lineNodeForBeginStation) {
-                        beginPlatform = lineNodeForBeginStation->getPlatform(HEEN);
+                        beginPlatform = lineNodeForBeginStation->getPlatform(TO);
                     } else {
                         if (!debug) std::cerr << " Line Node on line " << line->getLineNumber() << " not found for station " << beginStationName << std::endl;
                         throw MetroNetParseException();

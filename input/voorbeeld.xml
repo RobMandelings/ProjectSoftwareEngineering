@@ -129,6 +129,18 @@
             </station>
         </LIJNNODE>
     </LIJN>
+    <SIGNAAL>
+        <type>STOP</type>
+        <queuesize>2</queuesize>
+        <beginPerron>
+            <station>A</station>
+            <nummer>1</nummer>
+        </beginPerron>
+        <eindPerron>
+            <station>B</station>
+            <nummer>1</nummer>
+        </eindPerron>
+    </SIGNAAL>
     <TRAM voertuignr="1">
         <type>Albatros</type>
         <lijn>3</lijn>

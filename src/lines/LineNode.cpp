@@ -43,7 +43,7 @@ Station* LineNode::getStation() const {
 Platform* LineNode::getPlatform(Direction direction) const {
     REQUIRE(m_platformHeen, "Platform heen cannot be null");
     REQUIRE(m_platformTerug, "Platform terug cannot be null");
-    return direction == HEEN ? m_platformHeen : m_platformTerug;
+    return direction == TO ? m_platformHeen : m_platformTerug;
 }
 
 Station* LineNode::getNextStation() const {

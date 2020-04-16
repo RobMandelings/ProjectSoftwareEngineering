@@ -16,6 +16,10 @@ private:
 
     // TODO maybe add a length (which is calculated from the destinationStation and ?
 
+    SpeedSignal* speedSignal;
+
+    StopSignal* stopSignal;
+
     /** The source platform of this track (where the track starts) */
     Platform* m_sourcePlatform;
 

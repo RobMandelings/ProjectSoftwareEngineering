@@ -8,7 +8,7 @@ namespace constants {
 
     const int UPDATES_PER_SECOND = 50;
 
-    const double TRAM_WAIT_TIME = 10;
+    const double TRAM_WAIT_TIME = 1;
 
     const double TRACK_LENGTH = 1;
 

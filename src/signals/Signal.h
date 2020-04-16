@@ -14,8 +14,6 @@ private:
 
 public:
 
-    virtual ~Signal() = 0;
-
     explicit Signal(Track* track);
 
     Track* getTrack() const;

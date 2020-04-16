@@ -14,7 +14,7 @@ private:
 
 public:
 
-    ~StopSignal();
+    virtual ~StopSignal();
 
     StopSignal(Track* track, int m_maxAmountOfTrams);
 

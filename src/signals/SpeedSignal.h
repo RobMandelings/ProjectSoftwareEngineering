@@ -14,7 +14,7 @@ private:
 
 public:
 
-    ~SpeedSignal();
+    virtual ~SpeedSignal();
 
     SpeedSignal(Track* track, double m_speed);
 

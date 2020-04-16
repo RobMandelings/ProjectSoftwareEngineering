@@ -6,6 +6,9 @@
 
 #include <queue>
 
+class SpeedSignal;
+class StopSignal;
+
 class Tram;
 
 class Platform;

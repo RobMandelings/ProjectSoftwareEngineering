@@ -81,6 +81,10 @@ bool Track::hasSpace() const {
     return (m_amountOfTrams < constants::MAX_TRAMS_ON_TRACK);
 }
 
+int Track::getSize() const{
+    return this->m_amountOfTrams;
+}
+
 bool Track::properlyInitialized() const {
     return (Track::_initCheck == this);
 }

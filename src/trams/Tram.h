@@ -32,6 +32,7 @@ private:
     /** The current speed of this tram in km/h */
     double m_currentSpeed;
     double m_currentTrackProgress;
+
     double m_currentWaitTime;
 
     Direction m_currentDirection;
@@ -49,7 +50,7 @@ public:
     const double MAX_SPEED;
     const std::string TYPE;
 
-public:
+
 
     virtual ~Tram();
 
@@ -125,6 +126,12 @@ public:
 
     void setVehicleNumber(int vehicleNumber);
 
+    /**
+     * @brief Getter
+     * @return Track
+     \n REQUIRE(this->properlyInitialized(), "Tram must be initialized before its member variables are used.");
+     */
+
     Track* getTrackForNextDestination();
 
     /**
@@ -134,7 +141,45 @@ public:
      */
     void update(std::ofstream& outfile);
 
+    /**
+     * @brief Simple getter
+     * @return LineNode
+     \n REQUIRE(this->properlyInitialized(), "Tram must be initialized before its member variables are used.");
+     */
+
     LineNode* getNextLineNode();
+
+    /**
+     * @brief Simple getter
+     * @return Platform
+     \n REQUIRE(this->properlyInitialized(), "Tram must be initialized before its member variables are used.");
+     */
+
+    Platform *getCurrentPlatform() const;
+
+    /**
+     * @brief Simple setter
+     * @param currentPlatform: new Platform
+     \n REQUIRE(this->properlyInitialized(), "Tram must be initialized before its member variables are used.");
+     */
+
+    void setCurrentPlatform(Platform *currentPlatform);
+
+    /**
+     * @brief Simple getter
+     * @return Track
+     \n REQUIRE(this->properlyInitialized(), "Tram must be initialized before its member variables are used.");
+     */
+
+    Track *getCurrentTrack() const;
+
+    /**
+     * @brief Simple setter
+     * @param currentTrack: new Track
+     \n REQUIRE(this->properlyInitialized(), "Tram must be initialized before its member variables are used.");
+     */
+
+    void setCurrentTrack(Track *currentTrack);
 
     void updateLineNode();
 

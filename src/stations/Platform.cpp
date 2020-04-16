@@ -2,6 +2,7 @@
 // Created by thibaultpoels on 09/04/2020.
 //
 
+#include <trams/Tram.h>
 #include "Platform.h"
 #include "Station.h"
 #include "Track.h"
@@ -81,17 +82,26 @@ bool Platform::properlyInitialized() {
 
 void Platform::receiveIncomingTram() {
     REQUIRE(this->properlyInitialized(), "Platform must be properly initialized to use its member variables.");
-    if (!m_incomingTracks.empty()) {
-        m_currentTram = m_incomingTracks.at(nextTrackIndex)->getWaitingTrams().front();
-        m_incomingTracks.at(nextTrackIndex)->getWaitingTrams().pop();
-        m_incomingTracks.at(nextTrackIndex)->deleteTram();
 
-        if (nextTrackIndex == m_incomingTracks.size() - 1) {
-            nextTrackIndex = 0;
+    if (!m_incomingTracks.empty()) {
+        if(m_incomingTracks.at(nextTrackIndex)->getStopSignal()){
+            m_currentTram = m_incomingTracks.at(nextTrackIndex)->getWaitingTrams().front();
+            m_incomingTracks.at(nextTrackIndex)->getWaitingTrams().pop();
+            m_incomingTracks.at(nextTrackIndex)->deleteTram();
+            m_currentTram->setCurrentPlatform(this);
+            m_currentTram->setCurrentTrack(NULL);
+
+            if (nextTrackIndex == m_incomingTracks.size() - 1) {
+                nextTrackIndex = 0;
+            } else {
+                nextTrackIndex++;
+            }
         } else {
-            nextTrackIndex++;
+            if (nextTrackIndex == m_incomingTracks.size() - 1) {
+                nextTrackIndex = 0;
+            } else {
+                nextTrackIndex++;
+            }
         }
-    } else {
-        // TODO should we be able to handle this? If it is an end station, there are no incoming tracks to the platform
     }
 }

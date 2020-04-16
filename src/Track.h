@@ -85,6 +85,8 @@ public:
 
     bool hasSpace() const;
 
+    int getSize() const;
+
     bool properlyInitialized() const;
 
 };

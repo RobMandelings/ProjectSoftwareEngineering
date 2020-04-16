@@ -78,7 +78,7 @@ void Track::setStopSignal(StopSignal* stopSignal) {
 
 bool Track::hasSpace() const {
     REQUIRE(this->properlyInitialized(), "Track must be properly initialized before its member methods are used.");
-    return (m_amountOfTrams < constants::MAX_TRAMS_ON_TRACK);
+    return (m_amountOfTrams < m_stopSignal->getMaxAmountOfTrams());
 }
 
 int Track::getSize() const{

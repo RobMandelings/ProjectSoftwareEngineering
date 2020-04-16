@@ -9,6 +9,7 @@
 
 class Line;
 class Tram;
+class Platform;
 
 enum StationType {
     ABOVE_GROUND,
@@ -74,6 +75,8 @@ public:
      \n REQUIRE(line->properlyInitialized(), "Line cannot be NULL.");
      */
     void addLine(Line* line);
+
+    virtual Platform* getPlatform(int platformNumber) = 0;
 
     /**
      * @brief checks if this object was properly initialized

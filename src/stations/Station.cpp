@@ -65,6 +65,15 @@ Platform* TramStop::getPlatformTerug() const {
     return m_platformTerug;
 }
 
+Platform *TramStop::getPlatform(int platformNumber) {
+    if(platformNumber == this->m_platformHeen->getNumber()){
+        return getPlatformHeen();
+    } else if(platformNumber == this->m_platformTerug->getNumber()){
+        return getPlatformTerug();
+    }
+    return NULL;
+}
+
 void MetroStation::addPlatform(Platform* platform) {
     m_platforms.push_back(platform);
 }

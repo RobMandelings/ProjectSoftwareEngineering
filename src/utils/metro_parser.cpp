@@ -26,7 +26,7 @@ namespace metro_parser {
 
             if (sourcePlatform->getStation() != destinationPlatform->getStation()) {
                 if (sourcePlatform != destinationPlatform) {
-                    if (!metroNet->trackExists(sourcePlatform, destinationPlatform)) {
+                    if (!metroNet->hasTrack(sourcePlatform, destinationPlatform)) {
                         Track* track = new Track(sourcePlatform, destinationPlatform);
                         sourcePlatform->addOutgoingTrack(track);
                         destinationPlatform->addIncomingTrack(track);
@@ -223,7 +223,7 @@ namespace metro_parser {
                     Platform* sourcePlatform = currentLineNode->getPlatform(TO);
                     Platform* destinationPlatform = nextLineNode->getPlatform(TO);
 
-                    if (!metroNet->trackExists(sourcePlatform, destinationPlatform)) {
+                    if (!metroNet->hasTrack(sourcePlatform, destinationPlatform)) {
                         addTrackBetweenPlatforms(metroNet, sourcePlatform, destinationPlatform, debug);
                     }
                 }
@@ -236,7 +236,7 @@ namespace metro_parser {
                     Platform* sourcePlatform = currentLineNode->getPlatform(FROM);
                     Platform* destinationPlatform = nextLineNode->getPlatform(FROM);
 
-                    if (!metroNet->trackExists(sourcePlatform, destinationPlatform)) {
+                    if (!metroNet->hasTrack(sourcePlatform, destinationPlatform)) {
                         addTrackBetweenPlatforms(metroNet, sourcePlatform, destinationPlatform, debug);
                     }
                 }

@@ -77,15 +77,18 @@ const vector<Track*>& MetroNet::getTracks() const {
     return m_tracks;
 }
 
-bool MetroNet::trackExists(Platform* sourcePlatform, Platform* destinationPlatform) {
-
+Track* MetroNet::getTrack(Platform* sourcePlatform, Platform* destinationPlatform) {
     for (vector<Track*>::iterator it = m_tracks.begin(); it < m_tracks.end(); it++) {
         Track* track = *it;
         if (track->getSourcePlatform() == sourcePlatform && track->getDestinationPlatform() == destinationPlatform) {
-            return true;
+            return track;
         }
     }
-    return false;
+    return NULL;
+}
+
+bool MetroNet::hasTrack(Platform* sourcePlatform, Platform* destinationPlatform) {
+    return getTrack(sourcePlatform, destinationPlatform);
 }
 
 void MetroNet::addTram(Tram* tram) {

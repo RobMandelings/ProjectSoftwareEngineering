@@ -112,7 +112,9 @@ public:
      */
     const vector<Track*>& getTracks() const;
 
-    bool trackExists(Platform* sourcePlatform, Platform* destinationPlatform);
+    Track* getTrack(Platform* sourcePlatform, Platform* destinationPlatform);
+
+    bool hasTrack(Platform* sourcePlatform, Platform* destinationPlatform);
 
     /**
      * @brief adds a station to this MetroNet

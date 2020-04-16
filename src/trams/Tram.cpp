@@ -92,7 +92,8 @@ void Tram::update(std::ofstream& outfile) {
                     m_currentTrackProgress = 0;
                 }
             } else {
-                if(this->getTrackForNextDestination()->getDestinationPlatform()->getCurrentTram() == NULL && this->getTrackForNextDestination()->getSize() == 0){
+                if(this->getTrackForNextDestination()->getDestinationPlatform()->getCurrentTram() == NULL &&
+                        this->getTrackForNextDestination()->getAmountOfTrams() == 0){
                     // TODO if not debug print as well, also add correct time of day
                     outfile << "Putting tram nr " << getVehicleNumber() << " on the next track, destination: " << this->getTrackForNextDestination()->getDestinationPlatform()->getStation()->getName() << std::endl;
                     m_currentTrack = this->getTrackForNextDestination();
@@ -202,6 +203,7 @@ Platform *Tram::getCurrentPlatform() const {
 void Tram::setCurrentPlatform(Platform *currentPlatform) {
     REQUIRE(this->properlyInitialized(), "Tram must be initialized before its member variables are used.");
     m_currentPlatform = currentPlatform;
+    m_currentWaitTime = 60;
 }
 
 Track *Tram::getCurrentTrack() const {

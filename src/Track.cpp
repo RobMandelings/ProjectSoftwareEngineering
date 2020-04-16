@@ -5,6 +5,8 @@
 #include "Track.h"
 #include "library.h"
 #include "constants.h"
+#include "StopSignal.h"
+#include "SpeedSignal.h"
 
 Track::Track(Platform* sourcePlatform, Platform* destinationPlatform) :
         m_sourcePlatform(sourcePlatform),
@@ -81,7 +83,7 @@ bool Track::hasSpace() const {
     return (m_amountOfTrams < m_stopSignal->getMaxAmountOfTrams());
 }
 
-int Track::getSize() const{
+int Track::getAmountOfTrams() const{
     return this->m_amountOfTrams;
 }
 

@@ -85,7 +85,7 @@ public:
 
     bool hasSpace() const;
 
-    int getSize() const;
+    int getAmountOfTrams() const;
 
     bool properlyInitialized() const;
 

@@ -17,6 +17,8 @@
 #include "Track.h"
 #include "constants.h"
 #include "Signal.h"
+#include "StopSignal.h"
+#include "SpeedSignal.h"
 
 // TODO improve metro parser by removing duplicate code (such as the station values that need to be parsed, the error messages which are basically the same
 namespace metro_parser {
@@ -352,6 +354,72 @@ namespace metro_parser {
             }
 
             // TODO check if there is a way for the tram to reach all its stations in the line (and back)
+        }
+        void parseSignal(MetroNet* metroNet, TiXmlElement* signalElement, bool debug){
+
+            std::string type = "Signal";
+
+            int queuesize = -1;
+            int amountOfSeats = -1;
+
+            const char *beginStation = NULL;
+            const char *eindStation = NULL;
+
+            int beginNummer = -1;
+            int eindNummer = -1;
+
+            for (TiXmlElement* signalChildElement = signalElement->FirstChildElement(); signalChildElement != NULL;
+                 signalChildElement = signalChildElement->NextSiblingElement()){
+
+                string elementName = signalChildElement->Value();
+
+                if(elementName == "type"){
+                    type = signalChildElement->GetText();
+                } else if (type == "STOP" and elementName == "queuesize"){
+                    queuesize = metro_utils::stoi(signalChildElement->GetText());
+                }else if(type == "SNELHEID") {
+                    amountOfSeats = metro_utils::stoi(signalChildElement->GetText());
+                }
+                else if(elementName == "beginPerron"){
+                    beginStation = signalChildElement->FirstChildElement()->GetText();
+                    beginNummer = metro_utils::stoi(signalChildElement->FirstChildElement()->NextSiblingElement()->GetText());
+                } else if(elementName == "eindPerron"){
+                    eindStation = signalChildElement->FirstChildElement()->GetText();
+                    eindNummer = metro_utils::stoi(signalChildElement->FirstChildElement()->NextSiblingElement()->GetText());
+                }
+
+                Station* beginS = metroNet->getStation(beginStation);
+                Station* eindS = metroNet->getStation(eindStation);
+
+                Platform* beginPlatform = NULL;
+                Platform* eindPlatform = NULL;
+
+                if(beginS->getType() == UNDERGROUND){
+                    beginPlatform = beginS->getPlatform(beginNummer);
+                } else if(beginS->getType() == ABOVE_GROUND){
+                    beginPlatform = beginS->getPlatform(beginNummer);
+                }
+
+                if(eindS->getType() == UNDERGROUND){
+                    eindPlatform = eindS->getPlatform(eindNummer);
+                } else if(eindS->getType() == ABOVE_GROUND){
+                    eindPlatform = eindS->getPlatform(eindNummer);
+                }
+
+                Track* t = metroNet->getTrack(beginPlatform, eindPlatform);
+
+                if(type == "STOP"){
+                    StopSignal* signal = new StopSignal(t,queuesize);
+                    t->setStopSignal(signal);
+                } else if(type == "SNELHEID"){
+                    SpeedSignal* signal = new SpeedSignal(t, amountOfSeats);
+                    t->setSpeedSignal(signal);
+                }
+
+
+
+            }
+
         }
 
     }

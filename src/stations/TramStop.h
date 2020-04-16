@@ -26,6 +26,8 @@ public:
 
     Platform* getPlatformTerug() const;
 
+    Platform* getPlatform(int platformNumber);
+
     StationType getType() const { return ABOVE_GROUND; };
 
 };

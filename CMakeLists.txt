@@ -16,6 +16,7 @@ include_directories(src/lines/)
 include_directories(src/stations)
 include_directories(src/timer)
 include_directories(src/platform)
+include_directories(src/signals)
 
 # Set include dir (gtest)
 include_directories(gtest/include)

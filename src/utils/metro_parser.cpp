@@ -16,6 +16,7 @@
 #include "TramStop.h"
 #include "Track.h"
 #include "constants.h"
+#include "Signal.h"
 
 // TODO improve metro parser by removing duplicate code (such as the station values that need to be parsed, the error messages which are basically the same
 namespace metro_parser {

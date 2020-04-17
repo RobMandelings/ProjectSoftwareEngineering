@@ -14,7 +14,7 @@ include_directories(src/utils)
 include_directories(src/trams)
 include_directories(src/lines/)
 include_directories(src/stations)
-include_directories(src/timer)
+include_directories(src/time)
 include_directories(src/platform)
 include_directories(src/signals)
 
@@ -43,8 +43,8 @@ set(RELEASE_SOURCE_FILES
         src/trams/Albatros.cpp
         src/trams/Albatros.h src/trams/PCC.cpp src/trams/PCC.h
         src/Track.cpp src/Track.h
-        src/timer/Timer.cpp src/timer/Timer.h src/utils/constants.cpp src/utils/constants.h src/signals/Signal.cpp src/signals/Signal.h
-        src/stations/Platform.h src/stations/Platform.cpp src/utils/enums.cpp src/utils/enums.h src/signals/SpeedSignal.cpp src/signals/SpeedSignal.h src/signals/StopSignal.cpp src/signals/StopSignal.h)
+        src/time/Timer.cpp src/time/Timer.h src/utils/constants.cpp src/utils/constants.h src/signals/Signal.cpp src/signals/Signal.h
+        src/stations/Platform.h src/stations/Platform.cpp src/utils/enums.cpp src/utils/enums.h src/signals/SpeedSignal.cpp src/signals/SpeedSignal.h src/signals/StopSignal.cpp src/signals/StopSignal.h src/time/SimulationTime.cpp src/time/SimulationTime.h)
 
 # Set source files for DEBUG target
 set(DEBUG_SOURCE_FILES
@@ -66,7 +66,7 @@ set(DEBUG_SOURCE_FILES
         src/tests/outputTest.cpp src/tests/inputTest.cpp src/tests/DesignByContract.h
         src/trams/Albatros.cpp src/trams/Albatros.h src/trams/PCC.h src/trams/PCC.cpp
         src/stations/TramStop.cpp src/stations/TramStop.h src/Track.cpp src/Track.h
-        src/timer/Timer.cpp src/timer/Timer.h src/utils/constants.cpp src/utils/constants.h src/signals/Signal.cpp src/signals/Signal.h
+        src/time/Timer.cpp src/time/Timer.h src/utils/constants.cpp src/utils/constants.h src/signals/Signal.cpp src/signals/Signal.h
         src/stations/Platform.h src/stations/Platform.cpp)
 
 # Create RELEASE target

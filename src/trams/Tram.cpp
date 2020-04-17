@@ -57,6 +57,10 @@ double Tram::getCurrentSpeed() const {
     return m_currentSpeed;
 }
 
+double Tram::getCurrentWaitTime() const {
+    return m_currentWaitTime;
+}
+
 int Tram::getAmountOfSeats() const {
     REQUIRE(this->properlyInitialized(), "Tram must be initialized before its member variables are used.");
     REQUIRE(m_amountOfSeats >= 0, "Amount of seats cannot be negative.");
@@ -92,19 +96,15 @@ void Tram::update(std::ofstream& outfile) {
             } else {
                 if (trackForNextDestination->getDestinationPlatform()->canReceiveNewIncomingTram()) {
                     // TODO if not debug print as well, also add correct time of day
-                    trackForNextDestination->getDestinationPlatform()->receiveNewIncomingTram();
                     outfile << "Another tram is going to be received at platform " << trackForNextDestination->getDestinationPlatform()->getNumber() << ", station "
                             << trackForNextDestination->getDestinationPlatform()->getStation()->getName() << std::endl;
+                    trackForNextDestination->getDestinationPlatform()->receiveNewIncomingTram();
                 }
             }
         }
     } else {
         if (m_currentTrackProgress < 1) {
-            if (m_currentTrack->getSpeedSignal()) {
-                m_currentTrackProgress += ((double) Timer::get().getTimePassedMillis() / 1000) / (7200 / max(m_currentTrack->getSpeedSignal()->getSpeed(), MAX_SPEED));
-            } else {
-                m_currentTrackProgress += ((double) Timer::get().getTimePassedMillis() / 1000) / (7200 / MAX_SPEED);
-            }
+            m_currentTrackProgress += ((double) Timer::get().getTimePassedMillis() / 1000) / (7200 / getCurrentSpeed());
             if (m_currentTrackProgress >= 1) {
                 if (m_currentTrack->getStopSignal()) {
                     outfile << "Tram nr " << getVehicleNumber() << " has completed a track journey to: "
@@ -112,6 +112,13 @@ void Tram::update(std::ofstream& outfile) {
                             << ", adding it to the waiting list" << std::endl;
                     m_currentTrack->addWaitingTram(this);
                     m_currentTrackProgress = 1;
+                    // Should it be done like this?
+                    if (m_currentTrack->getDestinationPlatform()->canReceiveNewIncomingTram()) {
+                        // TODO if not debug print as well, also add correct time of day
+                        outfile << "Another tram is going to be received at platform " << m_currentTrack->getDestinationPlatform()->getNumber() << ", station "
+                                << m_currentTrack->getDestinationPlatform()->getStation()->getName() << std::endl;
+                        m_currentTrack->getDestinationPlatform()->receiveNewIncomingTram();
+                    }
                 } else {
                     outfile << "Tram nr " << getVehicleNumber() << " has arrived in: "
                             << this->getTrackForNextDestination()->getDestinationPlatform()->getStation()->getName()
@@ -202,10 +209,13 @@ void Tram::putOnPlatform(Platform* currentPlatform) {
     REQUIRE(this->properlyInitialized(), "Tram must be initialized before its member variables are used.");
     REQUIRE(currentPlatform, "The platform given cannot be NULL");
     REQUIRE(currentPlatform != m_currentPlatform, "The platform to put the tram on is the same as the current platform");
+    m_currentPlatform = currentPlatform;
+
     m_currentTrack->deleteTram();
     m_currentTrack = NULL;
-    m_currentPlatform = currentPlatform;
-    m_currentWaitTime = 60;
+
+    m_currentSpeed = 0;
+    m_currentWaitTime = m_currentPlatform->getStation()->getType() == ABOVE_GROUND && canOnlyGoUnderground() ? 1 : constants::TRAM_WAIT_TIME;
     this->updateLineNode();
 }
 
@@ -215,11 +225,15 @@ void Tram::putOnTrack(Track* currentTrack) {
     REQUIRE(currentTrack != m_currentTrack, "The track to put the tram on is the same as the current track");
     m_currentTrack = currentTrack;
     m_currentTrack->increaseAmountOfTrams();
-
     m_currentTrackProgress = 0;
+
     Platform* oldPlatform = m_currentPlatform;
     m_currentPlatform = NULL;
+
+    m_currentSpeed = m_currentTrack->getSpeedSignal() ? m_currentTrack->getSpeedSignal()->getSpeed() : MAX_SPEED;
+
     if (oldPlatform->canReceiveNewIncomingTram()) {
         oldPlatform->receiveNewIncomingTram();
     }
+    ENSURE(m_currentTrack == currentTrack, "The tram is not on placed on the track given!");
 }

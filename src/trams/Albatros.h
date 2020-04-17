@@ -13,4 +13,6 @@ public:
 
     Albatros(Line* line, int vehicleNumber, Platform* beginPlatform);
 
+    bool canOnlyGoUnderground() const { return true; }
+
 };

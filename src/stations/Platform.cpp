@@ -125,11 +125,13 @@ void Platform::receiveNewIncomingTram() {
             }
         } else {
             Tram* tramToReceive = trackToCheck->getSourcePlatform()->getCurrentTram();
-            if (tramToReceive) {
+            if (tramToReceive && tramToReceive->getCurrentWaitTime() <= 0) {
                 tramToReceive->putOnTrack(trackToCheck);
             }
         }
 
         trackIndexToCheck = getNextTrackIndex(trackIndexToCheck);
     } while (!success && trackIndexToCheck != m_currentTrackIndex);
+
+    m_currentTrackIndex = getNextTrackIndex(m_currentTrackIndex);
 }

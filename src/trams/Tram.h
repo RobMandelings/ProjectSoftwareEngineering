@@ -50,9 +50,9 @@ public:
     const double MAX_SPEED;
     const std::string TYPE;
 
-
-
     virtual ~Tram();
+
+    virtual bool canOnlyGoUnderground() const { return false; };
 
     bool isOnTrack() const;
 
@@ -90,6 +90,8 @@ public:
      \n REQUIRE(m_currentSpeed>=0,"Speed cannot be negative.");
      */
     double getCurrentSpeed() const;
+
+    double getCurrentWaitTime() const;
 
     /**
      * @brief Simple getter

@@ -13,7 +13,7 @@ int main() {
     MetroNet* metroNet = NULL;
 
     try {
-        metroNet = metro_parser::parseMetroNetXml("../input/voorbeeld.xml");
+        metroNet = metro_parser::parseMetroNetXml("../input/voorbeeldSimpel.xml");
 
         metro_utils::printMetroNet(metroNet, "../output/Summary.metro");
         Timer::get().setUpdateTime();

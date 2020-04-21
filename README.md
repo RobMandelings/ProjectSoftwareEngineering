@@ -186,11 +186,15 @@ Voor invoerformaat zie Appendix A opgave.
     * updateLocation(): 
         * ENSURE: m_currentNode is not NULL
         
-## TODO - 7/04:
+## TODO - 7/04 (DONE):
 * Verder werken nieuwe functionaliteit
 * Nieuwe functionaliteit (types) testen
 * (Eventueel) lengte normale tram aanpassen
 * Class Diagram aanpassen
+
+## TODO BEFORE 30/04:
+* Grafische impressie (summary functie updaten)
+* Tests/Doc
         
 
 ## Class Diagram (zonder methods) OUTDATED:

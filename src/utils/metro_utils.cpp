@@ -9,6 +9,9 @@
 #include "../MetroNet.h"
 #include "Station.h"
 #include "../trams/Tram.h"
+#include "enums.h"
+#include "Track.h"
+
 
 int metro_utils::stoi(const string& input) {
     int i;
@@ -60,7 +63,30 @@ void metro_utils::printMetroNet(MetroNet* metroNet, const char* outputFilename) 
         outputFile << "\t\tCurrent speed: " << currentTram->getCurrentSpeed() << "\n";
         outputFile << "\t\tAmount of Seats: " << currentTram->getAmountOfSeats() << "\n";
         outputFile << "\t\tLength: " << currentTram->LENGTH << "\n";
-        outputFile << "\t\tCurrent location: " << currentTram->getCurrentNode()->getStation()->getName() << "\n";
+        if(currentTram->isOnTrack()){
+            outputFile << "\t\tCurrent location: " << currentTram->getCurrentTrack()->getSourcePlatform()->getStation()->getName() << " >> " << currentTram->getCurrentTrack()->getDestinationPlatform()->getStation()->getName() << "\n";
+            if(currentTram->getCurrentTrack()->getStopSignal() &&
+               !currentTram->getCurrentTrack()->getWaitingTrams().empty()){
+                deque<Tram*> tramQueueCopy = currentTram->getCurrentTrack()->getWaitingTrams();
+                bool inQueue = false;
+                int index = -1;
+                for(unsigned int i = 0;i<tramQueueCopy.size();i++){
+                    if(tramQueueCopy.at(i)==currentTram){
+                        inQueue = true;
+                        index = i;
+                    }
+                }
+                if(inQueue){
+                    outputFile << "\t\tQueue Position:" << index + 1 << "\n";
+                } else {
+                    outputFile << "\t\tProgress: " << (int) (currentTram->getTrackProgress()*100) << "%\n";
+                }
+            } else {
+                outputFile << "\t\tProgress: " << (int) (currentTram->getTrackProgress()*100) << "%\n";
+            }
+        } else {
+            outputFile << "\t\tCurrent location: " << currentTram->getCurrentNode()->getStation()->getName() << "\n";
+        }
     }
 
     outputFile.close();

@@ -193,8 +193,9 @@ Voor invoerformaat zie Appendix A opgave.
 * Class Diagram aanpassen
 
 ## TODO BEFORE 30/04:
-* Grafische impressie (summary functie updaten)
+* Grafische impressie op basis van summary
 * Tests/Doc
+* Class Diagram afmaken
         
 
 ## Class Diagram (zonder methods) OUTDATED:

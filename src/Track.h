@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include <queue>
+#include <deque>
 
 class SpeedSignal;
 class StopSignal;
@@ -30,7 +30,7 @@ private:
     Platform* m_destinationPlatform;
 
     /** The trams which are currently waiting to enter the destination platform */
-    std::queue<Tram*> m_waitingTrams;
+    std::deque<Tram*> m_waitingTrams;
 
     /** Amount of trams driving on the track */
     int m_amountOfTrams;
@@ -61,7 +61,7 @@ public:
      * @brief simple getter
      * @return the trams currently riding on this track
      */
-    std::queue<Tram*>& getWaitingTrams();
+    std::deque<Tram*>& getWaitingTrams();
 
     Tram* getFirstTramInLine() const;
 

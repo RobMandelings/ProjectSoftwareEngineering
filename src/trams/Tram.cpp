@@ -237,3 +237,8 @@ void Tram::putOnTrack(Track* currentTrack) {
     }
     ENSURE(m_currentTrack == currentTrack, "The tram is not on placed on the track given!");
 }
+
+double Tram::getTrackProgress() const {
+    REQUIRE(this->properlyInitialized(), "Tram must be initialized before its member variables are used.");
+    return m_currentTrackProgress;
+}

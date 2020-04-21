@@ -33,7 +33,7 @@ Platform* Track::getDestinationPlatform() const {
     return m_destinationPlatform;
 }
 
-std::queue<Tram*>& Track::getWaitingTrams() {
+std::deque<Tram*>& Track::getWaitingTrams() {
     REQUIRE(this->properlyInitialized(), "Track must be properly initialized before its member methods are used.");
     return m_waitingTrams;
 }
@@ -46,7 +46,7 @@ Tram* Track::getFirstTramInLine() const {
 void Track::addWaitingTram(Tram* tram) {
     REQUIRE(this->properlyInitialized(), "Track must be properly initialized before its member methods are used.");
     REQUIRE(tram, "the tram to be added to track should not be null!");
-    m_waitingTrams.push(tram);
+    m_waitingTrams.push_back(tram);
 }
 
 void Track::increaseAmountOfTrams() {

@@ -116,10 +116,10 @@ void Platform::receiveNewIncomingTram() {
 
         Track* trackToCheck = m_incomingTracks.at(trackIndexToCheck);
         if (trackToCheck->getStopSignal()) {
-            std::queue<Tram*>& waitingTrams = m_incomingTracks.at(trackIndexToCheck)->getWaitingTrams();
+            std::deque<Tram*>& waitingTrams = m_incomingTracks.at(trackIndexToCheck)->getWaitingTrams();
             if (!waitingTrams.empty()) {
                 m_currentTram = waitingTrams.front();
-                waitingTrams.pop();
+                waitingTrams.pop_front();
                 m_currentTram->putOnPlatform(this);
                 success = true;
             }

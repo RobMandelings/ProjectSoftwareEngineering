@@ -160,6 +160,13 @@ public:
     Platform *getCurrentPlatform() const;
 
     /**
+     * @brief Simple getter
+     \n REQUIRE(this->properlyInitialized(), "Tram must be initialized before its member variables are used.");
+     */
+
+    double getTrackProgress() const;
+
+    /**
      * @brief Simple setter
      * @param currentPlatform: new Platform
      \n REQUIRE(this->properlyInitialized(), "Tram must be initialized before its member variables are used.");

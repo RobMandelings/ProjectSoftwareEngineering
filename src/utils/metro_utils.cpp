@@ -11,6 +11,7 @@
 #include "../trams/Tram.h"
 #include "enums.h"
 #include "Track.h"
+#include <fstream>
 #include <sstream>
 
 
@@ -93,13 +94,23 @@ void metro_utils::printMetroNet(MetroNet* metroNet, const char* outputFilename) 
     outputFile.close();
 }
 
-void grahicalImpression(const char* inputfile, const char* outputFilename){
-        ifstream file("inputfile");
-        if( file ){
-            stringstream ss;
-            ss << file.rdbuf();
-            file.close();
-        }
+void metro_utils::getGraphicalImpression(const char* inputfile, const char* outputFilename){
+    ifstream file(inputfile);
+    string line;
 
-        
+    ofstream output;
+    output.open (outputFilename);
+
+    while(getline(file, line)){
+        if(line.find("\tLine", 0) == 0){
+            string lineNumber = line.substr(line.find(' ') + 1, line.find(':') - 1 - line.find(' '));
+//            string stationSubstring = line.substr(line.find(':') + 2, line.length()-1 - line.find(':'));
+            string stationSubstring = line.substr(line.find(':') + 2, line.rfind("Station") - line.find(':') - 7);
+            cout << lineNumber << endl;
+            cout << stationSubstring << endl;
+
+        }
+    }
+
+    output.close();
 }

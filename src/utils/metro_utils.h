@@ -34,7 +34,7 @@ namespace metro_utils {
      */
     void printMetroNet(MetroNet* metroNet, const char* outputFilename);
 
-    void grahicalImpression(const char* inputfile, const char* outputFilename);
+    void getGraphicalImpression(const char* inputfile, const char* outputFilename);
 
 }
 

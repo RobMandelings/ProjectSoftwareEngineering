@@ -37,6 +37,12 @@ namespace constants {
 
     extern const char* EVENTS_OUTPUT_FILE;
 
+    extern const int SIMULATION_START_HOURS;
+
+    extern const int SIMULATION_START_MINUTES;
+
+    extern const int SIMULATION_START_SECONDS;
+
     // TODO add start time of simulation (12:00:00)
 
 }

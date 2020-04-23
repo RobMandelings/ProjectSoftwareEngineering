@@ -13,6 +13,7 @@ class Timer {
 private:
     Timer* _initCheck;
 
+    long timeAtStart;
     long timeAtEnd;
 
     long updateTime;
@@ -36,7 +37,9 @@ public:
      * @brief function which returns the difference between the time now and the time saved by the member variable updateTime
      \n REQUIRE(this->properlyInitialized(),"Timer must be properly initialized to use its member methods.");
      */
-    long getTimePassedMillis();
+    long getUpdateTimePassedMillis() const;
+
+    long getTimePassedMillis() const;
 
     /**
      * @brief simple setter for updateTime
@@ -49,7 +52,7 @@ public:
      * @return
      */
 
-    bool shouldRun();
+    bool shouldRun() const;
 
     bool properlyInitialized() const;
 

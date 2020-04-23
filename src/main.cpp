@@ -1,4 +1,5 @@
 #include <iostream>
+#include <time/SimulationTime.h>
 #include "library.h"
 
 #include "MetroNet.h"
@@ -9,6 +10,7 @@
 #include "simulation_utils.h"
 #include "Timer.h"
 #include "FileHandler.h"
+#include "SimulationTime.h"
 
 int main() {
 
@@ -27,7 +29,7 @@ int main() {
         return 1;
     }
 
-    FileHandler::get().getOfstream().close();
+    std::cout << SimulationTime::get().getFormattedTime() << std::endl;
 
     return 0;
 }

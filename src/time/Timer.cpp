@@ -30,13 +30,18 @@ bool Timer::properlyInitialized() const {
 
 Timer::Timer() {
     Timer::_initCheck = this;
+    timeAtStart = getCurrentTimeMillis();
     timeAtEnd = getCurrentTimeMillis() + (int) (RUNTIME_SECONDS * 1000);
     ENSURE(this->properlyInitialized(), "Constructor must end ...");
 }
 
-long Timer::getTimePassedMillis() {
+long Timer::getUpdateTimePassedMillis() const {
     REQUIRE(this->properlyInitialized(),"Timer must be properly initialized to use its member methods.");
     return getCurrentTimeMillis() - updateTime;
+}
+
+long Timer::getTimePassedMillis() const {
+    return getCurrentTimeMillis() - timeAtStart;
 }
 
 void Timer::setUpdateTime() {
@@ -44,6 +49,6 @@ void Timer::setUpdateTime() {
     this->updateTime = getCurrentTimeMillis();
 }
 
-bool Timer::shouldRun() {
+bool Timer::shouldRun() const {
     return getCurrentTimeMillis() <= timeAtEnd;
 }

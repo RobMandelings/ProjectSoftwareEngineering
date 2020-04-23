@@ -85,7 +85,7 @@ void Tram::update() {
 
         if (m_currentDirection == getCurrentPlatformDirection()) {
             REQUIRE(this->getTrackForNextDestination(), "The track for the next destination is not found. This should not be possible");
-            m_currentWaitTime -= (double) Timer::get().getTimePassedMillis() / 1000;
+            m_currentWaitTime -= (double) Timer::get().getUpdateTimePassedMillis() / 1000;
             Track* trackForNextDestination = this->getTrackForNextDestination();
 
             if (m_currentWaitTime <= 0) {
@@ -119,7 +119,7 @@ void Tram::update() {
     } else {
 
         if (m_currentTrackProgress < 1) {
-            m_currentTrackProgress += ((double) Timer::get().getTimePassedMillis() / 1000) / (7200 / getCurrentSpeed());
+            m_currentTrackProgress += ((double) Timer::get().getUpdateTimePassedMillis() / 1000) / (7200 / getCurrentSpeed());
             std::cout << "Current track progress: " << m_currentTrackProgress * 100 << "%" << std::endl;
             if (m_currentTrackProgress >= 1) {
                 if (m_currentTrack->getStopSignal()) {

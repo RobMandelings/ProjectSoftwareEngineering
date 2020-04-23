@@ -105,8 +105,9 @@ void metro_utils::getGraphicalImpression(const char* inputfile, const char* outp
     vector<pair<string,string> > lines;
     vector<pair<string,pair<string,string> > > trams;
 
+    pair<string,string> currentTram;
+
     while(getline(file, line)){
-        pair<string,string> currentTram;
 
         if(line.find("\tLine", 0) == 0){
             // Get line number and station order
@@ -127,7 +128,14 @@ void metro_utils::getGraphicalImpression(const char* inputfile, const char* outp
 
         } else if(line.find("\tTram", 0) == 0){
             string lineNumber = line.substr(line.find(' ')+1, line.rfind(' ') - line.find(' ')-1);
+            string vehicleNumber = line.substr(line.find('(') + 1, line.find(')') - line.find('(') -1);
 
+            currentTram.first = lineNumber;
+            currentTram.second = vehicleNumber;
+        } else if(line.find("\t\tCurrent location:",0) == 0){
+            string currentStation = line.substr(line.find(':') + 2, line.length() - 2);
+
+            trams.push_back(pair<string, pair<string,string> > (currentStation, currentTram));
         }
     }
 

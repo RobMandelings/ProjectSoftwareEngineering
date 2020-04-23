@@ -17,7 +17,7 @@ int main() {
     MetroNet* metroNet = NULL;
 
     try {
-        metroNet = metro_parser::parseMetroNetXml("../input/voorbeeldSimpel.xml");
+        metroNet = metro_parser::parseMetroNetXml("../input/voorbeeldGewoon.xml");
 
         Timer::get().setUpdateTime();
         simulation_utils::simulateTrams(*metroNet);

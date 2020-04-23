@@ -19,6 +19,7 @@ Platform::Platform(Station* station, int number) :
 }
 
 Platform::Platform(int number) :
+        m_station(NULL),
         m_number(number),
         m_currentTram(NULL) {
     Platform::_initCheck = this;

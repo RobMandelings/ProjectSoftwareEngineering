@@ -109,21 +109,23 @@ namespace metro_parser {
                     }
                 }
                 station = metroStation;
+                // The station of the platform is set to the currentStation
+                for (std::vector<Platform*>::iterator it = platforms.begin(); it != platforms.end(); it++) {
+                    (*it)->setStation(station);
+                }
             } else if (stationType == "TramStop") {
                 if (platforms.size() > 1) {
                     if (!debug) std::cerr << "A tram stap can only have 1 platform. Given: " << platforms.size() << std::endl;
                     throw MetroNetParseException();
                 } else {
                     station = new TramStop(platforms.at(0));
+                    TramStop* tramStop = (TramStop*) station;
+                    tramStop->getPlatformHeen()->setStation(station);
+                    tramStop->getPlatformTerug()->setStation(station);
                 }
             } else {
                 if (!debug) std::cerr << "The type of the station wasn't recognized" << stationType << std::endl;
                 throw MetroNetParseException();
-            }
-
-            // The station of the platform is set to the currentStation
-            for (std::vector<Platform*>::iterator it = platforms.begin(); it != platforms.end(); it++) {
-                (*it)->setStation(station);
             }
             station->setName(stationName);
 

@@ -11,6 +11,7 @@
 #include "../trams/Tram.h"
 #include "enums.h"
 #include "Track.h"
+#include <sstream>
 
 
 int metro_utils::stoi(const string& input) {
@@ -90,4 +91,15 @@ void metro_utils::printMetroNet(MetroNet* metroNet, const char* outputFilename) 
     }
 
     outputFile.close();
+}
+
+void grahicalImpression(const char* inputfile, const char* outputFilename){
+        ifstream file("inputfile");
+        if( file ){
+            stringstream ss;
+            ss << file.rdbuf();
+            file.close();
+        }
+
+        
 }

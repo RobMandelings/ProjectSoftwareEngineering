@@ -139,7 +139,5 @@ void metro_utils::getGraphicalImpression(const char* inputfile, const char* outp
         }
     }
 
-
-
     output.close();
 }

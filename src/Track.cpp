@@ -7,6 +7,7 @@
 #include "constants.h"
 #include "StopSignal.h"
 #include "SpeedSignal.h"
+#include "Platform.h"
 
 Track::Track(Platform* sourcePlatform, Platform* destinationPlatform) :
         m_speedSignal(NULL),
@@ -94,4 +95,12 @@ int Track::getAmountOfTrams() const{
 
 bool Track::properlyInitialized() const {
     return (Track::_initCheck == this);
+}
+
+std::ostream& operator<<(ostream& os, Track& track) {
+    return os << "track: 'source: " << track.getSourcePlatform() << ", destination: " << track.getDestinationPlatform() << "'";
+}
+
+std::ostream& operator<<(ostream& os, Track* track) {
+    return os << *track;
 }

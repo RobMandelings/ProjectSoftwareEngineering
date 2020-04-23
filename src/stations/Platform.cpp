@@ -6,6 +6,7 @@
 #include "Platform.h"
 #include "Station.h"
 #include "Track.h"
+#include "FileHandler.h"
 
 Platform::Platform(Station* station, int number) :
         m_station(station),
@@ -63,9 +64,15 @@ void Platform::setNumber(int number) {
     m_number = number;
 }
 
+
 void Platform::setCurrentTram(Tram* currentTram) {
+    REQUIRE(currentTram != NULL, "The given tram should not be NULL");
     REQUIRE(!m_currentTram, " cannot set current tram: this platform already has a tram on it!");
     m_currentTram = currentTram;
+}
+
+void Platform::removeCurrentTram() {
+    m_currentTram = NULL;
 }
 
 Tram* Platform::getCurrentTram() const {
@@ -89,7 +96,8 @@ bool Platform::properlyInitialized() {
 }
 
 bool Platform::canReceiveNewIncomingTram() const {
-    if (!getCurrentTram()) {
+
+    if (!getCurrentTram() && !m_incomingTracks.empty()) {
         // Check if there is currently a tram directly heading to this platform (so no tram which is going to a queue via a stopSignal)
         for (std::vector<Track*>::const_iterator trackIt = m_incomingTracks.begin(); trackIt < m_incomingTracks.end(); trackIt++) {
             if (!(*trackIt)->getStopSignal()) {
@@ -107,7 +115,6 @@ bool Platform::canReceiveNewIncomingTram() const {
 // Omdat je zo nog steeds een eerlijke verdeling hebt tussen trams die mogen vertrekken
 void Platform::receiveNewIncomingTram() {
     REQUIRE(this->properlyInitialized(), "Platform must be properly initialized to use its member variables.");
-    REQUIRE(!m_incomingTracks.empty(), "This method should not be called if it cannot be reached by a track");
     REQUIRE(canReceiveNewIncomingTram(), "This platform cannot receive a new incoming tram yet!");
 
     unsigned int trackIndexToCheck = m_currentTrackIndex;
@@ -121,12 +128,15 @@ void Platform::receiveNewIncomingTram() {
                 m_currentTram = waitingTrams.front();
                 waitingTrams.pop_front();
                 m_currentTram->putOnPlatform(this);
+                FileHandler::get().getOfstream() << this << ": received tram " << m_currentTram << " from queue " << std::endl;
+                FileHandler::get().getOfstream() << waitingTrams.size() << " trams left in the queue " << std::endl;
                 success = true;
             }
         } else {
             Tram* tramToReceive = trackToCheck->getSourcePlatform()->getCurrentTram();
             if (tramToReceive && tramToReceive->getCurrentWaitTime() <= 0) {
                 tramToReceive->putOnTrack(trackToCheck);
+                FileHandler::get().getOfstream() << "Tram " << tramToReceive << " now going towards platform " << this << std::endl;
             }
         }
 
@@ -134,4 +144,12 @@ void Platform::receiveNewIncomingTram() {
     } while (!success && trackIndexToCheck != m_currentTrackIndex);
 
     m_currentTrackIndex = getNextTrackIndex(m_currentTrackIndex);
+}
+
+std::ostream& operator<<(ostream& os, Platform& platform) {
+    return os << "Station " << platform.getStation() << ", platform " << platform.getNumber() << "";
+}
+
+std::ostream& operator<<(ostream& os, Platform* platform) {
+    return os << *platform;
 }

@@ -9,7 +9,7 @@
 #include "../MetroNet.h"
 #include "Station.h"
 #include "../trams/Tram.h"
-#include "enums.h"
+#include "Direction.h"
 #include "Track.h"
 #include <fstream>
 #include <sstream>

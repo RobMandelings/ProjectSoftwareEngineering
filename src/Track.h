@@ -5,6 +5,7 @@
 #pragma once
 
 #include <deque>
+#include <fstream>
 
 class SpeedSignal;
 class StopSignal;
@@ -90,3 +91,7 @@ public:
     bool properlyInitialized() const;
 
 };
+
+std::ostream& operator<<(std::ostream& os, Track& track);
+
+std::ostream& operator<<(std::ostream& os, Track* track);

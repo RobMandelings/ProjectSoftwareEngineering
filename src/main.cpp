@@ -2,12 +2,14 @@
 #include "library.h"
 
 #include "MetroNet.h"
-#include "trams/Tram.h"
+#include "Tram.h"
 #include "Station.h"
 #include "metro_parser.h"
 #include "metro_utils.h"
 #include "simulation_utils.h"
 #include "Timer.h"
+#include "FileHandler.h"
+
 int main() {
 
     MetroNet* metroNet = NULL;
@@ -24,6 +26,8 @@ int main() {
         std::cerr << e.what();
         return 1;
     }
+
+    FileHandler::get().getOfstream().close();
 
     return 0;
 }

@@ -91,3 +91,11 @@ Platform* MetroStation::getPlatform(int number) {
 std::vector<Platform*> MetroStation::getPlatforms() const {
     return m_platforms;
 }
+
+std::ostream& operator<<(ostream& os, Station& station) {
+    return os << station.getName();
+}
+
+std::ostream& operator<<(ostream& os, Station* station) {
+    return os << *station;
+}

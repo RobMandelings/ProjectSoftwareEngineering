@@ -5,7 +5,7 @@
 #ifndef PROJECTSOFTWAREENGINEERING_PERRON_H
 #define PROJECTSOFTWAREENGINEERING_PERRON_H
 
-#include "enums.h"
+#include "Direction.h"
 #include "library.h"
 
 class Station;
@@ -54,6 +54,8 @@ public:
 
     void setCurrentTram(Tram* currentTram);
 
+    void removeCurrentTram();
+
     Tram* getCurrentTram() const;
 
     bool hasCurrentTram() const;
@@ -67,6 +69,10 @@ public:
     bool properlyInitialized();
 
 };
+
+std::ostream& operator<<(std::ostream& os, Platform& platform);
+
+std::ostream& operator<<(std::ostream& os, Platform* platform);
 
 
 #endif //PROJECTSOFTWAREENGINEERING_PERRON_H

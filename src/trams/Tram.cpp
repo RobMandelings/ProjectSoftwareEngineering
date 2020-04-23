@@ -12,6 +12,7 @@
 #include "Timer.h"
 #include "SpeedSignal.h"
 #include "StopSignal.h"
+#include "FileHandler.h"
 
 Tram::Tram(Line* line, Platform* beginPlatform, double maxSpeed, int amountOfSeats, int vehicleNumber, double length, const std::string& type) :
         m_tramLine(line),
@@ -74,55 +75,69 @@ void Tram::setCurrentSpeed(int currentSpeed) {
     ENSURE(m_currentSpeed == currentSpeed, "m_currentspeed has to be set to currentSpeed.");
 }
 
-void Tram::update(std::ofstream& outfile) {
+void Tram::update() {
     REQUIRE(this->properlyInitialized(), "Tram must be initialized before its member variables are used.");
 
     // If the tram is currently in a station
     if (!isOnTrack()) {
-        REQUIRE(this->getTrackForNextDestination(), "The track for the next destination is not found. This should not be possible");
-        m_currentWaitTime -= (double) Timer::get().getTimePassedMillis() / 1000;
-        Track* trackForNextDestination = this->getTrackForNextDestination();
 
-        if (m_currentWaitTime <= 0) {
-            m_currentWaitTime = 0;
-            if (trackForNextDestination->getStopSignal()) {
-                if (!trackForNextDestination->tramCapacityReached()) {
-                    // TODO if not debug print as well, also add correct time of day
-                    outfile << "Putting tram nr " << getVehicleNumber() << " on the next track, destination: "
-                            << trackForNextDestination->getDestinationPlatform()->getStation()->getName() << std::endl;
+//        std::cout << "Current station: " << m_currentPlatform->getStation()->getName() << std::endl;
 
-                    putOnTrack(trackForNextDestination);
+        if (m_currentDirection == getCurrentPlatformDirection()) {
+            REQUIRE(this->getTrackForNextDestination(), "The track for the next destination is not found. This should not be possible");
+            m_currentWaitTime -= (double) Timer::get().getTimePassedMillis() / 1000;
+            Track* trackForNextDestination = this->getTrackForNextDestination();
+
+            if (m_currentWaitTime <= 0) {
+                m_currentWaitTime = 0;
+                if (trackForNextDestination->getStopSignal()) {
+                    if (!trackForNextDestination->tramCapacityReached()) {
+                        FileHandler::get().getOfstream() << "Putting tram " << this << " on the next track, destination: "
+                                                         << trackForNextDestination->getDestinationPlatform() << std::endl;
+
+                        putOnTrack(trackForNextDestination);
+                    }
+                } else {
+                    if (trackForNextDestination->getDestinationPlatform()->canReceiveNewIncomingTram()) {
+                        trackForNextDestination->getDestinationPlatform()->receiveNewIncomingTram();
+                    }
                 }
-            } else {
-                if (trackForNextDestination->getDestinationPlatform()->canReceiveNewIncomingTram()) {
-                    // TODO if not debug print as well, also add correct time of day
-                    outfile << "Another tram is going to be received at platform " << trackForNextDestination->getDestinationPlatform()->getNumber() << ", station "
-                            << trackForNextDestination->getDestinationPlatform()->getStation()->getName() << std::endl;
-                    trackForNextDestination->getDestinationPlatform()->receiveNewIncomingTram();
-                }
+            }
+        } else {
+            // The direction of the platform to switch to
+
+            Platform* switchPlatform = m_currentLineNode->getPlatform(m_currentDirection);
+
+            if (switchPlatform->canReceiveNewIncomingTram() || (switchPlatform->getIncomingTracks().empty() && !switchPlatform->hasCurrentTram())) {
+
+                m_currentPlatform->removeCurrentTram();
+                m_currentPlatform = m_currentLineNode->getPlatform(m_currentDirection);
+                m_currentPlatform->setCurrentTram(this);
+
+                FileHandler::get().getOfstream() << "Tram " << this << " switched to platform " << m_currentPlatform << " to go in the opposite direction (" << m_currentDirection
+                                                 << ")" << std::endl;
+
             }
         }
     } else {
+
+//        std::cout << "Current track progress: " << m_currentTrackProgress * 100 << "%" << std::endl;
+
         if (m_currentTrackProgress < 1) {
             m_currentTrackProgress += ((double) Timer::get().getTimePassedMillis() / 1000) / (7200 / getCurrentSpeed());
             if (m_currentTrackProgress >= 1) {
+                FileHandler::get().getOfstream() << "Tram " << this << " has arrived at: " << getTrackForNextDestination()->getDestinationPlatform() << std::endl;
                 if (m_currentTrack->getStopSignal()) {
-                    outfile << "Tram nr " << getVehicleNumber() << " has completed a track journey to: "
-                            << this->getTrackForNextDestination()->getDestinationPlatform()->getStation()->getName()
-                            << ", adding it to the waiting list" << std::endl;
                     m_currentTrack->addWaitingTram(this);
                     m_currentTrackProgress = 1;
+
+                    FileHandler::get().getOfstream() << m_currentTrack << ": Stopsignal present. Added tram " << this << " to the waiting list (queue)" << std::endl;
+                    FileHandler::get().getOfstream() << m_currentTrack << ": Currently " << m_currentTrack->getWaitingTrams().size() << " trams in the waiting list" << std::endl;
                     // Should it be done like this?
                     if (m_currentTrack->getDestinationPlatform()->canReceiveNewIncomingTram()) {
-                        // TODO if not debug print as well, also add correct time of day
-                        outfile << "Another tram is going to be received at platform " << m_currentTrack->getDestinationPlatform()->getNumber() << ", station "
-                                << m_currentTrack->getDestinationPlatform()->getStation()->getName() << std::endl;
                         m_currentTrack->getDestinationPlatform()->receiveNewIncomingTram();
                     }
                 } else {
-                    outfile << "Tram nr " << getVehicleNumber() << " has arrived in: "
-                            << this->getTrackForNextDestination()->getDestinationPlatform()->getStation()->getName()
-                            << "" << std::endl;
                     m_currentTrack->getDestinationPlatform()->setCurrentTram(this);
                     this->putOnPlatform(m_currentTrack->getDestinationPlatform());
                 }
@@ -182,6 +197,17 @@ LineNode* Tram::getNextLineNode() {
     }
 }
 
+Direction Tram::getCurrentPlatformDirection() {
+    REQUIRE(m_currentPlatform != NULL, "The platform cannot be NULL");
+    REQUIRE(m_currentPlatform == m_currentLineNode->getPlatform(TO) || m_currentPlatform == m_currentLineNode->getPlatform(FROM),
+            "The current platform on the tram does not equal one of the 2 platforms of the current LineNode. This should not be possible");
+    if (m_currentPlatform == m_currentLineNode->getPlatform(TO)) {
+        return TO;
+    } else {
+        return FROM;
+    }
+}
+
 void Tram::updateLineNode() {
     REQUIRE(this->properlyInitialized(), "Tram must be initialized before its member variables are used.");
     m_currentLineNode = getNextLineNode();
@@ -228,6 +254,7 @@ void Tram::putOnTrack(Track* currentTrack) {
     m_currentTrackProgress = 0;
 
     Platform* oldPlatform = m_currentPlatform;
+    oldPlatform->removeCurrentTram();
     m_currentPlatform = NULL;
 
     m_currentSpeed = m_currentTrack->getSpeedSignal() ? m_currentTrack->getSpeedSignal()->getSpeed() : MAX_SPEED;
@@ -241,4 +268,12 @@ void Tram::putOnTrack(Track* currentTrack) {
 double Tram::getTrackProgress() const {
     REQUIRE(this->properlyInitialized(), "Tram must be initialized before its member variables are used.");
     return m_currentTrackProgress;
+}
+
+std::ostream& operator<<(ostream& os, Tram& tram) {
+    return os << "nr. " << tram.getVehicleNumber() << " (line " << tram.getTramLine()->getLineNumber() << ")";
+}
+
+std::ostream& operator<<(ostream& os, Tram* tram) {
+    return os << *tram;
 }

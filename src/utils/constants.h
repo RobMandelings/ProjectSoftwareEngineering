@@ -4,6 +4,8 @@
 
 #pragma once
 
+#include <string>
+
 namespace constants {
 
     /**
@@ -32,6 +34,8 @@ namespace constants {
      *
      */
     extern const int MAX_TRAMS_ON_TRACK;
+
+    extern const char* EVENTS_OUTPUT_FILE;
 
     // TODO add start time of simulation (12:00:00)
 

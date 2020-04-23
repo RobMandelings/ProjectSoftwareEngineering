@@ -7,7 +7,7 @@
 
 #include <string>
 #include "Line.h"
-#include "enums.h"
+#include "Direction.h"
 
 class LineNode;
 
@@ -141,7 +141,7 @@ public:
      \n REQUIRE(this->properlyInitialized(), "Tram must be initialized before its member variables are used.");
      \n REQUIRE(m_currentNode != NULL && m_currentNode->properlyInitialized(), "Current node cannot be NULL.");
      */
-    void update(std::ofstream& outfile);
+    void update();
 
     /**
      * @brief Simple getter
@@ -188,9 +188,9 @@ public:
      \n REQUIRE(this->properlyInitialized(), "Tram must be initialized before its member variables are used.");
      */
 
-    void putOnTrack(Track *currentTrack);
+    void putOnTrack(Track* currentTrack);
 
-    bool willReachEndOfLine() const;
+    Direction getCurrentPlatformDirection();
 
     void updateLineNode();
 
@@ -199,6 +199,10 @@ public:
      */
     bool properlyInitialized() const;
 };
+
+std::ostream& operator<<(std::ostream& os, Tram& tram);
+
+std::ostream& operator<<(std::ostream& os, Tram* tram);
 
 
 #endif //PROJECTSOFTWAREENGINEERING_TRAM_H

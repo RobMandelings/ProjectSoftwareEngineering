@@ -130,16 +130,10 @@ Line* MetroNet::getLine(int line) {
 void MetroNet::updateTrams() {
     REQUIRE(this->properlyInitialized(), "MetroNet must be initialized before its member variables are used.");
 
-    std::ofstream outfile;
-    outfile.open("../output/events.metro", std::ios::app);
-
     for (vector<Tram*>::iterator it = m_trams.begin(); it != m_trams.end(); ++it) {
         Tram& tram = **it;
-        tram.update(outfile);
-
+        tram.update();
     }
-
-    outfile.close();
 }
 
 bool MetroNet::properlyInitialized() const {

@@ -84,5 +84,9 @@ public:
     bool properlyInitialized() const;
 };
 
+std::ostream& operator<<(std::ostream& os, Station& station);
+
+std::ostream& operator<<(std::ostream& os, Station* station);
+
 
 #endif //PROJECTSOFTWAREENGINEERING_STATION_H

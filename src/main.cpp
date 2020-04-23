@@ -20,7 +20,7 @@ int main() {
         metroNet = metro_parser::parseMetroNetXml("../input/voorbeeldSimpel.xml");
 
         Timer::get().setUpdateTime();
-//        simulation_utils::simulateTrams(*metroNet);
+        simulation_utils::simulateTrams(*metroNet);
         metro_utils::printMetroNet(metroNet, "../output/Summary.metro");
         metro_utils::getGraphicalImpression("../output/Summary.metro", "testImpression.txt");
         delete metroNet;
@@ -28,8 +28,6 @@ int main() {
         std::cerr << e.what();
         return 1;
     }
-
-    std::cout << SimulationTime::get().getFormattedTime() << std::endl;
 
     return 0;
 }

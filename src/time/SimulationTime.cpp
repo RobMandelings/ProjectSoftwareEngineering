@@ -30,7 +30,7 @@ std::string SimulationTime::getFormattedTime() const {
 
     std::stringstream ss;
 
-    ss << "[" << hours << ":" << mins << ":" << secs << "]";
+    ss << "[" << hours << ":" << mins << ":" << secs << "] ";
 
     return ss.str();
 }

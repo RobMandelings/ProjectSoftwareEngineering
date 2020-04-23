@@ -6,5 +6,5 @@
 #include "Albatros.h"
 
 Albatros::Albatros(Line* line, int vehicleNumber, Platform* beginPlatform) :
-        Tram(line, beginPlatform, 230, 72, vehicleNumber, 42, "Albatros") {
+        Tram(line, beginPlatform, 2000, 72, vehicleNumber, 42, "Albatros") {
 }

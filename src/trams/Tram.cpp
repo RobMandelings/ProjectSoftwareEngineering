@@ -13,6 +13,7 @@
 #include "SpeedSignal.h"
 #include "StopSignal.h"
 #include "FileHandler.h"
+#include "SimulationTime.h"
 
 Tram::Tram(Line* line, Platform* beginPlatform, double maxSpeed, int amountOfSeats, int vehicleNumber, double length, const std::string& type) :
         m_tramLine(line),
@@ -111,7 +112,7 @@ void Tram::update() {
                 m_currentPlatform = m_currentLineNode->getPlatform(m_currentDirection);
                 m_currentPlatform->setCurrentTram(this);
 
-                FileHandler::get().getOfstream() << "Tram " << this << " switched to platform " << m_currentPlatform << " to go in the opposite direction (" << m_currentDirection
+                FileHandler::get().getOfstream() << SimulationTime::get().getFormattedTime() << "Tram " << this << " switched to platform " << m_currentPlatform << " to go in the opposite direction (" << m_currentDirection
                                                  << ")" << std::endl;
 
             }
@@ -132,7 +133,7 @@ void Tram::update() {
                 } else {
                     m_currentTrack->getDestinationPlatform()->setCurrentTram(this);
                     this->putOnPlatform(m_currentTrack->getDestinationPlatform());
-                    FileHandler::get().getOfstream() << "Tram " << this << " arrived at platform " << m_currentPlatform << std::endl;
+                    FileHandler::get().getOfstream() << SimulationTime::get().getFormattedTime() << "Tram " << this << " arrived at platform " << m_currentPlatform << std::endl;
                 }
             }
         }

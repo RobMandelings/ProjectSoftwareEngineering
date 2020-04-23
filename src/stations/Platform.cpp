@@ -7,6 +7,7 @@
 #include "Station.h"
 #include "Track.h"
 #include "FileHandler.h"
+#include "SimulationTime.h"
 
 Platform::Platform(Station* station, int number) :
         m_station(station),
@@ -128,7 +129,7 @@ void Platform::receiveNewIncomingTram() {
                 m_currentTram = waitingTrams.front();
                 waitingTrams.pop_front();
                 m_currentTram->putOnPlatform(this);
-                FileHandler::get().getOfstream() << "Tram " << m_currentTram << " arrived at platform " << this << std::endl;
+                FileHandler::get().getOfstream() << SimulationTime::get().getFormattedTime() << "Tram " << m_currentTram << " arrived at platform " << this << std::endl;
                 success = true;
             }
         } else {

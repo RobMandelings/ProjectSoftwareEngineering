@@ -92,9 +92,6 @@ void Tram::update() {
                 m_currentWaitTime = 0;
                 if (trackForNextDestination->getStopSignal()) {
                     if (!trackForNextDestination->tramCapacityReached()) {
-                        FileHandler::get().getOfstream() << "Putting tram " << this << " on the next track, destination: "
-                                                         << trackForNextDestination->getDestinationPlatform() << std::endl;
-
                         putOnTrack(trackForNextDestination);
                     }
                 } else {
@@ -121,18 +118,13 @@ void Tram::update() {
         }
     } else {
 
-//        std::cout << "Current track progress: " << m_currentTrackProgress * 100 << "%" << std::endl;
-
         if (m_currentTrackProgress < 1) {
             m_currentTrackProgress += ((double) Timer::get().getTimePassedMillis() / 1000) / (7200 / getCurrentSpeed());
+            std::cout << "Current track progress: " << m_currentTrackProgress * 100 << "%" << std::endl;
             if (m_currentTrackProgress >= 1) {
-                FileHandler::get().getOfstream() << "Tram " << this << " has arrived at: " << getTrackForNextDestination()->getDestinationPlatform() << std::endl;
                 if (m_currentTrack->getStopSignal()) {
                     m_currentTrack->addWaitingTram(this);
                     m_currentTrackProgress = 1;
-
-                    FileHandler::get().getOfstream() << m_currentTrack << ": Stopsignal present. Added tram " << this << " to the waiting list (queue)" << std::endl;
-                    FileHandler::get().getOfstream() << m_currentTrack << ": Currently " << m_currentTrack->getWaitingTrams().size() << " trams in the waiting list" << std::endl;
                     // Should it be done like this?
                     if (m_currentTrack->getDestinationPlatform()->canReceiveNewIncomingTram()) {
                         m_currentTrack->getDestinationPlatform()->receiveNewIncomingTram();
@@ -140,6 +132,7 @@ void Tram::update() {
                 } else {
                     m_currentTrack->getDestinationPlatform()->setCurrentTram(this);
                     this->putOnPlatform(m_currentTrack->getDestinationPlatform());
+                    FileHandler::get().getOfstream() << "Tram " << this << " arrived at platform " << m_currentPlatform << std::endl;
                 }
             }
         }
@@ -270,8 +263,12 @@ double Tram::getTrackProgress() const {
     return m_currentTrackProgress;
 }
 
+Direction Tram::getCurrentDirection() const {
+    return m_currentDirection;
+}
+
 std::ostream& operator<<(ostream& os, Tram& tram) {
-    return os << "nr. " << tram.getVehicleNumber() << " (line " << tram.getTramLine()->getLineNumber() << ")";
+    return os << tram.getVehicleNumber();
 }
 
 std::ostream& operator<<(ostream& os, Tram* tram) {

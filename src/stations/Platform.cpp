@@ -128,15 +128,13 @@ void Platform::receiveNewIncomingTram() {
                 m_currentTram = waitingTrams.front();
                 waitingTrams.pop_front();
                 m_currentTram->putOnPlatform(this);
-                FileHandler::get().getOfstream() << this << ": received tram " << m_currentTram << " from queue " << std::endl;
-                FileHandler::get().getOfstream() << waitingTrams.size() << " trams left in the queue " << std::endl;
+                FileHandler::get().getOfstream() << "Tram " << m_currentTram << " arrived at platform " << this << std::endl;
                 success = true;
             }
         } else {
             Tram* tramToReceive = trackToCheck->getSourcePlatform()->getCurrentTram();
             if (tramToReceive && tramToReceive->getCurrentWaitTime() <= 0) {
                 tramToReceive->putOnTrack(trackToCheck);
-                FileHandler::get().getOfstream() << "Tram " << tramToReceive << " now going towards platform " << this << std::endl;
             }
         }
 

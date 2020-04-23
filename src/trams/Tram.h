@@ -192,6 +192,8 @@ public:
 
     Direction getCurrentPlatformDirection();
 
+    Direction getCurrentDirection() const;
+
     void updateLineNode();
 
     /**

@@ -11,6 +11,7 @@
 #include "MetroStation.h"
 #include "Track.h"
 #include "DesignByContract.h"
+#include "FileHandler.h"
 
 MetroNet::MetroNet(const string& name) :
         m_name(name) {

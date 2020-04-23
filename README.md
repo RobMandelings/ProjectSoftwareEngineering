@@ -203,4 +203,4 @@ Voor invoerformaat zie Appendix A opgave.
 [![Screenshot-from-2020-03-06-18-27-11.png](https://i.postimg.cc/QMt04rH3/Screenshot-from-2020-03-06-18-27-11.png)](https://postimg.cc/68krqgrj)
 
 ## Class Diagram (zonder methods) NEW:
-[![Screenshot-from-2020-04-23-16-35-50.png](https://i.postimg.cc/fyr8KFkX/Screenshot-from-2020-04-23-16-35-50.png)](https://postimg.cc/JHj37pN4)
+[![Screenshot-from-2020-04-23-16-41-27.png](https://i.postimg.cc/dtWbznNS/Screenshot-from-2020-04-23-16-41-27.png)](https://postimg.cc/crnk37SQ)

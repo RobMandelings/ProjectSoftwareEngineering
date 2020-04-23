@@ -91,3 +91,7 @@ void metro_utils::printMetroNet(MetroNet* metroNet, const char* outputFilename) 
 
     outputFile.close();
 }
+
+void grahicalImpression(const char* inputfile, const char* outputFilename){
+
+}

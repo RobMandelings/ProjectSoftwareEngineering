@@ -13,6 +13,7 @@
 #include "Track.h"
 #include <fstream>
 #include <sstream>
+#include <map>
 
 
 int metro_utils::stoi(const string& input) {
@@ -79,7 +80,7 @@ void metro_utils::printMetroNet(MetroNet* metroNet, const char* outputFilename) 
                     }
                 }
                 if(inQueue){
-                    outputFile << "\t\tQueue Position:" << index + 1 << "\n";
+                    outputFile << "\t\tQueue Position: " << index + 1 << "\n";
                 } else {
                     outputFile << "\t\tProgress: " << (int) (currentTram->getTrackProgress()*100) << "%\n";
                 }
@@ -101,16 +102,36 @@ void metro_utils::getGraphicalImpression(const char* inputfile, const char* outp
     ofstream output;
     output.open (outputFilename);
 
+    vector<pair<string,string> > lines;
+    vector<pair<string,pair<string,string> > > trams;
+
     while(getline(file, line)){
+        pair<string,string> currentTram;
+
         if(line.find("\tLine", 0) == 0){
+            // Get line number and station order
             string lineNumber = line.substr(line.find(' ') + 1, line.find(':') - 1 - line.find(' '));
-//            string stationSubstring = line.substr(line.find(':') + 2, line.length()-1 - line.find(':'));
-            string stationSubstring = line.substr(line.find(':') + 2, line.rfind("Station") - line.find(':') - 7);
-            cout << lineNumber << endl;
-            cout << stationSubstring << endl;
+            string stationString = line.substr(line.find(':') + 2, line.rfind("Station") - line.find(':') - 7);
+
+            // Remove the word "Station"
+            while(stationString.find("Station") != string::npos){
+                stationString.replace(stationString.find("Station "),8,"");
+            }
+
+            // Replace "-->" with "==="
+            while(stationString.find("-->") != string::npos){
+                stationString.replace(stationString.find("-->"),3,"====");
+            }
+
+            lines.push_back(pair<string,string>(lineNumber,stationString));
+
+        } else if(line.find("\tTram", 0) == 0){
+            string lineNumber = line.substr(line.find(' ')+1, line.rfind(' ') - line.find(' ')-1);
 
         }
     }
+
+
 
     output.close();
 }

@@ -73,7 +73,8 @@ bool Track::tramCapacityReached() const {
     REQUIRE(this->properlyInitialized(), "Track must be properly initialized before its member methods are used.");
     REQUIRE(m_stopSignal, "This track does not have a stop signal. The function hasSpace() should not be called");
     REQUIRE(((int) m_waitingTrams.size() + (hasRidingTram() ? 1 : 0)) <= m_stopSignal->getMaxAmountOfTrams(), "There are more trams than this track can hold in the queue!");
-    return (((int) m_waitingTrams.size() + (hasRidingTram() ? 1 : 0)) <= m_stopSignal->getMaxAmountOfTrams());
+
+    return (((int) m_waitingTrams.size() + (hasRidingTram() ? 1 : 0)) == m_stopSignal->getMaxAmountOfTrams());
 }
 
 bool Track::hasRidingTram() const {

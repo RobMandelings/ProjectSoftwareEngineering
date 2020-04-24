@@ -21,6 +21,8 @@ private:
 
 public:
 
+    ~FileHandler();
+
     /**
      * @brief function which returns the singleton for Timer
      */

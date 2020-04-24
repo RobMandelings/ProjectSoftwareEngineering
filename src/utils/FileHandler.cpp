@@ -27,3 +27,11 @@ FileHandler::FileHandler(const char* outputFilename) :
 std::ofstream& FileHandler::getOfstream() {
     return m_ofsteam;
 }
+
+FileHandler::~FileHandler() {
+    if (m_ofsteam.is_open()) {
+        std::cout << "its open" << std::endl;
+    }
+    m_ofsteam.close();
+    std::cout << "FIleHandler closed" << std::endl;
+}

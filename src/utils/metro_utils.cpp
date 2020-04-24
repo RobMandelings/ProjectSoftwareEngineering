@@ -22,6 +22,19 @@ int metro_utils::stoi(const string& input) {
     return i;
 }
 
+string metro_utils::itos(const int input){
+    ostringstream ostring;
+    ostring << input;
+    return ostring.str();
+}
+
+string metro_utils::ctos(const char c){
+    std::stringstream ss;
+    ss << c;
+
+    return ss.str();
+}
+
 double metro_utils::stod(const string& input) {
     double i;
     istringstream(input) >> i;
@@ -120,9 +133,12 @@ void metro_utils::getGraphicalImpression(const char* inputfile, const char* outp
             }
 
             // Replace "-->" with "==="
-            while(stationString.find("-->") != string::npos){
-                stationString.replace(stationString.find("-->"),3,"====");
+            while(stationString.find(" --> ") != string::npos){
+                stationString.replace(stationString.find(" --> "),5,"=======");
             }
+
+            stationString+="===";
+            stationString.insert(0,"===");
 
             lines.push_back(pair<string,string>(lineNumber,stationString));
 
@@ -139,7 +155,48 @@ void metro_utils::getGraphicalImpression(const char* inputfile, const char* outp
         }
     }
 
+    vector<vector<string> > drawLines;
 
+    for(unsigned int i = 0;i<lines.size();i++){
+        vector<string> drawLine;
+        drawLine.push_back("Line: " + lines.at(i).first);
+        drawLine.push_back(lines.at(i).second);
+        string tramPositions = "";
+
+        // Add amount of spaces
+        for(unsigned int n = 0; n<lines.at(i).second.length()+4;n++){
+            tramPositions += " ";
+        }
+
+        for(unsigned int j = 0; j<trams.size();j++){
+            if(trams.at(j).second.first == lines.at(i).first){
+                string pos = trams.at(j).first;
+                if(pos.length() == 1){
+                    tramPositions.replace(lines.at(i).second.find(pos),1,"T");
+                } else {
+                    if(tramPositions.at(tramPositions.find(pos.at(0))+3) == 'T'){
+                        tramPositions.replace(tramPositions.find(pos.at(0))+5,1,itos(stoi(ctos(tramPositions.at(tramPositions.find(pos.at(0))+5)))+1));
+                    } else {
+                        int index = lines.at(i).second.find(pos.at(0))+3;
+                        tramPositions.replace(index,1,"T");
+                        tramPositions.replace(index+1,1,":");
+                        tramPositions.replace(index+2,1,"1");
+                    }
+                }
+            }
+        }
+
+        drawLine.push_back(tramPositions);
+        drawLines.push_back(drawLine);
+    }
+
+    for(unsigned int i = 0; i<drawLines.size();i++){
+        for(unsigned int j = 0;j<drawLines.at(i).size();j++){
+            output << drawLines[i][j];
+            output << "\n";
+        }
+        output << "\n";
+    }
 
     output.close();
 }

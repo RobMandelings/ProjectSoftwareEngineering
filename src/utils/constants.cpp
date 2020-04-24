@@ -12,7 +12,7 @@ namespace constants {
 
     const double TRACK_LENGTH = 1;
 
-    const double RUNTIME_SECONDS = 500;
+    const double RUNTIME_SECONDS = 10;
 
     const int MAX_TRAMS_ON_TRACK = 5;
 

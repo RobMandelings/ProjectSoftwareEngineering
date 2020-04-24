@@ -21,6 +21,22 @@ namespace metro_utils {
     int stoi(const string& input);
 
     /**
+     * @brief converts an integer into a string
+     * @param input: the input integer you want to convert to a string
+     * @return the converted value
+     */
+
+    string itos(const int input);
+
+    /**
+     * @brief converts a char into a string
+     * @param input: the input char you want to convert to a string
+     * @return the converted value
+     */
+
+    string ctos(const char c);
+
+    /**
      * @brief converts a string into a double
      * @param input: the input string you want to convert to a double
      * @return the converted value

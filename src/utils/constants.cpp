@@ -6,7 +6,7 @@
 
 namespace constants {
 
-    const int UPDATES_PER_SECOND = 50;
+    const int UPDATES_PER_SECOND = 25;
 
     const double TRAM_WAIT_TIME = 1;
 

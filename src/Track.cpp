@@ -14,11 +14,10 @@ Track::Track(Platform* sourcePlatform, Platform* destinationPlatform) :
         m_stopSignal(NULL),
         m_sourcePlatform(sourcePlatform),
         m_destinationPlatform(destinationPlatform),
-        m_amountOfTrams(0) {
+        m_ridingTram(NULL) {
     Track::_initCheck = this;
     ENSURE(sourcePlatform, "sourceStation may not be null!");
     ENSURE(destinationPlatform, "destinationStation may not be null!");
-    ENSURE(m_amountOfTrams == 0, "Amount of trams has to be set.");
     ENSURE(this->properlyInitialized(), "Constructor must end ...");
 }
 
@@ -50,18 +49,6 @@ void Track::addWaitingTram(Tram* tram) {
     m_waitingTrams.push_back(tram);
 }
 
-void Track::increaseAmountOfTrams() {
-    REQUIRE(this->properlyInitialized(), "Track must be properly initialized before its member methods are used.");
-    m_amountOfTrams++;
-    ENSURE(m_amountOfTrams <= constants::MAX_TRAMS_ON_TRACK, "The maximum amount of trams has been reached.");
-}
-
-void Track::deleteTram() {
-    REQUIRE(this->properlyInitialized(), "Track must be properly initialized before its member methods are used.");
-    REQUIRE(m_amountOfTrams > 0, "The amount of trams is not greater than 0 but deleteTram is still called.");
-    m_amountOfTrams--;
-}
-
 SpeedSignal* Track::getSpeedSignal() const {
     REQUIRE(this->properlyInitialized(), "Track must be properly initialized before its member methods are used.");
     return m_speedSignal;
@@ -85,12 +72,24 @@ void Track::setStopSignal(StopSignal* stopSignal) {
 bool Track::tramCapacityReached() const {
     REQUIRE(this->properlyInitialized(), "Track must be properly initialized before its member methods are used.");
     REQUIRE(m_stopSignal, "This track does not have a stop signal. The function hasSpace() should not be called");
-    REQUIRE(m_amountOfTrams <= m_stopSignal->getMaxAmountOfTrams(), "There are more trams than this track can hold in the queue!");
-    return (m_amountOfTrams == m_stopSignal->getMaxAmountOfTrams());
+    REQUIRE(((int) m_waitingTrams.size() + (hasRidingTram() ? 1 : 0)) <= m_stopSignal->getMaxAmountOfTrams(), "There are more trams than this track can hold in the queue!");
+    return (((int) m_waitingTrams.size() + (hasRidingTram() ? 1 : 0)) <= m_stopSignal->getMaxAmountOfTrams());
 }
 
-int Track::getAmountOfTrams() const{
-    return this->m_amountOfTrams;
+bool Track::hasRidingTram() const {
+    return m_ridingTram;
+}
+
+void Track::setRidingTram(Tram* ridingTram) {
+    REQUIRE(this->properlyInitialized(), "Track must be properly initialized before its member methods are used.");
+    REQUIRE(!m_ridingTram, "A tram is already riding on this track!");
+    REQUIRE(!m_stopSignal || !tramCapacityReached(), "The tram capacity on this track is already reached! Cannot set the riding tram");
+    m_ridingTram = ridingTram;
+}
+
+void Track::removeTram() {
+    REQUIRE(this->properlyInitialized(), "Track must be properly initialized before its member methods are used.");
+    m_ridingTram = NULL;
 }
 
 bool Track::properlyInitialized() const {

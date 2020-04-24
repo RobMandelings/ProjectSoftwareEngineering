@@ -93,6 +93,7 @@ void Tram::update() {
                 m_currentWaitTime = 0;
                 if (trackForNextDestination->getStopSignal()) {
                     if (!trackForNextDestination->tramCapacityReached()) {
+                        FileHandler::get().getOfstream() << SimulationTime::get().getFormattedTime() << "Tram " << this << " going to " << trackForNextDestination->getDestinationPlatform() << std::endl;
                         putOnTrack(trackForNextDestination);
                     }
                 } else {
@@ -121,7 +122,7 @@ void Tram::update() {
 
         if (m_currentTrackProgress < 1) {
             m_currentTrackProgress += ((double) Timer::get().getUpdateTimePassedMillis() / 1000) / (7200 / getCurrentSpeed());
-            std::cout << "Current track progress: " << m_currentTrackProgress * 100 << "%" << std::endl;
+            std::cout << "Current track progress of tram " << this << " ( " << m_currentTrack->getSourcePlatform() << "-> " << m_currentTrack->getDestinationPlatform() << "): " << m_currentTrackProgress * 100 << "%" << std::endl;
             if (m_currentTrackProgress >= 1) {
                 if (m_currentTrack->getStopSignal()) {
                     m_currentTrack->addWaitingTram(this);
@@ -231,7 +232,7 @@ void Tram::putOnPlatform(Platform* currentPlatform) {
     REQUIRE(currentPlatform != m_currentPlatform, "The platform to put the tram on is the same as the current platform");
     m_currentPlatform = currentPlatform;
 
-    m_currentTrack->deleteTram();
+    m_currentTrack->removeTram();
     m_currentTrack = NULL;
 
     m_currentSpeed = 0;
@@ -244,7 +245,7 @@ void Tram::putOnTrack(Track* currentTrack) {
     REQUIRE(currentTrack, "The track given cannot be NULL");
     REQUIRE(currentTrack != m_currentTrack, "The track to put the tram on is the same as the current track");
     m_currentTrack = currentTrack;
-    m_currentTrack->increaseAmountOfTrams();
+    m_currentTrack->setRidingTram(this);
     m_currentTrackProgress = 0;
 
     Platform* oldPlatform = m_currentPlatform;

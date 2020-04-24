@@ -34,7 +34,7 @@ private:
     std::deque<Tram*> m_waitingTrams;
 
     /** Amount of trams driving on the track */
-    int m_amountOfTrams;
+    Tram* m_ridingTram;
 
     Track* _initCheck;
 
@@ -72,10 +72,6 @@ public:
      */
     void addWaitingTram(Tram* tram);
 
-    void increaseAmountOfTrams();
-
-    void deleteTram();
-
     SpeedSignal* getSpeedSignal() const;
 
     StopSignal* getStopSignal() const;
@@ -86,7 +82,11 @@ public:
 
     bool tramCapacityReached() const;
 
-    int getAmountOfTrams() const;
+    bool hasRidingTram() const;
+
+    void setRidingTram(Tram* ridingTram);
+
+    void removeTram();
 
     bool properlyInitialized() const;
 

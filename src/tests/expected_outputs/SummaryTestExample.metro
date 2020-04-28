@@ -1,15 +1,41 @@
 MetroNet: Antwerpen
 Stations:
 	(1) station 'A'
-	(0) station 'B'
+	(1) station 'B'
 	(1) station 'C'
+	(1) station 'D'
+	(0) station 'E'
 Lines:
+	Line 3: Station D --> Station B --> Station D --> ...
+	Line 6: Station E --> Station B --> Station E --> ...
+	Line 8: Station B --> Station D --> Station B --> ...
 	Line 12: Station A --> Station B --> Station C --> Station A --> ...
 Trams:
-	Tram 12:
-		Type: Tram
-		Max Speed: 60
-		Current speed: 60
-		Amount of Seats: 32
-		Length: -1
+	Tram 3 (1):
+		Type: Albatros
+		Max Speed: 70
+		Current speed: 70
+		Amount of Seats: 72
+		Length: 42
+		Current location: D
+	Tram 8 (2):
+		Type: Albatros
+		Max Speed: 70
+		Current speed: 70
+		Amount of Seats: 72
+		Length: 42
+		Current location: B
+	Tram 6 (4):
+		Type: PCC
+		Max Speed: 800
+		Current speed: 800
+		Amount of Seats: 16
+		Length: 25
+		Current location: E
+	Tram 12 (3):
+		Type: Albatros
+		Max Speed: 70
+		Current speed: 70
+		Amount of Seats: 72
+		Length: 42
 		Current location: A

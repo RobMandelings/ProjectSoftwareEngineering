@@ -131,12 +131,12 @@ Line* MetroNet::getLine(int line) {
     return NULL;
 }
 
-void MetroNet::updateTrams() {
+void MetroNet::updateTrams(bool debug) {
     REQUIRE(this->properlyInitialized(), "MetroNet must be initialized before its member variables are used.");
 
     for (vector<Tram*>::iterator it = m_trams.begin(); it != m_trams.end(); ++it) {
         Tram& tram = **it;
-        tram.update();
+        tram.update(debug);
     }
 }
 

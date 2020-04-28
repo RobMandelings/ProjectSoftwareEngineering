@@ -173,7 +173,7 @@ public:
      \n REQUIRE(this->properlyInitialized(), "Tram must be initialized before its member variables are used.");
      \n REQUIRE(m_currentNode != NULL && m_currentNode->properlyInitialized(), "Current node cannot be NULL.");
      */
-    void update();
+    void update(bool debug);
 
     /**
      * @brief updates the lineNode, depending on the current line node and the direction of the tram

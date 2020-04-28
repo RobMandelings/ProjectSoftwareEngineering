@@ -25,7 +25,6 @@ namespace metro_utils {
      * @param input: the input integer you want to convert to a string
      * @return the converted value
      */
-
     string itos(const int input);
 
     /**
@@ -33,7 +32,6 @@ namespace metro_utils {
      * @param input: the input char you want to convert to a string
      * @return the converted value
      */
-
     string ctos(const char c);
 
     /**

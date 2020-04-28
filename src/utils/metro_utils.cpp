@@ -22,13 +22,13 @@ int metro_utils::stoi(const string& input) {
     return i;
 }
 
-string metro_utils::itos(const int input){
+string metro_utils::itos(const int input) {
     ostringstream ostring;
     ostring << input;
     return ostring.str();
 }
 
-string metro_utils::ctos(const char c){
+string metro_utils::ctos(const char c) {
     std::stringstream ss;
     ss << c;
 
@@ -79,26 +79,27 @@ void metro_utils::printMetroNet(MetroNet* metroNet, const char* outputFilename) 
         outputFile << "\t\tCurrent speed: " << currentTram->getCurrentSpeed() << "\n";
         outputFile << "\t\tAmount of Seats: " << currentTram->getAmountOfSeats() << "\n";
         outputFile << "\t\tLength: " << currentTram->LENGTH << "\n";
-        if(currentTram->isOnTrack()){
-            outputFile << "\t\tCurrent location: " << currentTram->getCurrentTrack()->getSourcePlatform()->getStation()->getName() << " >> " << currentTram->getCurrentTrack()->getDestinationPlatform()->getStation()->getName() << "\n";
-            if(currentTram->getCurrentTrack()->getStopSignal() &&
-               !currentTram->getCurrentTrack()->getWaitingTrams().empty()){
+        if (currentTram->isOnTrack()) {
+            outputFile << "\t\tCurrent location: " << currentTram->getCurrentTrack()->getSourcePlatform()->getStation()->getName() << " >> "
+                       << currentTram->getCurrentTrack()->getDestinationPlatform()->getStation()->getName() << "\n";
+            if (currentTram->getCurrentTrack()->getStopSignal() &&
+                !currentTram->getCurrentTrack()->getWaitingTrams().empty()) {
                 deque<Tram*> tramQueueCopy = currentTram->getCurrentTrack()->getWaitingTrams();
                 bool inQueue = false;
                 int index = -1;
-                for(unsigned int i = 0;i<tramQueueCopy.size();i++){
-                    if(tramQueueCopy.at(i)==currentTram){
+                for (unsigned int i = 0; i < tramQueueCopy.size(); i++) {
+                    if (tramQueueCopy.at(i) == currentTram) {
                         inQueue = true;
                         index = i;
                     }
                 }
-                if(inQueue){
+                if (inQueue) {
                     outputFile << "\t\tQueue Position: " << index + 1 << "\n";
                 } else {
-                    outputFile << "\t\tProgress: " << (int) (currentTram->getTrackProgress()*100) << "%\n";
+                    outputFile << "\t\tProgress: " << (int) (currentTram->getTrackProgress() * 100) << "%\n";
                 }
             } else {
-                outputFile << "\t\tProgress: " << (int) (currentTram->getTrackProgress()*100) << "%\n";
+                outputFile << "\t\tProgress: " << (int) (currentTram->getTrackProgress() * 100) << "%\n";
             }
         } else {
             outputFile << "\t\tCurrent location: " << currentTram->getCurrentNode()->getStation()->getName() << "\n";
@@ -108,79 +109,80 @@ void metro_utils::printMetroNet(MetroNet* metroNet, const char* outputFilename) 
     outputFile.close();
 }
 
-void metro_utils::getGraphicalImpression(const char* inputfile, const char* outputFilename){
+void metro_utils::getGraphicalImpression(const char* inputfile, const char* outputFilename) {
     ifstream file(inputfile);
     string line;
 
     ofstream output;
-    output.open (outputFilename);
+    output.open(outputFilename);
 
-    vector<pair<string,string> > lines;
-    vector<pair<string,pair<string,string> > > trams;
+    vector<pair<string, string> > lines;
+    vector<pair<string, pair<string, string> > > trams;
 
-    pair<string,string> currentTram;
+    pair<string, string> currentTram;
 
-    while(getline(file, line)){
+    while (getline(file, line)) {
 
-        if(line.find("\tLine", 0) == 0){
+        if (line.find("\tLine", 0) == 0) {
             // Get line number and station order
             string lineNumber = line.substr(line.find(' ') + 1, line.find(':') - 1 - line.find(' '));
             string stationString = line.substr(line.find(':') + 2, line.rfind("Station") - line.find(':') - 7);
 
             // Remove the word "Station"
-            while(stationString.find("Station") != string::npos){
-                stationString.replace(stationString.find("Station "),8,"");
+            while (stationString.find("Station") != string::npos) {
+                stationString.replace(stationString.find("Station "), 8, "");
             }
 
             // Replace "-->" with "==="
-            while(stationString.find(" --> ") != string::npos){
-                stationString.replace(stationString.find(" --> "),5,"=======");
+            while (stationString.find(" --> ") != string::npos) {
+                stationString.replace(stationString.find(" --> "), 5, "=======");
             }
 
-            stationString+="===";
-            stationString.insert(0,"===");
+            stationString += "===";
+            stationString.insert(0, "===");
 
-            lines.push_back(pair<string,string>(lineNumber,stationString));
+            lines.push_back(pair<string, string>(lineNumber, stationString));
 
-        } else if(line.find("\tTram", 0) == 0){
-            string lineNumber = line.substr(line.find(' ')+1, line.rfind(' ') - line.find(' ')-1);
-            string vehicleNumber = line.substr(line.find('(') + 1, line.find(')') - line.find('(') -1);
+        } else if (line.find("\tTram", 0) == 0) {
+            string lineNumber = line.substr(line.find(' ') + 1, line.rfind(' ') - line.find(' ') - 1);
+            string vehicleNumber = line.substr(line.find('(') + 1, line.find(')') - line.find('(') - 1);
 
             currentTram.first = lineNumber;
             currentTram.second = vehicleNumber;
-        } else if(line.find("\t\tCurrent location:",0) == 0){
+        } else if (line.find("\t\tCurrent location:", 0) == 0) {
             string currentStation = line.substr(line.find(':') + 2, line.length() - 2);
 
-            trams.push_back(pair<string, pair<string,string> > (currentStation, currentTram));
+            trams.push_back(pair<string, pair<string, string> >(currentStation, currentTram));
         }
     }
 
     vector<vector<string> > drawLines;
 
-    for(unsigned int i = 0;i<lines.size();i++){
+    for (unsigned int i = 0; i < lines.size(); i++) {
         vector<string> drawLine;
         drawLine.push_back("Line: " + lines.at(i).first);
         drawLine.push_back(lines.at(i).second);
         string tramPositions = "";
 
         // Add amount of spaces
-        for(unsigned int n = 0; n<lines.at(i).second.length()+4;n++){
+        for (unsigned int n = 0; n < lines.at(i).second.length() + 4; n++) {
             tramPositions += " ";
         }
 
-        for(unsigned int j = 0; j<trams.size();j++){
-            if(trams.at(j).second.first == lines.at(i).first){
+        for (unsigned int j = 0; j < trams.size(); j++) {
+            if (trams.at(j).second.first == lines.at(i).first) {
                 string pos = trams.at(j).first;
-                if(pos.length() == 1){
-                    tramPositions.replace(lines.at(i).second.find(pos),1,"T");
+                if (pos.length() == 1) {
+                    tramPositions.replace(lines.at(i).second.find(pos), 1, "T");
                 } else {
-                    if(tramPositions.at(tramPositions.find(pos.at(0))+3) == 'T'){
-                        tramPositions.replace(tramPositions.find(pos.at(0))+5,1,itos(stoi(ctos(tramPositions.at(tramPositions.find(pos.at(0))+5)))+1));
+                    if (tramPositions.at(tramPositions.find(pos.at(0)) + 3) == 'T') {
+                        tramPositions.replace(tramPositions.find(pos.at(0)) + 5, 1,
+                                              itos(stoi(ctos(tramPositions.at(tramPositions.find(pos.at(0)) + 5))) + 1));
                     } else {
-                        int index = lines.at(i).second.find(pos.at(0))+3;
-                        tramPositions.replace(index,1,"T");
-                        tramPositions.replace(index+1,1,":");
-                        tramPositions.replace(index+2,1,"1");
+                        int index = lines.at(i).second.find(pos.at(0)) + 3;
+                        tramPositions.replace(index, 1, "T");
+                        tramPositions.replace(index + 1, 1, ":");
+                        tramPositions.replace(index + 2, 1, "1");
                     }
                 }
             }
@@ -190,8 +192,8 @@ void metro_utils::getGraphicalImpression(const char* inputfile, const char* outp
         drawLines.push_back(drawLine);
     }
 
-    for(unsigned int i = 0; i<drawLines.size();i++){
-        for(unsigned int j = 0;j<drawLines.at(i).size();j++){
+    for (unsigned int i = 0; i < drawLines.size(); i++) {
+        for (unsigned int j = 0; j < drawLines.at(i).size(); j++) {
             output << drawLines[i][j];
             output << "\n";
         }

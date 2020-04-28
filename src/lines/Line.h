@@ -46,6 +46,12 @@ public:
      */
     ~Line();
 
+    /**
+     * @brief Checks to see if this line is only going through metronets (makes it completely underground)
+     * @return true if the metronet is competely underground, false if not
+     \n REQUIRE(this->properlyInitialized(), "Line must be initialized before its member variables are used.");
+     \n REQUIRE(m_firstNode != NULL, "The first node of this line cannot be null");
+     */
     bool completelyUnderground() const;
 
     /**
@@ -107,6 +113,12 @@ public:
      */
     void disableNodeForStation(Station* station);
 
+    /**
+     * @return the line in vector representation (not circular)
+     *
+     \n REQUIRE(this->properlyInitialized(), "Line must be initialized before its member variables are used.");
+     \n REQUIRE(m_firstNode != NULL, "The first node of this line cannot be null");
+     */
     std::vector<LineNode*> getAsVector() const;
 
     /**

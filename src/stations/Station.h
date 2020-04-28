@@ -19,7 +19,11 @@ enum StationType {
 class Station {
 
 private:
+
+    /** The name of the station */
     string m_name;
+
+    /** A list of lines which uses this station */
     vector<Line*> m_lines;
 
     Station* _initCheck;
@@ -27,14 +31,18 @@ private:
 public:
 
     /**
+     * @brief simple constructor
      \n REQUIRE(this->properlyInitialized(), "Constructor must end ...");
      */
     Station();
 
+    /**
+     * @brief simple destructor
+     */
     virtual ~Station();
 
     /**
-     * @return station type
+     * @return the type of the platform. Can either be ABOVE_GROUND or UNDERGROUND
      *
      \n REQUIRE(this->properlyInitialized(), "Station must be initialized before its member variables are used.");
      */
@@ -59,12 +67,11 @@ public:
     void setName(const string& name);
 
     /**
-     * @brief gets a line corresponding to the line given
+     * @brief gets the Line object pointer corresponding to the line number given
      * @return the line
      *
      \n REQUIRE(this->properlyInitialized(), "Station must be initialized before its member variables are used.");
      \n REQUIRE(line>=0,"Line must be a positive number.");
-     \n ENSURE(m_name==name,"m_name has to be set to name.");
      */
     Line* getLine(int line);
 

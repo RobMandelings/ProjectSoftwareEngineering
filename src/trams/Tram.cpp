@@ -83,8 +83,6 @@ void Tram::update() {
     // If the tram is currently in a station
     if (!isOnTrack()) {
 
-//        std::cout << "Current station: " << m_currentPlatform->getStation()->getName() << std::endl;
-
         if (m_currentDirection == getCurrentPlatformDirection()) {
             REQUIRE(this->getTrackForNextDestination(), "The track for the next destination is not found. This should not be possible");
             m_currentWaitTime -= (double) Timer::get().getUpdateTimePassedMillis() / 1000;

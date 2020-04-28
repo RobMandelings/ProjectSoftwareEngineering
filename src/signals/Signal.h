@@ -18,6 +18,10 @@ public:
 
     explicit Signal(Track* track);
 
+    /**
+     * @brief simple getter
+     * @return the track belonging to this signal
+     */
     Track* getTrack() const;
 
     /**

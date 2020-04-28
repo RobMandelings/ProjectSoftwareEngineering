@@ -120,8 +120,8 @@ namespace metro_parser {
                 } else {
                     station = new TramStop(platforms.at(0));
                     TramStop* tramStop = (TramStop*) station;
-                    tramStop->getPlatformHeen()->setStation(station);
-                    tramStop->getPlatformTerug()->setStation(station);
+                    tramStop->getPlatformTo()->setStation(station);
+                    tramStop->getPlatformFrom()->setStation(station);
                 }
             } else {
                 if (!debug) std::cerr << "The type of the station wasn't recognized" << stationType << std::endl;
@@ -185,10 +185,10 @@ namespace metro_parser {
                                     platformTerug = metroStation->getPlatform(platformNumberTerug);
                                 } else {
                                     TramStop* tramStop = (TramStop*) station;
-                                    if (tramStop->getPlatformHeen()->getNumber() == platformNumberHeen) {
-                                        platformHeen = tramStop->getPlatformHeen();
+                                    if (tramStop->getPlatformTo()->getNumber() == platformNumberHeen) {
+                                        platformHeen = tramStop->getPlatformTo();
                                         // A tramstop has identical platform numbers, as it can only have one platform
-                                        platformTerug = tramStop->getPlatformTerug();
+                                        platformTerug = tramStop->getPlatformFrom();
                                     } else {
                                         // TODO Throw error
                                     }
@@ -439,10 +439,10 @@ namespace metro_parser {
                 beginPlatform = metroStation->getPlatform(beginPlatformNummer);
             } else if (beginStation->getType() == ABOVE_GROUND) {
                 TramStop* tramStop = (TramStop*) beginStation;
-                if (tramStop->getPlatformHeen()->getNumber() == beginPlatformNummer) {
-                    beginPlatform = tramStop->getPlatformHeen();
+                if (tramStop->getPlatformTo()->getNumber() == beginPlatformNummer) {
+                    beginPlatform = tramStop->getPlatformTo();
                 } else {
-                    beginPlatform = tramStop->getPlatformTerug();
+                    beginPlatform = tramStop->getPlatformFrom();
                 }
             }
 
@@ -451,10 +451,10 @@ namespace metro_parser {
                 eindPlatform = metroStation->getPlatform(eindPlatformNummer);
             } else if (eindStation->getType() == ABOVE_GROUND) {
                 TramStop* tramStop = (TramStop*) eindStation;
-                if (tramStop->getPlatformHeen()->getNumber() == eindPlatformNummer) {
-                    eindPlatform = tramStop->getPlatformHeen();
+                if (tramStop->getPlatformTo()->getNumber() == eindPlatformNummer) {
+                    eindPlatform = tramStop->getPlatformTo();
                 } else {
-                    eindPlatform = tramStop->getPlatformTerug();
+                    eindPlatform = tramStop->getPlatformFrom();
                 }
             }
 

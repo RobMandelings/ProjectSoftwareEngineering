@@ -1,6 +1,13 @@
 # Project Software Engineering: Metro Antwerpen
 Simulatie van het metrosysteem in Antwerpen.
 
+# Uitleg:
+Hieronder vindt u het Class Diagram van het project in .svg formaat. Het bevat alle classes met hun member variabelen.
+Daaronder vindt u de TODO/OUTDATED sectie van het project, waarbij OUTDATED wilt zeggen dat het over oudere delen van het project gaat.
+
+## Class Diagram (zonder methods) NEW:
+[![Screenshot-from-2020-04-23-16-41-27.png](https://svgshare.com/i/KPX.svg)](https://svgshare.com/i/KPX.svg)
+
 # TODOs:
 ## 1. Invoer (DONE)
 ### 1.1 Wegen en voertuigen inlezen:
@@ -192,7 +199,7 @@ Voor invoerformaat zie Appendix A opgave.
 * (Eventueel) lengte normale tram aanpassen
 * Class Diagram aanpassen
 
-## TODO BEFORE 30/04:
+## TODO BEFORE 30/04 (DONE):
 * Grafische impressie op basis van summary
 * Tests/Doc
 * Class Diagram afmaken
@@ -201,6 +208,3 @@ Voor invoerformaat zie Appendix A opgave.
 ## Class Diagram (zonder methods) OUTDATED:
 
 [![Screenshot-from-2020-03-06-18-27-11.png](https://i.postimg.cc/QMt04rH3/Screenshot-from-2020-03-06-18-27-11.png)](https://postimg.cc/68krqgrj)
-
-## Class Diagram (zonder methods) NEW:
-[![Screenshot-from-2020-04-23-16-41-27.png](https://svgshare.com/i/KPX.svg)](https://svgshare.com/i/KPX.svg)

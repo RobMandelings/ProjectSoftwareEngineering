@@ -8,6 +8,7 @@
 #include "metro_parser.h"
 #include "simulation_utils.h"
 
+//Vanaf hier zijn de tests garbage en voorbeelden
 TEST(InputTest, NegativeInput_lijnNode){
     bool failed = false;
 

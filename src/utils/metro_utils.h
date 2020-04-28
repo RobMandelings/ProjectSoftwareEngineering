@@ -50,6 +50,11 @@ namespace metro_utils {
      */
     void printMetroNet(MetroNet* metroNet, const char* outputFilename);
 
+    /**
+     * @brief Creates a new file which contains the final situation of the metronet using a graphical impression
+     * @param inputfile: the inputfile is the normal outputfile which gets created by the "printMetroNet" method
+     * @param outputFilename: location and name of the file
+     */
     void getGraphicalImpression(const char* inputfile, const char* outputFilename);
 
 }

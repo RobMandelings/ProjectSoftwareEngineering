@@ -77,7 +77,7 @@ void Tram::setCurrentSpeed(int currentSpeed) {
     ENSURE(m_currentSpeed == currentSpeed, "m_currentspeed has to be set to currentSpeed.");
 }
 
-void Tram::update() {
+void Tram::update(bool debug) {
     REQUIRE(this->properlyInitialized(), "Tram must be initialized before its member variables are used.");
 
     // If the tram is currently in a station
@@ -123,7 +123,7 @@ void Tram::update() {
 
         if (m_currentTrackProgress < 1) {
             m_currentTrackProgress += ((double) Timer::get().getUpdateTimePassedMillis() / 1000) / (7200 / getCurrentSpeed());
-            std::cout << "Current track progress of tram " << this << " ( " << m_currentTrack->getSourcePlatform() << "-> " << m_currentTrack->getDestinationPlatform() << "): "
+            if (!debug) std::cout << "Current track progress of tram " << this << " ( " << m_currentTrack->getSourcePlatform() << "-> " << m_currentTrack->getDestinationPlatform() << "): "
                       << m_currentTrackProgress * 100 << "%" << std::endl;
             if (m_currentTrackProgress >= 1) {
                 if (m_currentTrack->getStopSignal()) {

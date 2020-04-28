@@ -19,11 +19,11 @@ namespace simulation_utils {
         int timeBefore = Timer::getCurrentTimeMillis();
         FileHandler::get().getOfstream() << SimulationTime::get().getFormattedTime() << "Started the simulation" << std::endl;
         while (Timer::get().shouldRun()) {
-            metroNet.updateTrams();
+            metroNet.updateTrams(debug);
 
             if (!debug) std::cout << "Updated tram locations " << std::endl;
             Timer::get().setUpdateTime();
-            usleep(1/(float) constants::UPDATES_PER_SECOND * 1e6);
+            usleep(1 / (float) constants::UPDATES_PER_SECOND * 1e6);
         }
 
         if (!debug) std::cout << "program ran for " << ((double) Timer::getCurrentTimeMillis() - timeBefore) / 1000 << " seconds" << std::endl;

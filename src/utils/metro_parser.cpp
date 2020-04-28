@@ -136,7 +136,7 @@ namespace metro_parser {
         void parseLine(MetroNet* metroNet, TiXmlElement* lineElement, bool debug) {
             Line* line = new Line();
             int lineNumber = metro_utils::stoi(lineElement->Attribute("nr"));
-            if(lineNumber < 0){
+            if (lineNumber < 0) {
                 throw MetroNetParseException();
             }
             line->setLineNumber(lineNumber);
@@ -173,7 +173,7 @@ namespace metro_parser {
                                 }
                             }
 
-                            if(platformNumberHeen < 0 || platformNumberTerug < 0){
+                            if (platformNumberHeen < 0 || platformNumberTerug < 0) {
                                 throw MetroNetParseException();
                             }
 
@@ -278,7 +278,7 @@ namespace metro_parser {
                 vehicleNumber = metro_utils::stoi(tramElement->Attribute("voertuignr"));
             }
 
-            if(vehicleNumber < 0){
+            if (vehicleNumber < 0) {
                 throw MetroNetParseException();
             }
 
@@ -323,7 +323,7 @@ namespace metro_parser {
                             break;
                         }
                     }
-                    if(!lineNodeForBeginStation){
+                    if (!lineNodeForBeginStation) {
                         throw MetroNetParseException();
                     }
 
@@ -394,29 +394,29 @@ namespace metro_parser {
 
                 if (elementName == "type") {
                     type = signalChildElement->GetText();
-                    if(type != "STOP" && type != "SNELHEID"){
+                    if (type != "STOP" && type != "SNELHEID") {
                         throw MetroNetParseException();
                     }
                 } else if (type == "STOP" and elementName == "queuesize") {
                     maxAmountOfTrams = metro_utils::stoi(signalChildElement->GetText());
-                    if(maxAmountOfTrams < 0){
+                    if (maxAmountOfTrams < 0) {
                         throw MetroNetParseException();
                     }
                 } else if (type == "SNELHEID") {
                     speedLimitation = metro_utils::stoi(signalChildElement->GetText());
-                    if(speedLimitation < 0){
+                    if (speedLimitation < 0) {
                         throw MetroNetParseException();
                     }
                 } else if (elementName == "beginPerron") {
                     beginStationName = signalChildElement->FirstChildElement()->GetText();
                     beginPlatformNummer = metro_utils::stoi(signalChildElement->FirstChildElement()->NextSiblingElement()->GetText());
-                    if(beginPlatformNummer < 0){
+                    if (beginPlatformNummer < 0) {
                         throw MetroNetParseException();
                     }
                 } else if (elementName == "eindPerron") {
                     eindStationName = signalChildElement->FirstChildElement()->GetText();
                     eindPlatformNummer = metro_utils::stoi(signalChildElement->FirstChildElement()->NextSiblingElement()->GetText());
-                    if(eindPlatformNummer < 0){
+                    if (eindPlatformNummer < 0) {
                         throw MetroNetParseException();
                     }
                 }
@@ -425,7 +425,7 @@ namespace metro_parser {
             Station* beginStation = metroNet->getStation(beginStationName);
             Station* eindStation = metroNet->getStation(eindStationName);
 
-            if(!beginStation || !eindStation){
+            if (!beginStation || !eindStation) {
                 throw MetroNetParseException();
             }
 

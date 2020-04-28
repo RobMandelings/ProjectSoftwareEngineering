@@ -11,7 +11,9 @@
 /** Utility file specific for parsing xml files into MetroNet objects */
 namespace metro_parser {
 
-    // TODO enable custom message to the parse exception
+    /**
+     * @brief a metro parse exception is thrown is something went wrong whilst parsing an xml file
+     */
     class MetroNetParseException : public std::exception {
     public:
         const char* what() const throw();

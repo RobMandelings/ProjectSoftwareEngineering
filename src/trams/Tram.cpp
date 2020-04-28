@@ -94,7 +94,8 @@ void Tram::update() {
                 m_currentWaitTime = 0;
                 if (trackForNextDestination->getStopSignal()) {
                     if (!trackForNextDestination->tramCapacityReached()) {
-                        FileHandler::get().getOfstream() << SimulationTime::get().getFormattedTime() << "Tram " << this << " going to " << trackForNextDestination->getDestinationPlatform() << std::endl;
+                        FileHandler::get().getOfstream() << SimulationTime::get().getFormattedTime() << "Tram " << this << " going to "
+                                                         << trackForNextDestination->getDestinationPlatform() << std::endl;
                         putOnTrack(trackForNextDestination);
                     }
                 } else {
@@ -114,7 +115,8 @@ void Tram::update() {
                 m_currentPlatform = m_currentLineNode->getPlatform(m_currentDirection);
                 m_currentPlatform->setCurrentTram(this);
 
-                FileHandler::get().getOfstream() << SimulationTime::get().getFormattedTime() << "Tram " << this << " switched to platform " << m_currentPlatform << " to go in the opposite direction (" << m_currentDirection
+                FileHandler::get().getOfstream() << SimulationTime::get().getFormattedTime() << "Tram " << this << " switched to platform " << m_currentPlatform
+                                                 << " to go in the opposite direction (" << m_currentDirection
                                                  << ")" << std::endl;
 
             }
@@ -123,7 +125,8 @@ void Tram::update() {
 
         if (m_currentTrackProgress < 1) {
             m_currentTrackProgress += ((double) Timer::get().getUpdateTimePassedMillis() / 1000) / (7200 / getCurrentSpeed());
-            std::cout << "Current track progress of tram " << this << " ( " << m_currentTrack->getSourcePlatform() << "-> " << m_currentTrack->getDestinationPlatform() << "): " << m_currentTrackProgress * 100 << "%" << std::endl;
+            std::cout << "Current track progress of tram " << this << " ( " << m_currentTrack->getSourcePlatform() << "-> " << m_currentTrack->getDestinationPlatform() << "): "
+                      << m_currentTrackProgress * 100 << "%" << std::endl;
             if (m_currentTrackProgress >= 1) {
                 if (m_currentTrack->getStopSignal()) {
                     m_currentTrack->addWaitingTram(this);
@@ -139,6 +142,19 @@ void Tram::update() {
                 }
             }
         }
+    }
+}
+
+void Tram::updateLineNode() {
+    REQUIRE(this->properlyInitialized(), "Tram must be initialized before its member variables are used.");
+    m_currentLineNode = getNextLineNode();
+
+    // Reached the end of the 'heen' journey
+    if (m_currentDirection == TO && m_currentLineNode == m_tramLine->getFirstNode()->getPreviousNode()) {
+        m_currentDirection = FROM;
+        // Reached the end of the 'terug' journey
+    } else if (m_currentDirection == FROM && m_currentLineNode == m_tramLine->getFirstNode()) {
+        m_currentDirection = TO;
     }
 }
 
@@ -168,12 +184,9 @@ Track* Tram::getTrackForNextDestination() {
     return trackForNextDestination;
 }
 
-bool Tram::properlyInitialized() const {
-    return _initCheck == this;
-}
-
 bool Tram::isOnTrack() const {
     REQUIRE(this->properlyInitialized(), "Tram must be initialized before its member variables are used.");
+    REQUIRE(m_currentTrack || m_currentPlatform, "The tram is not on a track and not on a platform");
     return m_currentTrack != NULL;
 }
 
@@ -187,6 +200,7 @@ LineNode* Tram::getNextLineNode() {
 }
 
 Direction Tram::getCurrentPlatformDirection() {
+    REQUIRE(this->properlyInitialized(), "Tram must be initialized before its member variables are used.");
     REQUIRE(m_currentPlatform != NULL, "The platform cannot be NULL");
     REQUIRE(m_currentPlatform == m_currentLineNode->getPlatform(TO) || m_currentPlatform == m_currentLineNode->getPlatform(FROM),
             "The current platform on the tram does not equal one of the 2 platforms of the current LineNode. This should not be possible");
@@ -194,19 +208,6 @@ Direction Tram::getCurrentPlatformDirection() {
         return TO;
     } else {
         return FROM;
-    }
-}
-
-void Tram::updateLineNode() {
-    REQUIRE(this->properlyInitialized(), "Tram must be initialized before its member variables are used.");
-    m_currentLineNode = getNextLineNode();
-
-    // Reached the end of the 'heen' journey
-    if (m_currentDirection == TO && m_currentLineNode == m_tramLine->getFirstNode()->getPreviousNode()) {
-        m_currentDirection = FROM;
-        // Reached the end of the 'terug' journey
-    } else if (m_currentDirection == FROM && m_currentLineNode == m_tramLine->getFirstNode()) {
-        m_currentDirection = TO;
     }
 }
 
@@ -262,6 +263,10 @@ double Tram::getTrackProgress() const {
 Direction Tram::getCurrentDirection() const {
     REQUIRE(this->properlyInitialized(), "Tram must be initialized before its member variables are used.");
     return m_currentDirection;
+}
+
+bool Tram::properlyInitialized() const {
+    return _initCheck == this;
 }
 
 std::ostream& operator<<(ostream& os, Tram& tram) {

@@ -66,6 +66,9 @@ public:
 
     unsigned int getNextTrackIndex(unsigned int currentTrackIndex);
 
+    /**
+     * @brief checks if this object was properly initialized
+     */
     bool properlyInitialized();
 
 };

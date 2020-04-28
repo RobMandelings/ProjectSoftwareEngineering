@@ -21,4 +21,10 @@ public:
 
     std::string getFormattedTime() const;
 
+    // TODO properly initialized
+    /**
+     * @brief checks if this object was properly initialized
+     */
+    bool properlyInitialized() const;
+
 };

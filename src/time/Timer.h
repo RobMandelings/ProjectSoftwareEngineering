@@ -54,6 +54,9 @@ public:
 
     bool shouldRun() const;
 
+    /**
+     * @brief checks if this object was properly initialized
+     */
     bool properlyInitialized() const;
 
 };

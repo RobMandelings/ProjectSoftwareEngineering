@@ -20,6 +20,9 @@ public:
 
     Track* getTrack() const;
 
+    /**
+     * @brief checks if this object was properly initialized
+     */
     bool properlyInitialized() const;
 
 };

@@ -83,7 +83,9 @@ set(DEBUG_SOURCE_FILES
         src/trams/Albatros.cpp src/trams/Albatros.h src/trams/PCC.h src/trams/PCC.cpp
         src/stations/TramStop.cpp src/stations/TramStop.h src/Track.cpp src/Track.h
         src/time/Timer.cpp src/time/Timer.h src/utils/constants.cpp src/utils/constants.h src/signals/Signal.cpp src/signals/Signal.h
-        src/stations/Platform.h src/stations/Platform.cpp)
+        src/stations/Platform.h src/stations/Platform.cpp
+        src/time/SimulationTime.cpp src/time/SimulationTime.h
+        src/utils/FileHandler.cpp src/utils/FileHandler.h)
 
 # Create RELEASE target
 add_executable(metroNet ${RELEASE_SOURCE_FILES})

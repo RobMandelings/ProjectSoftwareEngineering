@@ -138,7 +138,7 @@
     <TRAM voertuignr="1">
         <type>Albatros</type>
         <lijn>3</lijn>
-        <beginStation>D</beginStation>
+        <beginStation>xxxxxxxxxxxxxxxxxx</beginStation>
     </TRAM>
     <TRAM voertuignr="2">
         <type>Albatros</type>

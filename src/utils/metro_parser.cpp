@@ -136,6 +136,9 @@ namespace metro_parser {
         void parseLine(MetroNet* metroNet, TiXmlElement* lineElement, bool debug) {
             Line* line = new Line();
             int lineNumber = metro_utils::stoi(lineElement->Attribute("nr"));
+            if(lineNumber < 0){
+                throw MetroNetParseException();
+            }
             line->setLineNumber(lineNumber);
             for (TiXmlElement* lineNodeElement = lineElement->FirstChildElement();
                  lineNodeElement != NULL; lineNodeElement = lineNodeElement->NextSiblingElement()) {
@@ -168,6 +171,10 @@ namespace metro_parser {
                                     if (!debug) std::cerr << " unrecognized element '" << stationChildElement->Value() << "' within station" << std::endl;
                                     throw MetroNetParseException();
                                 }
+                            }
+
+                            if(platformNumberHeen < 0 || platformNumberTerug < 0){
+                                throw MetroNetParseException();
                             }
 
                             if (station) {
@@ -263,13 +270,18 @@ namespace metro_parser {
             // Only used if the type is tram
             int lineIndex = -1;
             int amountOfSeats = -1;
-            int vechicleNumber = -1;
+            int vehicleNumber = -1;
             if (!tramElement->Attribute("voertuignr")) {
                 if (!debug) std::cerr << "Attribute 'voertuignr' not found for tram " << std::endl;
                 throw MetroNetParseException();
             } else {
-                vechicleNumber = metro_utils::stoi(tramElement->Attribute("voertuignr"));
+                vehicleNumber = metro_utils::stoi(tramElement->Attribute("voertuignr"));
             }
+
+            if(vehicleNumber < 0){
+                throw MetroNetParseException();
+            }
+
             double speed = -1;
             double length = -1;
 
@@ -305,11 +317,14 @@ namespace metro_parser {
                     LineNode* lineNodeForBeginStation = NULL;
 
                     std::vector<LineNode*> lineAsVector = line->getAsVector();
-                    for (std::vector<LineNode*>::iterator lineNodeIt = lineAsVector.begin(); lineNodeIt <= lineAsVector.end(); lineNodeIt++) {
+                    for (std::vector<LineNode*>::iterator lineNodeIt = lineAsVector.begin(); lineNodeIt != lineAsVector.end(); lineNodeIt++) {
                         if ((*lineNodeIt)->getStation()->getName() == beginStationName) {
                             lineNodeForBeginStation = (*lineNodeIt);
                             break;
                         }
+                    }
+                    if(!lineNodeForBeginStation){
+                        throw MetroNetParseException();
                     }
 
                     if (lineNodeForBeginStation) {
@@ -332,16 +347,16 @@ namespace metro_parser {
 
             Tram* tram = NULL;
             if (type == "PCC") {
-                tram = new PCC(line, vechicleNumber, beginPlatform);
+                tram = new PCC(line, vehicleNumber, beginPlatform);
             } else if (type == "Albatros") {
                 if (line->completelyUnderground()) {
-                    tram = new Albatros(line, vechicleNumber, beginPlatform);
+                    tram = new Albatros(line, vehicleNumber, beginPlatform);
                 } else {
                     if (!debug) std::cerr << "Creating an albatros which would stop at a (above ground) TramStop. Albatros can't go there" << std::endl;
                     throw MetroNetParseException();
                 }
             } else if (type == "Tram") {
-                tram = new Tram(line, beginPlatform, speed, amountOfSeats, vechicleNumber, length, type);
+                tram = new Tram(line, beginPlatform, speed, amountOfSeats, vehicleNumber, length, type);
             } else {
                 if (!debug) std::cerr << "Metro Parser: unable to recognize tram type" << std::endl;
                 throw MetroNetParseException();
@@ -379,21 +394,40 @@ namespace metro_parser {
 
                 if (elementName == "type") {
                     type = signalChildElement->GetText();
+                    if(type != "STOP" && type != "SNELHEID"){
+                        throw MetroNetParseException();
+                    }
                 } else if (type == "STOP" and elementName == "queuesize") {
                     maxAmountOfTrams = metro_utils::stoi(signalChildElement->GetText());
+                    if(maxAmountOfTrams < 0){
+                        throw MetroNetParseException();
+                    }
                 } else if (type == "SNELHEID") {
                     speedLimitation = metro_utils::stoi(signalChildElement->GetText());
+                    if(speedLimitation < 0){
+                        throw MetroNetParseException();
+                    }
                 } else if (elementName == "beginPerron") {
                     beginStationName = signalChildElement->FirstChildElement()->GetText();
                     beginPlatformNummer = metro_utils::stoi(signalChildElement->FirstChildElement()->NextSiblingElement()->GetText());
+                    if(beginPlatformNummer < 0){
+                        throw MetroNetParseException();
+                    }
                 } else if (elementName == "eindPerron") {
                     eindStationName = signalChildElement->FirstChildElement()->GetText();
                     eindPlatformNummer = metro_utils::stoi(signalChildElement->FirstChildElement()->NextSiblingElement()->GetText());
+                    if(eindPlatformNummer < 0){
+                        throw MetroNetParseException();
+                    }
                 }
             }
 
             Station* beginStation = metroNet->getStation(beginStationName);
             Station* eindStation = metroNet->getStation(eindStationName);
+
+            if(!beginStation || !eindStation){
+                throw MetroNetParseException();
+            }
 
             Platform* beginPlatform = NULL;
             Platform* eindPlatform = NULL;

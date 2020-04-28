@@ -85,7 +85,8 @@ set(DEBUG_SOURCE_FILES
         src/time/Timer.cpp src/time/Timer.h src/utils/constants.cpp src/utils/constants.h src/signals/Signal.cpp src/signals/Signal.h
         src/stations/Platform.h src/stations/Platform.cpp
         src/time/SimulationTime.cpp src/time/SimulationTime.h
-        src/utils/FileHandler.cpp src/utils/FileHandler.h)
+        src/utils/FileHandler.cpp src/utils/FileHandler.h
+        src/utils/Direction.cpp src/utils/Direction.h)
 
 # Create RELEASE target
 add_executable(metroNet ${RELEASE_SOURCE_FILES})

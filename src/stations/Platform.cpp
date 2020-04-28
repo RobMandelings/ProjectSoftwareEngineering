@@ -58,6 +58,7 @@ void Platform::setStation(Station* station) {
 }
 
 int Platform::getNumber() const {
+    REQUIRE(this->properlyInitialized(), "Platform must be properly initialized to use its member methods.");
     return m_number;
 }
 
@@ -74,18 +75,22 @@ void Platform::setCurrentTram(Tram* currentTram) {
 }
 
 void Platform::removeCurrentTram() {
+    REQUIRE(this->properlyInitialized(), "Platform must be properly initialized to use its member methods.");
     m_currentTram = NULL;
 }
 
 Tram* Platform::getCurrentTram() const {
+    REQUIRE(this->properlyInitialized(), "Platform must be properly initialized to use its member methods.");
     return m_currentTram;
 }
 
 bool Platform::hasCurrentTram() const {
+    REQUIRE(this->properlyInitialized(), "Platform must be properly initialized to use its member methods.");
     return getCurrentTram() != NULL;
 }
 
 unsigned int Platform::getNextTrackIndex(unsigned int currentTrackIndex) {
+    REQUIRE(this->properlyInitialized(), "Platform must be properly initialized to use its member methods.");
     if (currentTrackIndex == m_incomingTracks.size() - 1) {
         return 0;
     } else {
@@ -93,11 +98,12 @@ unsigned int Platform::getNextTrackIndex(unsigned int currentTrackIndex) {
     }
 }
 
-bool Platform::properlyInitialized() {
+bool Platform::properlyInitialized() const {
     return Platform::_initCheck == this;
 }
 
 bool Platform::canReceiveNewIncomingTram() const {
+    REQUIRE(this->properlyInitialized(), "Platform must be properly initialized to use its member methods.");
 
     if (!getCurrentTram() && !m_incomingTracks.empty()) {
         // Check if there is currently a tram directly heading to this platform (so no tram which is going to a queue via a stopSignal)

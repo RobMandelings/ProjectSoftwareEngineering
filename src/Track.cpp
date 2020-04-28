@@ -16,8 +16,8 @@ Track::Track(Platform* sourcePlatform, Platform* destinationPlatform) :
         m_destinationPlatform(destinationPlatform),
         m_ridingTram(NULL) {
     Track::_initCheck = this;
-    ENSURE(sourcePlatform, "sourceStation may not be null!");
-    ENSURE(destinationPlatform, "destinationStation may not be null!");
+    ENSURE(sourcePlatform, "sourceStation may not be NULL");
+    ENSURE(destinationPlatform, "destinationStation may not be NULL");
     ENSURE(this->properlyInitialized(), "Constructor must end ...");
 }
 
@@ -35,17 +35,16 @@ Platform* Track::getDestinationPlatform() const {
 
 std::deque<Tram*>& Track::getWaitingTrams() {
     REQUIRE(this->properlyInitialized(), "Track must be properly initialized before its member methods are used.");
+    REQUIRE(getStopSignal(), "This track does not have a stop signal and thus cannot have a waiting list");
+    REQUIRE(m_waitingTrams.size() <= getStopSignal()->getMaxAmountOfTrams(), "The amount of trams in m_waitingTrams is greater than the allowed maximum");
     return m_waitingTrams;
-}
-
-Tram* Track::getFirstTramInLine() const {
-    REQUIRE(this->properlyInitialized(), "Track must be properly initialized before its member methods are used.");
-    return m_waitingTrams.front();
 }
 
 void Track::addWaitingTram(Tram* tram) {
     REQUIRE(this->properlyInitialized(), "Track must be properly initialized before its member methods are used.");
-    REQUIRE(tram, "the tram to be added to track should not be null!");
+    REQUIRE(tram, "The tram given may not be NULL");
+    REQUIRE(m_stopSignal, "Cannot add waiting tram: this track doesn't have a stopsignal");
+    REQUIRE(!tramCapacityReached(), "Cannot add waiting tram: the tram capacity is already reached");
     m_waitingTrams.push_back(tram);
 }
 
@@ -61,23 +60,27 @@ StopSignal* Track::getStopSignal() const {
 
 void Track::setSpeedSignal(SpeedSignal* speedSignal) {
     REQUIRE(this->properlyInitialized(), "Track must be properly initialized before its member methods are used.");
+    REQUIRE(speedSignal != NULL, "The speed signal given is NULL, can only set variable to non-NULL values");
+    REQUIRE(m_speedSignal == NULL, "The speedsignal is already set!");
     m_speedSignal = speedSignal;
 }
 
 void Track::setStopSignal(StopSignal* stopSignal) {
     REQUIRE(this->properlyInitialized(), "Track must be properly initialized before its member methods are used.");
+    REQUIRE(stopSignal != NULL, "The stop signal given is NULL, can only set variable to non-NULL values");
+    REQUIRE(m_stopSignal == NULL, "The stopSignal is already set!");
     m_stopSignal = stopSignal;
 }
 
 bool Track::tramCapacityReached() const {
     REQUIRE(this->properlyInitialized(), "Track must be properly initialized before its member methods are used.");
-    REQUIRE(m_stopSignal, "This track does not have a stop signal. The function hasSpace() should not be called");
+    REQUIRE(m_stopSignal, "This track does not have a stop signal. The function tramcapacityReached() should not be called");
     REQUIRE(((int) m_waitingTrams.size() + (hasRidingTram() ? 1 : 0)) <= m_stopSignal->getMaxAmountOfTrams(), "There are more trams than this track can hold in the queue!");
-
     return (((int) m_waitingTrams.size() + (hasRidingTram() ? 1 : 0)) == m_stopSignal->getMaxAmountOfTrams());
 }
 
 bool Track::hasRidingTram() const {
+    REQUIRE(this->properlyInitialized(), "Track must be properly initialized before its member methods are used.");
     return m_ridingTram;
 }
 

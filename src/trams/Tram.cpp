@@ -60,6 +60,7 @@ double Tram::getCurrentSpeed() const {
 }
 
 double Tram::getCurrentWaitTime() const {
+    REQUIRE(this->properlyInitialized(), "Tram must be initialized before its member variables are used.");
     return m_currentWaitTime;
 }
 
@@ -266,6 +267,7 @@ double Tram::getTrackProgress() const {
 }
 
 Direction Tram::getCurrentDirection() const {
+    REQUIRE(this->properlyInitialized(), "Tram must be initialized before its member variables are used.");
     return m_currentDirection;
 }
 

@@ -58,14 +58,17 @@ TramStop::TramStop(Platform* platform) :
         m_platformTerug(new Platform(platform->getStation(), platform->getNumber())){}
 
 Platform* TramStop::getPlatformHeen() const {
+    REQUIRE(this->properlyInitialized(), "Station must be initialized before its member variables are used.");
     return m_platformHeen;
 }
 
 Platform* TramStop::getPlatformTerug() const {
+    REQUIRE(this->properlyInitialized(), "Station must be initialized before its member variables are used.");
     return m_platformTerug;
 }
 
 Platform *TramStop::getPlatform(int platformNumber) {
+    REQUIRE(this->properlyInitialized(), "Station must be initialized before its member variables are used.");
     if(platformNumber == this->m_platformHeen->getNumber()){
         return getPlatformHeen();
     } else if(platformNumber == this->m_platformTerug->getNumber()){
@@ -75,6 +78,7 @@ Platform *TramStop::getPlatform(int platformNumber) {
 }
 
 void MetroStation::addPlatform(Platform* platform) {
+    REQUIRE(this->properlyInitialized(), "Station must be initialized before its member variables are used.");
     m_platforms.push_back(platform);
 }
 
@@ -89,6 +93,7 @@ Platform* MetroStation::getPlatform(int number) {
 }
 
 std::vector<Platform*> MetroStation::getPlatforms() const {
+    REQUIRE(this->properlyInitialized(), "Station must be initialized before its member variables are used.");
     return m_platforms;
 }
 

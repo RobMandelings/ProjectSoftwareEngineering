@@ -27,5 +27,6 @@ FileHandler::FileHandler(const char* outputFilename) :
 }
 
 ofstream& FileHandler::getOfstream() {
+    REQUIRE(this->properlyInitialized(), "FileHandler must be initialized before its member variables are used.");
     return *m_ofsteam;
 }

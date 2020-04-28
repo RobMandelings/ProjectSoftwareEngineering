@@ -15,10 +15,18 @@ private:
 
     long m_simulationTimeStart;
 
+    SimulationTime* _initCheck;
+
 public:
 
     static SimulationTime& get();
 
     std::string getFormattedTime() const;
+
+    // TODO properly initialized
+    /**
+     * @brief checks if this object was properly initialized
+     */
+    bool properlyInitialized() const;
 
 };

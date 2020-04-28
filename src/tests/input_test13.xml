@@ -141,7 +141,7 @@
         <beginStation>D</beginStation>
     </TRAM>
     <TRAM voertuignr="2">
-        <type>Albatros</type>
+        <type>TGV</type>
         <lijn>8</lijn>
         <beginStation>B</beginStation>
     </TRAM>

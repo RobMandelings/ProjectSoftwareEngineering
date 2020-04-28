@@ -8,12 +8,14 @@
 #include "metro_parser.h"
 #include "simulation_utils.h"
 
-//Vanaf hier zijn de tests garbage en voorbeelden
-TEST(InputTest, NegativeInput_lijnNode){
+/**
+ * Wrong station input type
+ */
+TEST(InputTest, NegativeInput_station_1){
     bool failed = false;
 
     try{
-        MetroNet* metroNet = metro_parser::parseMetroNetXml("../src/tests/voorbeeldTestFalse1.xml", true);
+        MetroNet* metroNet = metro_parser::parseMetroNetXml("../src/tests/input_test1.xml", true);
         // Avoid "not used" warning
         metroNet->getName();
     }
@@ -24,11 +26,15 @@ TEST(InputTest, NegativeInput_lijnNode){
     EXPECT_EQ(failed, true);
 }
 
-TEST(InputTest, NegativeInput_falseAttribute){
+/**
+ * Wrong station input perron (negative input)
+ */
+TEST(InputTest, NegativeInput_station_2){
     bool failed = false;
 
     try{
-        MetroNet* metroNet = metro_parser::parseMetroNetXml("../src/tests/voorbeeldTestFalse2.xml", true);
+        MetroNet* metroNet = metro_parser::parseMetroNetXml("../src/tests/input_test2.xml", true);
+        // Avoid "not used" warning
         metroNet->getName();
     }
     catch(metro_parser::MetroNetParseException const& e) {
@@ -38,11 +44,15 @@ TEST(InputTest, NegativeInput_falseAttribute){
     EXPECT_EQ(failed, true);
 }
 
-TEST(InputTest, NegativeInput_emptyFile){
+/**
+ * Station with type tramStop gets 2 perrons
+ */
+TEST(InputTest, NegativeInput_station_3){
     bool failed = false;
 
     try{
-        MetroNet* metroNet = metro_parser::parseMetroNetXml("../src/tests/voorbeeldTestFalse3.xml", true);
+        MetroNet* metroNet = metro_parser::parseMetroNetXml("../src/tests/input_test3.xml", true);
+        // Avoid "not used" warning
         metroNet->getName();
     }
     catch(metro_parser::MetroNetParseException const& e) {
@@ -52,11 +62,15 @@ TEST(InputTest, NegativeInput_emptyFile){
     EXPECT_EQ(failed, true);
 }
 
-TEST(InputTest, NegativeInput_nonExistentFile){
+/**
+ * Negative line number
+ */
+TEST(InputTest, NegativeInput_line_1){
     bool failed = false;
 
     try{
-        MetroNet* metroNet = metro_parser::parseMetroNetXml("../src/tests/voorbeeldTestFalse_nonExistent.xml", true);
+        MetroNet* metroNet = metro_parser::parseMetroNetXml("../src/tests/input_test4.xml", true);
+        // Avoid "not used" warning
         metroNet->getName();
     }
     catch(metro_parser::MetroNetParseException const& e) {
@@ -66,11 +80,15 @@ TEST(InputTest, NegativeInput_nonExistentFile){
     EXPECT_EQ(failed, true);
 }
 
-TEST(InputTest, NegativeInput_falseType){
+/**
+ * Negative number "heenperron"
+ */
+TEST(InputTest, NegativeInput_line_2){
     bool failed = false;
 
     try{
-        MetroNet* metroNet = metro_parser::parseMetroNetXml("../src/tests/voorbeeldTestFalse4.xml", true);
+        MetroNet* metroNet = metro_parser::parseMetroNetXml("../src/tests/input_test5.xml", true);
+        // Avoid "not used" warning
         metroNet->getName();
     }
     catch(metro_parser::MetroNetParseException const& e) {
@@ -80,13 +98,229 @@ TEST(InputTest, NegativeInput_falseType){
     EXPECT_EQ(failed, true);
 }
 
+/**
+ * Negative number "terugperron"
+ */
+TEST(InputTest, NegativeInput_line_3){
+    bool failed = false;
+
+    try{
+        MetroNet* metroNet = metro_parser::parseMetroNetXml("../src/tests/input_test6.xml", true);
+        // Avoid "not used" warning
+        metroNet->getName();
+    }
+    catch(metro_parser::MetroNetParseException const& e) {
+        failed = true;
+    }
+
+    EXPECT_EQ(failed, true);
+}
+
+/**
+ * Wrong type for signal
+ */
+TEST(InputTest, NegativeInput_signaal_1){
+    bool failed = false;
+
+    try{
+        MetroNet* metroNet = metro_parser::parseMetroNetXml("../src/tests/input_test7.xml", true);
+        // Avoid "not used" warning
+        metroNet->getName();
+    }
+    catch(metro_parser::MetroNetParseException const& e) {
+        failed = true;
+    }
+
+    EXPECT_EQ(failed, true);
+}
+
+/**
+ * In Signal negative input in queuesize
+ */
+TEST(InputTest, NegativeInput_signaal_2){
+    bool failed = false;
+
+    try{
+        MetroNet* metroNet = metro_parser::parseMetroNetXml("../src/tests/input_test8.xml", true);
+        // Avoid "not used" warning
+        metroNet->getName();
+    }
+    catch(metro_parser::MetroNetParseException const& e) {
+        failed = true;
+    }
+
+    EXPECT_EQ(failed, true);
+}
+
+/**
+ * In signal non existant Station is given in "beginPerron"
+ */
+TEST(InputTest, NegativeInput_signaal_3){
+    bool failed = false;
+
+    try{
+        MetroNet* metroNet = metro_parser::parseMetroNetXml("../src/tests/input_test9.xml", true);
+        // Avoid "not used" warning
+        metroNet->getName();
+    }
+    catch(metro_parser::MetroNetParseException const& e) {
+        failed = true;
+    }
+
+    EXPECT_EQ(failed, true);
+}
+
+/**
+ * In signal negative perron number in "beginPerron"
+ */
+TEST(InputTest, NegativeInput_signaal_4){
+    bool failed = false;
+
+    try{
+        MetroNet* metroNet = metro_parser::parseMetroNetXml("../src/tests/input_test10.xml", true);
+        // Avoid "not used" warning
+        metroNet->getName();
+    }
+    catch(metro_parser::MetroNetParseException const& e) {
+        failed = true;
+    }
+
+    EXPECT_EQ(failed, true);
+}
+
+/**
+ * In signal non existant Station in "eindPerron"
+ */
+TEST(InputTest, NegativeInput_signaal_5){
+    bool failed = false;
+
+    try{
+        MetroNet* metroNet = metro_parser::parseMetroNetXml("../src/tests/input_test11.xml", true);
+        // Avoid "not used" warning
+        metroNet->getName();
+    }
+    catch(metro_parser::MetroNetParseException const& e) {
+        failed = true;
+    }
+
+    EXPECT_EQ(failed, true);
+}
+
+/**
+ * In tram negative input number
+ */
+TEST(InputTest, NegativeInput_tram_1){
+    bool failed = false;
+
+    try{
+        MetroNet* metroNet = metro_parser::parseMetroNetXml("../src/tests/input_test12.xml", true);
+        // Avoid "not used" warning
+        metroNet->getName();
+    }
+    catch(metro_parser::MetroNetParseException const& e) {
+        failed = true;
+    }
+
+    EXPECT_EQ(failed, true);
+}
+
+/**
+ * In tram wrong input type
+ */
+TEST(InputTest, NegativeInput_tram_2){
+    bool failed = false;
+
+    try{
+        MetroNet* metroNet = metro_parser::parseMetroNetXml("../src/tests/input_test13.xml", true);
+        // Avoid "not used" warning
+        metroNet->getName();
+    }
+    catch(metro_parser::MetroNetParseException const& e) {
+        failed = true;
+    }
+
+    EXPECT_EQ(failed, true);
+}
+
+/**
+ * In tram negative number in "lijn"
+ */
+TEST(InputTest, NegativeInput_tram_3){
+    bool failed = false;
+
+    try{
+        MetroNet* metroNet = metro_parser::parseMetroNetXml("../src/tests/input_test14.xml", true);
+        // Avoid "not used" warning
+        metroNet->getName();
+    }
+    catch(metro_parser::MetroNetParseException const& e) {
+        failed = true;
+    }
+
+    EXPECT_EQ(failed, true);
+}
+
+/**
+ * In tram non existant station in "beginStation"
+ */
+TEST(InputTest, NegativeInput_tram_4){
+    bool failed = false;
+
+    try{
+        MetroNet* metroNet = metro_parser::parseMetroNetXml("../src/tests/input_test15.xml", true);
+        // Avoid "not used" warning
+        metroNet->getName();
+    }
+    catch(metro_parser::MetroNetParseException const& e) {
+        failed = true;
+    }
+
+    EXPECT_EQ(failed, true);
+}
+
+/**
+ * Empty file as input
+ */
+TEST(InputTest, NegativeInput_empty){
+    bool failed = false;
+
+    try{
+        MetroNet* metroNet = metro_parser::parseMetroNetXml("../src/tests/input_test16.xml", true);
+        // Avoid "not used" warning
+        metroNet->getName();
+    }
+    catch(metro_parser::MetroNetParseException const& e) {
+        failed = true;
+    }
+
+    EXPECT_EQ(failed, true);
+}
+
+/**
+ * The inputfile Existent
+ */
+TEST(InputTest, NegativeInput_nonExistent){
+    bool failed = false;
+
+    try{
+        MetroNet* metroNet = metro_parser::parseMetroNetXml("../src/tests/input_nonExistant.xml", true);
+        metroNet->getName();
+    }
+    catch(metro_parser::MetroNetParseException const& e) {
+        failed = true;
+    }
+
+    EXPECT_EQ(failed, true);
+}
+
+/**
+ * positive input should run without any throws
+ */
 TEST(InputTest, PositiveInput){
     bool failed = false;
 
-    // TODO: This test currently fails because of the way the Albatros Tram type works -> fix + extra tests on these properties
-
     try{
-        MetroNet* metroNet = metro_parser::parseMetroNetXml("../src/tests/voorbeeldTestPositive.xml", true);
+        MetroNet* metroNet = metro_parser::parseMetroNetXml("../src/tests/input_test17.xml", true);
         metroNet->getName();
     }
     catch(metro_parser::MetroNetParseException const& e) {
@@ -95,4 +329,3 @@ TEST(InputTest, PositiveInput){
 
     EXPECT_EQ(failed, false);
 }
-

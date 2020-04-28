@@ -15,6 +15,8 @@ private:
 
     long m_simulationTimeStart;
 
+    SimulationTime* _initCheck;
+
 public:
 
     static SimulationTime& get();

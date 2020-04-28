@@ -41,6 +41,7 @@ long Timer::getUpdateTimePassedMillis() const {
 }
 
 long Timer::getTimePassedMillis() const {
+    REQUIRE(this->properlyInitialized(),"Timer must be properly initialized to use its member methods.");
     return getCurrentTimeMillis() - timeAtStart;
 }
 
@@ -50,5 +51,6 @@ void Timer::setUpdateTime() {
 }
 
 bool Timer::shouldRun() const {
+    REQUIRE(this->properlyInitialized(),"Timer must be properly initialized to use its member methods.");
     return getCurrentTimeMillis() <= timeAtEnd;
 }

@@ -21,10 +21,20 @@ class Platform;
  */
 class MetroNet {
 private:
+
+    /** The name of this metronet (e.g. 'Antwerpen') */
     string m_name;
+
+    /** All the trams in this metronet */
     vector<Tram*> m_trams;
+
+    /** All the trams in this metronet */
     vector<Station*> m_stations;
+
+    /** All the lines in this metronet */
     vector<Line*> m_lines;
+
+    /** All the tracks in this metronet */
     vector<Track*> m_tracks;
 
     MetroNet* _initCheck;
@@ -37,7 +47,6 @@ public:
      \n ENSURE(m_name.length()>0, "Name can't be the empty string.");
      \n ENSURE(this->properlyInitialized(),"Constructor must end ...");
      */
-
     explicit MetroNet(const string& name);
 
     ~MetroNet();
@@ -60,8 +69,6 @@ public:
      \n REQUIRE(name!=NULL,"Name cannot be empty.");
      */
     Station* getStation(const char* name) const;
-
-    Platform* getPlatform(const char* stationName, int platformNumber) const;
 
     /**
      * Gets the line corresponding to the given line
@@ -102,8 +109,22 @@ public:
      */
     const vector<Track*>& getTracks() const;
 
+    /**
+     * @brief a track has trams which only go in one direction, so a track has a source and destination
+     * @param sourcePlatform: where the track starts
+     * @param destinationPlatform: where the track ends
+     * @return a track which is connected by the source platform and the destination platform, NULL if none exists
+     \n REQUIRE(this->properlyInitialized(), "MetroNet must be initialized before its member variables are used.");
+     */
     Track* getTrack(Platform* sourcePlatform, Platform* destinationPlatform);
 
+    /**
+     * @brief checks if a track exists within the metronet which has the specified source- and destination platform
+     * @param sourcePlatform: where the track starts
+     * @param destinationPlatform: where the track ends
+     * @return true if the track exists within the metronet, false if not
+     \n REQUIRE(this->properlyInitialized(), "MetroNet must be initialized before its member variables are used.");
+     */
     bool hasTrack(Platform* sourcePlatform, Platform* destinationPlatform);
 
     /**
@@ -155,7 +176,6 @@ public:
      *
      \n REQUIRE(this->properlyInitialized(), "MetroNet must be initialized before its member variables are used.");
      */
-
     bool checkVehicleNumberAvailability(Tram* tram);
 
     /**

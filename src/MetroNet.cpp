@@ -79,6 +79,7 @@ const vector<Track*>& MetroNet::getTracks() const {
 }
 
 Track* MetroNet::getTrack(Platform* sourcePlatform, Platform* destinationPlatform) {
+    REQUIRE(this->properlyInitialized(), "MetroNet must be initialized before its member variables are used.");
     for (vector<Track*>::iterator it = m_tracks.begin(); it < m_tracks.end(); it++) {
         Track* track = *it;
         if (track->getSourcePlatform() == sourcePlatform && track->getDestinationPlatform() == destinationPlatform) {
@@ -89,6 +90,7 @@ Track* MetroNet::getTrack(Platform* sourcePlatform, Platform* destinationPlatfor
 }
 
 bool MetroNet::hasTrack(Platform* sourcePlatform, Platform* destinationPlatform) {
+    REQUIRE(this->properlyInitialized(), "MetroNet must be initialized before its member variables are used.");
     return getTrack(sourcePlatform, destinationPlatform);
 }
 

@@ -29,13 +29,13 @@ TEST(OutputTest, PositiveOutput){
 TEST(OutputTest, Positive_graphicalImpression){
     MetroNet* metroNet = metro_parser::parseMetroNetXml("../src/tests/output_test1.xml");
     metro_utils::printMetroNet(metroNet, "../src/tests/test_outputs/SummaryTest.metro");
-    metro_utils::getGraphicalImpression("../src/tests/test_outputs/SummaryTest.metro", "../src/test/test_outputs/graphicalLines_test1.metro");
+    metro_utils::getGraphicalImpression("../src/tests/test_outputs/SummaryTest.metro", "../src/tests/test_outputs/graphicalLines_test1.metro");
 
-    std::ifstream e("../src/test/expected_outputs/graphicalLinesExample.metro");
+    std::ifstream e("../src/tests/expected_outputs/graphicalLinesExample.metro");
     std::stringstream strExample;
     strExample << e.rdbuf();
 
-    std::ifstream t("../src/test/test_outputs/graphicalLines_test1.metro");
+    std::ifstream t("../src/tests/test_outputs/graphicalLines_test1.metro");
     std::stringstream strTest;
     strTest << t.rdbuf();
 

@@ -66,7 +66,7 @@ public:
 
     unsigned int getNextTrackIndex(unsigned int currentTrackIndex);
 
-    bool properlyInitialized();
+    bool properlyInitialized() const;
 
 };
 

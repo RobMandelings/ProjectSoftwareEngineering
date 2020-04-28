@@ -8,7 +8,7 @@
 Signal::Signal(Track* track) :
         m_track(track) {
     _initCheck = this;
-    ENSURE(this->properlyInitialized(),"Signal must be properly initialized to use its member variables.");
+    ENSURE(this->properlyInitialized(),"Constructor must end ...");
 }
 
 Track* Signal::getTrack() const {

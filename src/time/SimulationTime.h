@@ -15,10 +15,14 @@ private:
 
     long m_simulationTimeStart;
 
+    SimulationTime* _initCheck;
+
 public:
 
     static SimulationTime& get();
 
     std::string getFormattedTime() const;
+
+    bool properlyInitialized() const;
 
 };

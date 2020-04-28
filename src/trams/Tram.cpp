@@ -147,13 +147,6 @@ int Tram::getVehicleNumber() const {
     return m_vehicleNumber;
 }
 
-void Tram::setVehicleNumber(int vehicleNumber) {
-    REQUIRE(this->properlyInitialized(), "Tram must be initialized before its member variables are used.");
-    REQUIRE(vehicleNumber >= 0, "Vehicle number must be a positive integer.");
-    m_vehicleNumber = vehicleNumber;
-    ENSURE(getVehicleNumber() == vehicleNumber, "m_vehicleNumber must be set to the vehicleNumber.");
-}
-
 Track* Tram::getTrackForNextDestination() {
     REQUIRE(this->properlyInitialized(), "Tram must be initialized before its member variables are used.");
     Track* trackForNextDestination = NULL;

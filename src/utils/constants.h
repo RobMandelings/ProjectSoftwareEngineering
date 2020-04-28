@@ -18,24 +18,29 @@ namespace constants {
      */
     extern const double TRAM_WAIT_TIME;
 
-    extern const double TRAM_ACCELERATION;
-
-    /**
-     * The length of each track between stations in km
-     */
-    extern const double TRACK_LENGTH;
-
     /**
      * The time the program should run
      */
     extern const double RUNTIME_SECONDS;
 
+    /**
+     * Which file the events during runtime will be written to
+     */
     extern const char* EVENTS_OUTPUT_FILE;
 
-    extern const int SIMULATION_START_HOURS;
+    /**
+     * The specified hour when the simulation should start
+     */
+    extern const int SIMULATION_START_HOUR;
 
-    extern const int SIMULATION_START_MINUTES;
+    /**
+     * The specified minute when the simulation should start
+     */
+    extern const int SIMULATION_START_MINUTE;
 
-    extern const int SIMULATION_START_SECONDS;
+    /**
+     * The specified second when the simulation should start
+     */
+    extern const int SIMULATION_START_SECOND;
 
 }

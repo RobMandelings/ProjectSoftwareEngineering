@@ -36,7 +36,7 @@ Platform* Track::getDestinationPlatform() const {
 std::deque<Tram*>& Track::getWaitingTrams() {
     REQUIRE(this->properlyInitialized(), "Track must be properly initialized before its member methods are used.");
     REQUIRE(getStopSignal(), "This track does not have a stop signal and thus cannot have a waiting list");
-    REQUIRE(m_waitingTrams.size() <= getStopSignal()->getMaxAmountOfTrams(), "The amount of trams in m_waitingTrams is greater than the allowed maximum");
+    REQUIRE((int) m_waitingTrams.size() <= getStopSignal()->getMaxAmountOfTrams(), "The amount of trams in m_waitingTrams is greater than the allowed maximum");
     return m_waitingTrams;
 }
 

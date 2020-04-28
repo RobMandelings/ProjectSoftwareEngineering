@@ -6,6 +6,7 @@
 
 #include <fstream>
 
+/** Convention to be used by a tram to keep track of its current direction */
 enum Direction {
     TO,
     FROM

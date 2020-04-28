@@ -69,7 +69,7 @@ public:
     /**
      * @brief checks if this object was properly initialized
      */
-    bool properlyInitialized();
+    bool properlyInitialized() const;
 
 };
 

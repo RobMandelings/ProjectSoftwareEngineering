@@ -91,6 +91,10 @@ public:
      */
     double getCurrentSpeed() const;
 
+    /**
+     * @brief simple getter
+     * @return how long the tram should still wait at the station
+     */
     double getCurrentWaitTime() const;
 
     /**
@@ -117,16 +121,6 @@ public:
      */
 
     int getVehicleNumber() const;
-
-    /**
-    * @brief Simple setter
-    * @return Set the Tram vehicle number
-    \n REQUIRE(this->properlyInitialized(), "Tram must be initialized before its member variables are used.");
-    \n REQUIRE(vehicleNumber>=0,"Vehicle number must be a positive integer.");
-    \n ENSURE(getVehicleNumber() == vehicleNumber,"m_vehicleNumber must be set to the vehicleNumber.");
-    */
-
-    void setVehicleNumber(int vehicleNumber);
 
     /**
      * @brief Getter

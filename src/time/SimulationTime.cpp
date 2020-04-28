@@ -16,7 +16,7 @@ SimulationTime::SimulationTime(int startHours, int startMinutes, int startSecond
 }
 
 SimulationTime& SimulationTime::get() {
-    static SimulationTime simulationTime(constants::SIMULATION_START_HOURS, constants::SIMULATION_START_MINUTES, constants::SIMULATION_START_SECONDS);
+    static SimulationTime simulationTime(constants::SIMULATION_START_HOUR, constants::SIMULATION_START_MINUTE, constants::SIMULATION_START_SECOND);
 
     return simulationTime;
 }

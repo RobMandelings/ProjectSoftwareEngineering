@@ -11,19 +11,33 @@ class SimulationTime {
 
 private:
 
-    SimulationTime(int startHours, int startMinutes, int startSeconds);
+    /**
+     * @param startHour: the hour this simulation should start
+     * @param startMinute: the minute this simulation should start
+     * @param startSecond: the second this simulation should start
+     */
+    SimulationTime(int startHour, int startMinute, int startSecond);
 
+    /**
+     * The time the simulation starts, in milli seconds
+     */
     long m_simulationTimeStart;
 
     SimulationTime* _initCheck;
 
 public:
 
+    /**
+     * @return the instance of the SimulationTime object
+     */
     static SimulationTime& get();
 
+    /**
+     * @return the current time in the simulation, format: [HH:MM:SS]
+     \n REQUIRE(this->properlyInitialized(), "SimulationTime must be properly initialized to before its member variables are used.");
+     */
     std::string getFormattedTime() const;
 
-    // TODO properly initialized
     /**
      * @brief checks if this object was properly initialized
      */

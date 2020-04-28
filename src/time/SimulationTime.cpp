@@ -9,8 +9,8 @@
 #include "constants.h"
 #include "library.h"
 
-SimulationTime::SimulationTime(int startHours, int startMinutes, int startSeconds) :
-        m_simulationTimeStart(startHours * 60 * 60 * 1000 + startMinutes * 60 * 1000 + startSeconds * 1000) {
+SimulationTime::SimulationTime(int startHour, int startMinute, int startSecond) :
+        m_simulationTimeStart(startHour * 60 * 60 * 1000 + startMinute * 60 * 1000 + startSecond * 1000) {
     SimulationTime::_initCheck = this;
     ENSURE(this->properlyInitialized(), "SimulationTime must be properly initialized to before its member variables are used.");
 }

@@ -23,23 +23,6 @@ TEST(OutputTest, PositiveOutput){
     EXPECT_EQ(strExample.str(), strTest.str());
 }
 
-//TEST(EventOutputTest, PositiveOutput){
-//    MetroNet* metroNet = metro_parser::parseMetroNetXml("../src/tests/voorbeeldTest.xml");
-//    metroNet->getLines();
-//    //simulation_utils::simulateTrams((*metroNet), 20, true);
-//    //TODO: fix
-//
-//    std::ifstream e("../src/tests/expected_outputs/eventsTestExample.metro");
-//    std::stringstream strExample;
-//    strExample << e.rdbuf();
-//
-//    std::ifstream t("../output/events.metro");
-//    std::stringstream strTest;
-//    strTest << t.rdbuf();
-//
-//    EXPECT_EQ(strExample.str(),strTest.str());
-//}
-
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();

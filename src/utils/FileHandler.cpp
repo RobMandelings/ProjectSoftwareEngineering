@@ -19,11 +19,13 @@ bool FileHandler::properlyInitialized() const {
 }
 
 FileHandler::FileHandler(const char* outputFilename) :
-        m_ofsteam(outputFilename, std::ofstream::trunc) {
+        m_ofsteam(NULL) {
+    m_ofsteam = new ofstream();
+    m_ofsteam->open(outputFilename, std::ofstream::trunc);
     FileHandler::_initCheck = this;
     ENSURE(this->properlyInitialized(), "Constructor must end ...");
 }
 
-std::ofstream& FileHandler::getOfstream() {
-    return m_ofsteam;
+ofstream& FileHandler::getOfstream() {
+    return *m_ofsteam;
 }

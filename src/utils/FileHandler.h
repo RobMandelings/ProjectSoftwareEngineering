@@ -15,7 +15,7 @@ private:
 
     FileHandler* _initCheck;
 
-    std::ofstream m_ofsteam;
+    std::ofstream* m_ofsteam;
 
     explicit FileHandler(const char* outputFilename);
 

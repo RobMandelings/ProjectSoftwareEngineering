@@ -30,11 +30,6 @@ namespace constants {
      */
     extern const double RUNTIME_SECONDS;
 
-    /**
-     *
-     */
-    extern const int MAX_TRAMS_ON_TRACK;
-
     extern const char* EVENTS_OUTPUT_FILE;
 
     extern const int SIMULATION_START_HOURS;
@@ -42,7 +37,5 @@ namespace constants {
     extern const int SIMULATION_START_MINUTES;
 
     extern const int SIMULATION_START_SECONDS;
-
-    // TODO add start time of simulation (12:00:00)
 
 }

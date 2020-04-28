@@ -103,7 +103,7 @@ bool Platform::canReceiveNewIncomingTram() const {
         // Check if there is currently a tram directly heading to this platform (so no tram which is going to a queue via a stopSignal)
         for (std::vector<Track*>::const_iterator trackIt = m_incomingTracks.begin(); trackIt < m_incomingTracks.end(); trackIt++) {
             if (!(*trackIt)->getStopSignal()) {
-                if ((*trackIt)->getAmountOfTrams() > 0) {
+                if ((*trackIt)->hasRidingTram()) {
                     return false;
                 }
             }
@@ -130,13 +130,17 @@ void Platform::receiveNewIncomingTram() {
                 m_currentTram = waitingTrams.front();
                 waitingTrams.pop_front();
                 m_currentTram->putOnPlatform(this);
-                FileHandler::get().getOfstream() << SimulationTime::get().getFormattedTime() << "Tram " << m_currentTram << " arrived at platform " << this << std::endl;
+                FileHandler::get().getOfstream() << SimulationTime::get().getFormattedTime() << "Tram " << m_currentTram << " arrived at " << this << std::endl;
                 success = true;
             }
         } else {
             Tram* tramToReceive = trackToCheck->getSourcePlatform()->getCurrentTram();
             if (tramToReceive && tramToReceive->getCurrentWaitTime() <= 0) {
+
+                canReceiveNewIncomingTram();
                 tramToReceive->putOnTrack(trackToCheck);
+                success = true;
+                FileHandler::get().getOfstream() << SimulationTime::get().getFormattedTime() << "Tram " << tramToReceive << " going to " << this << std::endl;
             }
         }
 

@@ -18,12 +18,6 @@
         <perron>
             <nummer>2</nummer>
         </perron>
-        <perron>
-            <nummer>8</nummer>
-        </perron>
-        <perron>
-            <nummer>9</nummer>
-        </perron>
     </STATION>
     <STATION>
         <naam>C</naam>
@@ -85,8 +79,8 @@
         <LIJNNODE>
             <station>
                 <naam>B</naam>
-                <heenperron>8</heenperron>
-                <terugperron>9</terugperron>
+                <heenperron>1</heenperron>
+                <terugperron>2</terugperron>
             </station>
         </LIJNNODE>
     </LIJN>
@@ -94,8 +88,8 @@
         <LIJNNODE>
             <station>
                 <naam>B</naam>
-                <heenperron>9</heenperron>
-                <terugperron>8</terugperron>
+                <heenperron>2</heenperron>
+                <terugperron>1</terugperron>
             </station>
         </LIJNNODE>
         <LIJNNODE>

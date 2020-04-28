@@ -6,4 +6,4 @@
 
 PCC::PCC(Line* line, int vehicleNumber, Platform* beginPlatform) :
 // TODO what should the length of this PCC be?
-        Tram(line, beginPlatform, 400, 16, vehicleNumber, 25, "PCC") {}
+        Tram(line, beginPlatform, 800, 16, vehicleNumber, 25, "PCC") {}

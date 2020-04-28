@@ -12,10 +12,14 @@ private:
 
     Track* m_track;
 
+    Signal* _initCheck;
+
 public:
 
     explicit Signal(Track* track);
 
     Track* getTrack() const;
+
+    bool properlyInitialized() const;
 
 };

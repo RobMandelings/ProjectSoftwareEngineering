@@ -237,6 +237,8 @@ void Tram::putOnTrack(Track* currentTrack) {
     REQUIRE(this->properlyInitialized(), "Tram must be initialized before its member variables are used.");
     REQUIRE(currentTrack, "The track given cannot be NULL");
     REQUIRE(currentTrack != m_currentTrack, "The track to put the tram on is the same as the current track");
+    REQUIRE(!currentTrack->getSpeedSignal() || (currentTrack->getSpeedSignal()->getSpeed() <= MAX_SPEED),
+            "The speed signal on the new track is higher than the maximum speed of this tram");
     m_currentTrack = currentTrack;
     m_currentTrack->setRidingTram(this);
     m_currentTrackProgress = 0;

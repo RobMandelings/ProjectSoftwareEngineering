@@ -110,6 +110,7 @@ void MetroNet::addStation(Station* station) {
 void MetroNet::addLine(Line* line) {
     REQUIRE(this->properlyInitialized(), "MetroNet must be initialized before its member variables are used.");
     REQUIRE(line != NULL && line->properlyInitialized(), "Line cannot be NULL.");
+    REQUIRE(!getLine(line->getLineNumber()), "A line with this number already exists with this number");
     m_lines.push_back(line);
 }
 

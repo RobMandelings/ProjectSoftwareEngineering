@@ -45,9 +45,7 @@ Station::Station() {
     ENSURE(this->properlyInitialized(), "Constructor must end ...");
 }
 
-Station::~Station() {
-
-}
+Station::~Station() {}
 
 TramStop::TramStop(Platform* platform) :
         m_platformHeen(platform),

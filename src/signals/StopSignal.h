@@ -24,12 +24,16 @@ public:
      * @brief simple constructor
      * @param track: the track corresponding to this signal
      * @param m_maxAmountOfTrams: the max amount of trams the track should be able to hold
+     \n ENSURE(this->properlyInitialized(), "Constructor must end...");
+     \n ENSURE(track != NULL, "Track given is NULL");
+     \n ENSURE(m_maxAmountOfTrams > 0, "The buffer for the stop signal should be greater than 0!");
      */
     StopSignal(Track* track, int m_maxAmountOfTrams);
 
     /**
      * @brief simple getter
      * @return the max amount of trams the track can hold
+     \n REQUIRE(this->properlyInitialized(),"Signal must be properly initialized to use its member variables.");
      */
     int getMaxAmountOfTrams() const;
 

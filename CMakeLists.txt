@@ -53,9 +53,7 @@ set(RELEASE_SOURCE_FILES
         src/stations/Platform.cpp
         src/utils/Direction.cpp
         src/utils/Direction.h
-        src/signals/SpeedSignal.cpp
         src/signals/SpeedSignal.h
-        src/signals/StopSignal.cpp
         src/signals/StopSignal.h
         src/time/SimulationTime.cpp
         src/time/SimulationTime.h

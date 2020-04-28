@@ -14,7 +14,10 @@ class Line {
 
 private:
 
+    /** The line number (index, used for identification of the different lines) of this line */
     int m_lineNumber;
+
+    /** The access node of the line */
     LineNode* m_firstNode;
 
     Line* _initCheck;
@@ -38,6 +41,9 @@ public:
      */
     Line();
 
+    /**
+     * @brief simple destructor
+     */
     ~Line();
 
     bool completelyUnderground() const;

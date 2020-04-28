@@ -27,11 +27,15 @@ private:
 public:
 
     /**
+     * @return the UNIX-time, in milli seconds
+     */
+    static int getCurrentTimeMillis();
+
+    /**
      * @brief function which returns the singleton for Timer
+     \n REQUIRE(this->properlyInitialized(),"Timer must be properly initialized to use its member methods.");
      */
     static Timer& get();
-
-    static int getCurrentTimeMillis();
 
     /**
      * @brief function which returns the difference between the time now and the time saved by the member variable updateTime
@@ -39,6 +43,10 @@ public:
      */
     long getUpdateTimePassedMillis() const;
 
+    /**
+     * @return the time passed (in milliseconds) since the last update (which is set by the update time)
+     \n REQUIRE(this->properlyInitialized(),"Timer must be properly initialized to use its member methods.");
+     */
     long getTimePassedMillis() const;
 
     /**
@@ -48,10 +56,10 @@ public:
     void setUpdateTime();
 
     /**
-     *
-     * @return
+     * @brief checks if the program should run or stop (depending on a constant set in constants.cpp)
+     * @return true if the program should still run
+     \n REQUIRE(this->properlyInitialized(),"Timer must be properly initialized to use its member methods.");
      */
-
     bool shouldRun() const;
 
     /**

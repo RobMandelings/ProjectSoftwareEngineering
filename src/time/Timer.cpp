@@ -24,10 +24,6 @@ int Timer::getCurrentTimeMillis() {
     return nCount;
 }
 
-bool Timer::properlyInitialized() const {
-    return _initCheck == this;
-}
-
 Timer::Timer() {
     Timer::_initCheck = this;
     timeAtStart = getCurrentTimeMillis();
@@ -53,4 +49,8 @@ void Timer::setUpdateTime() {
 bool Timer::shouldRun() const {
     REQUIRE(this->properlyInitialized(),"Timer must be properly initialized to use its member methods.");
     return getCurrentTimeMillis() <= timeAtEnd;
+}
+
+bool Timer::properlyInitialized() const {
+    return _initCheck == this;
 }

@@ -32,9 +32,9 @@ vector<Track*>& Platform::getOutgoingTracks() {
     return m_outgoingTracks;
 }
 
-void Platform::addOutgoingTrack(Track* track) {
+void Platform::addOutgoingTrack(Track* outgoingTrack) {
     REQUIRE(this->properlyInitialized(), "Platform must be properly initialized to use its member methods.");
-    m_outgoingTracks.push_back(track);
+    m_outgoingTracks.push_back(outgoingTrack);
 }
 
 vector<Track*>& Platform::getIncomingTracks() {
@@ -54,17 +54,15 @@ Station* Platform::getStation() {
 
 void Platform::setStation(Station* station) {
     REQUIRE(this->properlyInitialized(), "Platform must be properly initialized to use its member methods.");
+    REQUIRE(station, "The station given can not be NULL");
+    REQUIRE(!m_station, "A station is already set on this platform");
     m_station = station;
 }
 
 int Platform::getNumber() const {
     REQUIRE(this->properlyInitialized(), "Platform must be properly initialized to use its member methods.");
+    REQUIRE(m_number >= 0, "The platform number must be >= 0");
     return m_number;
-}
-
-void Platform::setNumber(int number) {
-    REQUIRE(this->properlyInitialized(), "Platform must be properly initialized to use its member methods.");
-    m_number = number;
 }
 
 
@@ -86,20 +84,17 @@ Tram* Platform::getCurrentTram() const {
 
 bool Platform::hasCurrentTram() const {
     REQUIRE(this->properlyInitialized(), "Platform must be properly initialized to use its member methods.");
-    return getCurrentTram() != NULL;
+    return getCurrentTram();
 }
 
 unsigned int Platform::getNextTrackIndex(unsigned int currentTrackIndex) {
     REQUIRE(this->properlyInitialized(), "Platform must be properly initialized to use its member methods.");
+    REQUIRE(currentTrackIndex >= 0, "The track index given must be >= 0!");
     if (currentTrackIndex == m_incomingTracks.size() - 1) {
         return 0;
     } else {
         return currentTrackIndex + 1;
     }
-}
-
-bool Platform::properlyInitialized() const {
-    return Platform::_initCheck == this;
 }
 
 bool Platform::canReceiveNewIncomingTram() const {
@@ -124,6 +119,7 @@ bool Platform::canReceiveNewIncomingTram() const {
 void Platform::receiveNewIncomingTram() {
     REQUIRE(this->properlyInitialized(), "Platform must be properly initialized to use its member variables.");
     REQUIRE(canReceiveNewIncomingTram(), "This platform cannot receive a new incoming tram yet!");
+    REQUIRE(m_currentTrackIndex >= 0, "The current track index is less than 0, this should not be possible");
 
     unsigned int trackIndexToCheck = m_currentTrackIndex;
     bool success = false;
@@ -162,4 +158,8 @@ std::ostream& operator<<(ostream& os, Platform& platform) {
 
 std::ostream& operator<<(ostream& os, Platform* platform) {
     return os << *platform;
+}
+
+bool Platform::properlyInitialized() const {
+    return Platform::_initCheck == this;
 }

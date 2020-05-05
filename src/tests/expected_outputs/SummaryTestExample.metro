@@ -27,8 +27,8 @@ Trams:
 		Current location: B
 	Tram 6 (4):
 		Type: PCC
-		Max Speed: 800
-		Current speed: 800
+		Max Speed: 40
+		Current speed: 40
 		Amount of Seats: 16
 		Length: 25
 		Current location: E

@@ -203,6 +203,11 @@ Voor invoerformaat zie Appendix A opgave.
 * Grafische impressie op basis van summary
 * Tests/Doc
 * Class Diagram afmaken
+
+## TODO BEFORE FINALS:
+* Meer ensures
+* Specifieke exceptions
+* Output Tests
         
 
 ## Class Diagram (zonder methods) OUTDATED:

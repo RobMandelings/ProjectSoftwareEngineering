@@ -46,6 +46,6 @@ namespace constants {
     /**
      * The ticket price for riding on a tram (in euros)
      */
-    extern const int TICKET_PRICE;
+    extern const double TICKET_PRICE;
 
 }

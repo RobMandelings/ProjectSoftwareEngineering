@@ -44,6 +44,9 @@ private:
     
     /** How long this tram should still wait in this station */
     double m_currentWaitTime;
+    
+    /** The revenue the tram has made up till now */
+    double m_currentRevenue;
 
     /** The current direction of the tram */
     Direction m_currentDirection;
@@ -274,6 +277,14 @@ public:
      */
 
     int getOccupiedSeats() const;
+    
+    /**
+     * @brief increases the revenue of the tram based on new passengers
+     * @param newPassengers is the amount of new passengers on this tram that have to pay the ticket price
+     \n REQUIRE(this->properlyInitialized(), "Tram must be initialized before its member variables are used.");
+     \n ENSURE(m_currentRevenue == oldRevenue or m_currentRevenue > oldRevenue, "The revenue of the tram can not be less than the revenue before update");
+     */
+    void addRevenue(int newPassengers);
     
     /**
      * @brief checks if this object was properly initialized

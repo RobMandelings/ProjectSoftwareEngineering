@@ -14,6 +14,7 @@
 #include "StopSignal.h"
 #include "FileHandler.h"
 #include "SimulationTime.h"
+#include "Statistics.h"
 
 Tram::Tram(Line* line, Platform* beginPlatform, double maxSpeed, int amountOfSeats, int vehicleNumber, double length, const std::string& type) :
         m_tramLine(line),
@@ -237,6 +238,7 @@ void Tram::putOnPlatform(Platform* currentPlatform) {
 
     letPassengersOut();
     letPassengersIn();
+    Statistics::get().updateCurrentDegreeOfOccupancy(this);
 }
 
 void Tram::putOnTrack(Track* currentTrack) {
@@ -279,6 +281,8 @@ void Tram::letPassengersIn() {
     REQUIRE(this->properlyInitialized(), "Tram must be initialized before its member variables are used.");
     int randPassengers = rand() % (getFreeSeats() + 1);
     m_amountOfPassengers += randPassengers;
+    addRevenue(randPassengers);
+
     ENSURE(m_amountOfPassengers >= 0, "The amount of passengers can not be negative!");
     ENSURE(m_amountOfPassengers <= getAmountOfSeats(), "The amount of passengers is greater than the total amount of seats in this tram");
     ENSURE(getFreeSeats() >= 0, "The amount of passengers can not be higher than the amount of seats!");
@@ -302,6 +306,15 @@ int Tram::getFreeSeats() const {
 int Tram::getOccupiedSeats() const {
     REQUIRE(this->properlyInitialized(), "Tram must be initialized before its member variables are used.");
     return m_amountOfPassengers;
+}
+
+void Tram::addRevenue(int newPassengers) {
+    REQUIRE(this->properlyInitialized(), "Tram must be initialized before its member variables are used.");
+    double oldRevenue = this->m_currentRevenue;
+    double newRevenue = newPassengers * constants::TICKET_PRICE;
+    this->m_currentRevenue += newRevenue;
+    Statistics::get().addRevenueToTotal(newRevenue);
+    ENSURE(m_currentRevenue >= oldRevenue, "The revenue of the tram can not be less than the revenue before update");
 }
 
 std::ostream& operator<<(ostream& os, Tram& tram) {

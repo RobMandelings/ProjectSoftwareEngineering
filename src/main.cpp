@@ -14,6 +14,8 @@
 
 int main() {
 
+    srand(time(0));
+    
     MetroNet* metroNet = NULL;
 
     try {

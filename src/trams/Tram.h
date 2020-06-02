@@ -33,12 +33,15 @@ private:
     /** The vehicle number of this tram */
     int m_vehicleNumber;
 
+    /** Amount of passengers on the Tram */
+    int m_amountOfPassengers;
+
     /** The current speed of this tram in km/h */
     double m_currentSpeed;
 
     /** The current track progress of this tram (range 0 - 1) */
     double m_currentTrackProgress;
-
+    
     /** How long this tram should still wait in this station */
     double m_currentWaitTime;
 
@@ -238,6 +241,38 @@ public:
      */
     Direction getCurrentDirection() const;
 
+    /**
+     * @brief decreases the amount of passengers on the tram
+     \n REQUIRE(this->properlyInitialized(), "Tram must be initialized before its member variables are used.");
+     \n ENSURE(getFreeSeats()>=0,"The amount of passengers can not be higher than the amount of seats!");
+     */
+
+    void passengersGetOn();
+
+    /**
+     * @brief increases the amount of passengers on the tram
+     \n REQUIRE(this->properlyInitialized(), "Tram must be initialized before its member variables are used.");
+     \n ENSURE(m_amountOfPassengers < 0,"The amount of passengers can not be negative!");
+     */
+
+    void passengersGetOff();
+
+    /**
+     * @brief increases the amount of passengers on the tram
+     * @return amount of free seats
+     \n REQUIRE(this->properlyInitialized(), "Tram must be initialized before its member variables are used.");
+     */
+    
+    int getFreeSeats() const;
+
+    /**
+     * @brief increases the amount of passengers on the tram
+     * @return amount of occupied seats
+     \n REQUIRE(this->properlyInitialized(), "Tram must be initialized before its member variables are used.");
+     */
+
+    int getOccupiedSeats() const;
+    
     /**
      * @brief checks if this object was properly initialized
      */

@@ -20,6 +20,7 @@ Tram::Tram(Line* line, Platform* beginPlatform, double maxSpeed, int amountOfSea
         m_amountOfSeats(amountOfSeats),
         m_vehicleNumber(vehicleNumber),
         m_currentSpeed(maxSpeed),
+        m_amountOfPassengers(0),
         m_currentTrackProgress(0),
         m_currentWaitTime(constants::TRAM_WAIT_TIME),
         m_currentDirection(TO),
@@ -267,6 +268,30 @@ Direction Tram::getCurrentDirection() const {
 
 bool Tram::properlyInitialized() const {
     return _initCheck == this;
+}
+
+void Tram::passengersGetOn() {
+    REQUIRE(this->properlyInitialized(), "Tram must be initialized before its member variables are used.");
+    int randPassengers = rand() % getFreeSeats() + 1;
+    m_amountOfPassengers += randPassengers;
+    ENSURE(getFreeSeats()>=0,"The amount of passengers can not be higher than the amount of seats!");
+}
+
+void Tram::passengersGetOff() {
+    REQUIRE(this->properlyInitialized(), "Tram must be initialized before its member variables are used.");
+    int randPassengers = rand() % getOccupiedSeats() + 1;
+    m_amountOfPassengers -= randPassengers;
+    ENSURE(m_amountOfPassengers < 0,"The amount of passengers can not be negative!");
+}
+
+int Tram::getFreeSeats() const {
+    REQUIRE(this->properlyInitialized(), "Tram must be initialized before its member variables are used.");
+    return m_amountOfSeats - m_amountOfPassengers;
+}
+
+int Tram::getOccupiedSeats() const {
+    REQUIRE(this->properlyInitialized(), "Tram must be initialized before its member variables are used.");
+    return m_amountOfPassengers;
 }
 
 std::ostream& operator<<(ostream& os, Tram& tram) {

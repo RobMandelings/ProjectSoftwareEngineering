@@ -10,7 +10,7 @@ namespace constants {
 
     const double TRAM_WAIT_TIME = 5;
 
-    const double RUNTIME_SECONDS = 7209;
+    const double RUNTIME_SECONDS = 6;
 
     const char* EVENTS_OUTPUT_FILE = "../output/events.metro";
 

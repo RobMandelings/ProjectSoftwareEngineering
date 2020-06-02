@@ -172,14 +172,14 @@ void metro_utils::getGraphicalImpression(const char* inputfile, const char* outp
         for (unsigned int j = 0; j < trams.size(); j++) {
             if (trams.at(j).second.first == lines.at(i).first) {
                 string pos = trams.at(j).first;
-                if (pos.length() == 1) {
+                if (pos.find(">>") == string::npos) {
                     tramPositions.replace(lines.at(i).second.find(pos), 1, "T");
                 } else {
-                    if (tramPositions.at(tramPositions.find(pos.at(0)) + 3) == 'T') {
-                        tramPositions.replace(tramPositions.find(pos.at(0)) + 5, 1,
+                    if (tramPositions.at(tramPositions.find(pos.substr(0,pos.find(">")-1)) + 3) == 'T') {
+                        tramPositions.replace(tramPositions.find(pos.substr(0,pos.find(">")-1)) + (pos.substr(0,pos.find(">")-1).size()-1) + 5, 1,
                                               itos(stoi(ctos(tramPositions.at(tramPositions.find(pos.at(0)) + 5))) + 1));
                     } else {
-                        int index = lines.at(i).second.find(pos.at(0)) + 3;
+                        int index = lines.at(i).second.find(pos.substr(0,pos.find(">")-1)) + (pos.substr(0,pos.find(">")-1).size()-1) + 3;
                         tramPositions.replace(index, 1, "T");
                         tramPositions.replace(index + 1, 1, ":");
                         tramPositions.replace(index + 2, 1, "1");

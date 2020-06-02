@@ -43,4 +43,9 @@ namespace constants {
      */
     extern const int SIMULATION_START_SECOND;
 
+    /**
+     * The ticket price for riding on a tram (in euros)
+     */
+    extern const int TICKET_PRICE;
+
 }

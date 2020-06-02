@@ -2,6 +2,7 @@
 // Created by Rob Mandelings on 6/03/2020.
 //
 
+#include <statistics/Statistics.h>
 #include "metro_parser.h"
 #include "../MetroNet.h"
 #include "../trams/Tram.h"
@@ -20,7 +21,7 @@
 #include "StopSignal.h"
 #include "SpeedSignal.h"
 
-// TODO improve metro parser by removing duplicate code (such as the station values that need to be parsed, the error messages which are basically the same
+// TODO custom metronet parse exception messages
 namespace metro_parser {
 
     namespace {
@@ -298,7 +299,6 @@ namespace metro_parser {
                 } else if (elementName == "length") {
                     length = metro_utils::stod(tramChildElement->GetText());
                 }
-                //TODO what to do if the type is not a default tram but PCC for example? 'zitplaatsen' should not be used in this case
                 if (elementName == "zitplaatsen") {
                     amountOfSeats = metro_utils::stoi(tramChildElement->GetText());
                 } else if (elementName == "snelheid") {
@@ -364,6 +364,7 @@ namespace metro_parser {
 
             
             tram->letPassengersIn();
+            Statistics::get().updateCurrentDegreeOfOccupancy(tram);
             metroNet->addTram(tram);
             if (!beginPlatform->hasCurrentTram()) {
                 beginPlatform->setCurrentTram(tram);
@@ -371,8 +372,6 @@ namespace metro_parser {
                 if (!debug) std::cerr << "Another tram cannot be added onto the beginPlatform: it already has a tram and the maximum capacity is 1" << std::endl;
                 throw MetroNetParseException();
             }
-
-            // TODO check if there is a way for the tram to reach all its stations in the line (and back)
         }
 
         void parseSignal(MetroNet* metroNet, TiXmlElement* signalElement, bool debug) {
@@ -434,8 +433,6 @@ namespace metro_parser {
             Platform* beginPlatform = NULL;
             Platform* eindPlatform = NULL;
 
-            // TODO improve: one method to get the correct platform
-
             if (beginStation->getType() == UNDERGROUND) {
                 MetroStation* metroStation = (MetroStation*) beginStation;
                 beginPlatform = metroStation->getPlatform(beginPlatformNummer);
@@ -476,7 +473,6 @@ namespace metro_parser {
         return "A metronet parse exception occurred";
     }
 
-// TODO tram: je moet een gegeven spoor ook meegeven met uw beginstation, tenzij er geen dubbelzinnigheid bestaat
     MetroNet* parseMetroNetXml(const string& filename, bool debug) {
         /// Opens file in doc
         TiXmlDocument doc;
@@ -492,7 +488,6 @@ namespace metro_parser {
             if (!debug) std::cerr << "Failed to load file: No root element." << std::endl;
             throw metro_parser::MetroNetParseException();
         }
-        //TODO: fix bug with "station=name" (|name| > 1)
         /// Get the Metronet name
         string metroNetName = root->Attribute("naam");
         MetroNet* metroNet = new MetroNet(metroNetName);

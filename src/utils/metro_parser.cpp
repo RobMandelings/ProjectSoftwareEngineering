@@ -362,6 +362,8 @@ namespace metro_parser {
                 throw MetroNetParseException();
             }
 
+            
+            tram->letPassengersIn();
             metroNet->addTram(tram);
             if (!beginPlatform->hasCurrentTram()) {
                 beginPlatform->setCurrentTram(tram);

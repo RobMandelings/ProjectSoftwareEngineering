@@ -58,7 +58,7 @@ set(RELEASE_SOURCE_FILES
         src/time/SimulationTime.cpp
         src/time/SimulationTime.h
         src/utils/FileHandler.cpp
-        src/utils/FileHandler.h)
+        src/utils/FileHandler.h src/statistics/Statistics.cpp src/statistics/Statistics.h)
 
 # Set source files for DEBUG target
 set(DEBUG_SOURCE_FILES

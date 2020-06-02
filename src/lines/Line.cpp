@@ -15,7 +15,6 @@ Line::Line(int line, LineNode* firstNode) :
     ENSURE(this->properlyInitialized(), "Constructor must end ...");
 }
 
-
 //TODO test that the line is not -1
 //TODO test station is not NULL
 Line::Line() : m_lineNumber(-1), m_firstNode(NULL) {

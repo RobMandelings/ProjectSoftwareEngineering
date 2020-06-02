@@ -19,8 +19,8 @@ Tram::Tram(Line* line, Platform* beginPlatform, double maxSpeed, int amountOfSea
         m_tramLine(line),
         m_amountOfSeats(amountOfSeats),
         m_vehicleNumber(vehicleNumber),
-        m_currentSpeed(maxSpeed),
         m_amountOfPassengers(0),
+        m_currentSpeed(maxSpeed),
         m_currentTrackProgress(0),
         m_currentWaitTime(constants::TRAM_WAIT_TIME),
         m_currentDirection(TO),
@@ -224,6 +224,7 @@ void Tram::putOnPlatform(Platform* currentPlatform) {
     REQUIRE(this->properlyInitialized(), "Tram must be initialized before its member variables are used.");
     REQUIRE(currentPlatform, "The platform given cannot be NULL");
     REQUIRE(currentPlatform != m_currentPlatform, "The platform to put the tram on is the same as the current platform");
+
     m_currentPlatform = currentPlatform;
 
     m_currentTrack->removeTram();
@@ -232,6 +233,9 @@ void Tram::putOnPlatform(Platform* currentPlatform) {
     m_currentSpeed = 0;
     m_currentWaitTime = m_currentPlatform->getStation()->getType() == ABOVE_GROUND && canOnlyGoUnderground() ? 1 : constants::TRAM_WAIT_TIME;
     this->updateLineNode();
+
+    letPassengersOut();
+    letPassengersIn();
 }
 
 void Tram::putOnTrack(Track* currentTrack) {
@@ -270,17 +274,18 @@ bool Tram::properlyInitialized() const {
     return _initCheck == this;
 }
 
-void Tram::passengersGetOn() {
+void Tram::letPassengersIn() {
     REQUIRE(this->properlyInitialized(), "Tram must be initialized before its member variables are used.");
     int randPassengers = rand() % getFreeSeats() + 1;
     m_amountOfPassengers += randPassengers;
     ENSURE(getFreeSeats()>=0,"The amount of passengers can not be higher than the amount of seats!");
 }
 
-void Tram::passengersGetOff() {
+void Tram::letPassengersOut() {
     REQUIRE(this->properlyInitialized(), "Tram must be initialized before its member variables are used.");
     int randPassengers = rand() % getOccupiedSeats() + 1;
     m_amountOfPassengers -= randPassengers;
+
     ENSURE(m_amountOfPassengers < 0,"The amount of passengers can not be negative!");
 }
 

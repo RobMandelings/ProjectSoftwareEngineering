@@ -247,7 +247,7 @@ public:
      \n ENSURE(getFreeSeats()>=0,"The amount of passengers can not be higher than the amount of seats!");
      */
 
-    void passengersGetOn();
+    void letPassengersIn();
 
     /**
      * @brief increases the amount of passengers on the tram
@@ -255,7 +255,7 @@ public:
      \n ENSURE(m_amountOfPassengers < 0,"The amount of passengers can not be negative!");
      */
 
-    void passengersGetOff();
+    void letPassengersOut();
 
     /**
      * @brief increases the amount of passengers on the tram

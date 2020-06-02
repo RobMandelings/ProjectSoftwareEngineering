@@ -5,4 +5,4 @@
 #include "PCC.h"
 
 PCC::PCC(Line* line, int vehicleNumber, Platform* beginPlatform) :
-        Tram(line, beginPlatform, 40, 16, vehicleNumber, 25, "PCC") {}
+        Tram(line, beginPlatform, 1000, 16, vehicleNumber, 25, "PCC") {}

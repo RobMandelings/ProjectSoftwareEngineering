@@ -124,8 +124,9 @@ void Tram::update(bool debug) {
 
         if (m_currentTrackProgress < 1) {
             m_currentTrackProgress += ((double) Timer::get().getUpdateTimePassedMillis() / 1000) / (7200 / getCurrentSpeed());
-            if (!debug) std::cout << "Current track progress of tram " << this << " ( " << m_currentTrack->getSourcePlatform() << "-> " << m_currentTrack->getDestinationPlatform() << "): "
-                      << m_currentTrackProgress * 100 << "%" << std::endl;
+            if (!debug)
+                std::cout << "Current track progress of tram " << this << " ( " << m_currentTrack->getSourcePlatform() << "-> " << m_currentTrack->getDestinationPlatform() << "): "
+                          << m_currentTrackProgress * 100 << "%" << std::endl;
             if (m_currentTrackProgress >= 1) {
                 if (m_currentTrack->getStopSignal()) {
                     m_currentTrack->addWaitingTram(this);
@@ -276,17 +277,21 @@ bool Tram::properlyInitialized() const {
 
 void Tram::letPassengersIn() {
     REQUIRE(this->properlyInitialized(), "Tram must be initialized before its member variables are used.");
-    int randPassengers = rand() % getFreeSeats() + 1;
+    int randPassengers = rand() % (getFreeSeats() + 1);
     m_amountOfPassengers += randPassengers;
-    ENSURE(getFreeSeats()>=0,"The amount of passengers can not be higher than the amount of seats!");
+    ENSURE(m_amountOfPassengers >= 0, "The amount of passengers can not be negative!");
+    ENSURE(m_amountOfPassengers <= getAmountOfSeats(), "The amount of passengers is greater than the total amount of seats in this tram");
+    ENSURE(getFreeSeats() >= 0, "The amount of passengers can not be higher than the amount of seats!");
 }
 
 void Tram::letPassengersOut() {
     REQUIRE(this->properlyInitialized(), "Tram must be initialized before its member variables are used.");
-    int randPassengers = rand() % getOccupiedSeats() + 1;
+
+    int randPassengers = rand() % (getOccupiedSeats() + 1);
     m_amountOfPassengers -= randPassengers;
 
-    ENSURE(m_amountOfPassengers < 0,"The amount of passengers can not be negative!");
+    ENSURE(m_amountOfPassengers >= 0, "The amount of passengers can not be negative!");
+    ENSURE(m_amountOfPassengers <= getAmountOfSeats(), "The amount of passengers is greater than the total amount of seats in this tram");
 }
 
 int Tram::getFreeSeats() const {

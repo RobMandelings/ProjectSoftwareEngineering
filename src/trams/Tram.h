@@ -244,7 +244,9 @@ public:
     /**
      * @brief decreases the amount of passengers on the tram
      \n REQUIRE(this->properlyInitialized(), "Tram must be initialized before its member variables are used.");
+     \n ENSURE(m_amountOfPassengers >= 0,"The amount of passengers can not be negative!");
      \n ENSURE(getFreeSeats()>=0,"The amount of passengers can not be higher than the amount of seats!");
+     \n ENSURE(m_amountOfPassengers <= getAmountOfSeats(),"The amount of passengers is greater than the total amount of seats in this tram");
      */
 
     void letPassengersIn();

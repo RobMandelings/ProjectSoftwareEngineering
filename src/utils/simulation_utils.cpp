@@ -9,6 +9,7 @@
 #include "constants.h"
 #include <cstdlib>
 #include <sys/timeb.h>
+#include <statistics/Statistics.h>
 #include "SimulationTime.h"
 #include "FileHandler.h"
 
@@ -20,6 +21,9 @@ namespace simulation_utils {
         FileHandler::get().getOfstream() << SimulationTime::get().getFormattedTime() << "Started the simulation" << std::endl;
         while (Timer::get().shouldRun()) {
             metroNet.updateTrams(debug);
+
+            std::cout << Statistics::get().getCurrentDegreeOfOccupancy() << std::endl;
+            std::cout << Statistics::get().getTotalRevenue() << std::endl;
 
             if (!debug) std::cout << "Updated tram locations " << std::endl;
             Timer::get().setUpdateTime();

@@ -8,6 +8,8 @@
 #include "DesignByContract.h"
 
 Statistics::Statistics() :
+        m_totalAmountOfOccupancies(0),
+        m_totalAmountOfSeats(0),
         m_totalRevenue(0.0) {
     _initCheck = this;
     ENSURE(this->properlyInitialized(), "Constructor must end ...");
@@ -20,7 +22,7 @@ Statistics& Statistics::get() {
 
 double Statistics::getCurrentDegreeOfOccupancy() const {
     REQUIRE(this->properlyInitialized(),"Timer must be properly initialized to use its member methods.");
-    double degreeOfOccupancy = m_totalAmountOfOccupancies / (double) m_totalAmountOfSeats;
+    double degreeOfOccupancy = m_totalAmountOfSeats == 0 ? 0 : m_totalAmountOfOccupancies / (double) m_totalAmountOfSeats;
 
     ENSURE(degreeOfOccupancy >= 0, "The degree of occupancy cannot be 0");
     ENSURE(degreeOfOccupancy <= 1, "The degree of occupancy should be less than or equal to 1 (<= 100%)");

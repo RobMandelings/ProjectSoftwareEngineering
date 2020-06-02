@@ -32,7 +32,7 @@ void Statistics::updateCurrentDegreeOfOccupancy(Tram* tram) {
     REQUIRE(this->properlyInitialized(),"Timer must be properly initialized to use its member methods.");
     REQUIRE(tram, "Given tram cannot be NULL!");
 
-    m_totalAmountOfOccupancies += tram.getOccupiedSeats();
+    m_totalAmountOfOccupancies += tram->getOccupiedSeats();
     m_totalAmountOfSeats += tram->getAmountOfSeats();
 }
 

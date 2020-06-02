@@ -14,13 +14,15 @@ class Statistics {
 
 private:
 
+    Statistics* _initCheck;
+
     /**
      * These two values below are used to determine the current occupancy rate.
      * Each time a tram updates the occupancy rate, the amount of seats (occupied & free) of the tram are added to the totalAmountOfSeats variable,
      * As well as the total amount of seats occupied in the tram. Using these values we can determine the current occupancy rate of all trams in the MetroNet
      */
-    double m_totalAmountOfOccupancies;
-    double m_totalAmountOfSeats;
+    int m_totalAmountOfOccupancies;
+    int m_totalAmountOfSeats;
 
     /**
      * The total revenue all MetroNets (you can have multiple MetroNets, by default: 1) have gathered (due to Statistics being a singleton class)
@@ -65,6 +67,11 @@ public:
      * @param revenue: the revenue to add to the total
      */
     void addRevenueToTotal(double revenue);
+
+    /**
+     * @brief checks if this object was properly initialized
+     */
+    bool properlyInitialized() const;
 
 };
 

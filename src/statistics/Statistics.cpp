@@ -20,7 +20,11 @@ Statistics& Statistics::get() {
 
 double Statistics::getCurrentDegreeOfOccupancy() const {
     REQUIRE(this->properlyInitialized(),"Timer must be properly initialized to use its member methods.");
-    return m_totalAmountOfOccupancies / (double) m_totalAmountOfSeats;
+    double degreeOfOccupancy = m_totalAmountOfOccupancies / (double) m_totalAmountOfSeats;
+
+    ENSURE(degreeOfOccupancy >= 0, "The degree of occupancy cannot be 0");
+    ENSURE(degreeOfOccupancy <= 1, "The degree of occupancy should be less than or equal to 1 (<= 100%)");
+    return degreeOfOccupancy;
 }
 
 double Statistics::getTotalRevenue() const {
@@ -34,6 +38,9 @@ void Statistics::updateCurrentDegreeOfOccupancy(Tram* tram) {
 
     m_totalAmountOfOccupancies += tram->getOccupiedSeats();
     m_totalAmountOfSeats += tram->getAmountOfSeats();
+
+    ENSURE(m_totalAmountOfOccupancies >= 0, "The total amount of occupancies should be >= 0!");
+    ENSURE(m_totalAmountOfOccupancies <= m_totalAmountOfSeats, "The total amount of occupancies should not be greater than the total amount of seats!");
 }
 
 void Statistics::addRevenueToTotal(double revenue) {

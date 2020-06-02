@@ -19,5 +19,6 @@ namespace constants {
     const int SIMULATION_START_MINUTE = 0;
 
     const int SIMULATION_START_SECOND = 0;
-
+    
+    const int TICKET_PRICE = 2;
 }

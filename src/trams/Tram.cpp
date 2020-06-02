@@ -278,6 +278,7 @@ void Tram::letPassengersIn() {
     REQUIRE(this->properlyInitialized(), "Tram must be initialized before its member variables are used.");
     int randPassengers = rand() % getFreeSeats() + 1;
     m_amountOfPassengers += randPassengers;
+    addRevenue(randPassengers);
     ENSURE(getFreeSeats()>=0,"The amount of passengers can not be higher than the amount of seats!");
 }
 
@@ -297,6 +298,14 @@ int Tram::getFreeSeats() const {
 int Tram::getOccupiedSeats() const {
     REQUIRE(this->properlyInitialized(), "Tram must be initialized before its member variables are used.");
     return m_amountOfPassengers;
+}
+
+void Tram::addRevenue(int newPassengers) {
+    REQUIRE(this->properlyInitialized(), "Tram must be initialized before its member variables are used.");
+    double oldRevenue = this->m_currentRevenue;
+    double newRevenue = newPassengers * constants::TICKET_PRICE;
+    this->m_currentRevenue += newRevenue;
+    ENSURE(m_currentRevenue == oldRevenue or m_currentRevenue > oldRevenue, "The revenue of the tram can not be less than the revenue before update");
 }
 
 std::ostream& operator<<(ostream& os, Tram& tram) {

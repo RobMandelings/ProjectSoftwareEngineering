@@ -20,5 +20,5 @@ namespace constants {
 
     const int SIMULATION_START_SECOND = 0;
     
-    const int TICKET_PRICE = 2;
+    const double TICKET_PRICE = 2;
 }

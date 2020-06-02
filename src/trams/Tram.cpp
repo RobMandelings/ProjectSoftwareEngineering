@@ -305,7 +305,7 @@ void Tram::addRevenue(int newPassengers) {
     double oldRevenue = this->m_currentRevenue;
     double newRevenue = newPassengers * constants::TICKET_PRICE;
     this->m_currentRevenue += newRevenue;
-    ENSURE(m_currentRevenue == oldRevenue or m_currentRevenue > oldRevenue, "The revenue of the tram can not be less than the revenue before update");
+    ENSURE(m_currentRevenue >= oldRevenue, "The revenue of the tram can not be less than the revenue before update");
 }
 
 std::ostream& operator<<(ostream& os, Tram& tram) {

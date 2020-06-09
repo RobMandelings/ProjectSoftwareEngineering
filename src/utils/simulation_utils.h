@@ -9,7 +9,7 @@
 #include "../MetroNet.h"
 
 namespace simulation_utils {
-    void simulateTrams(MetroNet& metroNet, bool debug = false);
+    bool simulateTrams(MetroNet& metroNet, vector<long>& returnTimes, bool debug = false);
 }
 
 #endif //PROJECTSOFTWAREENGINEERING_SIMULATION_UTILS_H

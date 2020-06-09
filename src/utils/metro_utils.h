@@ -12,6 +12,12 @@ class MetroNet;
 
 /** Common utility file containing various useful functions */
 namespace metro_utils {
+    
+    /** 
+     * Creates a list of return times (in milliseconds, relative to the current time) for the program
+     * @param returnTimes: the returnTimes in seconds (after how many seconds the simulation should be returned)
+     */
+    std::vector<long> createReturnTimes(const std::vector<int>& returnTimes);
 
     /**
      * @brief converts a string into an integer

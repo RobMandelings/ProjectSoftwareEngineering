@@ -10,15 +10,17 @@
 #include <cstdlib>
 #include <sys/timeb.h>
 #include <statistics/Statistics.h>
+#include <cstring>
 #include "SimulationTime.h"
 #include "FileHandler.h"
 
 namespace simulation_utils {
-    void simulateTrams(MetroNet& metroNet, bool debug) {
-
+    
+    bool simulateTrams(MetroNet& metroNet, vector<long>& returnTimes, bool debug) {
+        
         if (!debug) std::cout << "Simulating trams..." << std::endl;
         int timeBefore = Timer::getCurrentTimeMillis();
-        FileHandler::get().getOfstream() << SimulationTime::get().getFormattedTime() << "Started the simulation" << std::endl;
+        // FileHandler::get().getOfstream() << SimulationTime::get().getFormattedTime() << "Started the simulation" << std::endl;
         while (Timer::get().shouldRun()) {
             metroNet.updateTrams(debug);
 
@@ -26,6 +28,15 @@ namespace simulation_utils {
             if (!debug) std::cout << "Revenue: " << Statistics::get().getTotalRevenue() << " euros" << std::endl;
 
             if (!debug) std::cout << "Updated tram locations " << std::endl;
+            if (!returnTimes.empty()) {
+                std::cout << "NOOOO " << SimulationTime::getFormattedTime(SimulationTime::get().getSimulationTimeStart() + returnTimes.at(0)) << std::endl;
+                std::cout << "ANDERE " << SimulationTime::get().getFormattedTime() << std::endl;
+                if (SimulationTime::getFormattedTime(returnTimes.at(0)) == SimulationTime::get().getFormattedTime()) {
+                    std::cout << "Should be" << std::endl;
+                    returnTimes.erase(returnTimes.begin());
+                    return true;
+                }
+            }
             Timer::get().setUpdateTime();
             usleep(1 / (float) constants::UPDATES_PER_SECOND * 1e6);
         }
@@ -35,5 +46,6 @@ namespace simulation_utils {
         if (!debug) std::cout << "Simulation ended at: " << SimulationTime::get().getFormattedTime() << std::endl;
         if (!debug) std::cout << "With a final 'degree of occupancy' of " << Statistics::get().getCurrentDegreeOfOccupancy() * 100 << "% ";
         if (!debug) std::cout << "And revenue of " << Statistics::get().getTotalRevenue() << " euros" << std::endl;
+        return false;
     }
 }

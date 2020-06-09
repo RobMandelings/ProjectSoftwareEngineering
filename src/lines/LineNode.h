@@ -11,7 +11,6 @@ class Line;
 
 class Station;
 
-//TODO test lineNode is circular (has next and previous for each lineNode)
 class LineNode {
 
 private:
@@ -114,6 +113,8 @@ public:
      \n ENSURE(m_nextNode == NextNode, "m_nextNode must be set to NextNode.");
      */
     void setNextNode(LineNode* nextNode);
+    
+    
 
     /**
      * @brief checks if this object was properly initialized

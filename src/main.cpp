@@ -26,7 +26,7 @@ int main() {
         metro_utils::printMetroNet(metroNet, "../output/Summary.metro");
         metro_utils::getGraphicalImpression("../output/Summary.metro", "../output/graphicalLines.metro");
         delete metroNet;
-    } catch (const metro_parser::MetroNetParseException& e) {
+    } catch (const metro_parser::MetroNetException& e) {
         std::cerr << e.what();
         return 1;
     }

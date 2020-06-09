@@ -324,7 +324,7 @@ namespace metro_parser {
                         }
                     }
                     if (!lineNodeForBeginStation) {
-                        throw LineNotFoundException();
+                        throw LineNodeNotFoundException();
                     }
 
                     if (lineNodeForBeginStation) {

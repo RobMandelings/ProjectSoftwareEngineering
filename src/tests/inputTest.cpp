@@ -19,7 +19,7 @@ TEST(InputTest, NegativeInput_station_1){
         // Avoid "not used" warning
         metroNet->getName();
     }
-    catch(metro_parser::MetroNetParseException const& e) {
+    catch(metro_parser::StationTypeException const& e) {
         failed = true;
     }
 
@@ -37,7 +37,7 @@ TEST(InputTest, NegativeInput_station_2){
         // Avoid "not used" warning
         metroNet->getName();
     }
-    catch(metro_parser::MetroNetParseException const& e) {
+    catch(metro_parser::NegativePlatformNumberException const& e) {
         failed = true;
     }
 
@@ -55,7 +55,7 @@ TEST(InputTest, NegativeInput_station_3){
         // Avoid "not used" warning
         metroNet->getName();
     }
-    catch(metro_parser::MetroNetParseException const& e) {
+    catch(metro_parser::AmountOfPlatformsException const& e) {
         failed = true;
     }
 
@@ -73,7 +73,7 @@ TEST(InputTest, NegativeInput_line_1){
         // Avoid "not used" warning
         metroNet->getName();
     }
-    catch(metro_parser::MetroNetParseException const& e) {
+    catch(metro_parser::NegativeLineNumberException const& e) {
         failed = true;
     }
 
@@ -91,7 +91,7 @@ TEST(InputTest, NegativeInput_line_2){
         // Avoid "not used" warning
         metroNet->getName();
     }
-    catch(metro_parser::MetroNetParseException const& e) {
+    catch(metro_parser::NegativePlatformNumberException const& e) {
         failed = true;
     }
 
@@ -109,7 +109,7 @@ TEST(InputTest, NegativeInput_line_3){
         // Avoid "not used" warning
         metroNet->getName();
     }
-    catch(metro_parser::MetroNetParseException const& e) {
+    catch(metro_parser::NegativePlatformNumberException const& e) {
         failed = true;
     }
 
@@ -127,7 +127,7 @@ TEST(InputTest, NegativeInput_signaal_1){
         // Avoid "not used" warning
         metroNet->getName();
     }
-    catch(metro_parser::MetroNetParseException const& e) {
+    catch(metro_parser::XMLSyntaxException const& e) {
         failed = true;
     }
 
@@ -145,7 +145,7 @@ TEST(InputTest, NegativeInput_signaal_2){
         // Avoid "not used" warning
         metroNet->getName();
     }
-    catch(metro_parser::MetroNetParseException const& e) {
+    catch(metro_parser::NegativeQueueSizeForTrackException const& e) {
         failed = true;
     }
 
@@ -163,7 +163,7 @@ TEST(InputTest, NegativeInput_signaal_3){
         // Avoid "not used" warning
         metroNet->getName();
     }
-    catch(metro_parser::MetroNetParseException const& e) {
+    catch(metro_parser::StationNotFoundException const& e) {
         failed = true;
     }
 
@@ -181,7 +181,7 @@ TEST(InputTest, NegativeInput_signaal_4){
         // Avoid "not used" warning
         metroNet->getName();
     }
-    catch(metro_parser::MetroNetParseException const& e) {
+    catch(metro_parser::NegativePlatformNumberException const& e) {
         failed = true;
     }
 
@@ -199,7 +199,7 @@ TEST(InputTest, NegativeInput_signaal_5){
         // Avoid "not used" warning
         metroNet->getName();
     }
-    catch(metro_parser::MetroNetParseException const& e) {
+    catch(metro_parser::StationNotFoundException const& e) {
         failed = true;
     }
 
@@ -217,7 +217,7 @@ TEST(InputTest, NegativeInput_tram_1){
         // Avoid "not used" warning
         metroNet->getName();
     }
-    catch(metro_parser::MetroNetParseException const& e) {
+    catch(metro_parser::NegativeVehicleNumberException const& e) {
         failed = true;
     }
 
@@ -235,7 +235,7 @@ TEST(InputTest, NegativeInput_tram_2){
         // Avoid "not used" warning
         metroNet->getName();
     }
-    catch(metro_parser::MetroNetParseException const& e) {
+    catch(metro_parser::TramTypeException const& e) {
         failed = true;
     }
 
@@ -253,7 +253,7 @@ TEST(InputTest, NegativeInput_tram_3){
         // Avoid "not used" warning
         metroNet->getName();
     }
-    catch(metro_parser::MetroNetParseException const& e) {
+    catch(metro_parser::LineNotFoundException const& e) {
         failed = true;
     }
 
@@ -271,7 +271,7 @@ TEST(InputTest, NegativeInput_tram_4){
         // Avoid "not used" warning
         metroNet->getName();
     }
-    catch(metro_parser::MetroNetParseException const& e) {
+    catch(metro_parser::LineNodeNotFoundException const& e) {
         failed = true;
     }
 
@@ -289,7 +289,7 @@ TEST(InputTest, NegativeInput_empty){
         // Avoid "not used" warning
         metroNet->getName();
     }
-    catch(metro_parser::MetroNetParseException const& e) {
+    catch(metro_parser::FileException const& e) {
         failed = true;
     }
 
@@ -306,7 +306,7 @@ TEST(InputTest, NegativeInput_nonExistent){
         MetroNet* metroNet = metro_parser::parseMetroNetXml("../src/tests/input_nonExistant.xml", true);
         metroNet->getName();
     }
-    catch(metro_parser::MetroNetParseException const& e) {
+    catch(metro_parser::FileException const& e) {
         failed = true;
     }
 

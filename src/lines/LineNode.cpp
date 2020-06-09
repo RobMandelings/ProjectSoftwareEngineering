@@ -70,16 +70,22 @@ LineNode* LineNode::getNextNode() const {
     return m_nextNode;
 }
 
-void LineNode::setPreviousNode(LineNode* PreviousNode) {
+void LineNode::setPreviousNode(LineNode* previousNode) {
     REQUIRE(this->properlyInitialized(), "LineNode must be initialized before its member variables are used.");
-    m_previousNode = PreviousNode;
-    ENSURE(m_previousNode == PreviousNode, "m_previousNode must be set to PreviousNode.");
+    m_previousNode = previousNode;
+    if (previousNode->getNextNode() != this) {
+        previousNode->setNextNode(this);
+    }
+    ENSURE(m_previousNode == previousNode, "m_previousNode must be set to PreviousNode.");
 }
 
-void LineNode::setNextNode(LineNode* NextNode) {
+void LineNode::setNextNode(LineNode* nextNode) {
     REQUIRE(this->properlyInitialized(), "LineNode must be initialized before its member variables are used.");
-    m_nextNode = NextNode;
-    ENSURE(m_nextNode == NextNode, "m_nextNode must be set to NextNode.");
+    m_nextNode = nextNode;
+    if (nextNode->getPreviousNode() != this) {
+        nextNode->setPreviousNode(this);
+    }
+    ENSURE(m_nextNode == nextNode, "m_nextNode must be set to NextNode.");
 }
 
 void LineNode::setUnderConstruction(bool underConstruction) {

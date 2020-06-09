@@ -32,11 +32,15 @@ public:
      */
     static SimulationTime& get();
 
+    long getSimulationTimeStart() const;
+
     /**
      * @return the current time in the simulation, format: [HH:MM:SS]
      \n REQUIRE(this->properlyInitialized(), "SimulationTime must be properly initialized to before its member variables are used.");
      */
     std::string getFormattedTime() const;
+    
+    static std::string getFormattedTime(long currentSimulationTime);
 
     /**
      * @brief checks if this object was properly initialized

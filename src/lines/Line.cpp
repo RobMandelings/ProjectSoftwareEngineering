@@ -15,29 +15,19 @@ Line::Line(int line, LineNode* firstNode) :
     ENSURE(this->properlyInitialized(), "Constructor must end ...");
 }
 
-//TODO test that the line is not -1
-//TODO test station is not NULL
 Line::Line() : m_lineNumber(-1), m_firstNode(NULL) {
     Line::_initCheck = this;
     ENSURE(this->properlyInitialized(), "Constructor must end ...");
 }
 
 Line::~Line() {
-    if (m_firstNode != NULL) {
-        LineNode* currentLineNode = m_firstNode;
-        do {
 
-            LineNode* nextLineNode = currentLineNode->getNextNode();
+    std::vector<LineNode*> lineAsVector = getAsVector();
 
-            if (nextLineNode != NULL) {
-                nextLineNode->setPreviousNode(NULL);
-            }
-            currentLineNode->setNextNode(NULL);
-            delete currentLineNode;
-
-            currentLineNode = nextLineNode;
-
-        } while (currentLineNode != NULL);
+    for (std::vector<LineNode*>::iterator it = lineAsVector.begin(); it != lineAsVector.end(); it++) {
+        
+        
+        
     }
 }
 

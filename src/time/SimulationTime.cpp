@@ -24,7 +24,12 @@ SimulationTime& SimulationTime::get() {
 /** Stukje code om seconden om te zetten in uren, minuten en seconden: https://stackoverflow.com/questions/5590381/easiest-way-to-convert-int-to-string-in-c */
 std::string SimulationTime::getFormattedTime() const {
     REQUIRE(this->properlyInitialized(), "SimulationTime must be properly initialized to before its member variables are used.");
-    double secondsOfDay = double((m_simulationTimeStart + Timer::get().getTimePassedMillis()) % (24 * 60 * 60 * 1000)) / 1000;
+    return getFormattedTime(m_simulationTimeStart + Timer::get().getTimePassedMillis());
+}
+
+std::string SimulationTime::getFormattedTime(long currentSimulationTime) {
+
+    double secondsOfDay = double((currentSimulationTime) % (24 * 60 * 60 * 1000)) / 1000;
 
     int hours = (int) secondsOfDay / 3600;
     int remainder = (int) secondsOfDay - hours * 3600;
@@ -41,4 +46,8 @@ std::string SimulationTime::getFormattedTime() const {
 
 bool SimulationTime::properlyInitialized() const {
     return SimulationTime::_initCheck == this;
+}
+
+long SimulationTime::getSimulationTimeStart() const {
+    return m_simulationTimeStart;
 }

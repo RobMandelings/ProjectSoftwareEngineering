@@ -14,7 +14,113 @@ namespace metro_parser {
     /**
      * @brief a metro parse exception is thrown is something went wrong whilst parsing an xml file
      */
-    class MetroNetParseException : public std::exception {
+
+    class MetroNetException : public std::exception {
+    public:
+        virtual const char* what() const throw()=0;
+    };
+    
+    class FileException : public MetroNetException {
+    public:
+        const char* what() const throw();
+    };
+
+    class ExistingTrackException : public MetroNetException {
+    public:
+        const char* what() const throw();
+    };
+
+    class EqualSourceAndDestinationOnTrackException : public MetroNetException {
+    public:
+        const char* what() const throw();
+    };
+
+    class NegativePlatformNumberException : public MetroNetException {
+    public:
+        const char* what() const throw();
+    };
+
+    class NoPlatformsForStationException : public MetroNetException {
+    public:
+        const char* what() const throw();
+    };
+
+    class ExistingPlatformException : public MetroNetException {
+    public:
+        const char* what() const throw();
+    };
+
+    class AmountOfPlatformsException : public MetroNetException {
+    public:
+        const char* what() const throw();
+    };
+
+    class StationTypeException : public MetroNetException {
+    public:
+        const char* what() const throw();
+    };
+
+    class NegativeLineNumberException : public MetroNetException {
+    public:
+        const char* what() const throw();
+    };
+
+    class XMLSyntaxException : public MetroNetException {
+    public:
+        const char* what() const throw();
+    };
+
+    class StationNotFoundException : public MetroNetException {
+    public:
+        const char* what() const throw();
+    };
+
+    class SingleNodeLineException : public MetroNetException {
+    public:
+        const char* what() const throw();
+    };
+
+    class MissingAttributeException : public MetroNetException {
+    public:
+        const char* what() const throw();
+    };
+
+    class NegativeVehicleNumberException : public MetroNetException {
+    public:
+        const char* what() const throw();
+    };
+
+    class LineNodeNotFoundException : public MetroNetException {
+    public:
+        const char* what() const throw();
+    };
+
+    class LineNotFoundException : public MetroNetException {
+    public:
+        const char* what() const throw();
+    };
+
+    class PlatformNotFoundException : public MetroNetException {
+    public:
+        const char* what() const throw();
+    };
+
+    class TramTypeException : public MetroNetException {
+    public:
+        const char* what() const throw();
+    };
+
+    class PlatformPropertyException : public MetroNetException {
+    public:
+        const char* what() const throw();
+    };
+
+    class NegativeQueueSizeForTrackException : public MetroNetException {
+    public:
+        const char* what() const throw();
+    };
+
+    class NegativeSpeedException : public MetroNetException {
     public:
         const char* what() const throw();
     };

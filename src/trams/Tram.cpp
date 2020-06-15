@@ -83,6 +83,12 @@ void Tram::setCurrentSpeed(int currentSpeed) {
 void Tram::update(bool debug) {
     REQUIRE(this->properlyInitialized(), "Tram must be initialized before its member variables are used.");
 
+    // Checks if the tram's state has changed in some way (put on track/platform, progress went up,...)
+    bool switchPlatformChecked = false;
+    bool waitTimeDecreased = false;
+    bool trackProgressIncreased = false;
+    bool isPutOnTrack = false;
+    bool isPutOnPlatform = false;
     // If the tram is currently in a station
     if (!isOnTrack()) {
 
@@ -98,6 +104,7 @@ void Tram::update(bool debug) {
                         FileHandler::get().getOfstream() << SimulationTime::get().getFormattedTime() << "Tram " << this << " going to "
                                                          << trackForNextDestination->getDestinationPlatform() << std::endl;
                         putOnTrack(trackForNextDestination);
+                        isPutOnTrack = true;
                     }
                 } else {
                     if (trackForNextDestination->getDestinationPlatform()->canReceiveNewIncomingTram()) {
@@ -105,6 +112,7 @@ void Tram::update(bool debug) {
                     }
                 }
             }
+            waitTimeDecreased = true;
         } else {
             // The direction of the platform to switch to
 
@@ -121,6 +129,7 @@ void Tram::update(bool debug) {
                                                  << ")" << std::endl;
 
             }
+            switchPlatformChecked = true;
         }
     } else {
 
@@ -140,11 +149,14 @@ void Tram::update(bool debug) {
                 } else {
                     m_currentTrack->getDestinationPlatform()->setCurrentTram(this);
                     this->putOnPlatform(m_currentTrack->getDestinationPlatform());
+                    isPutOnPlatform = true;
                     FileHandler::get().getOfstream() << SimulationTime::get().getFormattedTime() << "Tram " << this << " arrived at platform " << m_currentPlatform << std::endl;
                 }
             }
+            trackProgressIncreased = true;
         }
     }
+    ENSURE(switchPlatformChecked || waitTimeDecreased || trackProgressIncreased || isPutOnTrack || isPutOnPlatform, "The tram's state didn't change");
 }
 
 void Tram::updateLineNode() {

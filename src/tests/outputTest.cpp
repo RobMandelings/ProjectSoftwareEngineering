@@ -60,7 +60,7 @@ TEST(OutputTest, simulation_run){
 
         do {
 
-            simulationPaused = simulation_utils::simulateTrams(*metroNet, returnTimesMillis);
+            simulationPaused = simulation_utils::simulateTrams(*metroNet, returnTimesMillis, true);
 
             if (simulationPaused) {
                 // TODO write .equal tests

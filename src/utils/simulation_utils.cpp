@@ -29,10 +29,7 @@ namespace simulation_utils {
 
             if (!debug) std::cout << "Updated tram locations " << std::endl;
             if (!returnTimes.empty()) {
-                std::cout << "NOOOO " << SimulationTime::getFormattedTime(SimulationTime::get().getSimulationTimeStart() + returnTimes.at(0)) << std::endl;
-                std::cout << "ANDERE " << SimulationTime::get().getFormattedTime() << std::endl;
                 if (SimulationTime::getFormattedTime(SimulationTime::get().getSimulationTimeStart() + returnTimes.at(0)) == SimulationTime::get().getFormattedTime()) {
-                    std::cout << "Should be" << std::endl;
                     returnTimes.erase(returnTimes.begin());
                     return true;
                 }

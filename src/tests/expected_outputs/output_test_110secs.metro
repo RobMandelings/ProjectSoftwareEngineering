@@ -1,0 +1,10 @@
+[12:00:00] Tram 1 going to Station B, platform 1
+[12:00:00] Tram 2 going to Station D, platform 3
+[12:00:00] Tram 3 going to Station B, platform 1
+[12:01:43] Tram 2 arrived at platform Station D, platform 3
+[12:01:43] Tram 2 switched to platform Station D, platform 4 to go in the opposite direction (From)
+[12:01:43] Tram 1 arrived at platform Station B, platform 1
+[12:01:43] Tram 1 switched to platform Station B, platform 2 to go in the opposite direction (From)
+[12:01:43] Tram 4 going to Station B, platform 1
+[12:01:44] Tram 1 going to Station D, platform 2
+[12:01:50] Ended the simulation

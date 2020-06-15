@@ -21,18 +21,8 @@ int main() {
 
     try {
         metroNet = metro_parser::parseMetroNetXml("../input/voorbeeldComplex.xml");
-        std::vector<long> returnTimesMillis;
-        returnTimesMillis.push_back(1000);
-        if (simulation_utils::simulateTrams(*metroNet, returnTimesMillis)) {
-            std::cout << "Simulation returned at " << SimulationTime::get().getFormattedTime() << std::endl;
-            Timer::get().setUpdateTime();
-            usleep(1 / (float) constants::UPDATES_PER_SECOND * 1e6);
-            simulation_utils::simulateTrams(*metroNet, returnTimesMillis);
-            
-            // Write tests...
-        } else {
-            std::cout << "Simulation ended at " << SimulationTime::get().getFormattedTime() << std::endl;
-        }
+            std::vector<long> returnTimes;
+            simulation_utils::simulateTrams(*metroNet, returnTimes);
         metro_utils::printMetroNet(metroNet, "../output/Summary.metro");
         metro_utils::getGraphicalImpression("../output/Summary.metro", "../output/graphicalLines.metro");
         delete metroNet;

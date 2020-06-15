@@ -86,7 +86,7 @@ void Tram::update(bool debug) {
     // Checks if the tram's state has changed in some way (put on track/platform, progress went up,...)
     bool switchPlatformChecked = false;
     bool waitTimeDecreased = false;
-    bool trackProgressIncreased = false;
+    bool trackProgressChecked = false;
     bool isPutOnTrack = false;
     bool isPutOnPlatform = false;
     // If the tram is currently in a station
@@ -153,10 +153,10 @@ void Tram::update(bool debug) {
                     FileHandler::get().getOfstream() << SimulationTime::get().getFormattedTime() << "Tram " << this << " arrived at platform " << m_currentPlatform << std::endl;
                 }
             }
-            trackProgressIncreased = true;
         }
+        trackProgressChecked = true;
     }
-    ENSURE(switchPlatformChecked || waitTimeDecreased || trackProgressIncreased || isPutOnTrack || isPutOnPlatform, "The tram's state didn't change");
+    ENSURE(switchPlatformChecked || waitTimeDecreased || trackProgressChecked || isPutOnTrack || isPutOnPlatform, "The tram's state didn't change");
 }
 
 void Tram::updateLineNode() {

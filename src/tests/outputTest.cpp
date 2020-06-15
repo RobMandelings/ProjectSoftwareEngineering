@@ -55,7 +55,10 @@ TEST(OutputTest, simulation_run){
         std::vector<long> returnTimesMillis;
         returnTimesMillis.push_back(5000);
         returnTimesMillis.push_back(10000);
-
+        returnTimesMillis.push_back(15000);
+        returnTimesMillis.push_back(30000);
+        returnTimesMillis.push_back(110000);
+        
         bool simulationPaused;
 
         do {
@@ -63,14 +66,49 @@ TEST(OutputTest, simulation_run){
             simulationPaused = simulation_utils::simulateTrams(*metroNet, returnTimesMillis, true);
 
             if (simulationPaused) {
-                // TODO write .equal tests
-                std::cout << "Simulation returned at " << SimulationTime::get().getFormattedTime() << std::endl;
+
+                std::stringstream strExample;
+
+                if (SimulationTime::getFormattedTime(SimulationTime::get().getSimulationTimeStart() + returnTimesMillis.at(0)) == SimulationTime::get().getFormattedTime()) {
+                    std::ifstream e;
+                    switch (returnTimesMillis.at(0)) {
+                        case 5000:{
+                            e.open("../src/tests/expected_outputs/output_test_5secs.metro");
+                            break;
+                        }
+                        case 10000:{
+                            e.open("../src/tests/expected_outputs/output_test_10secs.metro");
+                            break;
+                        }
+                        case 15000:{
+                            e.open("../src/tests/expected_outputs/output_test_15secs.metro");
+                            break;
+                        }
+                        case 30000:{
+                            e.open("../src/tests/expected_outputs/output_test_30secs.metro");
+                            break;
+                        }
+                        case 110000:{
+                            e.open("../src/tests/expected_outputs/output_test_110secs.metro");
+                            break;
+                        }
+                            
+                    }
+                    strExample << e.rdbuf();
+                }
+
+                std::ifstream t("../output/events.metro");
+                std::stringstream strTest;
+                strTest << t.rdbuf();
+
+                EXPECT_EQ(strExample.str(), strTest.str());
 
                 Timer::get().setUpdateTime();
                 usleep(1 / (float) constants::UPDATES_PER_SECOND * 1e6);
+
+                returnTimesMillis.erase(returnTimesMillis.begin());
             }
         } while (simulationPaused);
-        std::cout << "Simulation ended at " << SimulationTime::get().getFormattedTime() << std::endl;
 
         metro_utils::printMetroNet(metroNet, "../output/Summary.metro");
         metro_utils::getGraphicalImpression("../output/Summary.metro", "../output/graphicalLines.metro");
@@ -78,6 +116,7 @@ TEST(OutputTest, simulation_run){
     } catch (const metro_parser::MetroNetParseException& e) {
         std::cerr << e.what();
     }
+    
 }
 
 int main(int argc, char **argv) {

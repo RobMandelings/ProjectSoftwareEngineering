@@ -30,7 +30,6 @@ namespace simulation_utils {
             if (!debug) std::cout << "Updated tram locations " << std::endl;
             if (!returnTimes.empty()) {
                 if (SimulationTime::getFormattedTime(SimulationTime::get().getSimulationTimeStart() + returnTimes.at(0)) == SimulationTime::get().getFormattedTime()) {
-                    returnTimes.erase(returnTimes.begin());
                     return true;
                 }
             }
@@ -39,7 +38,7 @@ namespace simulation_utils {
         }
 
         if (!debug) std::cout << "program ran for " << ((double) Timer::getCurrentTimeMillis() - timeBefore) / 1000 << " seconds" << std::endl;
-        FileHandler::get().getOfstream() << SimulationTime::get().getFormattedTime() << "Ended the simulation" << std::endl;
+        if (!debug) FileHandler::get().getOfstream() << SimulationTime::get().getFormattedTime() << "Ended the simulation" << std::endl;
         if (!debug) std::cout << "Simulation ended at: " << SimulationTime::get().getFormattedTime() << std::endl;
         if (!debug) std::cout << "With a final 'degree of occupancy' of " << Statistics::get().getCurrentDegreeOfOccupancy() * 100 << "% ";
         if (!debug) std::cout << "And revenue of " << Statistics::get().getTotalRevenue() << " euros" << std::endl;

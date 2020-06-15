@@ -34,7 +34,12 @@ vector<Track*>& Platform::getOutgoingTracks() {
 
 void Platform::addOutgoingTrack(Track* outgoingTrack) {
     REQUIRE(this->properlyInitialized(), "Platform must be properly initialized to use its member methods.");
+    
+    unsigned int oldSize = m_outgoingTracks.size();
+    
     m_outgoingTracks.push_back(outgoingTrack);
+    
+    ENSURE(m_outgoingTracks.size()>oldSize, "An outgoing track must be added after addOutgoingTrack is called.");
 }
 
 vector<Track*>& Platform::getIncomingTracks() {
@@ -44,7 +49,12 @@ vector<Track*>& Platform::getIncomingTracks() {
 
 void Platform::addIncomingTrack(Track* track) {
     REQUIRE(this->properlyInitialized(), "Platform must be properly initialized to use its member methods.");
+    
+    unsigned int oldSize = m_incomingTracks.size();
+    
     m_incomingTracks.push_back(track);
+    
+    ENSURE(m_incomingTracks.size()>oldSize, "An incoming track must be added after addIncomingTrack is called.");
 }
 
 Station* Platform::getStation() {
@@ -57,6 +67,7 @@ void Platform::setStation(Station* station) {
     REQUIRE(station, "The station given can not be NULL");
     REQUIRE(!m_station, "A station is already set on this platform");
     m_station = station;
+    ENSURE(m_station == station, "Station must be set properly.");
 }
 
 int Platform::getNumber() const {
@@ -70,11 +81,13 @@ void Platform::setCurrentTram(Tram* currentTram) {
     REQUIRE(currentTram != NULL, "The given tram should not be NULL");
     REQUIRE(!m_currentTram, " cannot set current tram: this platform already has a tram on it!");
     m_currentTram = currentTram;
+    ENSURE(m_currentTram == currentTram, "Current tram must be set properly.");
 }
 
 void Platform::removeCurrentTram() {
     REQUIRE(this->properlyInitialized(), "Platform must be properly initialized to use its member methods.");
     m_currentTram = NULL;
+    ENSURE(m_currentTram == NULL, "Current tram must be removed properly.");
 }
 
 Tram* Platform::getCurrentTram() const {
@@ -150,6 +163,8 @@ void Platform::receiveNewIncomingTram() {
     } while (!success && trackIndexToCheck != m_currentTrackIndex);
 
     m_currentTrackIndex = getNextTrackIndex(m_currentTrackIndex);
+    
+    ENSURE(success || trackIndexToCheck == m_currentTrackIndex, "After receiveNewIncomingTram is called, it shouldn't be able to receive again.");
 }
 
 std::ostream& operator<<(ostream& os, Platform& platform) {

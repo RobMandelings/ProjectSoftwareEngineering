@@ -72,6 +72,8 @@ void Line::setLineNumber(int line) {
 void Line::insertNode(LineNode* lineNode) {
     REQUIRE(this->properlyInitialized(), "Line must be initialized before its member variables are used.");
     REQUIRE(lineNode != NULL && lineNode->properlyInitialized(), "A line node cannot be NULL.");
+    
+    unsigned int oldSize = this->getAsVector().size();
 
     if (m_firstNode == NULL) {
         m_firstNode = lineNode;
@@ -88,6 +90,7 @@ void Line::insertNode(LineNode* lineNode) {
     }
 
     ENSURE(m_firstNode != NULL && m_firstNode->properlyInitialized(), "After an insert, the first node cannot be NULL.");
+    ENSURE(this->getAsVector().size() > oldSize, "A node must be added after insertNode is called.");
 }
 
 void Line::disableNodeForStation(Station* station) {

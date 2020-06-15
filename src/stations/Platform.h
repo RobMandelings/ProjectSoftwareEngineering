@@ -72,6 +72,7 @@ public:
      * @brief adds an outgoing track to this platform
      * @param outgoingTrack: the outgoing track to add
      \n REQUIRE(this->properlyInitialized(), "Platform must be properly initialized to use its member methods.");
+     \n ENSURE(m_outgoingTracks.size()>oldSize, "An outgoing track must be added after addOutgoingTrack is called.");
      */
     void addOutgoingTrack(Track* outgoingTrack);
 
@@ -79,6 +80,7 @@ public:
      * @brief adds an incoming track to this platform
      * @param incomingTrack: the incoming track to add
      \n REQUIRE(this->properlyInitialized(), "Platform must be properly initialized to use its member methods.");
+     \n ENSURE(m_incomingTracks.size()>oldSize, "An incoming track must be added after addIncomingTrack is called.");
      */
     void addIncomingTrack(Track* track);
 
@@ -95,6 +97,7 @@ public:
      \n REQUIRE(this->properlyInitialized(), "Platform must be properly initialized to use its member methods.");
      \n REQUIRE(station, "The station given can not be NULL");
      \n REQUIRE(!m_station, "A station is already set on this platform");
+     \n ENSURE(m_station == station, "Station must be set properly.");
      */
     void setStation(Station* station);
 
@@ -111,12 +114,14 @@ public:
      * @param currentTram: the current tram to set it to
      \n REQUIRE(currentTram != NULL, "The given tram should not be NULL");
      \n REQUIRE(!m_currentTram, " cannot set current tram: this platform already has a tram on it!");
+     \n ENSURE(m_currentTram == currentTram, "Current tram must be set properly.");
      */
     void setCurrentTram(Tram* currentTram);
 
     /**
      * @brief removes the current tram from the platform
      \n REQUIRE(this->properlyInitialized(), "Platform must be properly initialized to use its member methods.");
+     \n ENSURE(m_currentTram == NULL, "Current tram must be removed properly.");
      */
     void removeCurrentTram();
 
@@ -146,6 +151,7 @@ public:
      \n REQUIRE(this->properlyInitialized(), "Platform must be properly initialized to use its member variables.");
      \n REQUIRE(canReceiveNewIncomingTram(), "This platform cannot receive a new incoming tram yet!");
      \n REQUIRE(m_currentTrackIndex >= 0, "The current track index is less than 0, this should not be possible");
+     \n ENSURE(!canReceiveNewIncomingTram(), "After receiveNewIncomingTram is called it shouldn't be able to receive again.");
      */
     void receiveNewIncomingTram();
 

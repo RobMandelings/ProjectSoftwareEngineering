@@ -45,7 +45,12 @@ void Track::addWaitingTram(Tram* tram) {
     REQUIRE(tram, "The tram given may not be NULL");
     REQUIRE(m_stopSignal, "Cannot add waiting tram: this track doesn't have a stopsignal");
     REQUIRE(!tramCapacityReached(), "Cannot add waiting tram: the tram capacity is already reached");
+    
+    unsigned int oldSize = m_waitingTrams.size();
+    
     m_waitingTrams.push_back(tram);
+    
+    ENSURE(m_waitingTrams.size()>oldSize, "A waiting tram must be added after addWaitingTram is called.");
 }
 
 SpeedSignal* Track::getSpeedSignal() const {
@@ -63,6 +68,7 @@ void Track::setSpeedSignal(SpeedSignal* speedSignal) {
     REQUIRE(speedSignal != NULL, "The speed signal given is NULL, can only set variable to non-NULL values");
     REQUIRE(m_speedSignal == NULL, "The speedsignal is already set!");
     m_speedSignal = speedSignal;
+    ENSURE(m_speedSignal == speedSignal, "The speed signal must be properly set to its parameter.");
 }
 
 void Track::setStopSignal(StopSignal* stopSignal) {
@@ -70,6 +76,7 @@ void Track::setStopSignal(StopSignal* stopSignal) {
     REQUIRE(stopSignal != NULL, "The stop signal given is NULL, can only set variable to non-NULL values");
     REQUIRE(m_stopSignal == NULL, "The stopSignal is already set!");
     m_stopSignal = stopSignal;
+    ENSURE(m_stopSignal == stopSignal, "The stop signal must be properly set to its parameter.");
 }
 
 bool Track::tramCapacityReached() const {

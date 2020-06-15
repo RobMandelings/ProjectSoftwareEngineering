@@ -84,6 +84,7 @@ public:
      \n REQUIRE(tram != NULL, "The tram given may not be NULL");
      \n REQUIRE(m_stopSignal, "Cannot add waiting tram: this track doesn't have a stopsignal");
      \n REQUIRE(!tramCapacityReached(), "Cannot add waiting tram: the tram capacity is already reached");
+     \n ENSURE(m_waitingTrams.size()>oldSize, "A waiting tram must be added after addWaitingTram is called.");
      */
     void addWaitingTram(Tram* tram);
 
@@ -106,6 +107,7 @@ public:
      \n REQUIRE(this->properlyInitialized(), "Track must be initialized before its member variables are used.");
      \n REQUIRE(speedSignal != NULL, "The speed signal given is NULL, can only set variable to non-NULL values")
      \n REQUIRE(m_speedSignal == NULL , "The speedsignal is already set!");
+     \n ENSURE(m_speedSignal == speedSignal, "The speed signal must be properly set to its parameter.");
      */
     void setSpeedSignal(SpeedSignal* speedSignal);
 
@@ -114,6 +116,7 @@ public:
      \n REQUIRE(this->properlyInitialized(), "Track must be initialized before its member variables are used.");
      \n REQUIRE(stopSignal != NULL, "The stopSignal given is NULL, can only set variable to non-NULL values")
      \n REQUIRE(m_stopSignal == NULL , "The stopSignal is already set!");
+     \n ENSURE(m_stopSignal == stopSignal, "The stop signal must be properly set to its parameter.");
      */
     void setStopSignal(StopSignal* stopSignal);
 

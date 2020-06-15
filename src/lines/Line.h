@@ -21,6 +21,7 @@ private:
     LineNode* m_firstNode;
 
     Line* _initCheck;
+    
 public:
 
     /**
@@ -60,6 +61,7 @@ public:
      *
      \n REQUIRE(this->properlyInitialized(), "Line must be initialized before its member variables are used.");
      \n REQUIRE(line>=0,"Line must be a positive number.");
+     \n ENSURE(m_lineNumber == line, "m_line must be set to line.");
      */
     void setLineNumber(int line);
 
@@ -100,6 +102,7 @@ public:
      \n REQUIRE(this->properlyInitialized(), "Line must be initialized before its member variables are used.");
      \n REQUIRE(lineNode!=NULL && lineNode->properlyInitialized(), "A line node cannot be NULL.");
      \n ENSURE(m_firstNode!=NULL && m_firstNode->properlyInitialized(), "After an insert, the first node cannot be NULL.");
+     \n ENSURE(this->getAsVector().size() > oldSize, "A node must be added after insertNode is called.");
      */
     void insertNode(LineNode* lineNode);
 

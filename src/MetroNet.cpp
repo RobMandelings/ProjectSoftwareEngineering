@@ -98,26 +98,46 @@ void MetroNet::addTram(Tram* tram) {
     REQUIRE(this->properlyInitialized(), "MetroNet must be initialized before its member variables are used.");
     REQUIRE(tram != NULL && tram->properlyInitialized(), "Tram cannot be NULL.");
     REQUIRE(this->checkVehicleNumberAvailability(tram), "Tram number must be available in this line.");
+    
+    unsigned int oldSize = m_trams.size();
+    
     MetroNet::m_trams.push_back(tram);
+    
+    ENSURE(m_trams.size()>oldSize, "A tram must be added after addTram is called.");
 }
 
 void MetroNet::addStation(Station* station) {
     REQUIRE(this->properlyInitialized(), "MetroNet must be initialized before its member variables are used.");
     REQUIRE(station != NULL && station->properlyInitialized(), "Station cannot be NULL.");
+
+    unsigned int oldSize = m_stations.size();
+    
     MetroNet::m_stations.push_back(station);
+
+    ENSURE(m_stations.size()>oldSize, "A station must be added after addStation is called.");
 }
 
 void MetroNet::addLine(Line* line) {
     REQUIRE(this->properlyInitialized(), "MetroNet must be initialized before its member variables are used.");
     REQUIRE(line != NULL && line->properlyInitialized(), "Line cannot be NULL.");
     REQUIRE(!getLine(line->getLineNumber()), "A line with this number already exists with this number");
+    
+    unsigned int oldSize = m_lines.size();
+    
     m_lines.push_back(line);
+
+    ENSURE(m_lines.size()>oldSize, "A line must be added after addLine is called.");
 }
 
 void MetroNet::addTrack(Track* track) {
     REQUIRE(this->properlyInitialized(), "MetroNet must be initialized before its member variables are used.");
-    // TODO REQUIRE(track != NULL && track->properlyInitialized(), "Track cannot be NULL.");
+    REQUIRE(track != NULL && track->properlyInitialized(), "Track cannot be NULL.");
+    
+    unsigned int oldSize = m_tracks.size();
+    
     m_tracks.push_back(track);
+    
+    ENSURE(m_tracks.size()>oldSize,"A track must be added after addTrack is called.");
 }
 
 Line* MetroNet::getLine(int line) {

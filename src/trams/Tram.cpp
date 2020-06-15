@@ -239,6 +239,8 @@ void Tram::putOnPlatform(Platform* currentPlatform) {
     letPassengersOut();
     letPassengersIn();
     Statistics::get().updateCurrentDegreeOfOccupancy(this);
+    
+    ENSURE(m_currentPlatform == currentPlatform, "m_currentPlatform must be set to currentPlatform.");
 }
 
 void Tram::putOnTrack(Track* currentTrack) {

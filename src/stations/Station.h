@@ -80,6 +80,7 @@ public:
      *
      \n REQUIRE(this->properlyInitialized(), "Station must be initialized before its member variables are used.");
      \n REQUIRE(line->properlyInitialized(), "Line cannot be NULL.");
+     \n ENSURE(m_lines.size()>oldSize,"A line must be added after addLine is called.");
      */
     void addLine(Line* line);
 

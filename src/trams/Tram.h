@@ -211,6 +211,7 @@ public:
      * @brief Simple setter
      * @param currentPlatform: new Platform
      \n REQUIRE(this->properlyInitialized(), "Tram must be initialized before its member variables are used.");
+     \n ENSURE(m_currentPlatform == currentPlatform, "m_currentPlatform must be set to currentPlatform.");
      */
     void putOnPlatform(Platform* currentPlatform);
 

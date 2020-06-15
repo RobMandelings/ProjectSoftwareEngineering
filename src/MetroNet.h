@@ -133,6 +133,7 @@ public:
      *
      \n REQUIRE(this->properlyInitialized(), "MetroNet must be initialized before its member variables are used.");
      \n REQUIRE(station!=NULL && station->properlyInitialized(), "Station cannot be NULL.");
+     \n ENSURE(m_stations.size()>oldSize, "A station must be added after addStation is called.");
      */
     void addStation(Station* station);
 
@@ -142,6 +143,7 @@ public:
      *
      \n REQUIRE(this->properlyInitialized(), "MetroNet must be initialized before its member variables are used.");
      \n REQUIRE(tram!=NULL && tram->properlyInitialized(),"Tram cannot be NULL.");
+     \n ENSURE(m_trams.size()>oldSize, "A tram must be added after addTram is called.");
      */
     void addTram(Tram* tram);
 
@@ -160,7 +162,8 @@ public:
      * @param station: a pointer to the track you want to add
      *
      \n REQUIRE(this->properlyInitialized(), "MetroNet must be initialized before its member variables are used.");
-     \n REQUIRE(tram!=NULL && tram->properlyInitialized(),"Track cannot be NULL.");
+     \n REQUIRE(track != NULL && track->properlyInitialized(), "Track cannot be NULL.");
+     \n ENSURE(m_tracks.size()>oldSize,"A track must be added after addTrack is called.");
      */
     void addTrack(Track* track);
 

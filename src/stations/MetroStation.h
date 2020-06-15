@@ -45,6 +45,7 @@ public:
      * @param platform: the platform to add to the metronet
      *
      \n REQUIRE(this->properlyInitialized(), "MetroStation must be initialized before its member variables are used.");
+     \n ENSURE(m_platforms.size()>oldSize,"A platform must be added after addPlatform is called.");
      */
     void addPlatform(Platform* platform);
 

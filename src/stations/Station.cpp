@@ -37,7 +37,12 @@ Line* Station::getLine(int line) {
 void Station::addLine(Line* line) {
     REQUIRE(this->properlyInitialized(), "Station must be initialized before its member variables are used.");
     REQUIRE(line != NULL && line->properlyInitialized(), "Line cannot be NULL.");
+    
+    unsigned int oldSize = m_lines.size();
+    
     m_lines.push_back(line);
+    
+    ENSURE(m_lines.size()>oldSize,"A line must be added after addLine is called.");
 }
 
 Station::Station() {
@@ -65,7 +70,12 @@ Platform* TramStop::getPlatformFrom() const {
 
 void MetroStation::addPlatform(Platform* platform) {
     REQUIRE(this->properlyInitialized(), "MetroStation must be initialized before its member variables are used.");
+    
+    unsigned int oldSize = m_platforms.size();
+    
     m_platforms.push_back(platform);
+    
+    ENSURE(m_platforms.size()>oldSize,"A platform must be added after addPlatform is called.");
 }
 
 Platform* MetroStation::getPlatform(int platformNumber) {

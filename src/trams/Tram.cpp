@@ -4,6 +4,7 @@
 #include <cmath>
 #include <utils/constants.h>
 
+#include <stdlib.h>
 #include "Tram.h"
 #include "LineNode.h"
 #include "Track.h"

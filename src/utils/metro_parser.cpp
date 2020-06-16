@@ -92,6 +92,11 @@ namespace metro_parser {
                 }
             }
 
+            if (stationName.empty()) {
+                if (!debug) std::cerr << "No name was given for this station " << std::endl;
+                throw NoNameGivenForStationException();
+            }
+
             if (platforms.empty()) {
                 if (!debug) std::cerr << "There are no platforms found for the current station " << stationName << std::endl;
                 throw NoPlatformsForStationException();
@@ -486,6 +491,10 @@ namespace metro_parser {
         }
         /// Get the Metronet name
         string metroNetName = root->Attribute("naam");
+        if (metroNetName.empty()) {
+            if (!debug) std::cerr << "No name was given for the MetroNet. " << std::endl;
+            throw NoNameGivenForMetroNetException();
+        }
         MetroNet* metroNet = new MetroNet(metroNetName);
 
         for (TiXmlElement* rootElement = root->FirstChildElement(); rootElement != NULL; rootElement = rootElement->NextSiblingElement()) {
@@ -524,6 +533,14 @@ namespace metro_parser {
 
     const char *NoPlatformsForStationException::what() const throw(){
         return "There is no platform found for this Station - NoPlatformForStationException occurred";
+    }
+
+    const char *NoNameGivenForStationException::what() const throw(){
+        return "No name was given for a station - NoNameGivenForStationException occurred";
+    }
+
+    const char *NoNameGivenForMetroNetException::what() const throw(){
+        return "No name was given for the MetroNet - NoNameGivenForMetroNetException occurred";
     }
 
     const char *ExistingPlatformException::what() const throw(){

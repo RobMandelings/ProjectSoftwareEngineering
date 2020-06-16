@@ -45,6 +45,14 @@ namespace metro_parser {
         const char* what() const throw();
     };
 
+    class NoNameGivenForStationException : public MetroNetParseException {
+        const char* what() const throw();
+    };
+
+    class NoNameGivenForMetroNetException : public MetroNetParseException {
+        const char* what() const throw();
+    };
+
     class ExistingPlatformException : public MetroNetParseException {
     public:
         const char* what() const throw();

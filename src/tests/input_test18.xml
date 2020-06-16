@@ -1,6 +1,6 @@
-<METRONET naam="">
+<METRONET naam="Antwerpen">
     <STATION>
-        <naam>A</naam>
+        <naam></naam>
         <type>MetroStation</type>
         <perron>
             <nummer>1</nummer>

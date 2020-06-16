@@ -279,6 +279,42 @@ TEST(InputTest, NegativeInput_tram_4){
 }
 
 /**
+ * No metronet name given
+ */
+TEST(InputTest, NegativeInput_noNameForMetroNet){
+    bool failed = false;
+
+    try{
+        MetroNet* metroNet = metro_parser::parseMetroNetXml("../src/tests/input_test17.xml", true);
+        // Avoid "not used" warning
+        metroNet->getName();
+    }
+    catch(metro_parser::NoNameGivenForMetroNetException const& e) {
+        failed = true;
+    }
+
+    EXPECT_EQ(failed, true);
+}
+
+/**
+ * No station name given
+ */
+TEST(InputTest, NegativeInput_noNameForStation){
+    bool failed = false;
+
+    try{
+        MetroNet* metroNet = metro_parser::parseMetroNetXml("../src/tests/input_test18.xml", true);
+        // Avoid "not used" warning
+        metroNet->getName();
+    }
+    catch(metro_parser::NoNameGivenForStationException const& e) {
+        failed = true;
+    }
+
+    EXPECT_EQ(failed, true);
+}
+
+/**
  * Empty file as input
  */
 TEST(InputTest, NegativeInput_empty){
@@ -320,7 +356,7 @@ TEST(InputTest, PositiveInput){
     bool failed = false;
 
     try{
-        MetroNet* metroNet = metro_parser::parseMetroNetXml("../src/tests/input_test17.xml", true);
+        MetroNet* metroNet = metro_parser::parseMetroNetXml("../src/tests/input_test0.xml", true);
         metroNet->getName();
     }
     catch(metro_parser::MetroNetParseException const& e) {

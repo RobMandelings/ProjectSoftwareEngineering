@@ -163,13 +163,18 @@ void Tram::updateLineNode() {
     REQUIRE(this->properlyInitialized(), "Tram must be initialized before its member variables are used.");
     m_currentLineNode = getNextLineNode();
 
+    Direction previousDirection = m_currentDirection;
+    bool reachedEnd = false;
     // Reached the end of the 'heen' journey
     if (m_currentDirection == TO && m_currentLineNode == m_tramLine->getFirstNode()->getPreviousNode()) {
         m_currentDirection = FROM;
+        reachedEnd = true;
         // Reached the end of the 'terug' journey
     } else if (m_currentDirection == FROM && m_currentLineNode == m_tramLine->getFirstNode()) {
         m_currentDirection = TO;
+        reachedEnd = true;
     }
+    ENSURE((reachedEnd && previousDirection != m_currentDirection) || previousDirection == m_currentDirection, "The line is not updated accordingly!");
 }
 
 int Tram::getVehicleNumber() const {

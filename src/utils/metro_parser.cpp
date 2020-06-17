@@ -83,8 +83,12 @@ namespace metro_parser {
                  stationChildElement = stationChildElement->NextSiblingElement()) {
                 string childElementName = stationChildElement->Value();
                 if (childElementName == "naam") {
-                    if(stationChildElement->GetText() != NULL){
-                        stationName = stationChildElement->GetText();   
+                    const char* stationNameText = stationChildElement->GetText();
+                    if (!stationNameText) {
+                        if (!debug) std::cerr << "No name was given for this station " << std::endl;
+                        throw NoNameGivenForStationException();
+                    } else {
+                        stationName = stationNameText;
                     }
                 } else if (childElementName == "type") {
                     stationType = stationChildElement->GetText();
@@ -92,11 +96,6 @@ namespace metro_parser {
                     Platform* platform = parseNewPlatform(stationChildElement, debug);
                     platforms.push_back(platform);
                 }
-            }
-
-            if (stationName.empty()) {
-                if (!debug) std::cerr << "No name was given for this station " << std::endl;
-                throw NoNameGivenForStationException();
             }
 
             if (platforms.empty()) {

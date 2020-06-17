@@ -83,7 +83,9 @@ namespace metro_parser {
                  stationChildElement = stationChildElement->NextSiblingElement()) {
                 string childElementName = stationChildElement->Value();
                 if (childElementName == "naam") {
-                    stationName = stationChildElement->GetText();
+                    if(stationChildElement->GetText() != NULL){
+                        stationName = stationChildElement->GetText();   
+                    }
                 } else if (childElementName == "type") {
                     stationType = stationChildElement->GetText();
                 } else if (childElementName == "perron") {
